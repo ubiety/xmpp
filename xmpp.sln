@@ -6,18 +6,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmpp", "xmpp\xmpp.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs01.codeplex.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = D20Roller2\\TestXMPP.csproj
-		SccProjectName1 = D20Roller2
-		SccLocalPath1 = D20Roller2
-		SccProjectUniqueName2 = xmpp\\xmpp.csproj
-		SccProjectName2 = xmpp
-		SccLocalPath2 = xmpp
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
