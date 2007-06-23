@@ -1,0 +1,93 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FB8056A1-0547-4CEF-BA68-0154462BC3DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xmpp</RootNamespace>
+    <AssemblyName>xmpp</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>xmpp.pfx</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>xmpp.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>xmpp.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bdev.Net.Dns, Version=1.0.0.0, Culture=neutral, PublicKeyToken=217d47f649bccd2c">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Projects\XMPP\bin\Debug\Bdev.Net.Dns.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="stringprep, Version=1.0.2527.42360, Culture=neutral, PublicKeyToken=924c5b18328d6f09">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Projects\XMPP\bin\Debug\stringprep.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="common\Namespaces.cs" />
+    <Compile Include="common\SASL\SASLProcessor.cs" />
+    <Compile Include="common\Tag.cs" />
+    <Compile Include="common\XID.cs" />
+    <Compile Include="core\Features.cs" />
+    <Compile Include="core\iq\Auth.cs" />
+    <Compile Include="core\iq\Register.cs" />
+    <Compile Include="core\Mechanisms.cs" />
+    <Compile Include="core\Proceed.cs" />
+    <Compile Include="core\StartTLS.cs" />
+    <Compile Include="core\Stream.cs" />
+    <Compile Include="net\Address.cs" />
+    <Compile Include="net\AsyncSocket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolParser.cs" />
+    <Compile Include="TagRegistry.cs" />
+    <Compile Include="xml\XmlToken.cs" />
+    <Compile Include="xml\XmlTokenParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XMPP.cs" />
+    <Compile Include="XmppTagAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="xmpp.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="core\SASL\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
