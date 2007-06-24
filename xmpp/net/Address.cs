@@ -1,7 +1,5 @@
-using System;
 using System.Net;
 using System.Net.NetworkInformation;
-
 using Bdev.Net.Dns;
 
 namespace xmpp.net
@@ -27,7 +25,7 @@ namespace xmpp.net
 		private Address(string hostname, int port)
 			: this(port)
 		{
-			this.Hostname = hostname;
+			Hostname = hostname;
 		}
 
         /// <summary>
@@ -64,9 +62,7 @@ namespace xmpp.net
         /// <returns>An instance of the <see cref="Address"/> class.</returns>
 		public static Address Resolve(string hostname, int port)
 		{
-			Response res;
-
-			NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+        	NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
 			foreach (NetworkInterface ni in interfaces)
 			{
 				if (ni.OperationalStatus == OperationalStatus.Up)
@@ -76,7 +72,7 @@ namespace xmpp.net
 					{
 						Request req = new Request();
 						req.AddQuestion(new Question(hostname, DnsType.ANAME, DnsClass.IN));
-						res = Resolver.Lookup(req, dns);
+						Response res = Resolver.Lookup(req, dns);
 						if (res != null)
 						{
 							Address temp = new Address(hostname, port);

@@ -14,9 +14,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
-using System;
 using System.Xml;
-
 using xmpp.common;
 
 namespace xmpp.core.iq
@@ -24,7 +22,7 @@ namespace xmpp.core.iq
     /// <summary>
     /// 
     /// </summary>
-	[XmppTag("auth", xmpp.common.Namespaces.AUTH, typeof(Auth))]
+	[XmppTag("auth", Namespaces.AUTH, typeof(Auth))]
 	public class Auth : Tag
 	{
         /// <summary>

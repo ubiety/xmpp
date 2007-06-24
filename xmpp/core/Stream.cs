@@ -14,19 +14,16 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
-using System;
-using System.Xml;
 using System.Text;
-
+using System.Xml;
 using xmpp.common;
-using xmpp;
 
 namespace xmpp.core
 {
     /// <summary>
     /// 
     /// </summary>
-	[XmppTag("stream", xmpp.common.Namespaces.STREAM, typeof(Stream))]
+	[XmppTag("stream", Namespaces.STREAM, typeof(Stream))]
 	public class Stream : Tag
 	{
         /// <summary>
@@ -45,8 +42,8 @@ namespace xmpp.core
         /// </summary>
 		public string Version
 		{
-			get { return this.GetAttribute("version"); }
-			set { this.SetAttribute("version", value); }
+			get { return GetAttribute("version"); }
+			set { SetAttribute("version", value); }
 		}
 
         /// <summary>
@@ -54,8 +51,8 @@ namespace xmpp.core
         /// </summary>
 		public string NS
 		{
-			get { return this.GetAttribute("xmlns"); }
-			set { this.SetAttribute("xmlns", value); }
+			get { return GetAttribute("xmlns"); }
+			set { SetAttribute("xmlns", value); }
 		}
 
         /// <summary>
@@ -65,20 +62,20 @@ namespace xmpp.core
 		public string StartTag()
 		{
 			StringBuilder sb = new StringBuilder("<");
-			sb.Append(this.Name);
-			if (this.NamespaceURI != null)
+			sb.Append(Name);
+			if (NamespaceURI != null)
 			{
 				sb.Append(" xmlns");
-				if (this.Prefix != null)
+				if (Prefix != null)
 				{
 					sb.Append(":");
-					sb.Append(this.Prefix);
+					sb.Append(Prefix);
 				}
 				sb.Append("=\"");
-				sb.Append(this.NamespaceURI);
+				sb.Append(NamespaceURI);
 				sb.Append("\"");
 			}
-			foreach (XmlAttribute attr in this.Attributes)
+			foreach (XmlAttribute attr in Attributes)
 			{
 				sb.Append(" ");
 				sb.Append(attr.Name);

@@ -45,7 +45,7 @@ namespace xmpp
 
 		private void AddTag(string localName, string ns, Type t)
 		{
-			this.AddTag(new XmlQualifiedName(localName, ns), t);
+			AddTag(new XmlQualifiedName(localName, ns), t);
 		}
 
 		private void AddTag(XmlQualifiedName qname, Type t)
@@ -66,7 +66,7 @@ namespace xmpp
 		public void AddAssembly(Assembly ass)
 		{
             logger.Debug("Adding assembly " + ass.FullName);
-            Type[] types = (Type[])ass.GetTypes();
+            Type[] types = ass.GetTypes();
 
             foreach (Type type in types)
             {
@@ -74,7 +74,7 @@ namespace xmpp
                 foreach (XmppTagAttribute tag in tags)
                 {
                     logger.Debug("Adding: " + type.FullName);
-                    this.AddTag(tag.Prefix, tag.NS, tag.ClassType);
+                    AddTag(tag.Prefix, tag.NS, tag.ClassType);
                 }
             }
 		}

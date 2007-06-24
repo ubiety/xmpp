@@ -15,16 +15,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
 using System;
-using System.Xml;
-using System.IO;
 using System.Reflection;
-
-using xmpp.core;
-using xmpp.net;
-using xmpp.common;
-
+using System.Xml;
 using log4net;
 using log4net.Config;
+using xmpp.common;
+using xmpp.core;
+using xmpp.net;
 
 namespace xmpp
 {
@@ -171,7 +168,7 @@ namespace xmpp
 	    			{
                         logger.Debug("Starting TLS encryption..State: StartTLS");
                         _state = States.StartTLS;
-                        StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", xmpp.common.Namespaces.START_TLS), new XmlDocument());
+                        StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", Namespaces.START_TLS), new XmlDocument());
                         _socket.Write(tls);
 				    }
                     break;
@@ -187,22 +184,23 @@ namespace xmpp
 
 		private void _parser_StreamStart(object sender, TagEventArgs e)
 		{
-			xmpp.core.Stream stream = e.Tag as xmpp.core.Stream;
-			if (stream.Version.StartsWith("1."))
-			{
-				if (_state == States.SASL)
+			Stream stream = e.Tag as Stream;
+			if (stream != null)
+				if (stream.Version.StartsWith("1."))
 				{
-					_state = States.SASLAuthed;
+					if (_state == States.SASL)
+					{
+						_state = States.SASLAuthed;
+					}
+					else
+					{
+						logger.Debug("State: ServerFeatures");
+						_state = States.ServerFeatures;
+					}
 				}
-				else
-				{
-                    logger.Debug("State: ServerFeatures");
-					_state = States.ServerFeatures;
-				}
-			}
 		}
 
-		private void _socket_Message(object sender, MessageEventArgs e)
+    	private void _socket_Message(object sender, MessageEventArgs e)
 		{
 			_parser.Parse(e.Message);
 		}
@@ -240,7 +238,7 @@ namespace xmpp
 
         private void SendStartStream()
         {
-            xmpp.core.Stream stream = (xmpp.core.Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", xmpp.common.Namespaces.STREAM), new XmlDocument());
+            Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
             stream.Version = "1.0";
             stream.To = "localhost";
             stream.NS = "jabber:client";

@@ -20,8 +20,15 @@ using xmpp.core;
 
 namespace xmpp.common.SASL
 {
+    ///<summary>
+    ///</summary>
     public abstract class SASLProcessor
     {
+        ///<summary>
+        ///</summary>
+        ///<param name="type"></param>
+        ///<returns></returns>
+        ///<exception cref="NotSupportedException"></exception>
         public static SASLProcessor CreateProcessor(MechanismType type)
         {
             if ((type & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
@@ -41,6 +48,8 @@ namespace xmpp.common.SASL
             return null;
         }
 
+        ///<summary>
+        ///</summary>
         public abstract void Step();
     }
 }

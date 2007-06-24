@@ -15,16 +15,12 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
 using System;
-using System.Xml;
-using System.IO;
 using System.Collections;
-
+using System.IO;
+using System.Xml;
 using log4net;
 using log4net.Config;
-
 using xmpp.common;
-using xmpp.core;
-using xmpp.xml;
 
 namespace xmpp
 {
@@ -160,10 +156,8 @@ namespace xmpp
 		private void StartTag()
 		{
             Hashtable ht = new Hashtable();
-            string prefix;
-            string name;
 
-            if (_reader.HasAttributes)
+			if (_reader.HasAttributes)
             {
                 while (_reader.MoveToNextAttribute())
                 {
@@ -192,8 +186,8 @@ namespace xmpp
                 int colon = attrname.IndexOf(':');
                 if (colon > 0)
                 {
-                    prefix = attrname.Substring(0, colon);
-                    name = attrname.Substring(colon + 1);
+                	string prefix = attrname.Substring(0, colon);
+                	string name = attrname.Substring(colon + 1);
 
                     XmlAttribute attr = _doc.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
                     attr.InnerXml = (string)ht[attrname];

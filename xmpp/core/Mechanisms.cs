@@ -21,11 +21,21 @@ using xmpp.common;
 
 namespace xmpp.core
 {
+    ///<summary>
+    ///</summary>
     public enum MechanismType
     {
+        ///<summary>
+        ///</summary>
         None,
+        ///<summary>
+        ///</summary>
         PLAIN = (1 << 0),
+        ///<summary>
+        ///</summary>
         DIGEST_MD5 = (1 << 1),
+        ///<summary>
+        ///</summary>
         EXTERNAL = (1 << 2)
     }
 
@@ -52,7 +62,7 @@ namespace xmpp.core
         /// <returns></returns>
         public Mechanism[] GetMechanisms()
         {
-            XmlNodeList nl = GetElementsByTagName("mechanism", xmpp.common.Namespaces.SASL);
+            XmlNodeList nl = GetElementsByTagName("mechanism", Namespaces.SASL);
             Mechanism[] items = new Mechanism[nl.Count];
             int i = 0;
             foreach (XmlNode node in nl)
@@ -63,6 +73,8 @@ namespace xmpp.core
             return items;
         }
 
+        ///<summary>
+        ///</summary>
         public MechanismType SupportedTypes
         {
             get
@@ -98,9 +110,9 @@ namespace xmpp.core
         /// <summary>
         /// 
         /// </summary>
-        public String Name
+        public String Text
         {
-            get { return this.InnerText; }
+            get { return InnerText; }
         }
 
         /// <summary>
@@ -108,7 +120,7 @@ namespace xmpp.core
         /// </summary>
         public MechanismType Type
         {
-            get { return Mechanism.GetType(Name); }
+            get { return GetType(Text); }
         }
 
         /// <summary>

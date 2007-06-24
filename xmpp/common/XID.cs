@@ -41,7 +41,7 @@ namespace xmpp.common
         /// <param name="xid"></param>
 		public XID(string xid)
 		{
-			this.XmppID = xid;
+			XmppID = xid;
 		}
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace xmpp.common
         /// <param name="resource"></param>
 		public XID(string user, string server, string resource)
 		{
-			this.User = user;
-			this.Server = server;
-			this.Resource = resource;
+			User = user;
+			Server = server;
+			Resource = resource;
 		}
 
 		/// <summary>
@@ -111,7 +111,7 @@ namespace xmpp.common
         /// <returns></returns>
 		public override string ToString()
 		{
-			return this.XmppID;
+			return XmppID;
 		}
 
         /// <summary>
@@ -127,14 +127,14 @@ namespace xmpp.common
 			}
 			if (obj is string)
 			{
-				return this.XmppID.Equals(obj);
+				return XmppID.Equals(obj);
 			}
 			if (!(obj is XID))
 			{
 				return false;
 			}
 
-			return this.XmppID.Equals(((XID)obj).XmppID);
+			return XmppID.Equals(((XID)obj).XmppID);
 		}
 
 		#region Operators
@@ -260,33 +260,33 @@ namespace xmpp.common
 			{
 				if (slash == -1)
 				{
-					this.Server = value;
+					Server = value;
 				}
 				else
 				{
-					this.Server = value.Substring(0, slash);
-					this.Resource = value.Substring(slash + 1);
+					Server = value.Substring(0, slash);
+					Resource = value.Substring(slash + 1);
 				}
 			}
 			else
 			{
 				if (slash == -1)
 				{
-					this.User = value.Substring(0, at);
-					this.Server = value.Substring(at + 1);
+					User = value.Substring(0, at);
+					Server = value.Substring(at + 1);
 				}
 				else
 				{
 					if (at < slash)
 					{
-						this.User = value.Substring(0, at);
-						this.Server = value.Substring(at + 1, slash - at - 1);
-						this.Resource = value.Substring(slash + 1);
+						User = value.Substring(0, at);
+						Server = value.Substring(at + 1, slash - at - 1);
+						Resource = value.Substring(slash + 1);
 					}
 					else
 					{
-						this.Server = value.Substring(0, slash);
-						this.Resource = value.Substring(slash + 1);
+						Server = value.Substring(0, slash);
+						Resource = value.Substring(slash + 1);
 					}
 				}
 			}

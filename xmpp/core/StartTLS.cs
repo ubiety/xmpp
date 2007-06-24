@@ -14,9 +14,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
-using System;
 using System.Xml;
-
 using xmpp.common;
 
 namespace xmpp.core
@@ -24,7 +22,7 @@ namespace xmpp.core
     /// <summary>
     /// StartTLS is used to start an encrypted authentication session.
     /// </summary>
-	[XmppTag("starttls", xmpp.common.Namespaces.START_TLS, typeof(StartTLS))]
+	[XmppTag("starttls", Namespaces.START_TLS, typeof(StartTLS))]
 	public class StartTLS : Tag
 	{
         /// <summary>

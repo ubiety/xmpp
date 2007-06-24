@@ -34,15 +34,15 @@
   <ItemGroup>
     <Reference Include="Bdev.Net.Dns, Version=1.0.0.0, Culture=neutral, PublicKeyToken=217d47f649bccd2c">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Projects\XMPP\bin\Debug\Bdev.Net.Dns.dll</HintPath>
+      <HintPath>..\..\..\..\..\DnsLookupDotNet_src\Bdev.Net.Dns\bin\Release\Bdev.Net.Dns.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\incubating-log4net-1.2.10\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
     </Reference>
     <Reference Include="stringprep, Version=1.0.2527.42360, Culture=neutral, PublicKeyToken=924c5b18328d6f09">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Projects\XMPP\bin\Debug\stringprep.dll</HintPath>
+      <HintPath>..\..\..\..\..\jabber-net\stringprep\bin\Release\stringprep.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -14,9 +14,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
-using System;
 using System.Xml;
-
 using xmpp.common;
 
 namespace xmpp.core
@@ -24,7 +22,7 @@ namespace xmpp.core
     /// <summary>
     /// 
     /// </summary>
-	[XmppTag("features", xmpp.common.Namespaces.STREAM, typeof(Features))]
+	[XmppTag("features", Namespaces.STREAM, typeof(Features))]
 	public class Features : Tag
 	{
         /// <summary>
@@ -43,7 +41,7 @@ namespace xmpp.core
         /// </summary>
 		public Mechanisms StartSASL
 		{
-			get { return this["mechanisms", xmpp.common.Namespaces.SASL] as Mechanisms; }
+			get { return this["mechanisms", Namespaces.SASL] as Mechanisms; }
 		}
 
         /// <summary>
@@ -51,7 +49,7 @@ namespace xmpp.core
         /// </summary>
 		public StartTLS StartTLS
 		{
-			get { return this["starttls", xmpp.common.Namespaces.START_TLS] as StartTLS; }
+			get { return this["starttls", Namespaces.START_TLS] as StartTLS; }
 		}
 	}
 }

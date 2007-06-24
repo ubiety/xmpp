@@ -14,7 +14,6 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
-using System;
 using System.Xml;
 
 namespace xmpp.common
@@ -40,8 +39,8 @@ namespace xmpp.common
         /// </summary>
 		public XID To
 		{
-			get { return new XID(this.GetAttribute("to")); }
-			set { this.SetAttribute("to", value); }
+			get { return new XID(GetAttribute("to")); }
+			set { SetAttribute("to", value); }
 		}
 
         /// <summary>
@@ -49,8 +48,8 @@ namespace xmpp.common
         /// </summary>
 		public XID From
 		{
-			get { return new XID(this.GetAttribute("from")); }
-			set { this.SetAttribute("from", value); }
+			get { return new XID(GetAttribute("from")); }
+			set { SetAttribute("from", value); }
 		}
 
         /// <summary>
@@ -58,9 +57,13 @@ namespace xmpp.common
         /// </summary>
 		public string ID
 		{
-			get { return this.GetAttribute("id"); }
+			get { return GetAttribute("id"); }
 		}
 
+        ///<summary>
+        ///</summary>
+        ///<param name="one"></param>
+        ///<returns></returns>
         public static implicit operator string(Tag one)
         {
             return one.ToString();
@@ -72,7 +75,7 @@ namespace xmpp.common
         /// <returns>String object representing the tag.</returns>
 		public override string ToString()
 		{
-			return this.OuterXml;
+			return OuterXml;
 		}
 	}
 }
