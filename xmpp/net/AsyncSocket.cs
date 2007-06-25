@@ -23,6 +23,8 @@ using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Authentication;
 using System.Net.Security;
+using Org.Mentalis.Security.Certificates;
+using Org.Mentalis.Security.Ssl;
 
 using log4net;
 using log4net.Config;
@@ -34,16 +36,18 @@ namespace xmpp.net
     /// </remarks>
 	public class AsyncSocket
 	{
-		private Socket _socket;
+		//private Socket _socket;
 		private Decoder _decoder = Encoding.UTF8.GetDecoder();
 		private UTF8Encoding _utf = new UTF8Encoding();
 		private Address _dest;
 		private byte[] _buff = new byte[4096];
 
+    	private SecureSocket _socket;
+
 /*
         private X509Certificate _cert;
 */
-        private Stream _stream;
+        //private Stream _stream;
 
     	private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
 
@@ -63,7 +67,8 @@ namespace xmpp.net
 		public AsyncSocket()
 		{
 			XmlConfigurator.Configure();
-			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			SecurityOptions options = new SecurityOptions(SecureProtocol.None, null, ConnectionEnd.Client, CredentialVerification.Manual, new CertVerifyEventHandler(VerifyCertificate), _dest.Hostname, SecurityFlags.Default, SslAlgorithms.ALL, null);
+			_socket = new SecureSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp, options);
 		}
 
         /// <summary>
@@ -86,9 +91,10 @@ namespace xmpp.net
 			_socket.Connect(_dest.EndPoint);
             if (_socket.Connected)
             {
-                _stream = new NetworkStream(_socket);
-            }
-            _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+                //_stream = new NetworkStream(_socket);
+				_socket.BeginReceive(_buff, 0, _buff.Length, SocketFlags.None, new AsyncCallback(Receive), null);
+			}
+            //_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 			OnConnect();
 		}
 
@@ -98,19 +104,34 @@ namespace xmpp.net
         public void StartSecure()
         {
 			logger.Debug("Starting Secure Mode");
-            SslStream sslstream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
+            //SslStream sslstream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			logger.Debug("Authenticating as Client");
 			try
 			{
-				sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);				
+				//sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
+				SecurityOptions options = new SecurityOptions(SecureProtocol.Tls1 | SecureProtocol.Ssl3, null, ConnectionEnd.Client, CredentialVerification.Manual, new CertVerifyEventHandler(VerifyCertificate), _dest.Hostname, SecurityFlags.Default, SslAlgorithms.ALL, null);
+				_socket.ChangeSecurityProtocol(options);
 			} catch (Exception e)
 			{
 				logger.Error("SSL Error: ", e);
 			}
 
-			_stream = sslstream;
+			//_stream = sslstream;
         }
 
+    	private void VerifyCertificate(SecureSocket socket, Certificate remote, CertificateChain chain, VerifyEventArgs e)
+    	{
+    		CertificateChain cc = new CertificateChain(remote);
+    		CertificateStatus status = cc.VerifyChain(_socket.CommonName, AuthType.Server);
+
+			if (status != CertificateStatus.ValidCertificate)
+			{
+				logger.Info("Invalid Certificate: " + status);
+				e.Valid = false;
+			}
+    	}
+
+/*
         private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
@@ -122,6 +143,7 @@ namespace xmpp.net
 
             return false;
         }
+*/
 
         /// <summary>
         /// Closes the current socket.
@@ -140,7 +162,8 @@ namespace xmpp.net
 		{
 			logger.Debug("Outgoing Message: " + msg);
             byte[] mesg = _utf.GetBytes(msg);
-            _stream.Write(mesg, 0, mesg.Length);
+			_socket.Send(mesg, 0, mesg.Length, SocketFlags.None);
+			//_stream.Write(mesg, 0, mesg.Length);
 		}
 
 		private void OnConnect()
@@ -163,12 +186,14 @@ namespace xmpp.net
 		{
 			try
 			{
-				int rx = _stream.EndRead(ar);
+				//int rx = _stream.EndRead(ar);
+				int rx = _socket.EndReceive(ar);
 				char[] chars = new char[rx];
 				_decoder.GetChars(_buff, 0, rx, chars, 0);
 				string msg = new string(chars);
 				logger.Debug("Incoming Message: " + msg);
-				_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+				_socket.BeginReceive(_buff, 0, _buff.Length, SocketFlags.None, new AsyncCallback(Receive), null);
+				//_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 				OnMessage(msg);
 			}
 			catch (SocketException e)

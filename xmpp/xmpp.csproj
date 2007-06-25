@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\incubating-log4net-1.2.10\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Org.Mentalis.Security, Version=1.0.13.716, Culture=neutral, PublicKeyToken=085a8f6006888436">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\seclib-1.0\seclib-1.0.0\Signed_Builds\1.1\Org.Mentalis.Security.dll</HintPath>
+    </Reference>
     <Reference Include="stringprep, Version=1.0.2527.42360, Culture=neutral, PublicKeyToken=924c5b18328d6f09">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\jabber-net\stringprep\bin\Release\stringprep.dll</HintPath>
