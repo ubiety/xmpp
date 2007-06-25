@@ -87,12 +87,13 @@ namespace xmpp
         /// <param name="doc">XmlDocument to create tag with</param>
         /// <returns>A new instance of the requested tag</returns>
 		public Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
-		{
-			ConstructorInfo ci = (ConstructorInfo)_registeredTags[qname];
-			return (Tag)ci.Invoke(new object[] { prefix, qname, doc });
-		}
+        {
+        	ConstructorInfo ci = (ConstructorInfo)_registeredTags[qname];
+        	if (ci != null) return (Tag)ci.Invoke(new object[] { prefix, qname, doc });
+        	return null;
+        }
 
-        /// <summary>
+    	/// <summary>
         /// Returns the singleton instance of the <see cref="TagRegistry"/>.
         /// </summary>
 		public static TagRegistry Instance

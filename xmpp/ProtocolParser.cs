@@ -70,14 +70,14 @@ namespace xmpp
         /// </summary>
 		public event EventHandler<TagEventArgs> Tag;
 
-		private XmlReaderSettings _settings;
 		private XmlNamespaceManager _ns;
 		private TagRegistry _reg = TagRegistry.Instance;
 		private XmlDocument _doc = new XmlDocument();
 		private XmlElement _elem;
 		private XmlElement _root;
 
-        private XmlTextReader _reader;
+        private XmlReader _reader;
+    	private XmlReaderSettings _settings;
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(ProtocolParser));
 
@@ -87,10 +87,13 @@ namespace xmpp
 		public ProtocolParser()
 		{
             XmlConfigurator.Configure();
+			NameTable nt = new NameTable();
 			_settings = new XmlReaderSettings();
-			_settings.IgnoreWhitespace = true;
-			_settings.ConformanceLevel = ConformanceLevel.Fragment;
-			_ns = new XmlNamespaceManager(new NameTable());
+        	_settings.NameTable = nt;
+        	_settings.ConformanceLevel = ConformanceLevel.Fragment;
+			_ns = new XmlNamespaceManager(nt);
+
+			_ns.AddNamespace("stream", Namespaces.STREAM);
 		}
 
         /// <summary>
@@ -113,7 +116,8 @@ namespace xmpp
                 message += "</stream:stream>";
             }
             
-            _reader = new XmlTextReader(new StringReader(message));
+			XmlParserContext context = new XmlParserContext(null, _ns, null, XmlSpace.None);
+            _reader = XmlReader.Create(new StringReader(message), _settings, context);
             try
             {
                 while (_reader.Read())
@@ -138,7 +142,7 @@ namespace xmpp
             }
             catch (XmlException e)
             {
-                logger.Error("Exception: " + e.Message);
+                logger.Error("Message Parsing Error: ", e);
             }
             catch (InvalidOperationException)
             {
@@ -163,11 +167,11 @@ namespace xmpp
                 {
                     if (_reader.Prefix.Equals("xmlns"))
                     {
-                        _ns.AddNamespace(_reader.LocalName, _reader.Value);
+                        //_ns.AddNamespace(_reader.LocalName, _reader.Value);
                     }
                     else if (_reader.Name.Equals("xmlns"))
                     {
-                        _ns.AddNamespace(string.Empty, _reader.Value);
+                        //_ns.AddNamespace(string.Empty, _reader.Value);
                     }
                     else
                     {

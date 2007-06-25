@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using xmpp;
 using xmpp.common;
@@ -24,7 +19,9 @@ namespace TestXMPP
 		{
             XID id = new XID("coder2000@127.0.0.1/roller");
             xmpp.SSL = cbSSL.Checked;
-			xmpp.Connect(id, "loki");
+			xmpp.ID = id;
+			xmpp.Password = "loki";
+			xmpp.Connect();
 		}
 	}
 }

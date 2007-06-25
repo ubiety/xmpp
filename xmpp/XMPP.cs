@@ -123,6 +123,8 @@ namespace xmpp
 		private States _state;
 
         private String _password;
+    	private XID _id;
+    	private int _port;
         private Boolean _ssl;
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(XMPP));
@@ -206,28 +208,13 @@ namespace xmpp
 		}
 
         /// <summary>
-        /// Connect to a server.
-        /// </summary>
-        /// <param name="address">The address to connect to.</param>
-        [Obsolete("Deprecated for Connect(XID, Password)")]
-		public void Connect(string address)
-		{
-            logger.Debug("Connecting to " + address);
-			_state = States.Connecting;
-			_socket.Connect(address, _ssl);
-		}
-
-        /// <summary>
         /// Connect to the XMPP server for the XID
         /// </summary>
-        /// <param name="id">Id used for connecting.</param>
-        /// <param name="Password">Password to login with.</param>
-        public void Connect(XID id, string Password)
+        public void Connect()
         {
-            _password = Password;
-            logger.Debug("Connecting to " + id.Server);
+            logger.Debug("Connecting to " + _id.Server);
             _state = States.Connecting;
-            _socket.Connect(id.Server, _ssl);
+            _socket.Connect(_id.Server, _ssl);
         }
 
 		private void _socket_Connection(object sender, EventArgs e)
@@ -240,7 +227,7 @@ namespace xmpp
         {
             Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
             stream.Version = "1.0";
-            stream.To = "localhost";
+            stream.To = _id.Server;
             stream.NS = "jabber:client";
             _socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
         }
@@ -253,5 +240,29 @@ namespace xmpp
             get { return _ssl; }
             set { _ssl = value; }
         }
+
+    	///<summary>
+    	///</summary>
+    	public XID ID
+    	{
+    		get { return _id; }
+			set { _id = value; }
+    	}
+
+    	///<summary>
+    	///</summary>
+    	public String Password
+    	{
+    		get { return _password; }
+			set { _password = value; }
+    	}
+
+    	///<summary>
+    	///</summary>
+    	public int Port
+    	{
+    		get { return _port; }
+			set { _port = value; }
+    	}
 	}
 }

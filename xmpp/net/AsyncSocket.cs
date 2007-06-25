@@ -40,10 +40,12 @@ namespace xmpp.net
 		private Address _dest;
 		private byte[] _buff = new byte[4096];
 
+/*
         private X509Certificate _cert;
+*/
         private Stream _stream;
 
-		private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
+    	private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
 
         /// <summary>
         /// Occurs when a connection is established with a server.
@@ -96,14 +98,20 @@ namespace xmpp.net
         public void StartSecure()
         {
 			logger.Debug("Starting Secure Mode");
-            Stream sslstream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
+            SslStream sslstream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			logger.Debug("Authenticating as Client");
-            ((SslStream)sslstream).AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
+			try
+			{
+				sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);				
+			} catch (Exception e)
+			{
+				logger.Error("SSL Error: ", e);
+			}
 
 			_stream = sslstream;
         }
 
-        private bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
+        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
             {
