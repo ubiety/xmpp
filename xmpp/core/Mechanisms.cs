@@ -1,22 +1,23 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+/**********************************************************************************/
+/*																				  */
+/* XMPP .NET Library Copyright (C) 2006 Dieter Lunn								  */
+/*														                          */
+/* This library is free software; you can redistribute it and/or modify it under  */
+/* the terms of the GNU Lesser General Public License as published by the Free	  */
+/* Software Foundation; either version 2.1 of the License, or (at your option)	  */
+/* any later version.															  */
+/*														                          */
+/* This library is distributed in the hope that it will be useful, but WITHOUT	  */
+/* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS  */
+/* FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more	  */
+/* details.																		  */
+/*														                          */
+/* You should have received a copy of the GNU Lesser General Public License along */
+/* with this library; if not, write to the Free Software Foundation, Inc., 59	  */
+/* Temple Place, Suite 330, Boston, MA 02111-1307 USA							  */
+/**********************************************************************************/
 
-//This library is free software; you can redistribute it and/or modify it under
-//the terms of the GNU Lesser General Public License as published by the Free
-//Software Foundation; either version 2.1 of the License, or (at your option)
-//any later version.
-
-//This library is distributed in the hope that it will be useful, but WITHOUT
-//ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-//FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-//details.
-
-//You should have received a copy of the GNU Lesser General Public License along
-//with this library; if not, write to the Free Software Foundation, Inc., 59
-//Temple Place, Suite 330, Boston, MA 02111-1307 USA 
-
-using System;
 using System.Xml;
-
 using xmpp.common;
 
 namespace xmpp.core
@@ -42,7 +43,7 @@ namespace xmpp.core
     /// <summary>
     /// 
     /// </summary>
-	[XmppTag("mechanisms", xmpp.common.Namespaces.SASL, typeof(Mechanisms))]
+	[XmppTag("mechanisms", Namespaces.SASL, typeof(Mechanisms))]
 	public class Mechanisms : Tag
 	{
         /// <summary>
@@ -93,7 +94,7 @@ namespace xmpp.core
     /// <summary>
     /// 
     /// </summary>
-	[XmppTag("mechanism", xmpp.common.Namespaces.SASL, typeof(Mechanism))]
+	[XmppTag("mechanism", Namespaces.SASL, typeof(Mechanism))]
 	public class Mechanism : Tag
 	{
         /// <summary>
@@ -110,7 +111,7 @@ namespace xmpp.core
         /// <summary>
         /// 
         /// </summary>
-        public String Text
+        public string Text
         {
             get { return InnerText; }
         }
@@ -142,5 +143,24 @@ namespace xmpp.core
                     return MechanismType.None;
             }
         }
+
+		///<summary>
+		///</summary>
+		///<param name="type"></param>
+		///<returns></returns>
+		public static string GetMechanism(MechanismType type)
+		{
+			switch (type)
+			{
+				case MechanismType.PLAIN:
+					return "PLAIN";
+				case MechanismType.EXTERNAL:
+					return "EXTERNAL";
+				case MechanismType.DIGEST_MD5:
+					return "DIGEST-MD5";
+				default:
+					return "";
+			}
+		}
 	}
 }

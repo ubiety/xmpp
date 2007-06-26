@@ -1,31 +1,30 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
-
-//This library is free software; you can redistribute it and/or modify it under
-//the terms of the GNU Lesser General Public License as published by the Free
-//Software Foundation; either version 2.1 of the License, or (at your option)
-//any later version.
-
-//This library is distributed in the hope that it will be useful, but WITHOUT
-//ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-//FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-//details.
-
-//You should have received a copy of the GNU Lesser General Public License along
-//with this library; if not, write to the Free Software Foundation, Inc., 59
-//Temple Place, Suite 330, Boston, MA 02111-1307 USA 
+/**********************************************************************************/
+/*																				  */
+/* XMPP .NET Library Copyright (C) 2006 Dieter Lunn								  */
+/*														                          */
+/* This library is free software; you can redistribute it and/or modify it under  */
+/* the terms of the GNU Lesser General Public License as published by the Free	  */
+/* Software Foundation; either version 2.1 of the License, or (at your option)	  */
+/* any later version.															  */
+/*														                          */
+/* This library is distributed in the hope that it will be useful, but WITHOUT	  */
+/* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS  */
+/* FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more	  */
+/* details.																		  */
+/*														                          */
+/* You should have received a copy of the GNU Lesser General Public License along */
+/* with this library; if not, write to the Free Software Foundation, Inc., 59	  */
+/* Temple Place, Suite 330, Boston, MA 02111-1307 USA							  */
+/**********************************************************************************/
 
 using System;
-using System.Net.Sockets;
-using System.Net;
 using System.IO;
-using System.Text;
-
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Authentication;
+using System.Net;
 using System.Net.Security;
-using Org.Mentalis.Security.Certificates;
-using Org.Mentalis.Security.Ssl;
-
+using System.Net.Sockets;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using log4net;
 using log4net.Config;
 
@@ -36,18 +35,12 @@ namespace xmpp.net
     /// </remarks>
 	public class AsyncSocket
 	{
-		//private Socket _socket;
+		private Socket _socket;
 		private Decoder _decoder = Encoding.UTF8.GetDecoder();
 		private UTF8Encoding _utf = new UTF8Encoding();
 		private Address _dest;
 		private byte[] _buff = new byte[4096];
-
-    	private SecureSocket _socket;
-
-/*
-        private X509Certificate _cert;
-*/
-        //private Stream _stream;
+        private Stream _stream;
 
     	private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
 
@@ -67,8 +60,6 @@ namespace xmpp.net
 		public AsyncSocket()
 		{
 			XmlConfigurator.Configure();
-			SecurityOptions options = new SecurityOptions(SecureProtocol.None, null, ConnectionEnd.Client, CredentialVerification.Manual, new CertVerifyEventHandler(VerifyCertificate), _dest.Hostname, SecurityFlags.Default, SslAlgorithms.ALL, null);
-			_socket = new SecureSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp, options);
 		}
 
         /// <summary>
@@ -88,13 +79,13 @@ namespace xmpp.net
 			{
 				_dest = Address.Resolve(hostname, 5222);
 			}
+			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_socket.Connect(_dest.EndPoint);
-            if (_socket.Connected)
+			if (_socket.Connected)
             {
-                //_stream = new NetworkStream(_socket);
-				_socket.BeginReceive(_buff, 0, _buff.Length, SocketFlags.None, new AsyncCallback(Receive), null);
+                _stream = new NetworkStream(_socket);
 			}
-            //_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+            _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 			OnConnect();
 		}
 
@@ -104,34 +95,17 @@ namespace xmpp.net
         public void StartSecure()
         {
 			logger.Debug("Starting Secure Mode");
-            //SslStream sslstream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
+            _stream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			logger.Debug("Authenticating as Client");
 			try
 			{
-				//sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
-				SecurityOptions options = new SecurityOptions(SecureProtocol.Tls1 | SecureProtocol.Ssl3, null, ConnectionEnd.Client, CredentialVerification.Manual, new CertVerifyEventHandler(VerifyCertificate), _dest.Hostname, SecurityFlags.Default, SslAlgorithms.ALL, null);
-				_socket.ChangeSecurityProtocol(options);
+				((SslStream)_stream).AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
 			} catch (Exception e)
 			{
 				logger.Error("SSL Error: ", e);
 			}
-
-			//_stream = sslstream;
         }
 
-    	private void VerifyCertificate(SecureSocket socket, Certificate remote, CertificateChain chain, VerifyEventArgs e)
-    	{
-    		CertificateChain cc = new CertificateChain(remote);
-    		CertificateStatus status = cc.VerifyChain(_socket.CommonName, AuthType.Server);
-
-			if (status != CertificateStatus.ValidCertificate)
-			{
-				logger.Info("Invalid Certificate: " + status);
-				e.Valid = false;
-			}
-    	}
-
-/*
         private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
@@ -143,7 +117,6 @@ namespace xmpp.net
 
             return false;
         }
-*/
 
         /// <summary>
         /// Closes the current socket.
@@ -160,10 +133,10 @@ namespace xmpp.net
         /// <param name="msg">Message to send</param>
 		public void Write(string msg)
 		{
-			logger.Debug("Outgoing Message: " + msg);
+			logger.Debug(string.Format("Outgoing Message: {0}", msg));
             byte[] mesg = _utf.GetBytes(msg);
-			_socket.Send(mesg, 0, mesg.Length, SocketFlags.None);
-			//_stream.Write(mesg, 0, mesg.Length);
+			//_socket.Send(mesg, 0, mesg.Length, SocketFlags.None);
+			_stream.Write(mesg, 0, mesg.Length);
 		}
 
 		private void OnConnect()
@@ -186,14 +159,12 @@ namespace xmpp.net
 		{
 			try
 			{
-				//int rx = _stream.EndRead(ar);
-				int rx = _socket.EndReceive(ar);
+				int rx = _stream.EndRead(ar);
 				char[] chars = new char[rx];
 				_decoder.GetChars(_buff, 0, rx, chars, 0);
 				string msg = new string(chars);
-				logger.Debug("Incoming Message: " + msg);
-				_socket.BeginReceive(_buff, 0, _buff.Length, SocketFlags.None, new AsyncCallback(Receive), null);
-				//_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+				logger.Debug(string.Format("Incoming Message: {0}", msg));
+				_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 				OnMessage(msg);
 			}
 			catch (SocketException e)

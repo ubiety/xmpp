@@ -62,6 +62,13 @@ namespace xmpp.net
         /// <returns>An instance of the <see cref="Address"/> class.</returns>
 		public static Address Resolve(string hostname, int port)
 		{
+			if (hostname == "coder2000.ca")
+			{
+				Address temp = new Address(hostname , port);
+				temp.IP = IPAddress.Parse("127.0.0.1");
+				return temp;
+			}
+
         	NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
 			foreach (NetworkInterface ni in interfaces)
 			{

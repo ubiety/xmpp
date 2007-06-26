@@ -17,42 +17,22 @@
 /* Temple Place, Suite 330, Boston, MA 02111-1307 USA							  */
 /**********************************************************************************/
 
-using System;
+using System.Xml;
+using xmpp.common;
 
-using xmpp.core;
-
-namespace xmpp.common.SASL
+namespace xmpp.core.SASL
 {
-    ///<summary>
-    ///</summary>
-    public abstract class SASLProcessor
-    {
-        ///<summary>
-        ///</summary>
-        ///<param name="type"></param>
-        ///<returns></returns>
-        ///<exception cref="NotSupportedException"></exception>
-        public static SASLProcessor CreateProcessor(MechanismType type)
-        {
-            if ((type & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
-            {
-                throw new NotSupportedException();
-            }
+	[XmppTag("auth", Namespaces.SASL, typeof(Auth))]
+	class Auth : Tag
+	{
+		public Auth(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		{
+		}
 
-            if ((type & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
-            {
-                throw new NotSupportedException();
-            }
-
-            if ((type & MechanismType.PLAIN) == MechanismType.PLAIN)
-            {
-                
-            }
-            return null;
-        }
-
-        ///<summary>
-        ///</summary>
-        public abstract void Step();
-    }
+		public string Mechanism
+		{
+			get { return GetAttribute("mechanism"); }
+			set { SetAttribute("mechanism", value); }
+		}
+	}
 }
