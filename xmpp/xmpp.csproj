@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\Namespaces.cs" />
+    <Compile Include="common\SASL\PlainProcessor.cs" />
     <Compile Include="common\SASL\SASLProcessor.cs" />
     <Compile Include="common\Tag.cs" />
     <Compile Include="common\XID.cs" />

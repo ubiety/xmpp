@@ -19,40 +19,19 @@
 
 using System;
 
-using xmpp.core;
-
 namespace xmpp.common.SASL
 {
-    ///<summary>
-    ///</summary>
-    public abstract class SASLProcessor
-    {
-        ///<summary>
-        ///</summary>
-        ///<param name="type"></param>
-        ///<returns></returns>
-        ///<exception cref="NotSupportedException"></exception>
-        public static SASLProcessor CreateProcessor(MechanismType type)
-        {
-            if ((type & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
-            {
-                throw new NotSupportedException();
-            }
-
-            if ((type & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
-            {
-                throw new NotSupportedException();
-            }
-
-            if ((type & MechanismType.PLAIN) == MechanismType.PLAIN)
-            {
-            	return new PlainProcessor();
-            }
-            return null;
-        }
-
-        ///<summary>
-        ///</summary>
-        public abstract void Step(Tag tag);
-    }
+	///<summary>
+	///</summary>
+	public class PlainProcessor : SASLProcessor
+	{
+		///<summary>
+		///</summary>
+		///<param name="tag"></param>
+		///<exception cref="NotImplementedException"></exception>
+		public override void Step(Tag tag)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

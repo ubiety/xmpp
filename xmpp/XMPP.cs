@@ -97,7 +97,7 @@ namespace xmpp
 	/// </para>
 	/// <para>
 	/// This library is an implementation of this protocol.  Those involved with the design and development
-	/// of this library are as commited to open standards as the committees who created the original protocol.
+	/// of this library are as committed to open standards as the committees who created the original protocol.
 	/// </para>
 	/// </remarks>
 	/// <example>
