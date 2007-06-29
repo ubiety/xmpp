@@ -34,5 +34,11 @@ namespace xmpp.core.SASL
 			get { return GetAttribute("mechanism"); }
 			set { SetAttribute("mechanism", value); }
 		}
+
+		public string Text
+		{
+			get { return Value; }
+			set { Value = value; }
+		}
 	}
 }

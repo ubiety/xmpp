@@ -27,6 +27,9 @@ namespace xmpp.common.SASL
     ///</summary>
     public abstract class SASLProcessor
     {
+		protected XID _id;
+		protected string _password;
+
         ///<summary>
         ///</summary>
         ///<param name="type"></param>
@@ -54,5 +57,15 @@ namespace xmpp.common.SASL
         ///<summary>
         ///</summary>
         public abstract void Step(Tag tag);
+
+    	///<summary>
+    	///</summary>
+    	public virtual Tag Initialize(XID id, string password)
+    	{
+			_id = id;
+			_password = password;
+
+    		return null;
+    	}
     }
 }

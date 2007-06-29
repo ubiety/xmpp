@@ -18,6 +18,10 @@
 /**********************************************************************************/
 
 using System;
+using System.Text;
+using System.Xml;
+using xmpp.core;
+using xmpp.core.SASL;
 
 namespace xmpp.common.SASL
 {
@@ -32,6 +36,28 @@ namespace xmpp.common.SASL
 		public override void Step(Tag tag)
 		{
 			throw new NotImplementedException();
+		}
+
+		///<summary>
+		///</summary>
+		///<exception cref="NotImplementedException"></exception>
+		public override Tag Initialize(XID id, string password)
+		{
+			base.Initialize(id, password);
+
+			StringBuilder sb = new StringBuilder();
+
+			sb.Append((char) 0);
+			sb.Append(_id.User);
+			sb.Append((char) 0);
+			sb.Append(_password);
+
+			Auth auth = (Auth)TagRegistry.Instance.GetTag("", new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
+
+			auth.Text = sb.ToString();
+			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);
+
+			return auth;
 		}
 	}
 }

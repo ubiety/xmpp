@@ -25,6 +25,7 @@ using log4net.Config;
 using xmpp.common;
 using xmpp.core;
 using xmpp.net;
+using xmpp.common.SASL;
 
 namespace xmpp
 {
@@ -130,6 +131,8 @@ namespace xmpp
     	private int _port;
         private Boolean _ssl;
 
+    	private SASLProcessor _sasl;
+
         private static readonly ILog logger = LogManager.GetLogger(typeof(XMPP));
 
 		/// <summary>
@@ -176,6 +179,12 @@ namespace xmpp
                         StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", Namespaces.START_TLS), new XmlDocument());
                         _socket.Write(tls);
 				    }
+
+					if (f.StartSASL != null)
+					{
+						Mechanism[] _all = f.StartSASL.GetMechanisms();
+						_sasl = SASLProcessor.CreateProcessor(MechanismType.PLAIN);
+					}
                     break;
                 case States.StartTLS:
                     if (e.Tag.Name == "proceed")
