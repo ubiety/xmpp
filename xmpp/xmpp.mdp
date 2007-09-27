@@ -15,7 +15,6 @@
   </Configurations>
   <DeployTargets />
   <Contents>
-    <File name="./" subtype="Directory" buildaction="Compile" />
     <File name="./ProtocolParser.cs" subtype="Code" buildaction="Compile" />
     <File name="./TagRegistry.cs" subtype="Code" buildaction="Compile" />
     <File name="./XMPP.cs" subtype="Code" buildaction="Compile" />
