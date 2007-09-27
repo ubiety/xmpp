@@ -1,0 +1,17 @@
+<Combine name="xmppnet" fileversion="2.0" outputpath="./build/bin/" MakePkgConfig="False" MakeLibPC="True">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="xmpp" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="xmpp" configuration="Release" />
+    </Configuration>
+  </Configurations>
+  <DeployTargets />
+  <StartMode startupentry="xmpp" single="True">
+    <Execute type="None" entry="xmpp" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./xmpp/xmpp.mdp" />
+  </Entries>
+</Combine>
