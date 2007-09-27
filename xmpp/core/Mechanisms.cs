@@ -44,7 +44,7 @@ namespace xmpp.core
     /// 
     /// </summary>
 	[XmppTag("mechanisms", Namespaces.SASL, typeof(Mechanisms))]
-	public class Mechanisms : Tag
+	public class Mechanisms : xmpp.common.Tag
 	{
         /// <summary>
         /// 
@@ -95,7 +95,7 @@ namespace xmpp.core
     /// 
     /// </summary>
 	[XmppTag("mechanism", Namespaces.SASL, typeof(Mechanism))]
-	public class Mechanism : Tag
+	public class Mechanism : xmpp.common.Tag
 	{
         /// <summary>
         /// 

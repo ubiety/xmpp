@@ -89,10 +89,10 @@ namespace xmpp
         /// <param name="qname">Qualified Namespace</param>
         /// <param name="doc">XmlDocument to create tag with</param>
         /// <returns>A new instance of the requested tag</returns>
-		public Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
+		public xmpp.common.Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
         {
         	ConstructorInfo ci = (ConstructorInfo)_registeredTags[qname];
-        	if (ci != null) return (Tag)ci.Invoke(new object[] { prefix, qname, doc });
+        	if (ci != null) return (xmpp.common.Tag)ci.Invoke(new object[] { prefix, qname, doc });
         	return null;
         }
 

@@ -26,7 +26,7 @@ namespace xmpp.core
     /// StartTLS is used to start an encrypted authentication session.
     /// </summary>
 	[XmppTag("starttls", Namespaces.START_TLS, typeof(StartTLS))]
-	public class StartTLS : Tag
+	public class StartTLS : xmpp.common.Tag
 	{
         /// <summary>
         /// Creates a new instance of the StartTLS tag.

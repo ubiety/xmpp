@@ -32,13 +32,13 @@ namespace xmpp
 	/// </remarks>
 	public class TagEventArgs : EventArgs
 	{
-		private Tag _tag;
+		private xmpp.common.Tag _tag;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TagEventArgs"/> class.
 		/// </summary>
 		/// <param name="tag"></param>
-		public TagEventArgs(Tag tag)
+		public TagEventArgs(xmpp.common.Tag tag)
 		{
 			_tag = tag;
 		}
@@ -46,7 +46,7 @@ namespace xmpp
 		/// <summary>
 		/// Gets the tag parsed from the incoming stream.
 		/// </summary>
-		public Tag Tag
+		public xmpp.common.Tag Tag
 		{
 			get { return _tag; }
 			set { _tag = value; }
@@ -253,7 +253,7 @@ namespace xmpp
 		{
 			if (Tag != null)
 			{
-				Tag(this, new TagEventArgs((Tag)tag));
+				Tag(this, new TagEventArgs((xmpp.common.Tag)tag));
 			}
 		}
 
@@ -269,7 +269,7 @@ namespace xmpp
 		{
 			if (StreamStart != null)
 			{
-				StreamStart(this, new TagEventArgs((Tag)elem));
+				StreamStart(this, new TagEventArgs((xmpp.common.Tag)elem));
 			}
 		}
 	}

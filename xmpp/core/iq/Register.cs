@@ -23,7 +23,7 @@ namespace xmpp.core.iq
     /// 
     /// </summary>
 	[XmppTag("register", Namespaces.REGISTER, typeof(Register))]
-	public class Register : Tag
+	public class Register : xmpp.common.Tag
 	{
         /// <summary>
         /// 

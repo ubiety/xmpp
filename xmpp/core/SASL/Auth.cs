@@ -23,7 +23,7 @@ using xmpp.common;
 namespace xmpp.core.SASL
 {
 	[XmppTag("auth", Namespaces.SASL, typeof(Auth))]
-	class Auth : Tag
+	class Auth : xmpp.common.Tag
 	{
 		public Auth(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{

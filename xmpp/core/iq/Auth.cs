@@ -26,7 +26,7 @@ namespace xmpp.core.iq
     /// 
     /// </summary>
 	[XmppTag("auth", Namespaces.AUTH, typeof(Auth))]
-	public class Auth : Tag
+	public class Auth : xmpp.common.Tag
 	{
         /// <summary>
         /// 

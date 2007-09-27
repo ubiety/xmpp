@@ -27,7 +27,7 @@ namespace xmpp.core
     /// 
     /// </summary>
 	[XmppTag("stream", Namespaces.STREAM, typeof(Stream))]
-	public class Stream : Tag
+	public class Stream : xmpp.common.Tag
 	{
         /// <summary>
         /// 

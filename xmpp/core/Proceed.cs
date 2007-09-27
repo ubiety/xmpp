@@ -25,7 +25,7 @@ namespace xmpp.core
     ///<summary>
     ///</summary>
     [XmppTag("proceed", Namespaces.START_TLS, typeof(Proceed))]
-    public class Proceed : Tag
+    public class Proceed : xmpp.common.Tag
     {
         ///<summary>
         ///</summary>

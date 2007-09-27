@@ -1,0 +1,47 @@
+<Project name="xmpp" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="./bin/Debug" assembly="xmpp" />
+      <Build debugmode="True" target="Library" />
+      <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="./bin/Release" assembly="xmpp" />
+      <Build debugmode="False" target="Library" />
+      <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <DeployTargets />
+  <Contents>
+    <File name="./" subtype="Directory" buildaction="Compile" />
+    <File name="./ProtocolParser.cs" subtype="Code" buildaction="Compile" />
+    <File name="./TagRegistry.cs" subtype="Code" buildaction="Compile" />
+    <File name="./XMPP.cs" subtype="Code" buildaction="Compile" />
+    <File name="./XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
+    <File name="./common/Namespaces.cs" subtype="Code" buildaction="Compile" />
+    <File name="./common/Tag.cs" subtype="Code" buildaction="Compile" />
+    <File name="./common/XID.cs" subtype="Code" buildaction="Compile" />
+    <File name="./common/SASL/PlainProcessor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./common/SASL/SASLProcessor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/Features.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/Mechanisms.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/Proceed.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/StartTLS.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/Stream.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/iq/Auth.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/iq/Register.cs" subtype="Code" buildaction="Compile" />
+    <File name="./core/SASL/Auth.cs" subtype="Code" buildaction="Compile" />
+    <File name="./net/Address.cs" subtype="Code" buildaction="Compile" />
+    <File name="./net/AsyncSocket.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Properties/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+  </Contents>
+  <References>
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../stringprep.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../log4net-1.2.10/bin/mono/2.0/release/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../Bdev.Net.Dns.dll" />
+  </References>
+</Project>
