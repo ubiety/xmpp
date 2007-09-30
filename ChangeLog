@@ -1,0 +1,6 @@
+2007-09-30  Dieter Lunn <coder2000@gmail.com> 
+
+	Added changelog and Mono test application.
+	
+	Working on Mono compatibility.  Must explicity define namespace for Tag due to bug in Mono.
+

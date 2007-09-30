@@ -1,19 +1,18 @@
 <Project name="xmpp" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Debug" assembly="xmpp" />
+      <Output directory="./bin/Debug" assemblyKeyFile="./xmpp.pfx" assembly="xmpp" />
       <Build debugmode="True" target="Library" />
       <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="MONO" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Release" assembly="xmpp" />
+      <Output directory="./bin/Release" assemblyKeyFile="./xmpp.pfx" assembly="xmpp" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
-  <DeployTargets />
   <Contents>
     <File name="./ProtocolParser.cs" subtype="Code" buildaction="Compile" />
     <File name="./TagRegistry.cs" subtype="Code" buildaction="Compile" />
@@ -43,4 +42,14 @@
     <ProjectReference type="Assembly" localcopy="True" refto="../../log4net-1.2.10/bin/mono/2.0/release/log4net.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../Bdev.Net.Dns.dll" />
   </References>
+  <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="./Makefile.am" SyncReferences="True" IsAutotoolsProject="True" RelativeConfigureInPath="../">
+    <BuildFilesVar Sync="True" Name="FILES" />
+    <DeployFilesVar />
+    <ResourcesVar Sync="True" Name="RESOURCES" />
+    <OthersVar />
+    <GacRefVar Sync="True" Name="REFERENCES" Prefix="-r:" />
+    <AsmRefVar Sync="True" Name="REFERENCES" Prefix="-r:" />
+    <ProjectRefVar Sync="True" Name="REFERENCES" Prefix="-r:" />
+  </MonoDevelop.Autotools.MakefileInfo>
+  <DeployTargets />
 </Project>

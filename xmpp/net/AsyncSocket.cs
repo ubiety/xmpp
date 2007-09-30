@@ -4,7 +4,7 @@
 /*														                          */
 /* This library is free software; you can redistribute it and/or modify it under  */
 /* the terms of the GNU Lesser General Public License as published by the Free	  */
-/* Software Foundation; either version 2.1 of the License, or (at your option)	  */
+/* Software Foundation; either version 3 of the License, or (at your option)	  */
 /* any later version.															  */
 /*														                          */
 /* This library is distributed in the hope that it will be useful, but WITHOUT	  */
@@ -79,6 +79,7 @@ namespace xmpp.net
 			{
 				_dest = Address.Resolve(hostname, 5222);
 			}
+			logger.Info("Connecting to: " + _dest.IP.ToString());
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_socket.Connect(_dest.EndPoint);
 			if (_socket.Connected)
@@ -99,7 +100,7 @@ namespace xmpp.net
 			logger.Debug("Authenticating as Client");
 			try
 			{
-				((SslStream)_stream).AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
+				((SslStream)_stream).AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls | SslProtocols.Ssl2, false);
 			} catch (Exception e)
 			{
 				logger.Error("SSL Error: ", e);

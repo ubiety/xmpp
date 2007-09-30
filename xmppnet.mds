@@ -2,16 +2,20 @@
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="xmpp" configuration="Debug" />
+      <Entry build="True" name="testmono" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="xmpp" configuration="Release" />
+      <Entry build="True" name="testmono" configuration="Release" />
     </Configuration>
   </Configurations>
-  <DeployTargets />
   <StartMode startupentry="xmpp" single="True">
     <Execute type="None" entry="xmpp" />
+    <Execute type="None" entry="testmono" />
   </StartMode>
+  <DeployTargets />
   <Entries>
     <Entry filename="./xmpp/xmpp.mdp" />
+    <Entry filename="./testmono/testmono.mdp" />
   </Entries>
 </Combine>
