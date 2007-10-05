@@ -1,5 +1,17 @@
+//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//
+//This library is free software; you can redistribute it and/or modify it under
+//the terms of the GNU Lesser General Public License as published by the Free
+//Software Foundation; either version 3 of the License, or (at your option)
+//any later version.
+//This library is distributed in the hope that it will be useful, but WITHOUT
+//ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+//FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+//
+//You should have received a copy of the GNU Lesser General Public License along
+//with this library; if not, write to the Free Software Foundation, Inc., 59
+//Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Net;
-using System.Net.NetworkInformation;
 using Bdev.Net.Dns;
 
 namespace xmpp.net
@@ -62,38 +74,6 @@ namespace xmpp.net
         /// <returns>An instance of the <see cref="Address"/> class.</returns>
 		public static Address Resolve(string hostname, int port)
 		{
-			// For testing only.  To be removed from final version
-			/*if (hostname == "coder2000.ca")
-			{
-				temp = new Address(hostname , port);
-				temp.IP = IPAddress.Parse("127.0.0.1");
-				return temp;
-			}
-			// End testing
-
-/*
-        	NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
-			foreach (NetworkInterface ni in interfaces)
-			{
-				if (ni.OperationalStatus == OperationalStatus.Up)
-				{
-					IPInterfaceProperties prop = ni.GetIPProperties();
-					foreach (IPAddress dns in prop.DnsAddresses)
-					{
-						Request req = new Request();
-						req.AddQuestion(new Question(hostname, DnsType.ANAME, DnsClass.IN));
-						Response res = Resolver.Lookup(req, dns);
-						if (res != null)
-						{
-							Address temp = new Address(hostname, port);
-							temp.IP = ((ANameRecord)res.Answers[0].Record).IPAddress;
-							return temp;
-						}
-					}
-				}
-			}
-*/
-
 			IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
 			Address temp = new Address(hostname, port);
 			temp.IP = hostInfo.AddressList[0];

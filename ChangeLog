@@ -1,3 +1,12 @@
+2007-10-05  Dieter Lunn <coder2000@gmail.com> 
+
+	* Made all the license comments the same.
+	* Moved TagRegistry to xmpp.registries and made it possible to add additional registries easily
+
+2007-10-04  Dieter Lunn <coder2000@gmail.com>
+
+	* xmpp/net/Address.cs: Removed NetworkInformation DNS code.  Replaced with Dns.GetHostEntry until a programatic method can be used to determine DNS servers in Mono.
+
 2007-09-30  Dieter Lunn <coder2000@gmail.com> 
 
 	Added changelog and Mono test application.

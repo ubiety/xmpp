@@ -1,21 +1,16 @@
-/**********************************************************************************/
-/*																				  */
-/* XMPP .NET Library Copyright (C) 2006 Dieter Lunn								  */
-/*														                          */
-/* This library is free software; you can redistribute it and/or modify it under  */
-/* the terms of the GNU Lesser General Public License as published by the Free	  */
-/* Software Foundation; either version 3 of the License, or (at your option)	  */
-/* any later version.															  */
-/*														                          */
-/* This library is distributed in the hope that it will be useful, but WITHOUT	  */
-/* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS  */
-/* FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more	  */
-/* details.																		  */
-/*														                          */
-/* You should have received a copy of the GNU Lesser General Public License along */
-/* with this library; if not, write to the Free Software Foundation, Inc., 59	  */
-/* Temple Place, Suite 330, Boston, MA 02111-1307 USA							  */
-/**********************************************************************************/
+//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//
+//This library is free software; you can redistribute it and/or modify it under
+//the terms of the GNU Lesser General Public License as published by the Free
+//Software Foundation; either version 3 of the License, or (at your option)
+//any later version.//
+//This library is distributed in the hope that it will be useful, but WITHOUT
+//ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+//FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+//
+//You should have received a copy of the GNU Lesser General Public License along
+//with this library; if not, write to the Free Software Foundation, Inc., 59
+//Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
 using System.Collections;
@@ -27,23 +22,23 @@ using xmpp.common;
 using log4net;
 using log4net.Config;
 
-namespace xmpp
+namespace xmpp.registries
 {
     /// <remarks>
     /// TagRegistry stores all the construction information for the <seealso cref="Tag">Tags</seealso> the library is aware of.
     /// </remarks>
-	public sealed class TagRegistry
+	public sealed class TagRegistry : Registry<TagRegistry, RegistryAllocator<TagRegistry>>
 	{
-		private static readonly TagRegistry instance = new TagRegistry();
+		//private static readonly TagRegistry instance = new TagRegistry();
 
-		private Hashtable _registeredTags;
+		//private Hashtable _registeredTags;
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(TagRegistry));
 
 		private TagRegistry()
 		{
             XmlConfigurator.Configure();
-			_registeredTags = new Hashtable();
+			//_registeredTags = new Hashtable();
 		}
 
 		private void AddTag(string localName, string ns, Type t)
@@ -59,7 +54,7 @@ namespace xmpp
 				typeof(XmlDocument)
 			};
 			ConstructorInfo ci = t.GetConstructor(constructorTypes);
-			_registeredTags.Add(qname, ci);
+			_registeredItems.Add(qname, ci);
 		}
 
 		/// <summary>
@@ -91,17 +86,9 @@ namespace xmpp
         /// <returns>A new instance of the requested tag</returns>
 		public xmpp.common.Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
         {
-        	ConstructorInfo ci = (ConstructorInfo)_registeredTags[qname];
+        	ConstructorInfo ci = (ConstructorInfo)_registeredItems[qname];
         	if (ci != null) return (xmpp.common.Tag)ci.Invoke(new object[] { prefix, qname, doc });
         	return null;
         }
-
-    	/// <summary>
-        /// Returns the singleton instance of the <see cref="TagRegistry"/>.
-        /// </summary>
-		public static TagRegistry Instance
-		{
-			get { return instance; }
-		}
 	}
 }
