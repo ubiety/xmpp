@@ -11,6 +11,7 @@
 //You should have received a copy of the GNU Lesser General Public License along
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
 using System;
 using System.Reflection;
 using System.Xml;
@@ -166,7 +167,6 @@ namespace xmpp
 			    		throw new Exception("Expecting stream:features from a 1.x server");
 				    }
 
-                    logger.Debug(f.StartTLS);
     				if (f.StartTLS != null && _ssl)
 	    			{
                         logger.Debug("Starting TLS encryption..State: StartTLS");

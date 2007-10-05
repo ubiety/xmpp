@@ -9,7 +9,7 @@
       <Entry build="True" name="testmono" configuration="Release" />
     </Configuration>
   </Configurations>
-  <StartMode startupentry="xmpp" single="True">
+  <StartMode startupentry="testmono" single="True">
     <Execute type="None" entry="xmpp" />
     <Execute type="None" entry="testmono" />
   </StartMode>

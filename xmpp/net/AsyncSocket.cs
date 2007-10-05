@@ -11,12 +11,17 @@
 //You should have received a copy of the GNU Lesser General Public License along
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
 using System;
 using System.IO;
 using System.Net;
+#if NET20
 using System.Net.Security;
-using System.Net.Sockets;
 using System.Security.Authentication;
+#elif __MonoCS__
+using Mono.Security.Protocol.Tls;
+#endif
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using log4net;
@@ -84,6 +89,7 @@ namespace xmpp.net
 			OnConnect();
 		}
 
+#if NET20
         /// <summary>
         /// Encrypts the connection using SSL/TLS
         /// </summary>
@@ -109,10 +115,35 @@ namespace xmpp.net
             }
 
 			logger.Debug("Policy Errors: " + errors);
-
             return false;
         }
+#endif
 
+
+#if __MonoCS__
+		public void StartSecure() 
+		{
+			logger.Debug("Starting Secure Mode");
+			try
+			{
+				X509CertificateCollection certs = new X509CertificateCollection();
+				certs.Add(X509Certificate.CreateFromCertFile("GeoTrust_Universal_CA.cer"));
+	            SslClientStream s = new SslClientStream(_stream, _dest.Hostname, true, Mono.Security.Protocol.Tls.SecurityProtocolType.Ssl3 | Mono.Security.Protocol.Tls.SecurityProtocolType.Tls, certs);
+	            s.ServerCertValidationDelegate = new CertificateValidationCallback(RemoteValidation);
+	            _stream = s;
+            }
+            catch (Exception e)
+            {
+            	logger.Error("Error starting secure socket", e);
+            	throw;
+            }
+		}
+
+		private static bool RemoteValidation(X509Certificate certificate, int[] certificateErrors)
+		{
+			return true;
+		}
+#endif
         /// <summary>
         /// Closes the current socket.
         /// </summary>

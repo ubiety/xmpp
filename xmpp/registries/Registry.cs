@@ -23,7 +23,7 @@ namespace xmpp.registries
 	{
 		private static readonly Allocator<T> allocator;
 		
-		protected Hashtable _registeredItems;
+		protected Hashtable _registeredItems = new Hashtable();
 		
 		static Registry()
 		{

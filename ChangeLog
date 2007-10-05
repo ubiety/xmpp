@@ -1,5 +1,13 @@
 2007-10-05  Dieter Lunn <coder2000@gmail.com> 
 
+	Fixed the registry code.  Trying to determine why the protocol parser doesn't always return the tag.
+
+2007-10-05  Dieter Lunn <coder2000@gmail.com>
+
+	* xmpp/net/AsyncSocket.cs: Started working on SSL support for mono.
+
+2007-10-05  Dieter Lunn <coder2000@gmail.com> 
+
 	* Made all the license comments the same.
 	* Moved TagRegistry to xmpp.registries and made it possible to add additional registries easily
 

@@ -40,6 +40,8 @@ namespace xmpp.registries
 			}
 		}
 		
+		private RegistryAllocator () {}
+		
 		public override T Instance {
 			get { return instance; }
 		}

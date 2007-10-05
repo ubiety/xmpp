@@ -45,6 +45,7 @@
     <ProjectReference type="Assembly" localcopy="True" refto="../../stringprep.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../log4net-1.2.10/bin/mono/2.0/release/log4net.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../Bdev.Net.Dns.dll" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
   </References>
   <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="./Makefile.am" SyncReferences="True" IsAutotoolsProject="True" RelativeConfigureInPath="../">
     <BuildFilesVar Sync="True" Name="FILES" />

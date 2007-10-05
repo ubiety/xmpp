@@ -29,16 +29,11 @@ namespace xmpp.registries
     /// </remarks>
 	public sealed class TagRegistry : Registry<TagRegistry, RegistryAllocator<TagRegistry>>
 	{
-		//private static readonly TagRegistry instance = new TagRegistry();
-
-		//private Hashtable _registeredTags;
-
         private static readonly ILog logger = LogManager.GetLogger(typeof(TagRegistry));
 
 		private TagRegistry()
 		{
             XmlConfigurator.Configure();
-			//_registeredTags = new Hashtable();
 		}
 
 		private void AddTag(string localName, string ns, Type t)
