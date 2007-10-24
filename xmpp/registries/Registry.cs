@@ -48,6 +48,20 @@ namespace xmpp.registries
 			get { return allocator.Instance; }
 		}
 		
+		protected object[] GetAttributes(Assembly ass, Type attribute) 
+		{
+			object[] attrs;
+			Type[] types = ass.GetTypes();
+			
+			foreach (Type type in types)
+			{
+				object[] temp = type.GetCustomAttributes(attribute, false);
+				attrs
+			}
+			
+			return attrs;
+		}
+		
 		public virtual void Dispose() 
 		{
 			allocator.Dispose();
