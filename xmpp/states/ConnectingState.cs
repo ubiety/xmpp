@@ -14,7 +14,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using xmpp.net;
 
 namespace xmpp.states
 {
@@ -23,17 +22,24 @@ namespace xmpp.states
 	/// </summary>
 	public class ConnectingState : State
 	{
+		private ProtocolState _state;
 		/// <summary>
 		/// 
 		/// </summary>
-		public ConnectingState()
+		public ConnectingState(ProtocolState state)
 		{
+			_state = state;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data">
+		/// A <see cref="System.Object"/>
+		/// </param>
 		public override void Execute (object data)
 		{
-			AsyncSocket socket = data as AsyncSocket;
-			socket.Connect();
+			_state.Socket.Connect();
 		}
 	}
 }

@@ -40,8 +40,11 @@
     <File name="./registries/Allocator.cs" subtype="Code" buildaction="Compile" />
     <File name="./states" subtype="Directory" buildaction="Compile" />
     <File name="./states/State.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states/ProtocolState.cs" subtype="Code" buildaction="Compile" />
     <File name="./states/ConnectingState.cs" subtype="Code" buildaction="Compile" />
+    <File name="./states/ConnectedState.cs" subtype="Code" buildaction="Compile" />
+    <File name="./states/ProtocolState.cs" subtype="Code" buildaction="Compile" />
+    <File name="./states/ServerFeaturesState.cs" subtype="Code" buildaction="Compile" />
+    <File name="./states/StartTLSState.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

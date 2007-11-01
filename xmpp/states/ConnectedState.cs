@@ -14,34 +14,32 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Xml;
 using xmpp.net;
+using xmpp.registries;
+using xmpp.core;
+using xmpp.common;
 
 namespace xmpp.states
 {
-	public class ProtocolState
+	public class ConnectedState : State
 	{
-		protected State _state;
-		private AsyncSocket _socket;
+		private ProtocolState _state;
 		
-		public ProtocolState(AsyncSocket socket)
+		public ConnectedState(ProtocolState state)
 		{
-			_socket = socket;
+			_state = state;
 		}
 		
-		public void Execute(object data)
+		public override void Execute (object data)
 		{
-			_state.Execute(data);
+			TagRegistry reg = TagRegistry.Instance;
+			
+			Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
+            stream.Version = "1.0";
+            stream.To = _state.Socket.Hostname;
+            stream.NS = "jabber:client";
+            _state.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
 		}
-		
-		public State State
-		{
-			get { return _state; }
-			set { _state = value; }
-		}
-		
-		public AsyncSocket Socket
-		{
-			get { return _socket; }
-		}
-	}	
+	}
 }

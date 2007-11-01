@@ -149,8 +149,7 @@ namespace xmpp
 			_socket.Message += new EventHandler<MessageEventArgs>(_socket_Message);
 
 			_reg.AddAssembly(Assembly.GetAssembly(typeof(XMPP)));
-			
-			_states = new ProtocolState();
+			_states = new ProtocolState(_socket);
 		}
 
         private void _parser_StreamEnd(object sender, EventArgs e)
@@ -162,44 +161,16 @@ namespace xmpp
 		private void _parser_Tag(object sender, TagEventArgs e)
 		{
 			logger.Debug("Got Tag...");
-			switch(_state)
-			{
-                case States.ServerFeatures:
-                    logger.Debug("Determining features...");
-    				Features f = e.Tag as Features;
-	    			if (f == null)
-		    		{
-			    		throw new Exception("Expecting stream:features from a 1.x server");
-				    }
-
-    				if (f.StartTLS != null && _ssl)
-	    			{
-                        logger.Debug("Starting TLS encryption..State: StartTLS");
-                        _state = States.StartTLS;
-                        StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", Namespaces.START_TLS), new XmlDocument());
-                        _socket.Write(tls);
-				    }
-
-					if (f.StartSASL != null)
-					{
-						Mechanism[] _all = f.StartSASL.GetMechanisms();
-						_sasl = SASLProcessor.CreateProcessor(MechanismType.PLAIN);
-					}
-                    break;
-                case States.StartTLS:
-                    if (e.Tag.Name == "proceed")
-                    {
-                        _socket.StartSecure();
-                        SendStartStream();
-                    }
-                    break;
-			}
+			logger.Debug("State: " + _states.State.GetType().Name);
+			
+			_states.Execute(e);
 		}
 
 		private void _parser_StreamStart(object sender, TagEventArgs e)
 		{
 			Stream stream = e.Tag as Stream;
 			if (stream != null)
+			{
 				if (stream.Version.StartsWith("1."))
 				{
 					if (_state == States.SASL)
@@ -208,10 +179,10 @@ namespace xmpp
 					}
 					else
 					{
-						logger.Debug("State: ServerFeatures");
-						_state = States.ServerFeatures;
+						_states.State = new ServerFeaturesState(_states);
 					}
 				}
+			}
 		}
 
     	private void _socket_Message(object sender, MessageEventArgs e)
@@ -225,27 +196,16 @@ namespace xmpp
         public void Connect()
         {
             logger.Debug("Connecting to " + _id.Server);
-			//_state = States.Connecting;
 			_socket.Hostname = _id.Server;
-			//_socket.Connect();
-			_states.State = new ConnectingState();
-			_states.Execute(_socket);
+			_states.State = new ConnectingState(_states);
+			_states.Execute(null);
         }
 
 		private void _socket_Connection(object sender, EventArgs e)
-		{
-			_state = States.Connected;
-            SendStartStream();
+		{	
+			_states.State = new ConnectedState(_states);
+			_states.Execute(null);
 		}
-
-        private void SendStartStream()
-        {
-            Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
-            stream.Version = "1.0";
-            stream.To = _id.Server;
-            stream.NS = "jabber:client";
-            _socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
-        }
 
         /// <summary>
         /// 

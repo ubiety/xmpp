@@ -14,34 +14,37 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using xmpp.net;
+using System.Xml;
+using xmpp;
+using xmpp.core;
+using xmpp.registries;
 
 namespace xmpp.states
 {
-	public class ProtocolState
+	public class ServerFeaturesState : State
 	{
-		protected State _state;
-		private AsyncSocket _socket;
+		protected ProtocolState _state;
+		private TagRegistry _reg = TagRegistry.Instance;
 		
-		public ProtocolState(AsyncSocket socket)
+		public ServerFeaturesState(ProtocolState state)
 		{
-			_socket = socket;
+			_state = state;
 		}
 		
-		public void Execute(object data)
+		public override void Execute (object data)
 		{
-			_state.Execute(data);
+			TagEventArgs e = data as TagEventArgs;
+			Features f = e.Tag as Features;
+			
+			if (f == null)
+				throw new Exception("Expecting stream:features from 1.x server");
+			
+			if (f.StartTLS != null)
+			{
+				_state.State = new StartTLSState();
+				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", xmpp.common.Namespaces.START_TLS), new XmlDocument());
+				_state.Socket.Write(tls);
+			}
 		}
-		
-		public State State
-		{
-			get { return _state; }
-			set { _state = value; }
-		}
-		
-		public AsyncSocket Socket
-		{
-			get { return _socket; }
-		}
-	}	
+	}
 }
