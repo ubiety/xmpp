@@ -14,51 +14,26 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Reflection;
+using xmpp.net;
 
-namespace xmpp.registries
-{	
+namespace xmpp.states
+{
 	/// <summary>
 	/// 
 	/// </summary>
-	public class RegistryAllocator<T> : Allocator<T> where T : class
+	public class ConnectingState : State
 	{
-	
-		private static readonly T instance;
-		
-		static RegistryAllocator()
-		{
-			ConstructorInfo constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], new ParameterModifier[0]);
-			if (constructor == null) {
-				throw new Exception("The singleton doesn't have a private/protected constructor");
-			}
-			
-			try
-			{
-				instance = constructor.Invoke(new object[0]) as T;
-			}
-			catch (Exception e)
-			{
-				throw new Exception("The class couldn't be constructed, make sure it has a default constructor.", e);
-			}
-		}
-		
-		private RegistryAllocator () {}
-		
-		/// <value>
-		/// 
-		/// </value>
-		public override T Instance {
-			get { return instance; }
-		}
-		
 		/// <summary>
 		/// 
 		/// </summary>
-		public override void Dispose ()
+		public ConnectingState()
 		{
-			
 		}
-
+		
+		public override void Execute (object data)
+		{
+			AsyncSocket socket = data as AsyncSocket;
+			socket.Connect();
+		}
 	}
 }

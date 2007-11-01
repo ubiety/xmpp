@@ -17,15 +17,26 @@ using System;
 
 namespace xmpp.registries
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public abstract class Allocator<T> : IDisposable where T : class
 	{
-		
+		/// <summary>
+		/// 
+		/// </summary>
 		protected Allocator()
 		{
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		public abstract T Instance { get; }
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		public abstract void Dispose();
 	}
 }

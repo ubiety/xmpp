@@ -59,9 +59,9 @@ namespace xmpp.registries
 		public void AddAssembly(Assembly ass)
 		{
             logger.Debug("Adding assembly " + ass.FullName);
-            Type[] types = ass.GetTypes();
+            //Type[] types = ass.GetTypes();
 
-            foreach (Type type in types)
+            /*foreach (Type type in types)
             {
                 XmppTagAttribute[] tags = (XmppTagAttribute[])type.GetCustomAttributes(typeof(XmppTagAttribute), false);
                 foreach (XmppTagAttribute tag in tags)
@@ -69,6 +69,13 @@ namespace xmpp.registries
                     logger.Debug("Adding: " + type.FullName);
                     AddTag(tag.Prefix, tag.NS, tag.ClassType);
                 }
+            }*/
+            
+            XmppTagAttribute[] tags = GetAttributes<XmppTagAttribute>(ass);
+            foreach (XmppTagAttribute tag in tags)
+            {
+            	logger.Debug("Adding: " + tag.Prefix);
+            	AddTag(tag.Prefix, tag.NS, tag.ClassType);
             }
 		}
 

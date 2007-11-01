@@ -14,51 +14,45 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Reflection;
 
-namespace xmpp.registries
-{	
+namespace xmpp.states
+{
 	/// <summary>
 	/// 
 	/// </summary>
-	public class RegistryAllocator<T> : Allocator<T> where T : class
+	public class ProtocolState
 	{
-	
-		private static readonly T instance;
-		
-		static RegistryAllocator()
-		{
-			ConstructorInfo constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], new ParameterModifier[0]);
-			if (constructor == null) {
-				throw new Exception("The singleton doesn't have a private/protected constructor");
-			}
-			
-			try
-			{
-				instance = constructor.Invoke(new object[0]) as T;
-			}
-			catch (Exception e)
-			{
-				throw new Exception("The class couldn't be constructed, make sure it has a default constructor.", e);
-			}
-		}
-		
-		private RegistryAllocator () {}
-		
-		/// <value>
+		/// <summary>
 		/// 
-		/// </value>
-		public override T Instance {
-			get { return instance; }
+		/// </summary>
+		protected State _state;
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public ProtocolState()
+		{
+			
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public override void Dispose ()
+		/// <param name="data">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public void Execute(object data)
 		{
-			
+			_state.Execute(data);
 		}
-
+		
+		/// <value>
+		/// 
+		/// </value>
+		public State State
+		{
+			get { return _state; }
+			set { _state = value; }
+		}
 	}
 }

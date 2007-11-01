@@ -15,14 +15,21 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace xmpp.registries
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class Registry<T, Allocator> : IDisposable where T : class where Allocator : Allocator<T>
 	{
 		private static readonly Allocator<T> allocator;
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		protected Hashtable _registeredItems = new Hashtable();
 		
 		static Registry()
@@ -43,25 +50,44 @@ namespace xmpp.registries
 			}
 		}
 		
+		/// <value>
+		/// 
+		/// </value>
 		public static T Instance
 		{
 			get { return allocator.Instance; }
 		}
 		
-		protected object[] GetAttributes(Assembly ass, Type attribute) 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ass">
+		/// A <see cref="Assembly"/>
+		/// </param>
+		/// <param name="attribute">
+		/// A <see cref="Type"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Object"/>
+		/// </returns>
+		protected E[] GetAttributes<E> (Assembly ass)
 		{
-			object[] attrs;
+			List<E> attrs = new List<E>();
 			Type[] types = ass.GetTypes();
 			
 			foreach (Type type in types)
 			{
-				object[] temp = type.GetCustomAttributes(attribute, false);
-				attrs
+				E[] temp = (E[])type.GetCustomAttributes(typeof(E), false);
+				if (temp.Length > 0)
+					attrs.Add(temp[0]);
 			}
 			
-			return attrs;
+			return attrs.ToArray();
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
 		public virtual void Dispose() 
 		{
 			allocator.Dispose();

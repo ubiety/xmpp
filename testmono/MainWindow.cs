@@ -18,9 +18,12 @@ using xmpp.common;
 
 public partial class MainWindow: Gtk.Window
 {	
+	private XMPP xmpp;
+	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
+		xmpp = new XMPP();
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -31,7 +34,6 @@ public partial class MainWindow: Gtk.Window
 
 	protected virtual void OnConnect (object sender, System.EventArgs e)
 	{
-		XMPP xmpp = new XMPP();
 		xmpp.ID = new XID(xid.Text);
 		xmpp.SSL = cbSSL.Active;
 		xmpp.Connect();

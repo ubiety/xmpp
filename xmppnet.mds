@@ -13,6 +13,7 @@
     <Execute type="None" entry="xmpp" />
     <Execute type="None" entry="testmono" />
   </StartMode>
+  <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
   <DeployTargets />
   <Entries>
     <Entry filename="./xmpp/xmpp.mdp" />

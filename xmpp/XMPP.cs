@@ -22,6 +22,7 @@ using xmpp.core;
 using xmpp.net;
 using xmpp.common.SASL;
 using xmpp.registries;
+using xmpp.states;
 
 namespace xmpp
 {
@@ -125,7 +126,9 @@ namespace xmpp
         private String _password;
     	private XID _id;
     	private int _port;
-        private Boolean _ssl;
+		private Boolean _ssl;
+		
+		private ProtocolState _states;
 
     	private SASLProcessor _sasl;
 
@@ -146,6 +149,8 @@ namespace xmpp
 			_socket.Message += new EventHandler<MessageEventArgs>(_socket_Message);
 
 			_reg.AddAssembly(Assembly.GetAssembly(typeof(XMPP)));
+			
+			_states = new ProtocolState();
 		}
 
         private void _parser_StreamEnd(object sender, EventArgs e)
@@ -220,8 +225,11 @@ namespace xmpp
         public void Connect()
         {
             logger.Debug("Connecting to " + _id.Server);
-            _state = States.Connecting;
-            _socket.Connect(_id.Server, _ssl);
+			//_state = States.Connecting;
+			_socket.Hostname = _id.Server;
+			//_socket.Connect();
+			_states.State = new ConnectingState();
+			_states.Execute(_socket);
         }
 
 		private void _socket_Connection(object sender, EventArgs e)

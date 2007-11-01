@@ -39,7 +39,8 @@ namespace xmpp.net
 		private UTF8Encoding _utf = new UTF8Encoding();
 		private Address _dest;
 		private byte[] _buff = new byte[4096];
-        private Stream _stream;
+		private Stream _stream;
+		private string _hostname;
 
     	private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
 
@@ -64,19 +65,17 @@ namespace xmpp.net
         /// <summary>
         /// Establishes a connection to the specified remote host.
         /// </summary>
-        /// <param name="hostname">Hostname to connect to</param>
-        /// <param name="ssl">Is this connection to be encrypted?</param>
-		public void Connect(string hostname, bool ssl)
+		public void Connect()
 		{
 			try
 			{
 				_dest = new Address(5222);
-				_dest.IP = IPAddress.Parse(hostname);
-                _dest.Hostname = hostname;
+				_dest.IP = IPAddress.Parse(_hostname);
+                _dest.Hostname = _hostname;
 			}
 			catch (FormatException)
 			{
-				_dest = Address.Resolve(hostname, 5222);
+				_dest = Address.Resolve(_hostname, 5222);
 			}
 			logger.Info("Connecting to: " + _dest.IP.ToString());
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -121,6 +120,9 @@ namespace xmpp.net
 
 
 #if __MonoCS__
+		/// <summary>
+		/// 
+		/// </summary>
 		public void StartSecure() 
 		{
 			logger.Debug("Starting Secure Mode");
@@ -210,6 +212,13 @@ namespace xmpp.net
 		{
 			get { return _socket.Connected; }
 		}
+		
+		public string Hostname
+		{
+			get { return _hostname; }
+			set { _hostname = value; }
+		}
+
 	}
 
 	/// <remarks>
