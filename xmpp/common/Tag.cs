@@ -74,5 +74,25 @@ namespace xmpp.common
 		{
 			return OuterXml;
 		}
+		
+		public static bool operator ==(Tag one, string two)
+		{
+			return one.LocalName == two;
+		}
+		
+		public static bool operator !=(Tag one, string two)
+		{
+			return one.LocalName != two;
+		}
+		
+		public override bool Equals (object o)
+		{
+			return (this == (Tag)o);
+		}
+		
+		public override int GetHashCode ()
+		{
+			return base.GetHashCode ();
+		}
 	}
 }

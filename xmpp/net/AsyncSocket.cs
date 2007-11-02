@@ -41,6 +41,8 @@ namespace xmpp.net
 		private byte[] _buff = new byte[4096];
 		private Stream _stream;
 		private string _hostname;
+		private bool _ssl;
+		private bool _secure;
 
     	private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
 
@@ -94,7 +96,7 @@ namespace xmpp.net
         /// </summary>
         public void StartSecure()
         {
-			logger.Debug("Starting Secure Mode");
+			logger.Debug("Starting .NET Secure Mode");
             _stream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			logger.Debug("Authenticating as Client");
 			try
@@ -125,13 +127,17 @@ namespace xmpp.net
 		/// </summary>
 		public void StartSecure() 
 		{
-			logger.Debug("Starting Secure Mode");
+			logger.Debug("Starting Mono Secure Mode");
 			try
 			{
+				logger.Debug("Creating Cert Collection");
 				X509CertificateCollection certs = new X509CertificateCollection();
-				certs.Add(X509Certificate.CreateFromCertFile("GeoTrust_Universal_CA.cer"));
+				//certs.Add(X509Certificate.CreateFromCertFile("GeoTrust_Universal_CA.cer"));
+				logger.Debug("Creating SslClientStream");
 	            SslClientStream s = new SslClientStream(_stream, _dest.Hostname, true, Mono.Security.Protocol.Tls.SecurityProtocolType.Ssl3 | Mono.Security.Protocol.Tls.SecurityProtocolType.Tls, certs);
+				logger.Debug("Adding Validation Callback");
 	            s.ServerCertValidationDelegate = new CertificateValidationCallback(RemoteValidation);
+				logger.Debug("Changing variable to secure stream");
 	            _stream = s;
             }
             catch (Exception e)
@@ -142,7 +148,8 @@ namespace xmpp.net
 		}
 
 		private static bool RemoteValidation(X509Certificate certificate, int[] certificateErrors)
-		{
+		 {
+			logger.Debug("Returning true from validation callback");
 			return true;
 		}
 #endif
@@ -218,7 +225,18 @@ namespace xmpp.net
 			get { return _hostname; }
 			set { _hostname = value; }
 		}
-
+		
+		public bool SSL
+		{
+			get { return _ssl; }
+			set { _ssl = value; }
+		}
+		
+		public bool Secure
+		{
+			get { return _secure; }
+			set { _secure = value; }
+		}
 	}
 
 	/// <remarks>

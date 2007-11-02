@@ -130,8 +130,6 @@ namespace xmpp
 		
 		private ProtocolState _states;
 
-    	private SASLProcessor _sasl;
-
         private static readonly ILog logger = LogManager.GetLogger(typeof(XMPP));
 
 		/// <summary>
@@ -197,6 +195,7 @@ namespace xmpp
         {
             logger.Debug("Connecting to " + _id.Server);
 			_socket.Hostname = _id.Server;
+			_socket.SSL = _ssl;
 			_states.State = new ConnectingState(_states);
 			_states.Execute(null);
         }

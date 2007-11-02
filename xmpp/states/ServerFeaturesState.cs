@@ -39,9 +39,9 @@ namespace xmpp.states
 			if (f == null)
 				throw new Exception("Expecting stream:features from 1.x server");
 			
-			if (f.StartTLS != null)
+			if (f.StartTLS != null && _state.Socket.SSL)
 			{
-				_state.State = new StartTLSState();
+				_state.State = new StartTLSState(_state);
 				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", xmpp.common.Namespaces.START_TLS), new XmlDocument());
 				_state.Socket.Write(tls);
 			}

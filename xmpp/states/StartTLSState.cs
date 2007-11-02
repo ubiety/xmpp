@@ -14,13 +14,28 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using xmpp;
 
 namespace xmpp.states
 {
 	public class StartTLSState : State
-	{		
-		public StartTLSState()
+	{
+		private ProtocolState _state;
+		
+		public StartTLSState(ProtocolState state)
 		{
+			_state = state;
 		}
+		
+		public override void Execute (object data)
+		{
+			TagEventArgs e = data as TagEventArgs;
+			
+			if (e.Tag == "proceed")
+			{
+				_state.Socket.StartSecure();
+			}
+		}
+
 	}
 }
