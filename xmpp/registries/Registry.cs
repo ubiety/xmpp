@@ -77,9 +77,9 @@ namespace xmpp.registries
 			
 			foreach (Type type in types)
 			{
-				E[] temp = (E[])type.GetCustomAttributes(typeof(E), false);
+				object[] temp = type.GetCustomAttributes(typeof(E), false);
 				if (temp.Length > 0)
-					attrs.Add(temp[0]);
+					attrs.Add((E)temp[0]);
 			}
 			
 			return attrs.ToArray();
