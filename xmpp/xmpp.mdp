@@ -45,12 +45,24 @@
     <File name="./states/ProtocolState.cs" subtype="Code" buildaction="Compile" />
     <File name="./states/ServerFeaturesState.cs" subtype="Code" buildaction="Compile" />
     <File name="./states/StartTLSState.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn" subtype="Directory" buildaction="Compile" />
+    <File name="./idn/CombiningClass.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/Composition.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/DecompositionKeys.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/DecompositionMappings.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/IDNA.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/IDNAException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/NFKC.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/Punycode.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/PunycodeException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/RFC3454.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/Stringprep.cs" subtype="Code" buildaction="Compile" />
+    <File name="./idn/StringprepException.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../lib/stringprep.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../lib/log4net.dll" />
   </References>
   <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="./Makefile.am" SyncReferences="True" IsAutotoolsProject="True" RelativeConfigureInPath="../">

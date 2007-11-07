@@ -14,7 +14,7 @@
 using System;
 using System.Text;
 
-using stringprep;
+using Gnu.Inet.Encoding;
 
 namespace xmpp.common
 {
@@ -23,10 +23,6 @@ namespace xmpp.common
 	/// </summary>
 	public class XID : IComparable
 	{
-		private static readonly Profile _nodeprep = new XmppNode();
-		private static readonly Profile _nameprep = new Nameprep();
-		private static readonly Profile _resprep = new XmppResource();
-
 		private string _xid = null;
 		private string _user = null;
 		private string _resource = null;
@@ -72,7 +68,7 @@ namespace xmpp.common
 		public string User
 		{
 			get { return _user; }
-			set { _user = (value == null) ? null : _nodeprep.Prepare(value); }
+			set { _user = (value == null) ? null : Stringprep.NodePrep(value); }
 		}
 
 		/// <summary>
@@ -81,7 +77,7 @@ namespace xmpp.common
 		public string Server
 		{
 			get { return _server; }
-			set { _server = (value == null) ? null : _nameprep.Prepare(value); }
+			set { _server = (value == null) ? null : Stringprep.NamePrep(value); }
 		}
 
 		/// <summary>
@@ -90,7 +86,7 @@ namespace xmpp.common
 		public string Resource
 		{
 			get { return _resource; }
-			set { _resource = (value == null) ? null : _resprep.Prepare(value); }
+			set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
 		}
 
         /// <summary>
