@@ -16,8 +16,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-using log4net;
-using log4net.Config;
+using xmpp.logging;
 using xmpp.common;
 using xmpp.registries;
 
@@ -78,14 +77,11 @@ namespace xmpp
         private XmlReader _reader;
     	private XmlReaderSettings _settings;
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof(ProtocolParser));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtocolParser"/> class.
         /// </summary>
 		public ProtocolParser()
 		{
-            XmlConfigurator.Configure();
 			NameTable nt = new NameTable();
 			_settings = new XmlReaderSettings();
         	_settings.NameTable = nt;
@@ -100,18 +96,20 @@ namespace xmpp
         /// </summary>
 		public void Parse(String message)
 		{
-            logger.Info("Starting message parsing...");
+            Logger.Info(this, "Starting message parsing...");
 
 
             // We have to cheat because XmlTextReader doesn't like malformed XML
             if (message.Contains("</stream:stream>"))
             {
+				Logger.Info(this, "End of stream received from server");
                 OnDocumentEnd();
                 return;
             }
 
             if (message.Contains("<stream:stream"))
             {
+            	Logger.Info(this, "Adding closing tag so xml parser doesn't complain");
                 message += "</stream:stream>";
             }
             
@@ -141,10 +139,11 @@ namespace xmpp
             }
             catch (XmlException e)
             {
-                logger.Error("Message Parsing Error: ", e);
+                Logger.ErrorFormat(this, "Message Parsing Error: {0}", e);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
+            	Logger.ErrorFormat(this, "Invalid Operation: {0}", e);
             }
 		}
 
@@ -206,7 +205,7 @@ namespace xmpp
                 }
             }
 
-            logger.Debug("Start: " + elem.Name);
+            Logger.DebugFormat(this, "Start: {0}", elem.Name);
 
             if (_root == null)
             {
@@ -227,7 +226,7 @@ namespace xmpp
 		{
             if (_reader.Name == "stream:stream")
             {
-                return;
+                throw new InvalidDataException();
             }
 
 			if (_elem.Name != _reader.Name)
@@ -235,7 +234,7 @@ namespace xmpp
 				throw new XmlException();
 			}
 
-            logger.Debug("End: " + _elem);
+            Logger.DebugFormat(this, "End: {0}", _elem);
             
             XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)

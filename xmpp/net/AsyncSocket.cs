@@ -24,8 +24,9 @@ using Mono.Security.Protocol.Tls;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using log4net;
-using log4net.Config;
+using xmpp.logging;
+
+using System.Diagnostics;
 
 namespace xmpp.net
 {
@@ -44,8 +45,6 @@ namespace xmpp.net
 		private bool _ssl;
 		private bool _secure;
 
-    	private static readonly ILog logger = LogManager.GetLogger(typeof(AsyncSocket));
-
         /// <summary>
         /// Occurs when a connection is established with a server.
         /// </summary>
@@ -61,7 +60,6 @@ namespace xmpp.net
         /// </summary>
 		public AsyncSocket()
 		{
-			XmlConfigurator.Configure();
 		}
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace xmpp.net
 			{
 				_dest = Address.Resolve(_hostname, 5222);
 			}
-			logger.Info("Connecting to: " + _dest.IP.ToString());
+			Logger.InfoFormat(this, "Connecting to: {0}", _dest.IP.ToString());
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_socket.Connect(_dest.EndPoint);
 			if (_socket.Connected)
@@ -96,15 +94,15 @@ namespace xmpp.net
         /// </summary>
         public void StartSecure()
         {
-			logger.Debug("Starting .NET Secure Mode");
+			Logger.Debug(this, "Starting .NET Secure Mode");
             _stream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
-			logger.Debug("Authenticating as Client");
+			Logger.Debug(this, "Authenticating as Client");
 			try
 			{
 				((SslStream)_stream).AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls | SslProtocols.Ssl2, false);
 			} catch (Exception e)
 			{
-				logger.Error("SSL Error: ", e);
+				Logger.ErrorFormat(this, "SSL Error: {0}", e);
 			}
         }
 
@@ -115,7 +113,7 @@ namespace xmpp.net
                 return true;
             }
 
-			logger.Debug("Policy Errors: " + errors);
+			Logger.DebugFormat(this, "Policy Errors: {0}", errors);
             return false;
         }
 #endif
@@ -127,29 +125,29 @@ namespace xmpp.net
 		/// </summary>
 		public void StartSecure() 
 		{
-			logger.Debug("Starting Mono Secure Mode");
+			Logger.Debug(this, "Starting Mono Secure Mode");
 			try
 			{
-				logger.Debug("Creating Cert Collection");
+				Logger.Debug(this, "Creating Cert Collection");
 				X509CertificateCollection certs = new X509CertificateCollection();
 				//certs.Add(X509Certificate.CreateFromCertFile("GeoTrust_Universal_CA.cer"));
-				logger.Debug("Creating SslClientStream");
+				Logger.Debug(this, "Creating SslClientStream");
 	            SslClientStream s = new SslClientStream(_stream, _dest.Hostname, true, Mono.Security.Protocol.Tls.SecurityProtocolType.Ssl3 | Mono.Security.Protocol.Tls.SecurityProtocolType.Tls, certs);
-				logger.Debug("Adding Validation Callback");
+				Logger.Debug(this, "Adding Validation Callback");
 	            s.ServerCertValidationDelegate = new CertificateValidationCallback(RemoteValidation);
-				logger.Debug("Changing variable to secure stream");
+				Logger.Debug(this, "Changing variable to secure stream");
 	            _stream = s;
             }
             catch (Exception e)
             {
-            	logger.Error("Error starting secure socket", e);
+            	Logger.ErrorFormat(this, "Error starting secure socket - {0}", e);
             	throw;
             }
 		}
 
 		private static bool RemoteValidation(X509Certificate certificate, int[] certificateErrors)
-		 {
-			logger.Debug("Returning true from validation callback");
+		{
+			Logger.Debug(typeof(AsyncSocket), "Returning true from validation callback");
 			return true;
 		}
 #endif
@@ -158,7 +156,7 @@ namespace xmpp.net
         /// </summary>
         public void Close()
         {
-            logger.Debug("Closing socket (Graceful Shutdown)");
+            Logger.Debug(this, "Closing socket (Graceful Shutdown)");
             _socket.Close();
         }
 
@@ -168,7 +166,7 @@ namespace xmpp.net
         /// <param name="msg">Message to send</param>
 		public void Write(string msg)
 		{
-			logger.Debug(string.Format("Outgoing Message: {0}", msg));
+			Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
             byte[] mesg = _utf.GetBytes(msg);
 			//_socket.Send(mesg, 0, mesg.Length, SocketFlags.None);
 			_stream.Write(mesg, 0, mesg.Length);
@@ -198,17 +196,17 @@ namespace xmpp.net
 				char[] chars = new char[rx];
 				_decoder.GetChars(_buff, 0, rx, chars, 0);
 				string msg = new string(chars);
-				logger.Debug(string.Format("Incoming Message: {0}", msg));
+				Logger.DebugFormat(this, "Incoming Message: {0}", msg);
 				_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 				OnMessage(msg);
 			}
 			catch (SocketException e)
 			{
-				logger.Debug("Socket Exception", e);
+				Logger.DebugFormat(this, "Socket Exception: {0}", e);
 			}
 			catch (InvalidOperationException e)
 			{
-				logger.Debug("Invalid Operation", e);
+				Logger.DebugFormat(this, "Invalid Operation: {0}", e);
 			}
 		}
 

@@ -14,7 +14,11 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Xml;
 using xmpp;
+using xmpp.core;
+using xmpp.registries;
+using xmpp.common;
 
 namespace xmpp.states
 {
@@ -30,10 +34,16 @@ namespace xmpp.states
 		public override void Execute (object data)
 		{
 			TagEventArgs e = data as TagEventArgs;
+			TagRegistry reg = TagRegistry.Instance;
 			
 			if (e.Tag == "proceed")
 			{
 				_state.Socket.StartSecure();
+				Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
+				stream.Version = "1.0";
+				stream.To = _state.Socket.Hostname;
+				stream.NS = "jabber:client";
+				_state.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
 			}
 		}
 

@@ -15,14 +15,13 @@
 using System;
 using System.Reflection;
 using System.Xml;
-using log4net;
-using log4net.Config;
 using xmpp.common;
 using xmpp.core;
 using xmpp.net;
 using xmpp.common.SASL;
 using xmpp.registries;
 using xmpp.states;
+using xmpp.logging;
 
 namespace xmpp
 {
@@ -130,14 +129,11 @@ namespace xmpp
 		
 		private ProtocolState _states;
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof(XMPP));
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
 		/// </summary>
 		public XMPP()
 		{
-            XmlConfigurator.Configure();
 			_parser = new ProtocolParser();
 			_parser.StreamStart += new EventHandler<TagEventArgs>(_parser_StreamStart);
             _parser.StreamEnd += new EventHandler(_parser_StreamEnd);
@@ -152,14 +148,14 @@ namespace xmpp
 
         private void _parser_StreamEnd(object sender, EventArgs e)
         {
-            logger.Debug("Socket closing");
+            Logger.Debug(this, "Socket closing");
             _socket.Close();
         }
 
 		private void _parser_Tag(object sender, TagEventArgs e)
 		{
-			logger.Debug("Got Tag...");
-			logger.Debug("State: " + _states.State.GetType().Name);
+			Logger.Debug(this, "Got Tag...");
+			Logger.DebugFormat(this, "State: {0}", _states.State.GetType().Name);
 			
 			_states.Execute(e);
 		}
@@ -193,7 +189,7 @@ namespace xmpp
         /// </summary>
         public void Connect()
         {
-            logger.Debug("Connecting to " + _id.Server);
+            Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
 			_socket.Hostname = _id.Server;
 			_socket.SSL = _ssl;
 			_states.State = new ConnectingState(_states);

@@ -16,11 +16,8 @@ using System;
 using System.Collections;
 using System.Xml;
 using System.Reflection;
-
 using xmpp.common;
-
-using log4net;
-using log4net.Config;
+using xmpp.logging;
 
 namespace xmpp.registries
 {
@@ -29,11 +26,8 @@ namespace xmpp.registries
     /// </remarks>
 	public sealed class TagRegistry : Registry<TagRegistry, RegistryAllocator<TagRegistry>>
 	{
-        private static readonly ILog logger = LogManager.GetLogger(typeof(TagRegistry));
-
 		private TagRegistry()
 		{
-            XmlConfigurator.Configure();
 		}
 
 		private void AddTag(string localName, string ns, Type t)
@@ -58,23 +52,12 @@ namespace xmpp.registries
 		/// <param name="ass">The assembly to search for tags</param>
 		public void AddAssembly(Assembly ass)
 		{
-            logger.Debug("Adding assembly " + ass.FullName);
-            //Type[] types = ass.GetTypes();
-
-            /*foreach (Type type in types)
-            {
-                XmppTagAttribute[] tags = (XmppTagAttribute[])type.GetCustomAttributes(typeof(XmppTagAttribute), false);
-                foreach (XmppTagAttribute tag in tags)
-                {
-                    logger.Debug("Adding: " + type.FullName);
-                    AddTag(tag.Prefix, tag.NS, tag.ClassType);
-                }
-            }*/
+            Logger.DebugFormat(this, "Adding assembly {0}", ass.FullName);
             
             XmppTagAttribute[] tags = GetAttributes<XmppTagAttribute>(ass);
             foreach (XmppTagAttribute tag in tags)
             {
-            	logger.Debug("Adding: " + tag.Prefix);
+            	Logger.DebugFormat(this, "Adding: {0}", tag.Prefix);
             	AddTag(tag.Prefix, tag.NS, tag.ClassType);
             }
 		}
@@ -87,7 +70,8 @@ namespace xmpp.registries
         /// <param name="doc">XmlDocument to create tag with</param>
         /// <returns>A new instance of the requested tag</returns>
 		public xmpp.common.Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
-        {
+		{
+			Logger.DebugFormat(this, "Finding tag: {0}", qname);
         	ConstructorInfo ci = (ConstructorInfo)_registeredItems[qname];
         	if (ci != null) return (xmpp.common.Tag)ci.Invoke(new object[] { prefix, qname, doc });
         	return null;
