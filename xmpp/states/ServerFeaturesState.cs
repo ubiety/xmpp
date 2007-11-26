@@ -21,16 +21,30 @@ using xmpp.registries;
 
 namespace xmpp.states
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ServerFeaturesState : State
 	{
-		protected ProtocolState _state;
 		private TagRegistry _reg = TagRegistry.Instance;
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="state">
+		/// A <see cref="ProtocolState"/>
+		/// </param>
 		public ServerFeaturesState(ProtocolState state)
 		{
-			_state = state;
+			current = state;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data">
+		/// A <see cref="System.Object"/>
+		/// </param>
 		public override void Execute (object data)
 		{
 			TagEventArgs e = data as TagEventArgs;
@@ -39,11 +53,11 @@ namespace xmpp.states
 			if (f == null)
 				throw new Exception("Expecting stream:features from 1.x server");
 			
-			if (f.StartTLS != null && _state.Socket.SSL)
+			if (f.StartTLS != null && current.Socket.SSL)
 			{
-				_state.State = new StartTLSState(_state);
+				current.State = new StartTLSState(current);
 				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", xmpp.common.Namespaces.START_TLS), new XmlDocument());
-				_state.Socket.Write(tls);
+				current.Socket.Write(tls);
 			}
 		}
 	}

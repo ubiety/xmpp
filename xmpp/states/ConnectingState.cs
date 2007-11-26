@@ -22,13 +22,12 @@ namespace xmpp.states
 	/// </summary>
 	public class ConnectingState : State
 	{
-		private ProtocolState _state;
 		/// <summary>
 		/// 
 		/// </summary>
 		public ConnectingState(ProtocolState state)
 		{
-			_state = state;
+			current = state;
 		}
 		
 		/// <summary>
@@ -39,7 +38,7 @@ namespace xmpp.states
 		/// </param>
 		public override void Execute (object data)
 		{
-			_state.Socket.Connect();
+			current.Socket.Connect();
 		}
 	}
 }

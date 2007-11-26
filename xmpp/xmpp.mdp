@@ -1,64 +1,65 @@
 <Project name="xmpp" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Debug" assemblyKeyFile="./xmpp.pfx" assembly="xmpp" />
+      <Output directory="bin/Debug" assemblyKeyFile="xmpp.pfx" assembly="xmpp" />
       <Build debugmode="True" target="Library" />
-      <Execution runwithwarnings="True" commandlineparameters="/d:TRACE" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="True" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="./bin/Release" assemblyKeyFile="./xmpp.pfx" assembly="xmpp" />
+      <Output directory="bin/Release" assemblyKeyFile="xmpp.pfx" assembly="xmpp" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="True" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="./ProtocolParser.cs" subtype="Code" buildaction="Compile" />
-    <File name="./XMPP.cs" subtype="Code" buildaction="Compile" />
-    <File name="./XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
-    <File name="./common/Namespaces.cs" subtype="Code" buildaction="Compile" />
-    <File name="./common/Tag.cs" subtype="Code" buildaction="Compile" />
-    <File name="./common/XID.cs" subtype="Code" buildaction="Compile" />
-    <File name="./common/SASL/PlainProcessor.cs" subtype="Code" buildaction="Compile" />
-    <File name="./common/SASL/SASLProcessor.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/Features.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/Mechanisms.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/Proceed.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/StartTLS.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/Stream.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/iq/Auth.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/iq/Register.cs" subtype="Code" buildaction="Compile" />
-    <File name="./core/SASL/Auth.cs" subtype="Code" buildaction="Compile" />
-    <File name="./net/Address.cs" subtype="Code" buildaction="Compile" />
-    <File name="./net/AsyncSocket.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Properties/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="./registries" subtype="Directory" buildaction="Compile" />
-    <File name="./registries/Registry.cs" subtype="Code" buildaction="Compile" />
-    <File name="./registries/TagRegistry.cs" subtype="Code" buildaction="Compile" />
-    <File name="./registries/RegistryAllocator.cs" subtype="Code" buildaction="Compile" />
-    <File name="./registries/Allocator.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states" subtype="Directory" buildaction="Compile" />
-    <File name="./states/State.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states/ConnectingState.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states/ConnectedState.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states/ProtocolState.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states/ServerFeaturesState.cs" subtype="Code" buildaction="Compile" />
-    <File name="./states/StartTLSState.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn" subtype="Directory" buildaction="Compile" />
-    <File name="./idn/CombiningClass.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/Composition.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/DecompositionKeys.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/DecompositionMappings.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/IDNA.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/IDNAException.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/NFKC.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/Punycode.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/PunycodeException.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/RFC3454.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/Stringprep.cs" subtype="Code" buildaction="Compile" />
-    <File name="./idn/StringprepException.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Logger.cs" subtype="Code" buildaction="Compile" />
+    <File name="ProtocolParser.cs" subtype="Code" buildaction="Compile" />
+    <File name="XMPP.cs" subtype="Code" buildaction="Compile" />
+    <File name="XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
+    <File name="common/Namespaces.cs" subtype="Code" buildaction="Compile" />
+    <File name="common/Tag.cs" subtype="Code" buildaction="Compile" />
+    <File name="common/XID.cs" subtype="Code" buildaction="Compile" />
+    <File name="common/SASL/PlainProcessor.cs" subtype="Code" buildaction="Compile" />
+    <File name="common/SASL/SASLProcessor.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/Features.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/Mechanisms.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/Proceed.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/StartTLS.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/Stream.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/iq/Auth.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/iq/Register.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/SASL/Auth.cs" subtype="Code" buildaction="Compile" />
+    <File name="net/Address.cs" subtype="Code" buildaction="Compile" />
+    <File name="net/AsyncSocket.cs" subtype="Code" buildaction="Compile" />
+    <File name="Properties/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="registries" subtype="Directory" buildaction="Compile" />
+    <File name="registries/Registry.cs" subtype="Code" buildaction="Compile" />
+    <File name="registries/TagRegistry.cs" subtype="Code" buildaction="Compile" />
+    <File name="registries/RegistryAllocator.cs" subtype="Code" buildaction="Compile" />
+    <File name="registries/Allocator.cs" subtype="Code" buildaction="Compile" />
+    <File name="states" subtype="Directory" buildaction="Compile" />
+    <File name="states/State.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/ConnectingState.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/ConnectedState.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/ProtocolState.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/ServerFeaturesState.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/StartTLSState.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn" subtype="Directory" buildaction="Compile" />
+    <File name="idn/CombiningClass.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/Composition.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/DecompositionKeys.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/DecompositionMappings.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/IDNA.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/IDNAException.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/NFKC.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/Punycode.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/PunycodeException.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/RFC3454.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/Stringprep.cs" subtype="Code" buildaction="Compile" />
+    <File name="idn/StringprepException.cs" subtype="Code" buildaction="Compile" />
+    <File name="Logger.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/SASLState.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

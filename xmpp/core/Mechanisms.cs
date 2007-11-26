@@ -17,7 +17,7 @@ using xmpp.common;
 namespace xmpp.core
 {
     ///<summary>
-    ///</summary>
+	///</summary>
     public enum MechanismType
     {
         ///<summary>

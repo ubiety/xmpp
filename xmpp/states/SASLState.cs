@@ -14,18 +14,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Xml;
-using xmpp;
-using xmpp.core;
-using xmpp.registries;
-using xmpp.common;
 
 namespace xmpp.states
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	public class StartTLSState : State
+	public class SASLState : State
 	{
 		/// <summary>
 		/// 
@@ -33,32 +28,9 @@ namespace xmpp.states
 		/// <param name="state">
 		/// A <see cref="ProtocolState"/>
 		/// </param>
-		public StartTLSState(ProtocolState state)
+		public SASLState(ProtocolState state)
 		{
 			current = state;
 		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		public override void Execute (object data)
-		{
-			TagEventArgs e = data as TagEventArgs;
-			TagRegistry reg = TagRegistry.Instance;
-			
-			if (e.Tag == "proceed")
-			{
-				current.Socket.StartSecure();
-				Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
-				stream.Version = "1.0";
-				stream.To = current.Socket.Hostname;
-				stream.NS = "jabber:client";
-				current.Socket.Write(stream.StartTag());
-			}
-		}
-
 	}
 }

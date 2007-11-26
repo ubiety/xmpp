@@ -26,10 +26,6 @@ namespace xmpp.registries
     /// </remarks>
 	public sealed class TagRegistry : Registry<TagRegistry, RegistryAllocator<TagRegistry>>
 	{
-		private TagRegistry()
-		{
-		}
-
 		private void AddTag(string localName, string ns, Type t)
 		{
 			AddTag(new XmlQualifiedName(localName, ns), t);

@@ -75,21 +75,60 @@ namespace xmpp.common
 			return OuterXml;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one">
+		/// A <see cref="Tag"/>
+		/// </param>
+		/// <param name="two">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Boolean"/>
+		/// </returns>
 		public static bool operator ==(Tag one, string two)
 		{
 			return one.LocalName == two;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one">
+		/// A <see cref="Tag"/>
+		/// </param>
+		/// <param name="two">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Boolean"/>
+		/// </returns>
 		public static bool operator !=(Tag one, string two)
 		{
 			return one.LocalName != two;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="o">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Boolean"/>
+		/// </returns>
 		public override bool Equals (object o)
 		{
 			return (this == (Tag)o);
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.Int32"/>
+		/// </returns>
 		public override int GetHashCode ()
 		{
 			return base.GetHashCode ();

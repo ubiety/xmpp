@@ -25,9 +25,6 @@ namespace xmpp.states
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
 		protected ProtocolState current;
 		
 		/// <summary>

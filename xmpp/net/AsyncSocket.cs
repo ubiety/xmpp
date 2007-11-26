@@ -45,6 +45,10 @@ namespace xmpp.net
 		private bool _ssl;
 		private bool _secure;
 
+#if __MonoCS__
+		private X509Certificate _local;
+#endif
+
         /// <summary>
         /// Occurs when a connection is established with a server.
         /// </summary>
@@ -82,7 +86,7 @@ namespace xmpp.net
 			_socket.Connect(_dest.EndPoint);
 			if (_socket.Connected)
             {
-                _stream = new NetworkStream(_socket);
+                _stream = new NetworkStream(_socket, true);
 			}
             _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 			OnConnect();
@@ -130,13 +134,14 @@ namespace xmpp.net
 			{
 				Logger.Debug(this, "Creating Cert Collection");
 				X509CertificateCollection certs = new X509CertificateCollection();
-				//certs.Add(X509Certificate.CreateFromCertFile("GeoTrust_Universal_CA.cer"));
+				Logger.DebugFormat(this, "Certificate Name: {0}", _local.Subject);
+				certs.Add(_local);
 				Logger.Debug(this, "Creating SslClientStream");
-	            SslClientStream s = new SslClientStream(_stream, _dest.Hostname, true, Mono.Security.Protocol.Tls.SecurityProtocolType.Ssl3 | Mono.Security.Protocol.Tls.SecurityProtocolType.Tls, certs);
+	            SslClientStream s = new SslClientStream(_stream, _dest.Hostname, true, Mono.Security.Protocol.Tls.SecurityProtocolType.Default, certs);
 				Logger.Debug(this, "Adding Validation Callback");
-	            s.ServerCertValidationDelegate = new CertificateValidationCallback(RemoteValidation);
+	            s.ServerCertValidationDelegate = new CertificateValidationCallback(this.RemoteValidation);
 				Logger.Debug(this, "Changing variable to secure stream");
-	            _stream = s;
+				_stream = s;
             }
             catch (Exception e)
             {
@@ -145,10 +150,19 @@ namespace xmpp.net
             }
 		}
 
-		private static bool RemoteValidation(X509Certificate certificate, int[] certificateErrors)
+		private bool RemoteValidation(X509Certificate certificate, int[] certificateErrors)
 		{
-			Logger.Debug(typeof(AsyncSocket), "Returning true from validation callback");
+			Logger.Debug(this, "Returning true from validation callback");
 			return true;
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public X509Certificate LocalCertificate
+		{
+			get { return _local; }
+			set { _local = value; }
 		}
 #endif
         /// <summary>
@@ -218,18 +232,27 @@ namespace xmpp.net
 			get { return _socket.Connected; }
 		}
 		
+		/// <value>
+		/// 
+		/// </value>
 		public string Hostname
 		{
 			get { return _hostname; }
 			set { _hostname = value; }
 		}
 		
+		/// <value>
+		/// 
+		/// </value>
 		public bool SSL
 		{
 			get { return _ssl; }
 			set { _ssl = value; }
 		}
 		
+		/// <value>
+		/// 
+		/// </value>
 		public bool Secure
 		{
 			get { return _secure; }

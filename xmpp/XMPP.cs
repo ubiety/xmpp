@@ -15,6 +15,9 @@
 using System;
 using System.Reflection;
 using System.Xml;
+#if __MonoCS__
+using System.Security.Cryptography.X509Certificates;
+#endif
 using xmpp.common;
 using xmpp.core;
 using xmpp.net;
@@ -108,9 +111,12 @@ namespace xmpp
 	/// 
 	///			// Create a new instance of the XMPP class
 	///			XMPP xmpp = new XMPP();
+	///
+	///			xmpp.ID = id;
+	///			xmpp.Password = "password";
 	/// 
 	///			// Connect to the server
-	///			xmpp.Connect(id.Server);
+	///			xmpp.Connect();
 	///		}
 	/// }
 	/// </code>
@@ -233,6 +239,17 @@ namespace xmpp
     	{
     		get { return _port; }
 			set { _port = value; }
-    	}
+		}
+
+#if __MonoCS__
+		/// <summary>
+		/// 
+		/// </summary>
+		public X509Certificate LocalCertificate
+		{
+			get { return _socket.LocalCertificate; }
+			set { _socket.LocalCertificate = value; }
+		}
+#endif
 	}
 }

@@ -226,7 +226,7 @@ namespace xmpp
 		{
             if (_reader.Name == "stream:stream")
             {
-                throw new InvalidDataException();
+                return;
             }
 
 			if (_elem.Name != _reader.Name)
@@ -239,6 +239,7 @@ namespace xmpp
             XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)
 			{
+				Logger.Debug(this, "Parent is null.  Returning tag with event");
 				OnElement(_elem);
 			}
 			_elem = parent;

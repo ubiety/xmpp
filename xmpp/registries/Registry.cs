@@ -64,9 +64,6 @@ namespace xmpp.registries
 		/// <param name="ass">
 		/// A <see cref="Assembly"/>
 		/// </param>
-		/// <param name="attribute">
-		/// A <see cref="Type"/>
-		/// </param>
 		/// <returns>
 		/// A <see cref="System.Object"/>
 		/// </returns>

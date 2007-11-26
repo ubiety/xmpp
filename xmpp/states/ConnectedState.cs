@@ -22,24 +22,37 @@ using xmpp.common;
 
 namespace xmpp.states
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ConnectedState : State
 	{
-		private ProtocolState _state;
-		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="state">
+		/// A <see cref="ProtocolState"/>
+		/// </param>
 		public ConnectedState(ProtocolState state)
 		{
-			_state = state;
+			current = state;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data">
+		/// A <see cref="System.Object"/>
+		/// </param>
 		public override void Execute (object data)
 		{
 			TagRegistry reg = TagRegistry.Instance;
 			
 			Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
             stream.Version = "1.0";
-            stream.To = _state.Socket.Hostname;
+            stream.To = current.Socket.Hostname;
             stream.NS = "jabber:client";
-            _state.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+            current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
 		}
 	}
 }

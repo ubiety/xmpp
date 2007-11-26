@@ -18,27 +18,48 @@ using xmpp.net;
 
 namespace xmpp.states
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ProtocolState
 	{
-		protected State _state;
+		private State _state;
 		private AsyncSocket _socket;
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="socket">
+		/// A <see cref="AsyncSocket"/>
+		/// </param>
 		public ProtocolState(AsyncSocket socket)
 		{
 			_socket = socket;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data">
+		/// A <see cref="System.Object"/>
+		/// </param>
 		public void Execute(object data)
 		{
 			_state.Execute(data);
 		}
 		
+		/// <value>
+		/// 
+		/// </value>
 		public State State
 		{
 			get { return _state; }
 			set { _state = value; }
 		}
 		
+		/// <value>
+		/// 
+		/// </value>
 		public AsyncSocket Socket
 		{
 			get { return _socket; }
