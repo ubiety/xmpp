@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -18,6 +18,7 @@ using System.Xml;
 using xmpp;
 using xmpp.core;
 using xmpp.registries;
+using xmpp.common.SASL;
 
 namespace xmpp.states
 {
@@ -59,6 +60,9 @@ namespace xmpp.states
 				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", xmpp.common.Namespaces.START_TLS), new XmlDocument());
 				current.Socket.Write(tls);
 			}
+			
+			current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
+			current.Socket.Write(current.Processor.Initialize(current.ID, current.Password));
 		}
 	}
 }

@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,6 +17,7 @@ using System.Xml;
 using xmpp.core;
 using xmpp.core.SASL;
 using xmpp.registries;
+using xmpp.logging;
 
 namespace xmpp.common.SASL
 {
@@ -39,6 +40,8 @@ namespace xmpp.common.SASL
 		public override Tag Initialize(XID id, string password)
 		{
 			base.Initialize(id, password);
+			
+			Logger.Debug(this, "Initializing Plain Processor");
 
 			StringBuilder sb = new StringBuilder();
 
@@ -51,6 +54,8 @@ namespace xmpp.common.SASL
 
 			auth.Text = sb.ToString();
 			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);
+			
+			Logger.Debug(this, auth);			
 
 			return auth;
 		}

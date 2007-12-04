@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,6 +15,8 @@
 
 using System;
 using xmpp.net;
+using xmpp.common.SASL;
+using xmpp.common;
 
 namespace xmpp.states
 {
@@ -25,6 +27,9 @@ namespace xmpp.states
 	{
 		private State _state;
 		private AsyncSocket _socket;
+		private SASLProcessor _proc;
+		private XID _id;
+		private string _password;
 		
 		/// <summary>
 		/// 
@@ -32,9 +37,11 @@ namespace xmpp.states
 		/// <param name="socket">
 		/// A <see cref="AsyncSocket"/>
 		/// </param>
-		public ProtocolState(AsyncSocket socket)
+		public ProtocolState(AsyncSocket socket, XID id, string password)
 		{
 			_socket = socket;
+			_id = id;
+			_password = password;
 		}
 		
 		/// <summary>
@@ -63,6 +70,25 @@ namespace xmpp.states
 		public AsyncSocket Socket
 		{
 			get { return _socket; }
+		}
+		
+		/// <value>
+		/// 
+		/// </value>
+		public SASLProcessor Processor
+		{
+			get { return _proc; }
+			set { _proc = value; }
+		}
+		
+		public XID ID
+		{
+			get { return _id; }
+		}
+		
+		public string Password
+		{
+			get { return _password; }
 		}
 	}	
 }

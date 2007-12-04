@@ -1,4 +1,4 @@
-<Combine name="xmppnet" fileversion="2.0" outputpath="./build/bin/" MakePkgConfig="False" MakeLibPC="True">
+<Combine name="xmppnet" fileversion="2.0" outputpath="build/bin/" MakePkgConfig="False" MakeLibPC="True">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="xmpp" configuration="Debug" />
@@ -16,7 +16,7 @@
   <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
   <DeployTargets />
   <Entries>
-    <Entry filename="./xmpp/xmpp.mdp" />
-    <Entry filename="./testmono/testmono.mdp" />
+    <Entry filename="xmpp/xmpp.mdp" />
+    <Entry filename="testmono/testmono.mdp" />
   </Entries>
 </Combine>

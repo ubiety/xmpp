@@ -15,6 +15,7 @@ using System;
 using Gtk;
 using xmpp;
 using xmpp.common;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class MainWindow: Gtk.Window
 {	
@@ -24,6 +25,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 		xmpp = new XMPP();
+		xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -35,6 +37,7 @@ public partial class MainWindow: Gtk.Window
 	protected virtual void OnConnect (object sender, System.EventArgs e)
 	{
 		xmpp.ID = new XID(xid.Text);
+		xmpp.Password = password.Text;
 		xmpp.SSL = cbSSL.Active;
 		xmpp.Connect();
 	}

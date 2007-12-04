@@ -1,3 +1,7 @@
+2007-12-04  Dieter Lunn <coder2000@gmail.com> 
+
+	* Started work on SASL
+
 2007-11-10  Dieter Lunn <coder2000@gmail.com> 
 
 	* Moved logging to static class.

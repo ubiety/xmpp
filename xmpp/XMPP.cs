@@ -149,7 +149,7 @@ namespace xmpp
 			_socket.Message += new EventHandler<MessageEventArgs>(_socket_Message);
 
 			_reg.AddAssembly(Assembly.GetAssembly(typeof(XMPP)));
-			_states = new ProtocolState(_socket);
+			_states = new ProtocolState(_socket, _id, _password);
 		}
 
         private void _parser_StreamEnd(object sender, EventArgs e)
