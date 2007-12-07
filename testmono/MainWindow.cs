@@ -13,8 +13,10 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System;
 using Gtk;
+using GLib;
 using xmpp;
 using xmpp.common;
+using xmpp.logging;
 using System.Security.Cryptography.X509Certificates;
 
 public partial class MainWindow: Gtk.Window
@@ -26,12 +28,19 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 		xmpp = new XMPP();
 		xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
+		ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
 		Application.Quit ();
 		a.RetVal = true;
+	}
+
+	protected void OnExceptionEvent(UnhandledExceptionArgs u)
+	{
+		Exception e = u.ExceptionObject as Exception;
+		Logger.ErrorFormat(this, "Unhandled Exception: {0}", e.Message);
 	}
 
 	protected virtual void OnConnect (object sender, System.EventArgs e)

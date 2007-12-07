@@ -1,3 +1,7 @@
+2007-12-06  Dieter Lunn <coder2000@gmail.com> 
+
+	* Added MD5 processor.  Currently not being created for some reason.
+
 2007-12-04  Dieter Lunn <coder2000@gmail.com> 
 
 	* Continued work on SASL

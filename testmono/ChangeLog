@@ -1,3 +1,7 @@
+2007-12-06  Dieter Lunn <coder2000@gmail.com> 
+
+	* Added handler for unhandled exception event.
+
 2007-12-04  Dieter Lunn <coder2000@gmail.com> 
 	* Added password field to application for authentication purposes.
 	

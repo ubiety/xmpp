@@ -31,8 +31,8 @@ namespace xmpp.core.SASL
 
 		public string Text
 		{
-			get { return Value; }
-			set { Value = value; }
+			get { return InnerText; }
+			set { InnerText = value; }
 		}
 	}
 }

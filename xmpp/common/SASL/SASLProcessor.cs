@@ -13,6 +13,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Collections;
 using xmpp.core;
 using xmpp.logging;
 
@@ -24,6 +25,8 @@ namespace xmpp.common.SASL
 	{
 		protected XID _id;
 		protected string _password;
+		
+		private Hashtable directives = new Hashtable();
 
         ///<summary>
         ///</summary>
@@ -33,15 +36,15 @@ namespace xmpp.common.SASL
         public static SASLProcessor CreateProcessor(MechanismType type)
         {
             if ((type & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
-				{
+			{
 				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
                 //throw new NotSupportedException();
             }
 
             if ((type & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
-				{
-				Logger.Debug(typeof(SASLProcessor), "DIGEST-MD5 Not Supported");
-                //throw new NotSupportedException();
+			{
+				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
+				return new MD5Processor();
             }
 
             if ((type & MechanismType.PLAIN) == MechanismType.PLAIN)
@@ -54,7 +57,7 @@ namespace xmpp.common.SASL
 
         ///<summary>
         ///</summary>
-        public abstract void Step(Tag tag);
+        public abstract Tag Step(Tag tag);
 
     	///<summary>
     	///</summary>
@@ -65,7 +68,13 @@ namespace xmpp.common.SASL
 			_id = id;
 			_password = password;
 
-    		return null;
-    	}
+			return null;
+		}
+		
+		public string this[string directive]
+		{
+			get { return (string)directives[directive]; }
+			set { directives[directive] = value; }
+		}
     }
 }

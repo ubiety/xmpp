@@ -29,7 +29,7 @@ namespace xmpp.common.SASL
 		///</summary>
 		///<param name="tag"></param>
 		///<exception cref="NotImplementedException"></exception>
-		public override void Step(Tag tag)
+		public override Tag Step(Tag tag)
 		{
 			throw new NotImplementedException();
 		}
@@ -39,23 +39,23 @@ namespace xmpp.common.SASL
 		///<exception cref="NotImplementedException"></exception>
 		public override Tag Initialize(XID id, string password)
 		{
-			base.Initialize(id, password);
+			//base.Initialize(id, password);
 			
 			Logger.Debug(this, "Initializing Plain Processor");
+			Logger.DebugFormat(this, "ID User: {0}", id.User);
+			Logger.DebugFormat(this, "Password: {0}", password);
 
 			StringBuilder sb = new StringBuilder();
 
 			sb.Append((char) 0);
-			sb.Append(_id.User);
+			sb.Append(id.User);
 			sb.Append((char) 0);
-			sb.Append(_password);
+			sb.Append(password);
 
 			Auth auth = (Auth)TagRegistry.Instance.GetTag("", new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
 
 			auth.Text = sb.ToString();
-			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);
-			
-			Logger.Debug(this, auth);			
+			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);			
 
 			return auth;
 		}

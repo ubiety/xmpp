@@ -37,11 +37,9 @@ namespace xmpp.states
 		/// <param name="socket">
 		/// A <see cref="AsyncSocket"/>
 		/// </param>
-		public ProtocolState(AsyncSocket socket, XID id, string password)
+		public ProtocolState(AsyncSocket socket)
 		{
 			_socket = socket;
-			_id = id;
-			_password = password;
 		}
 		
 		/// <summary>
@@ -84,11 +82,13 @@ namespace xmpp.states
 		public XID ID
 		{
 			get { return _id; }
+			set { _id = value; }
 		}
 		
 		public string Password
 		{
 			get { return _password; }
+			set { _password = value; }
 		}
 	}	
 }

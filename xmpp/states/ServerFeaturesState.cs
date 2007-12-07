@@ -19,6 +19,7 @@ using xmpp;
 using xmpp.core;
 using xmpp.registries;
 using xmpp.common.SASL;
+using xmpp.logging;
 
 namespace xmpp.states
 {
@@ -61,8 +62,12 @@ namespace xmpp.states
 				current.Socket.Write(tls);
 			}
 			
+			Logger.Debug(this, "Creating SASL Processor");
 			current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
+			Logger.Debug(this, "Sending auth with mechanism type");
 			current.Socket.Write(current.Processor.Initialize(current.ID, current.Password));
+			
+			current.State = new SASLState(current);
 		}
 	}
 }

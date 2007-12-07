@@ -149,7 +149,7 @@ namespace xmpp
 			_socket.Message += new EventHandler<MessageEventArgs>(_socket_Message);
 
 			_reg.AddAssembly(Assembly.GetAssembly(typeof(XMPP)));
-			_states = new ProtocolState(_socket, _id, _password);
+			_states = new ProtocolState(_socket);
 		}
 
         private void _parser_StreamEnd(object sender, EventArgs e)
@@ -198,6 +198,8 @@ namespace xmpp
             Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
 			_socket.Hostname = _id.Server;
 			_socket.SSL = _ssl;
+			_states.ID = _id;
+			_states.Password = _password;
 			_states.State = new ConnectingState(_states);
 			_states.Execute(null);
         }

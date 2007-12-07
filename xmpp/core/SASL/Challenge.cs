@@ -14,37 +14,22 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Xml;
 using xmpp.common;
-using xmpp.logging;
+using xmpp;
 
-namespace xmpp.states
+namespace xmpp.core.SASL
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class SASLState : State
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="state">
-		/// A <see cref="ProtocolState"/>
-		/// </param>
-		public SASLState(ProtocolState state)
+	[XmppTag("challenge", Namespaces.SASL, typeof(Challenge))]
+	public class Challenge : xmpp.common.Tag
+	{		
+		public Challenge(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{
-			current = state;
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		public override void Execute(object data)
+		public byte[] Bytes
 		{
-			Logger.Debug(this, "Sending response to challenge");
-			current.Socket.Write(current.Processor.Step(data as xmpp.common.Tag));
+			get { return Convert.FromBase64String(InnerText); }
 		}
 	}
 }
