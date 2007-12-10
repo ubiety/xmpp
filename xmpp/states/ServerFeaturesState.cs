@@ -47,10 +47,9 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute (object data)
+		public override void Execute (xmpp.common.Tag data)
 		{
-			TagEventArgs e = data as TagEventArgs;
-			Features f = e.Tag as Features;
+			Features f = data as Features;
 			
 			if (f == null)
 				throw new Exception("Expecting stream:features from 1.x server");
@@ -62,12 +61,18 @@ namespace xmpp.states
 				current.Socket.Write(tls);
 			}
 			
-			Logger.Debug(this, "Creating SASL Processor");
-			current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
-			Logger.Debug(this, "Sending auth with mechanism type");
-			current.Socket.Write(current.Processor.Initialize(current.ID, current.Password));
+			if (!current.Authenticated)
+			{
+				Logger.Debug(this, "Creating SASL Processor");
+				current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
+				Logger.Debug(this, "Sending auth with mechanism type");
+				current.Socket.Write(current.Processor.Initialize(current.ID, current.Password));
 			
-			current.State = new SASLState(current);
+				current.State = new SASLState(current);
+				return;
+			}
+			
+			current.Socket.Write("</stream:stream>");
 		}
 	}
 }

@@ -26,10 +26,5 @@ namespace xmpp.core.SASL
 		public Response(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{
 		}
-		
-		public byte[] Bytes
-		{
-			set { InnerText = Convert.ToBase64String(value); }
-		}
 	}
 }

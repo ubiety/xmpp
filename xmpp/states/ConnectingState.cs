@@ -36,7 +36,7 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute (object data)
+		public override void Execute (xmpp.common.Tag data)
 		{
 			current.Socket.Connect();
 		}

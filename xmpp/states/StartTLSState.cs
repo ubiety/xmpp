@@ -44,12 +44,11 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute (object data)
+		public override void Execute (xmpp.common.Tag data)
 		{
-			TagEventArgs e = data as TagEventArgs;
 			TagRegistry reg = TagRegistry.Instance;
 			
-			if (e.Tag == "proceed")
+			if (data == "proceed")
 			{
 				current.Socket.StartSecure();
 				Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());

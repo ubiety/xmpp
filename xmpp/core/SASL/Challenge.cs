@@ -26,10 +26,5 @@ namespace xmpp.core.SASL
 		public Challenge(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{
 		}
-		
-		public byte[] Bytes
-		{
-			get { return Convert.FromBase64String(InnerText); }
-		}
 	}
 }

@@ -12,6 +12,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
+using System;
 
 namespace xmpp.common
 {
@@ -132,6 +133,12 @@ namespace xmpp.common
 		public override int GetHashCode ()
 		{
 			return base.GetHashCode ();
+		}
+		
+		public byte[] Bytes
+			{
+			get { return Convert.FromBase64String(InnerText); }
+			set { InnerText = Convert.ToBase64String(value); }
 		}
 	}
 }

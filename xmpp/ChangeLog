@@ -1,3 +1,13 @@
+2007-12-09  Dieter Lunn <coder2000@gmail.com> 
+
+	Changed the states to use tags rather than generic objects.  any other data they need is part of ProtocolState.
+
+2007-12-09  Dieter Lunn <coder2000@gmail.com>
+
+	* common/SASL/SASLProcessor.cs: Fixed MD5 Processor creation.  Regex had a format error.  Mono wasn't throwing the exception.
+
+	* XMPP.cs: Removed unneeded state enumeration.  Moved completely to objects.
+
 2007-12-06  Dieter Lunn <coder2000@gmail.com> 
 
 	* Added MD5 processor.  Currently not being created for some reason.

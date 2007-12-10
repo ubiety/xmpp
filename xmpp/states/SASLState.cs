@@ -14,6 +14,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using xmpp;
 using xmpp.common;
 using xmpp.logging;
 
@@ -41,10 +42,22 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute(object data)
+		public override void Execute(xmpp.common.Tag data)
 		{
-			Logger.Debug(this, "Sending response to challenge");
-			current.Socket.Write(current.Processor.Step(data as xmpp.common.Tag));
+			Logger.Debug(this, "Processing next SASL step");
+			xmpp.common.Tag res = current.Processor.Step(data);
+			if (res != null)
+			{
+				current.Socket.Write(res);
+			}
+			else
+			{
+				// TODO: Why isn't this being called?
+				Logger.Debug(this, "Sending start stream again");
+				current.Authenticated = true;
+				current.State = new ConnectedState(current);
+				current.Execute(null);
+			}
 		}
 	}
 }

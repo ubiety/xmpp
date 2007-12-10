@@ -30,6 +30,7 @@ namespace xmpp.states
 		private SASLProcessor _proc;
 		private XID _id;
 		private string _password;
+		private bool _authenticated = false;
 		
 		/// <summary>
 		/// 
@@ -48,7 +49,7 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public void Execute(object data)
+		public void Execute(xmpp.common.Tag data)
 		{
 			_state.Execute(data);
 		}
@@ -90,5 +91,11 @@ namespace xmpp.states
 			get { return _password; }
 			set { _password = value; }
 		}
-	}	
+		
+		public bool Authenticated
+		{
+			get { return _authenticated; }
+			set { _authenticated = value; }
+		}
+	}
 }

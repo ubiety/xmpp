@@ -44,15 +44,15 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute (object data)
+		public override void Execute (xmpp.common.Tag data)
 		{
 			TagRegistry reg = TagRegistry.Instance;
 			
 			Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
-            stream.Version = "1.0";
-            stream.To = current.Socket.Hostname;
-            stream.NS = "jabber:client";
-            current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+			stream.Version = "1.0";
+			stream.To = current.Socket.Hostname;
+			stream.NS = "jabber:client";
+			current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
 		}
 	}
 }

@@ -28,63 +28,6 @@ using xmpp.logging;
 
 namespace xmpp
 {
-	#region State Enumeration
-    /// <summary>
-    /// The current state the connection is currently in.
-    /// </summary>
-	public enum States
-	{
-		/// <summary>
-		/// All Done and working
-		/// </summary>
-		Running,
-		/// <summary>
-		/// No connection
-		/// </summary>
-		Closed,
-		/// <summary>
-		/// Starting the connection process
-		/// </summary>
-		Connecting,
-		/// <summary>
-		/// We have a connection
-		/// </summary>
-		Connected,
-		/// <summary>
-		/// Received a stream:stream
-		/// </summary>
-		Stream,
-		/// <summary>
-		/// Closing the connection
-		/// </summary>
-		Closing,
-		/// <summary>
-		/// Waiting for connection timeout
-		/// </summary>
-		Reconnecting,
-		/// <summary>
-		/// Excepting a stream:features tag from the server
-		/// </summary>
-		ServerFeatures,
-		/// <summary>
-		/// Starting SASL authentication
-		/// </summary>
-		SASL,
-		/// <summary>
-		/// We are authenticated
-		/// </summary>
-		SASLAuthed,
-		/// <summary>
-		/// Binding to a server resource
-		/// </summary>
-		Bind,
-        /// <summary>
-        /// Starting TLS socket encryption
-        /// </summary>
-        StartTLS
-	}
-	#endregion
-
     /// <summary>
     /// Implements the XMPP(Jabber) Core and IM protocols
     /// </summary>
@@ -163,7 +106,7 @@ namespace xmpp
 			Logger.Debug(this, "Got Tag...");
 			Logger.DebugFormat(this, "State: {0}", _states.State.GetType().Name);
 			
-			_states.Execute(e);
+			_states.Execute(e.Tag);
 		}
 
 		private void _parser_StreamStart(object sender, TagEventArgs e)
@@ -173,14 +116,7 @@ namespace xmpp
 			{
 				if (stream.Version.StartsWith("1."))
 				{
-					if (_state == States.SASL)
-					{
-						_state = States.SASLAuthed;
-					}
-					else
-					{
-						_states.State = new ServerFeaturesState(_states);
-					}
+					_states.State = new ServerFeaturesState(_states);
 				}
 			}
 		}

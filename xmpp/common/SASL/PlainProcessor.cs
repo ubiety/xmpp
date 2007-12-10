@@ -55,7 +55,7 @@ namespace xmpp.common.SASL
 			Auth auth = (Auth)TagRegistry.Instance.GetTag("", new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
 
 			auth.Text = sb.ToString();
-			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);			
+			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);
 
 			return auth;
 		}

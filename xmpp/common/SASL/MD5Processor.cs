@@ -31,7 +31,7 @@ namespace xmpp.common.SASL
 	{
 		private readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
 		private readonly Encoding _enc = Encoding.UTF8;
-		private readonly Regex _csv = new Regex(@"(?<tag>[^=]+)=(?:(?<data>[^,""]+)|(?<data>[^""]*)"")),?", RegexOptions.ExplicitCapture | RegexOptions.Compiled);
+		private readonly Regex _csv = new Regex(@"(?<tag>[^=]+)=(?:(?<data>[^,""]+)|(?:""(?<data>[^""]*)"")),?", RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 		
 		private string _responseHash;
 		private string _cnonce;
@@ -54,21 +54,31 @@ namespace xmpp.common.SASL
 		
 		public override Tag Step(Tag tag)
 		{
+			if (tag is Success)
+			{
+				Success succ = tag as Success;
+				populateDirectives(succ);
+				Logger.DebugFormat(this, "rspauth = {0}", this["rspauth"]);
+				
+				return null;
+			}
+			
 			Challenge chall = tag as Challenge;
-			MatchCollection col = _csv.Matches(_enc.GetString(chall.Bytes));
+			populateDirectives(chall);
+			Response res = (Response)TagRegistry.Instance.GetTag("", new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
+			generateResponseHash();
+			res.Bytes = generateResponse();
+			
+			return res;
+		}
+		
+		private void populateDirectives(Tag tag)
+		{
+			MatchCollection col = _csv.Matches(_enc.GetString(tag.Bytes));
 			foreach(Match m in col)
 			{
 				this[m.Groups["tag"].Value] = m.Groups["data"].Value;
 			}
-			
-			Response res = (Response)TagRegistry.Instance.GetTag("", new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
-			if (this["rspauth"] == null)
-			{
-				generateResponseHash();
-				res.Bytes = generateResponse();
-			}
-			
-			return res;
 		}
 		
 		private byte[] generateResponse()

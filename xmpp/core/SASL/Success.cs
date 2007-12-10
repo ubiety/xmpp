@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -14,26 +14,16 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using xmpp.common;
+using xmpp;
+using System.Xml;
 
-namespace xmpp.states
+namespace xmpp.common.SASL
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public abstract class State
+	[XmppTag("success", Namespaces.SASL, typeof(Success))]
+	public class Success : Tag
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		protected ProtocolState current;
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		public virtual void Execute(xmpp.common.Tag data)
+		public Success(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{
 		}
 	}
