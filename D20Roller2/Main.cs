@@ -17,10 +17,10 @@ namespace TestXMPP
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-            XID id = new XID("coder2000@coder2000.ca/roller");
+            XID id = new XID(txtID.Text);
             xmpp.SSL = cbSSL.Checked;
 			xmpp.ID = id;
-			xmpp.Password = "loki";
+			xmpp.Password = txtPassword.Text;
 			xmpp.Connect();
 		}
 	}

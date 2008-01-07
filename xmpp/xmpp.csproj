@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET20</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>xmpp.xml</DocumentationFile>
@@ -27,23 +27,15 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET20</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bdev.Net.Dns, Version=1.0.0.0, Culture=neutral, PublicKeyToken=217d47f649bccd2c">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DnsLookupDotNet_src\Bdev.Net.Dns\bin\Release\Bdev.Net.Dns.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\incubating-log4net-1.2.10\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Org.Mentalis.Security, Version=1.0.13.716, Culture=neutral, PublicKeyToken=085a8f6006888436">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\seclib-1.0\seclib-1.0.0\Signed_Builds\1.1\Org.Mentalis.Security.dll</HintPath>
+      <HintPath>..\..\..\Desktop\incubating-log4net-1.2.10\log4net-1.2.10\bin\mono\2.0\debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -51,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\Namespaces.cs" />
+    <Compile Include="common\SASL\MD5Processor.cs" />
     <Compile Include="common\SASL\PlainProcessor.cs" />
     <Compile Include="common\SASL\SASLProcessor.cs" />
     <Compile Include="common\Tag.cs" />
@@ -61,6 +54,9 @@
     <Compile Include="core\Mechanisms.cs" />
     <Compile Include="core\Proceed.cs" />
     <Compile Include="core\SASL\Auth.cs" />
+    <Compile Include="core\SASL\Challenge.cs" />
+    <Compile Include="core\SASL\Response.cs" />
+    <Compile Include="core\SASL\Success.cs" />
     <Compile Include="core\StartTLS.cs" />
     <Compile Include="core\Stream.cs" />
     <Compile Include="idn\CombiningClass.cs" />
@@ -75,6 +71,7 @@
     <Compile Include="idn\RFC3454.cs" />
     <Compile Include="idn\Stringprep.cs" />
     <Compile Include="idn\StringprepException.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +83,7 @@
     <Compile Include="states\ConnectedState.cs" />
     <Compile Include="states\ConnectingState.cs" />
     <Compile Include="states\ProtocolState.cs" />
+    <Compile Include="states\SASLState.cs" />
     <Compile Include="states\ServerFeaturesState.cs" />
     <Compile Include="states\StartTLSState.cs" />
     <Compile Include="states\State.cs" />
@@ -95,11 +93,6 @@
     </Compile>
     <Compile Include="XMPP.cs" />
     <Compile Include="XmppTagAttribute.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="idn" />
-    <Folder Include="registries" />
-    <Folder Include="states" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
