@@ -58,6 +58,8 @@ namespace xmpp.states
 				current.State = new ConnectedState(current);
 				current.Execute(null);
 			}
+			
+			Logger.Debug(this, "Outside in the cold where I am not supposed to be.");
 		}
 	}
 }

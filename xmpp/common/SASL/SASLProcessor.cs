@@ -19,7 +19,7 @@ using xmpp.logging;
 
 namespace xmpp.common.SASL
 {
-    ///<summary>
+	///<summary>
     ///</summary>
     public abstract class SASLProcessor
 	{

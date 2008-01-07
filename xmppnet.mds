@@ -3,20 +3,24 @@
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="xmpp" configuration="Debug" />
       <Entry build="True" name="testmono" configuration="Debug" />
+      <Entry build="True" name="testconsole" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="xmpp" configuration="Release" />
       <Entry build="True" name="testmono" configuration="Release" />
+      <Entry build="True" name="testconsole" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="testmono" single="True">
     <Execute type="None" entry="xmpp" />
     <Execute type="None" entry="testmono" />
+    <Execute type="None" entry="testconsole" />
   </StartMode>
   <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
   <DeployTargets />
   <Entries>
     <Entry filename="xmpp/xmpp.mdp" />
     <Entry filename="testmono/testmono.mdp" />
+    <Entry filename="testconsole/testconsole.mdp" />
   </Entries>
 </Combine>

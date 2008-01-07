@@ -60,6 +60,7 @@ namespace xmpp.common.SASL
 				populateDirectives(succ);
 				Logger.DebugFormat(this, "rspauth = {0}", this["rspauth"]);
 				
+				// Either this isn't returning or an exception is being thrown around here.
 				return null;
 			}
 			

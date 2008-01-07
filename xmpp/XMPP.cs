@@ -69,7 +69,6 @@ namespace xmpp
 		private TagRegistry _reg = TagRegistry.Instance;
 		private AsyncSocket _socket = new AsyncSocket();
 		private ProtocolParser _parser;
-		private States _state;
 
         private String _password;
     	private XID _id;
