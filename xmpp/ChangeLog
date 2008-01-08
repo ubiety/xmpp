@@ -1,3 +1,7 @@
+2008-01-08  Dieter Lunn <coder2000@gmail.com>
+	
+	* common/Tag.cs: Fixed issue 3.  Removed the comparison operators.
+
 2007-12-09  Dieter Lunn <coder2000@gmail.com> 
 
 	Changed the states to use tags rather than generic objects.  any other data they need is part of ProtocolState.
