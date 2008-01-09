@@ -38,5 +38,8 @@ namespace xmpp.common
         /// 
         /// </summary>
 		public const string REGISTER = "http://jabber.org/features/iq-register";
+		
+		public const string BIND = "urn:ietf:params:xml:ns:xmpp-bind";
+		public const string SESSION = "urn:ietf:params:xml:ns:xmpp-session";
 	}
 }

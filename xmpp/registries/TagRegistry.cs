@@ -28,7 +28,7 @@ namespace xmpp.registries
 	{
 		private TagRegistry()
 		{
-		}		
+		}
 
 		private void AddTag(string localName, string ns, Type t)
 		{
@@ -37,13 +37,7 @@ namespace xmpp.registries
 
 		private void AddTag(XmlQualifiedName qname, Type t)
 		{
-			Type[] constructorTypes = new Type[] {
-				typeof(string),
-				typeof(XmlQualifiedName),
-				typeof(XmlDocument)
-			};
-			ConstructorInfo ci = t.GetConstructor(constructorTypes);
-			_registeredItems.Add(qname, ci);
+			_registeredItems.Add(qname, t);
 		}
 
 		/// <summary>
@@ -72,9 +66,8 @@ namespace xmpp.registries
 		public xmpp.common.Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
 		{
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
-        	ConstructorInfo ci = (ConstructorInfo)_registeredItems[qname];
-        	if (ci != null) return (xmpp.common.Tag)ci.Invoke(new object[] { prefix, qname, doc });
-        	return null;
+        	Type t = (Type)_registeredItems[qname];
+        	return (xmpp.common.Tag)Activator.CreateInstance(t, new object[] { prefix, qname, doc });
         }
 	}
 }

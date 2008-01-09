@@ -72,7 +72,8 @@ namespace xmpp.states
 				return;
 			}
 			
-			current.Socket.Write("</stream:stream>");
+			// Commented because it was only there for testing.  Uncomment to end server communcations early.
+			//current.Socket.Write("</stream:stream>");
 		}
 	}
 }

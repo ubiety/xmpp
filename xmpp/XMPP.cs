@@ -112,12 +112,9 @@ namespace xmpp
 		private void _parser_StreamStart(object sender, TagEventArgs e)
 		{
 			Stream stream = e.Tag as Stream;
-			if (stream != null)
+			if (stream.Version.StartsWith("1."))
 			{
-				if (stream.Version.StartsWith("1."))
-				{
-					_states.State = new ServerFeaturesState(_states);
-				}
+				_states.State = new ServerFeaturesState(_states);
 			}
 		}
 

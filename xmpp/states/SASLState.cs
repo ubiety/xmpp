@@ -52,14 +52,11 @@ namespace xmpp.states
 			}
 			else
 			{
-				// TODO: Why isn't this being called?
 				Logger.Debug(this, "Sending start stream again");
 				current.Authenticated = true;
 				current.State = new ConnectedState(current);
 				current.Execute(null);
 			}
-			
-			Logger.Debug(this, "Outside in the cold where I am not supposed to be.");
 		}
 	}
 }

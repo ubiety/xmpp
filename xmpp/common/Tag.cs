@@ -32,6 +32,10 @@ namespace xmpp.common
 			: base(prefix, qname.Name, qname.Namespace, doc)
 		{
 		}
+		
+		public Tag() : base("", "", "", null)
+		{
+		}
 
         /// <summary>
         /// Where the message is going.

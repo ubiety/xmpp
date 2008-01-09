@@ -73,7 +73,7 @@ namespace xmpp
 		private TagRegistry _reg = TagRegistry.Instance;
 		private XmlDocument _doc = new XmlDocument();
 		private XmlElement _elem;
-		private XmlElement _root;
+		private XmlElement _root = null;
 
         private XmlReader _reader;
     	private XmlReaderSettings _settings;
