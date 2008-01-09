@@ -52,7 +52,8 @@ namespace xmpp.states
 			stream.Version = "1.0";
 			stream.To = current.Socket.Hostname;
 			stream.NS = "jabber:client";
-			current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+			string prefix = current.Authenticated ? "" : "<?xml version='1.0' encoding='UTF-8'?>";
+			current.Socket.Write(prefix + stream.StartTag());
 		}
 	}
 }
