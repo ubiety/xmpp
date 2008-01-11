@@ -20,6 +20,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Authentication;
 #elif __MonoCS__
+using System.Net.Security;
 using Mono.Security.Protocol.Tls;
 #endif
 using System.Net.Sockets;
@@ -45,9 +46,13 @@ namespace xmpp.net
 		private string _hostname;
 		private bool _ssl;
 		private bool _secure;
-
+		private NetworkStream _netstream;
+#if NET20
+		private SslStream _sslstream;
+#endif
 #if __MonoCS__
 		private X509Certificate _local;
+		private SslClientStream _sslstream;
 #endif
 
         /// <summary>
@@ -87,7 +92,8 @@ namespace xmpp.net
 			_socket.Connect(_dest.EndPoint);
 			if (_socket.Connected)
             {
-                _stream = new NetworkStream(_socket, true);
+                _netstream = new NetworkStream(_socket, true);
+                _stream = _netstream;
 			}
             _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 			OnConnect();
@@ -100,15 +106,16 @@ namespace xmpp.net
         public void StartSecure()
         {
 			Logger.Debug(this, "Starting .NET Secure Mode");
-            _stream = new SslStream(_stream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
+            _sslstream = new SslStream(_netstream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			Logger.Debug(this, "Authenticating as Client");
 			try
 			{
-				((SslStream)_stream).AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls | SslProtocols.Ssl2, false);
+				_sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls | SslProtocols.Ssl2, false);
 			} catch (Exception e)
 			{
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
 			}
+			_stream = _sslstream;
         }
 
         private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
@@ -122,7 +129,6 @@ namespace xmpp.net
             return false;
         }
 #endif
-
 
 #if __MonoCS__
 		/// <summary>
@@ -138,11 +144,13 @@ namespace xmpp.net
 				Logger.DebugFormat(this, "Certificate Name: {0}", _local.Subject);
 				certs.Add(_local);
 				Logger.Debug(this, "Creating SslClientStream");
-	            SslClientStream s = new SslClientStream(_stream, _dest.Hostname, true, Mono.Security.Protocol.Tls.SecurityProtocolType.Default, certs);
+	            _sslstream = new SslClientStream(_netstream, _dest.Hostname, false, Mono.Security.Protocol.Tls.SecurityProtocolType.Tls, null);
 				Logger.Debug(this, "Adding Validation Callback");
-	            s.ServerCertValidationDelegate = new CertificateValidationCallback(this.RemoteValidation);
+	            _sslstream.ServerCertValidationDelegate = new CertificateValidationCallback(this.RemoteValidation);
 				Logger.Debug(this, "Changing variable to secure stream");
-				_stream = s;
+				_stream = _sslstream;
+	            Logger.Debug(this, "Sending whitespace to start handshake");
+	            Write(" ");
             }
             catch (Exception e)
             {

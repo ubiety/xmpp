@@ -59,6 +59,7 @@ namespace xmpp.states
 				current.State = new StartTLSState(current);
 				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", xmpp.common.Namespaces.START_TLS), new XmlDocument());
 				current.Socket.Write(tls);
+				return;
 			}
 			
 			if (!current.Authenticated)

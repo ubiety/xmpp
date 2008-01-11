@@ -48,7 +48,7 @@ namespace xmpp.states
 		{
 			TagRegistry reg = TagRegistry.Instance;
 			
-			if (data == "proceed")
+			if (data.LocalName == "proceed")
 			{
 				current.Socket.StartSecure();
 				Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());

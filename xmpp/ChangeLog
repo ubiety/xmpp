@@ -1,3 +1,7 @@
+2008-01-11  Dieter Lunn <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: Changed the stream naming in an attempt to get SSL working.
+
 2008-01-08  Dieter Lunn <coder2000@gmail.com>
 	
 	* common/Tag.cs: Fixed issue 3.  Removed the comparison operators.
