@@ -1,9 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXMPP", "D20Roller2\TestXMPP.csproj", "{F6E95CED-F304-481B-A644-D78B74749436}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmpp", "xmpp\xmpp.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testconsole", "testconsole\testconsole.csproj", "{67D034B6-2599-4D09-927B-56CC3561FF9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
