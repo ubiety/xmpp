@@ -75,6 +75,7 @@ namespace xmpp
     	private XID _id;
     	private int _port;
 		private Boolean _ssl;
+        private string _hostName = null;
 		
 		private ProtocolState _states;
 
@@ -129,8 +130,14 @@ namespace xmpp
         public void Connect()
         {
             Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
-			_socket.Hostname = _id.Server;
+            
+            if (string.IsNullOrEmpty(_hostName))
+                _socket.Hostname = _hostName;
+            else
+                _socket.Hostname = _id.Server;
+
 			_socket.SSL = _ssl;
+            _socket.Port = _port;
 			_states.ID = _id;
 			_states.Password = _password;
 			_states.State = new ConnectingState(_states);
@@ -175,6 +182,12 @@ namespace xmpp
     		get { return _port; }
 			set { _port = value; }
 		}
+
+        public string HostName
+        {
+            get { return _hostName; }
+            set { _hostName = value; }
+        }
 
 #if __MonoCS__
 		/// <summary>

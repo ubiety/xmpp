@@ -50,6 +50,7 @@ namespace xmpp.net
 		private bool _ssl;
 		private bool _secure;
 		private NetworkStream _netstream;
+        private int _port = 0;
 #if NET20
 		private SslStream _sslstream;
 #endif
@@ -81,14 +82,16 @@ namespace xmpp.net
         /// <returns>True if we connected, false if we didn't</returns>
 		public bool Connect()
 		{
-            int portNo;
-            if (SSL)
-                portNo = SslConnectPortNo;
-            else
-                portNo = ConnectPortNo;
+            if (_port == 0)
+            {
+                if (SSL)
+                    _port = SslConnectPortNo;
+                else
+                    _port = ConnectPortNo;
+            }
 
-			_dest = Address.Resolve(_hostname, portNo);
-			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), portNo.ToString());
+			_dest = Address.Resolve(_hostname, _port);
+			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _port.ToString());
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -277,6 +280,12 @@ namespace xmpp.net
 			get { return _secure; }
 			set { _secure = value; }
 		}
+
+        public int Port
+        {
+            get { return _port; }
+            set { _port = value; }
+        }
 	}
 
 	/// <remarks>

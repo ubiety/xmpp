@@ -18,6 +18,9 @@ namespace testconsole
 		
 		[AutoSetMember("ssl")]
 		private static bool _ssl = false;
+
+        [AutoSetMember("hostname")]
+        private static string _hostName;
 		
 		[STAThread]
 		public static void Main(string[] args)
@@ -33,6 +36,7 @@ namespace testconsole
 			xm.ID = id;
 			xm.Password = _password;
 			xm.SSL = _ssl;
+            xm.HostName = _hostName;
 			xm.Connect();
 
             Console.WriteLine("Press any key to exit");
