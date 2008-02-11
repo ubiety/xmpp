@@ -78,7 +78,8 @@ namespace xmpp.net
         /// <summary>
         /// Establishes a connection to the specified remote host.
         /// </summary>
-		public void Connect()
+        /// <returns>True if we connected, false if we didn't</returns>
+		public bool Connect()
 		{
             int portNo;
             if (SSL)
@@ -103,7 +104,9 @@ namespace xmpp.net
                 _stream = _netstream;
                 _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
                 OnConnect();
+                return true;
             }
+            return false;
 		}
 
 #if NET20

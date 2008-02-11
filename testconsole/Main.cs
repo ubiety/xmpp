@@ -34,8 +34,9 @@ namespace testconsole
 			xm.Password = _password;
 			xm.SSL = _ssl;
 			xm.Connect();
-			
-			while(true) {}
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
 		}
 	}
 }
