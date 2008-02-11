@@ -37,6 +37,9 @@ namespace xmpp.net
     /// </remarks>
 	public class AsyncSocket
 	{
+        const int ConnectPortNo = 5222;
+        const int SslConnectPortNo = 5223;
+
 		private Socket _socket;
 		private Decoder _decoder = Encoding.UTF8.GetDecoder();
 		private UTF8Encoding _utf = new UTF8Encoding();
@@ -77,26 +80,30 @@ namespace xmpp.net
         /// </summary>
 		public void Connect()
 		{
-			try
-			{
-				_dest = new Address(5222);
-				_dest.IP = IPAddress.Parse(_hostname);
-                _dest.Hostname = _hostname;
-			}
-			catch (FormatException)
-			{
-				_dest = Address.Resolve(_hostname, 5222);
-			}
-			Logger.InfoFormat(this, "Connecting to: {0}", _dest.IP.ToString());
+            int portNo;
+            if (SSL)
+                portNo = SslConnectPortNo;
+            else
+                portNo = ConnectPortNo;
+
+			_dest = Address.Resolve(_hostname, portNo);
+			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), portNo.ToString());
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			_socket.Connect(_dest.EndPoint);
-			if (_socket.Connected)
+            try
+            {
+                _socket.Connect(_dest.EndPoint);
+            }
+            catch (SocketException ex)
+            {
+                //We Failed to connect
+            }
+            if (_socket.Connected)
             {
                 _netstream = new NetworkStream(_socket, true);
                 _stream = _netstream;
-			}
-            _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
-			OnConnect();
+                _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+                OnConnect();
+            }
 		}
 
 #if NET20

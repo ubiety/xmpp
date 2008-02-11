@@ -489,10 +489,11 @@ namespace Common
 
 					if (memberType == typeof(bool))
 					{
-						if (argValue == "")
+                        bool outValue;
+						if (string.IsNullOrEmpty(argValue))
 							SetMemberValue(classToProcess, member, !attrib.SwitchMeansFalse);
-						else if (argValue == Boolean.FalseString || argValue == Boolean.TrueString)
-							SetMemberValue(classToProcess, member, Boolean.Parse(argValue));
+						else if (Boolean.TryParse(argValue,out outValue))
+							SetMemberValue(classToProcess, member, outValue);
 						else
 							// last chance ... if can't parse it as integer, an exception will be raised
 							SetMemberValue(classToProcess, member, Int32.Parse(argValue) != 0);

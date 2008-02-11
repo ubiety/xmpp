@@ -76,6 +76,7 @@ namespace xmpp.net
 			IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
 			Address temp = new Address(hostname, port);
 			temp.IP = hostInfo.AddressList[0];
+            temp.Hostname = hostname;
 			
 			return temp;
 		}
