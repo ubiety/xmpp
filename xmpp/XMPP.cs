@@ -13,6 +13,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+#region Usings
 using System;
 using System.Reflection;
 using System.Xml;
@@ -25,7 +26,10 @@ using xmpp.net;
 using xmpp.common.SASL;
 using xmpp.registries;
 using xmpp.states;
+#if DEBUG
 using xmpp.logging;
+#endif
+#endregion
 
 namespace xmpp
 {
@@ -66,8 +70,10 @@ namespace xmpp
 	/// </code>
 	/// </example>
 	public class XMPP
-	{
-		private TagRegistry _reg = TagRegistry.Instance;
+    {
+
+        #region Private Members
+        private TagRegistry _reg = TagRegistry.Instance;
 		private AsyncSocket _socket = new AsyncSocket();
 		private ProtocolParser _parser;
 
@@ -78,8 +84,9 @@ namespace xmpp
         private string _hostName = null;
 		
 		private ProtocolState _states;
+        #endregion
 
-		/// <summary>
+        /// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
 		/// </summary>
 		public XMPP()
@@ -98,14 +105,18 @@ namespace xmpp
 
         private void _parser_StreamEnd(object sender, EventArgs e)
         {
+#if DEBUG
             Logger.Debug(this, "Socket closing");
+#endif
             _socket.Close();
         }
 
 		private void _parser_Tag(object sender, TagEventArgs e)
 		{
+#if DEBUG
 			Logger.Debug(this, "Got Tag...");
 			Logger.DebugFormat(this, "State: {0}", _states.State.GetType().Name);
+#endif
 			
 			_states.Execute(e.Tag);
 		}
@@ -129,9 +140,11 @@ namespace xmpp
         /// </summary>
         public void Connect()
         {
+#if DEBUG
             Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
-            
-            if (string.IsNullOrEmpty(_hostName))
+#endif
+
+            if (String.IsNullOrEmpty(_hostName))
                 _socket.Hostname = _hostName;
             else
                 _socket.Hostname = _id.Server;
@@ -148,8 +161,9 @@ namespace xmpp
 		{	
 			_states.State = new ConnectedState(_states);
 			_states.Execute(null);
-		}
+        }
 
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
@@ -183,6 +197,9 @@ namespace xmpp
 			set { _port = value; }
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string HostName
         {
             get { return _hostName; }
@@ -199,5 +216,6 @@ namespace xmpp
 			set { _socket.LocalCertificate = value; }
 		}
 #endif
-	}
+        #endregion
+    }
 }

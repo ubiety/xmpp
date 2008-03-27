@@ -16,7 +16,9 @@
 using System;
 using xmpp;
 using xmpp.common;
+#if DEBUG
 using xmpp.logging;
+#endif
 
 namespace xmpp.states
 {
@@ -44,7 +46,9 @@ namespace xmpp.states
 		/// </param>
 		public override void Execute(xmpp.common.Tag data)
 		{
+#if DEBUG
 			Logger.Debug(this, "Processing next SASL step");
+#endif
 			xmpp.common.Tag res = current.Processor.Step(data);
 			if (res != null)
 			{
@@ -52,7 +56,9 @@ namespace xmpp.states
 			}
 			else
 			{
+#if DEBUG
 				Logger.Debug(this, "Sending start stream again");
+#endif
 				current.Authenticated = true;
 				current.State = new ConnectedState(current);
 				current.Execute(null);

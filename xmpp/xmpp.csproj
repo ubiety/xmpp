@@ -100,6 +100,7 @@
     <Compile Include="registries\Registry.cs" />
     <Compile Include="registries\RegistryAllocator.cs" />
     <Compile Include="registries\TagRegistry.cs" />
+    <Compile Include="states\ClosingState.cs" />
     <Compile Include="states\ConnectedState.cs" />
     <Compile Include="states\ConnectingState.cs" />
     <Compile Include="states\ProtocolState.cs" />

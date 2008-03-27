@@ -19,7 +19,9 @@ using xmpp;
 using xmpp.core;
 using xmpp.registries;
 using xmpp.common.SASL;
+#if DEBUG
 using xmpp.logging;
+#endif
 
 namespace xmpp.states
 {
@@ -64,9 +66,13 @@ namespace xmpp.states
 			
 			if (!current.Authenticated)
 			{
+#if DEBUG
 				Logger.Debug(this, "Creating SASL Processor");
+#endif
 				current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
-				Logger.Debug(this, "Sending auth with mechanism type");
+#if DEBUG
+		        Logger.Debug(this, "Sending auth with mechanism type");
+#endif
 				current.Socket.Write(current.Processor.Initialize(current.ID, current.Password));
 			
 				current.State = new SASLState(current);

@@ -13,13 +13,17 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+#region Usings
 using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
+#if DEBUG
 using xmpp.logging;
+#endif
 using xmpp.common;
 using xmpp.registries;
+#endregion
 
 namespace xmpp
 {
@@ -53,7 +57,8 @@ namespace xmpp
     /// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
     /// </remarks>
 	public class ProtocolParser
-	{
+    {
+        #region Private Members
         /// <summary>
         /// Occurs when the first <seealso cref="Tag"/> is seen on the stream.
         /// </summary>
@@ -77,6 +82,7 @@ namespace xmpp
 
         private XmlReader _reader;
     	private XmlReaderSettings _settings;
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtocolParser"/> class.
@@ -97,20 +103,26 @@ namespace xmpp
         /// </summary>
 		public void Parse(String message)
 		{
+#if DEBUG
             Logger.Info(this, "Starting message parsing...");
+#endif
 
 
             // We have to cheat because XmlTextReader doesn't like malformed XML
             if (message.Contains("</stream:stream>"))
             {
+#if DEBUG
 				Logger.Info(this, "End of stream received from server");
+#endif
                 OnDocumentEnd();
                 return;
             }
 
             if (message.Contains("<stream:stream"))
             {
+#if DEBUG
             	Logger.Info(this, "Adding closing tag so xml parser doesn't complain");
+#endif
                 message += "</stream:stream>";
             }
             
@@ -140,11 +152,15 @@ namespace xmpp
             }
             catch (XmlException e)
             {
+#if DEBUG
                 Logger.ErrorFormat(this, "Message Parsing Error: {0}", e);
+#endif
             }
             catch (InvalidOperationException e)
             {
+#if DEBUG
             	Logger.ErrorFormat(this, "Invalid Operation: {0}", e);
+#endif
             }
 		}
 
@@ -234,13 +250,17 @@ namespace xmpp
 			{
 				throw new XmlException();
 			}
-
+            
+#if DEBUG
             Logger.DebugFormat(this, "End: {0}", _elem);
+#endif
             
             XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)
 			{
+#if DEBUG
 				Logger.Debug(this, "Parent is null.  Returning tag with event");
+#endif
 				OnElement(_elem);
 			}
 			_elem = parent;

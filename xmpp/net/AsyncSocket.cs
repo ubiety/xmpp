@@ -100,6 +100,7 @@ namespace xmpp.net
             catch (SocketException ex)
             {
                 //We Failed to connect
+                //TODO: Return an error so that the hosting application can take action.
             }
             if (_socket.Connected)
             {
