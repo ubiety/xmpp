@@ -1,10 +1,10 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
 //Software Foundation; either version 3 of the License, or (at your option)
 //any later version.
-
+//
 //This library is distributed in the hope that it will be useful, but WITHOUT
 //ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 //FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -33,9 +33,9 @@ using xmpp.logging;
 
 namespace xmpp
 {
-    /// <summary>
-    /// Implements the XMPP(Jabber) Core and IM protocols
-    /// </summary>
+	/// <summary>
+	/// Implements the XMPP(Jabber) Core and IM protocols
+	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// The Extensible Messaging and Presence Protocol (XMPP) is an open XML technology for real-time
@@ -76,10 +76,9 @@ namespace xmpp
         private TagRegistry _reg = TagRegistry.Instance;
 		private AsyncSocket _socket = new AsyncSocket();
 		private ProtocolParser _parser;
-
-        private String _password;
-    	private XID _id;
-    	private int _port;
+		private String _password;
+		private XID _id;
+		private int _port;
 		private Boolean _ssl;
         private string _hostName = null;
 		
@@ -93,7 +92,7 @@ namespace xmpp
 		{
 			_parser = new ProtocolParser();
 			_parser.StreamStart += new EventHandler<TagEventArgs>(_parser_StreamStart);
-            _parser.StreamEnd += new EventHandler(_parser_StreamEnd);
+			_parser.StreamEnd += new EventHandler(_parser_StreamEnd);
 			_parser.Tag += new EventHandler<TagEventArgs>(_parser_Tag);
 
 			_socket.Connection += new EventHandler(_socket_Connection);
@@ -130,7 +129,7 @@ namespace xmpp
 			}
 		}
 
-    	private void _socket_Message(object sender, MessageEventArgs e)
+		private void _socket_Message(object sender, MessageEventArgs e)
 		{
 			_parser.Parse(e.Message);
 		}
@@ -155,7 +154,7 @@ namespace xmpp
 			_states.Password = _password;
 			_states.State = new ConnectingState(_states);
 			_states.Execute(null);
-        }
+		}
 
 		private void _socket_Connection(object sender, EventArgs e)
 		{	
@@ -173,27 +172,27 @@ namespace xmpp
             set { _ssl = value; }
         }
 
-    	///<summary>
-    	///</summary>
-    	public XID ID
-    	{
-    		get { return _id; }
+		///<summary>
+		///</summary>
+		public XID ID
+		{
+			get { return _id; }
 			set { _id = value; }
-    	}
+		}
 
-    	///<summary>
-    	///</summary>
-    	public String Password
-    	{
-    		get { return _password; }
+		///<summary>
+		///</summary>
+		public String Password
+		{
+			get { return _password; }
 			set { _password = value; }
-    	}
+		}
 
-    	///<summary>
-    	///</summary>
-    	public int Port
-    	{
-    		get { return _port; }
+		///<summary>
+		///</summary>
+		public int Port
+		{
+			get { return _port; }
 			set { _port = value; }
 		}
 

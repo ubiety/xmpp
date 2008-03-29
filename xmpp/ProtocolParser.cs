@@ -1,10 +1,10 @@
-//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
 //Software Foundation; either version 3 of the License, or (at your option)
 //any later version.
-
+//
 //This library is distributed in the hope that it will be useful, but WITHOUT
 //ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 //FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -52,26 +52,26 @@ namespace xmpp
 			set { _tag = value; }
 		}
 	}
-	
-    /// <remarks>
-    /// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
-    /// </remarks>
+
+	/// <remarks>
+	/// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
+	/// </remarks>
 	public class ProtocolParser
     {
         #region Private Members
-        /// <summary>
-        /// Occurs when the first <seealso cref="Tag"/> is seen on the stream.
-        /// </summary>
+		/// <summary>
+		/// Occurs when the first <seealso cref="Tag"/> is seen on the stream.
+		/// </summary>
 		public event EventHandler<TagEventArgs> StreamStart;
 
-        /// <summary>
-        /// Occurs when the last <seealso cref="Tag"/> is seen on the stream.
-        /// </summary>
+		/// <summary>
+		/// Occurs when the last <seealso cref="Tag"/> is seen on the stream.
+		/// </summary>
 		public event EventHandler StreamEnd;
 
-        /// <summary>
-        /// Occurs when any <seealso cref="Tag"/> is seen.
-        /// </summary>
+		/// <summary>
+		/// Occurs when any <seealso cref="Tag"/> is seen.
+		/// </summary>
 		public event EventHandler<TagEventArgs> Tag;
 
 		private XmlNamespaceManager _ns;
@@ -80,37 +80,36 @@ namespace xmpp
 		private XmlElement _elem;
 		private XmlElement _root = null;
 
-        private XmlReader _reader;
-    	private XmlReaderSettings _settings;
+		private XmlReader _reader;
+		private XmlReaderSettings _settings;
         #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProtocolParser"/> class.
-        /// </summary>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ProtocolParser"/> class.
+		/// </summary>
 		public ProtocolParser()
 		{
 			NameTable nt = new NameTable();
 			_settings = new XmlReaderSettings();
-        	_settings.NameTable = nt;
-        	_settings.ConformanceLevel = ConformanceLevel.Fragment;
+			_settings.NameTable = nt;
+			_settings.ConformanceLevel = ConformanceLevel.Fragment;
 			_ns = new XmlNamespaceManager(nt);
 
 			_ns.AddNamespace("stream", Namespaces.STREAM);
 		}
 
-        /// <summary>
-        /// Parses the message into its appropriate <seealso cref="Tag"/>
-        /// </summary>
+		/// <summary>
+		/// Parses the message into its appropriate <seealso cref="Tag"/>
+		/// </summary>
 		public void Parse(String message)
 		{
 #if DEBUG
             Logger.Info(this, "Starting message parsing...");
 #endif
 
-
-            // We have to cheat because XmlTextReader doesn't like malformed XML
-            if (message.Contains("</stream:stream>"))
-            {
+			// We have to cheat because XmlTextReader doesn't like malformed XML
+			if (message.Contains("</stream:stream>"))
+			{
 #if DEBUG
 				Logger.Info(this, "End of stream received from server");
 #endif
@@ -174,77 +173,77 @@ namespace xmpp
 
 		private void StartTag()
 		{
-            Hashtable ht = new Hashtable();
+			Hashtable ht = new Hashtable();
 
 			if (_reader.HasAttributes)
-            {
-                while (_reader.MoveToNextAttribute())
-                {
-                    if (_reader.Prefix.Equals("xmlns"))
-                    {
-                        //_ns.AddNamespace(_reader.LocalName, _reader.Value);
-                    }
-                    else if (_reader.Name.Equals("xmlns"))
-                    {
-                        //_ns.AddNamespace(string.Empty, _reader.Value);
-                    }
-                    else
-                    {
-                        ht.Add(_reader.Name, _reader.Value);
-                    }
-                }
-                _reader.MoveToElement();
-            }
+			{
+				while (_reader.MoveToNextAttribute())
+				{
+					if (_reader.Prefix.Equals("xmlns"))
+					{
+						//_ns.AddNamespace(_reader.LocalName, _reader.Value);
+					}
+					else if (_reader.Name.Equals("xmlns"))
+					{
+						//_ns.AddNamespace(string.Empty, _reader.Value);
+					}
+					else
+					{
+						ht.Add(_reader.Name, _reader.Value);
+					}
+				}
+				_reader.MoveToElement();
+			}
 
-            string ns = _ns.LookupNamespace(_reader.Prefix);
-            XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
-            XmlElement elem = _reg.GetTag(_reader.Prefix, q, _doc);
+			string ns = _ns.LookupNamespace(_reader.Prefix);
+			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
+			XmlElement elem = _reg.GetTag(_reader.Prefix, q, _doc);
 
-            foreach (string attrname in ht.Keys)
-            {
-                int colon = attrname.IndexOf(':');
-                if (colon > 0)
-                {
-                	string prefix = attrname.Substring(0, colon);
-                	string name = attrname.Substring(colon + 1);
+			foreach (string attrname in ht.Keys)
+			{
+				int colon = attrname.IndexOf(':');
+				if (colon > 0)
+				{
+					string prefix = attrname.Substring(0, colon);
+					string name = attrname.Substring(colon + 1);
 
-                    XmlAttribute attr = _doc.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
-                    attr.InnerXml = (string)ht[attrname];
+					XmlAttribute attr = _doc.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
+					attr.InnerXml = (string)ht[attrname];
 
-                    elem.SetAttributeNode(attr);
-                }
-                else
-                {
-                    XmlAttribute attr = _doc.CreateAttribute(attrname);
-                    attr.InnerXml = (string)ht[attrname];
+					elem.SetAttributeNode(attr);
+				}
+				else
+				{
+					XmlAttribute attr = _doc.CreateAttribute(attrname);
+					attr.InnerXml = (string)ht[attrname];
 
-                    elem.SetAttributeNode(attr);
-                }
-            }
+					elem.SetAttributeNode(attr);
+				}
+			}
 
-            Logger.DebugFormat(this, "Start: {0}", elem.Name);
+			Logger.DebugFormat(this, "Start: {0}", elem.Name);
 
-            if (_root == null)
-            {
-                _root = elem;
-                OnDocumentStart(_root);
-            }
-            else
-            {
-                if (_elem != null)
-                {
-                    _elem.AppendChild(elem);
-                }
-                _elem = elem;
-            }
+			if (_root == null)
+			{
+				_root = elem;
+				OnDocumentStart(_root);
+			}
+			else
+			{
+				if (_elem != null)
+				{
+					_elem.AppendChild(elem);
+				}
+				_elem = elem;
+			}
 		}
 
 		private void EndTag()
 		{
-            if (_reader.Name == "stream:stream")
+			if (_reader.Name == "stream:stream")
 			{
-                return;
-            }
+				return;
+			}
 
 			if (_elem.Name != _reader.Name)
 			{
