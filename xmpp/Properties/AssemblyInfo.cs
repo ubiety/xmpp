@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("xmpp")]
-[assembly: AssemblyCopyright("Copyright © 2006 Dieter Lunn")]
+[assembly: AssemblyCopyright("Copyright © 2006 - 2008 Dieter Lunn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
