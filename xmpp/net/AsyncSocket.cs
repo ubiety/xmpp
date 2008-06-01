@@ -38,7 +38,7 @@ namespace xmpp.net
 	public class AsyncSocket
 	{
         const int ConnectPortNo = 5222;
-        const int SslConnectPortNo = 5223;
+        const int SslConnectPortNo = 5222;
 
 		private Socket _socket;
 		private Decoder _decoder = Encoding.UTF8.GetDecoder();

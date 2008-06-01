@@ -143,7 +143,7 @@ namespace xmpp
             Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
 #endif
 
-            if (String.IsNullOrEmpty(_hostName))
+            if (!String.IsNullOrEmpty(_hostName))
                 _socket.Hostname = _hostName;
             else
                 _socket.Hostname = _id.Server;
