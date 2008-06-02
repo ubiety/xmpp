@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -38,7 +38,8 @@ namespace xmpp.net
 	public class AsyncSocket
 	{
         const int ConnectPortNo = 5222;
-        const int SslConnectPortNo = 5222;
+		// Port 5223 for SSL connections has been deprecated.  SSL is now determined by stream features.
+		const int SslConnectPortNo = 5222;
 
 		private Socket _socket;
 		private Decoder _decoder = Encoding.UTF8.GetDecoder();
@@ -51,6 +52,9 @@ namespace xmpp.net
 		private bool _secure;
 		private NetworkStream _netstream;
         private int _port = 0;
+
+		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
+		private bool _encrypting = false;
 #if NET20
 		private SslStream _sslstream;
 #endif
@@ -119,6 +123,7 @@ namespace xmpp.net
         /// </summary>
         public void StartSecure()
         {
+			_encrypting = true;
 			Logger.Debug(this, "Starting .NET Secure Mode");
             _sslstream = new SslStream(_netstream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			Logger.Debug(this, "Authenticating as Client");
@@ -130,6 +135,7 @@ namespace xmpp.net
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
 			}
 			_stream = _sslstream;
+			_encrypting = false;
         }
 
         private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
@@ -235,7 +241,8 @@ namespace xmpp.net
 				string msg = new string(chars);
 				Logger.DebugFormat(this, "Incoming Message: {0}", msg);
 				_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
-				OnMessage(msg);
+				if (!_encrypting)
+					OnMessage(msg);
 			}
 			catch (SocketException e)
 			{
