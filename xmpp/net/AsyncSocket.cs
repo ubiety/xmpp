@@ -16,13 +16,8 @@
 using System;
 using System.IO;
 using System.Net;
-#if NET20
 using System.Net.Security;
 using System.Security.Authentication;
-#elif __MonoCS__
-using System.Net.Security;
-using Mono.Security.Protocol.Tls;
-#endif
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -55,13 +50,7 @@ namespace xmpp.net
 
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
 		private bool _encrypting = false;
-#if NET20
 		private SslStream _sslstream;
-#endif
-#if __MonoCS__
-		private X509Certificate _local;
-		private SslClientStream _sslstream;
-#endif
 
         /// <summary>
         /// Occurs when a connection is established with a server.
@@ -117,7 +106,6 @@ namespace xmpp.net
             return false;
 		}
 
-#if NET20
         /// <summary>
         /// Encrypts the connection using SSL/TLS
         /// </summary>
@@ -148,52 +136,7 @@ namespace xmpp.net
 			Logger.DebugFormat(typeof(AsyncCallback), "Policy Errors: {0}", errors);
             return false;
         }
-#endif
 
-#if __MonoCS__
-		/// <summary>
-		/// 
-		/// </summary>
-		public void StartSecure() 
-		{
-			Logger.Debug(this, "Starting Mono Secure Mode");
-			try
-			{
-				Logger.Debug(this, "Creating Cert Collection");
-				X509CertificateCollection certs = new X509CertificateCollection();
-				Logger.DebugFormat(this, "Certificate Name: {0}", _local.Subject);
-				certs.Add(_local);
-				Logger.Debug(this, "Creating SslClientStream");
-	            _sslstream = new SslClientStream(_netstream, _dest.Hostname, false, Mono.Security.Protocol.Tls.SecurityProtocolType.Tls, null);
-				Logger.Debug(this, "Adding Validation Callback");
-	            _sslstream.ServerCertValidationDelegate = new CertificateValidationCallback(this.RemoteValidation);
-				Logger.Debug(this, "Changing variable to secure stream");
-				_stream = _sslstream;
-	            Logger.Debug(this, "Sending whitespace to start handshake");
-	            Write(" ");
-            }
-            catch (Exception e)
-            {
-            	Logger.ErrorFormat(this, "Error starting secure socket - {0}", e);
-            	throw;
-            }
-		}
-
-		private bool RemoteValidation(X509Certificate certificate, int[] certificateErrors)
-		{
-			Logger.Debug(this, "Returning true from validation callback");
-			return true;
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		public X509Certificate LocalCertificate
-		{
-			get { return _local; }
-			set { _local = value; }
-		}
-#endif
         /// <summary>
         /// Closes the current socket.
         /// </summary>

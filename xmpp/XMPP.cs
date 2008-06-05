@@ -204,17 +204,6 @@ namespace xmpp
             get { return _hostName; }
             set { _hostName = value; }
         }
-
-#if __MonoCS__
-		/// <summary>
-		/// 
-		/// </summary>
-		public X509Certificate LocalCertificate
-		{
-			get { return _socket.LocalCertificate; }
-			set { _socket.LocalCertificate = value; }
-		}
-#endif
         #endregion
     }
 }

@@ -1,3 +1,8 @@
+2008-06-05  Dieter Lunn <coder2000@gmail.com> 
+
+	* net/AsyncSocket.cs: Updated the file for Mono 2.0 which supports SslStream
+	  rather than SslClientStream.  No more conditional compiling needed.
+
 2008-01-11  Dieter Lunn <coder2000@gmail.com>
 
 	* net/AsyncSocket.cs: Changed the stream naming in an attempt to get SSL working.

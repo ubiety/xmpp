@@ -27,7 +27,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 		xmpp = new XMPP();
-		xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
+		//xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
 		ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
 	}
 	

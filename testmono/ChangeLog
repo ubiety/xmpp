@@ -1,3 +1,7 @@
+2008-06-05  Dieter Lunn <coder2000@gmail.com> 
+
+	* Modified the MainWindow for the new version of MonoDevelop
+
 2007-12-06  Dieter Lunn <coder2000@gmail.com> 
 
 	* Added handler for unhandled exception event.
