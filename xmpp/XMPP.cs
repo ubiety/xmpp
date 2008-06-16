@@ -26,9 +26,7 @@ using xmpp.net;
 using xmpp.common.SASL;
 using xmpp.registries;
 using xmpp.states;
-#if DEBUG
 using xmpp.logging;
-#endif
 #endregion
 
 namespace xmpp
@@ -104,18 +102,14 @@ namespace xmpp
 
         private void _parser_StreamEnd(object sender, EventArgs e)
         {
-#if DEBUG
             Logger.Debug(this, "Socket closing");
-#endif
             _socket.Close();
         }
 
 		private void _parser_Tag(object sender, TagEventArgs e)
 		{
-#if DEBUG
 			Logger.Debug(this, "Got Tag...");
 			Logger.DebugFormat(this, "State: {0}", _states.State.GetType().Name);
-#endif
 			
 			_states.Execute(e.Tag);
 		}
@@ -139,9 +133,7 @@ namespace xmpp
         /// </summary>
         public void Connect()
         {
-#if DEBUG
             Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
-#endif
 
             if (!String.IsNullOrEmpty(_hostName))
                 _socket.Hostname = _hostName;

@@ -68,6 +68,7 @@
     <File name="core/Compression/Method.cs" subtype="Code" buildaction="Compile" />
     <File name="attributes" subtype="Directory" buildaction="Compile" />
     <File name="attributes/XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
+    <File name="registries/CompressionRegistry.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

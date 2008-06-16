@@ -1,5 +1,9 @@
 2008-06-16  Dieter Lunn <coder2000@gmail.com> 
 
+	
+
+2008-06-16  Dieter Lunn <coder2000@gmail.com> 
+
 	* Moved XmppTagAttribute to xmpp.attributes namespace allowing for further attributes to be added.
 	* Started work on XEP-0138 Stream Compression
 

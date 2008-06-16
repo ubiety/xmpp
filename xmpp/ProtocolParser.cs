@@ -18,9 +18,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-#if DEBUG
 using xmpp.logging;
-#endif
 using xmpp.common;
 using xmpp.registries;
 #endregion

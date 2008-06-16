@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -13,15 +13,11 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
 using System.Xml;
-using xmpp;
 using xmpp.core;
 using xmpp.registries;
 using xmpp.common.SASL;
-#if DEBUG
 using xmpp.logging;
-#endif
 
 namespace xmpp.states
 {
@@ -66,13 +62,9 @@ namespace xmpp.states
 			
 			if (!current.Authenticated)
 			{
-#if DEBUG
 				Logger.Debug(this, "Creating SASL Processor");
-#endif
 				current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
-#if DEBUG
 		        Logger.Debug(this, "Sending auth with mechanism type");
-#endif
 				current.Socket.Write(current.Processor.Initialize(current.ID, current.Password));
 			
 				current.State = new SASLState(current);

@@ -2,8 +2,6 @@ using System;
 using log4net;
 using log4net.Config;
 
-#if DEBUG
-
 namespace xmpp.logging
 {
 	/// <summary>
@@ -720,5 +718,3 @@ namespace xmpp.logging
       #endregion
    }
 }
-
-#endif
