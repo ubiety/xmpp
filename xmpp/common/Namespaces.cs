@@ -41,5 +41,7 @@ namespace xmpp.common
 		
 		public const string BIND = "urn:ietf:params:xml:ns:xmpp-bind";
 		public const string SESSION = "urn:ietf:params:xml:ns:xmpp-session";
+		
+		public const string COMPRESSION = "http://jabber.org/features/compress";
 	}
 }

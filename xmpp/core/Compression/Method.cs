@@ -1,4 +1,6 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+// Method.cs
+//
+//XMPP .NET Library Copyright (C) 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -11,28 +13,18 @@
 //You should have received a copy of the GNU Lesser General Public License along
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
 using System.Xml;
-using xmpp.common;
 using xmpp.attributes;
 
-namespace xmpp.core.iq
+namespace xmpp.core.compression
 {
-    /// <summary>
-    /// 
-    /// </summary>
-	[XmppTag("auth", Namespaces.AUTH, typeof(Auth))]
-	public class Auth : xmpp.common.Tag
+	[XmppTag("", "", typeof(Method))]
+	public class Method : xmpp.common.Tag
 	{
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prefix"></param>
-        /// <param name="qname"></param>
-        /// <param name="doc"></param>
-		public Auth(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public Method(string prefix, XmlQualifiedName qname, XmlDocument doc)
+			: base (prefix, qname, doc)
 		{
 		}
-
 	}
 }

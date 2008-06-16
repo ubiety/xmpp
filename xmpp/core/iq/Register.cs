@@ -16,6 +16,7 @@
 
 using System.Xml;
 using xmpp.common;
+using xmpp.attributes;
 
 namespace xmpp.core.iq
 {

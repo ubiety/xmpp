@@ -16,7 +16,6 @@
   <Contents>
     <File name="ProtocolParser.cs" subtype="Code" buildaction="Compile" />
     <File name="XMPP.cs" subtype="Code" buildaction="Compile" />
-    <File name="XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
     <File name="common/Namespaces.cs" subtype="Code" buildaction="Compile" />
     <File name="common/Tag.cs" subtype="Code" buildaction="Compile" />
     <File name="common/XID.cs" subtype="Code" buildaction="Compile" />
@@ -64,12 +63,18 @@
     <File name="core/SASL/Challenge.cs" subtype="Code" buildaction="Compile" />
     <File name="core/SASL/Response.cs" subtype="Code" buildaction="Compile" />
     <File name="core/SASL/Success.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/Compression" subtype="Directory" buildaction="Compile" />
+    <File name="core/Compression/Compression.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/Compression/Method.cs" subtype="Code" buildaction="Compile" />
+    <File name="attributes" subtype="Directory" buildaction="Compile" />
+    <File name="attributes/XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../log4net-1.2.10/bin/mono/2.0/debug/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../../zlib.net/bin/zlib.net.dll" />
   </References>
   <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="./Makefile.am" SyncReferences="True" IsAutotoolsProject="True" RelativeConfigureInPath="../">
     <BuildFilesVar Sync="True" Name="FILES" />

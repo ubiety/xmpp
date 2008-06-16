@@ -21,6 +21,7 @@ using System.Security.Authentication;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using xmpp.logging;
 
 using System.Diagnostics;
@@ -51,6 +52,7 @@ namespace xmpp.net
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
 		private bool _encrypting = false;
 		private SslStream _sslstream;
+		//private ManualResetEvent _resetEvent = new ManualResetEvent(false);
 
         /// <summary>
         /// Occurs when a connection is established with a server.
@@ -90,8 +92,8 @@ namespace xmpp.net
             {
                 _socket.Connect(_dest.EndPoint);
             }
-            catch (SocketException ex)
-            {
+            catch (SocketException)
+			{
                 //We Failed to connect
                 //TODO: Return an error so that the hosting application can take action.
             }
@@ -111,20 +113,36 @@ namespace xmpp.net
         /// </summary>
         public void StartSecure()
         {
-			_encrypting = true;
+			//_encrypting = true;
 			Logger.Debug(this, "Starting .NET Secure Mode");
-            _sslstream = new SslStream(_netstream, false, new RemoteCertificateValidationCallback(RemoteValidation), null);
+			_sslstream = new SslStream(_stream, true, new RemoteCertificateValidationCallback(RemoteValidation));
 			Logger.Debug(this, "Authenticating as Client");
 			try
 			{
-				_sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls | SslProtocols.Ssl2, false);
+				_sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
+				if (_sslstream.IsAuthenticated)
+				{
+					_stream = _sslstream;
+					//_resetEvent.Set();
+				}
+				//_resetEvent.WaitOne();
 			} catch (Exception e)
 			{
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
 			}
-			_stream = _sslstream;
-			_encrypting = false;
+			//_encrypting = false;
         }
+		
+		/*
+		private void EndAuthenticate(IAsyncResult result)
+		{
+			_sslstream.EndAuthenticateAsClient(result);
+			if (_sslstream.IsAuthenticated)
+			{
+				_stream = _sslstream;
+				_resetEvent.Set();
+			}
+		} */
 
         private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
         {
@@ -133,7 +151,7 @@ namespace xmpp.net
                 return true;
             }
 
-			Logger.DebugFormat(typeof(AsyncCallback), "Policy Errors: {0}", errors);
+			Logger.DebugFormat(typeof(AsyncSocket), "Policy Errors: {0}", errors);
             return false;
         }
 
@@ -187,7 +205,11 @@ namespace xmpp.net
 				if (!_encrypting)
 					OnMessage(msg);
 			}
-			catch (SocketException e)
+			catch (Exception e)
+			{
+				Logger.ErrorFormat(this, "General Exception in socket receive: {0}", e);
+			}
+/*			catch (SocketException e)
 			{
 				Logger.DebugFormat(this, "Socket Exception: {0}", e);
 			}
@@ -195,6 +217,7 @@ namespace xmpp.net
 			{
 				Logger.DebugFormat(this, "Invalid Operation: {0}", e);
 			}
+			*/
 		}
 
         /// <summary>

@@ -19,6 +19,7 @@ using System.Xml;
 using System.Reflection;
 using xmpp.common;
 using xmpp.logging;
+using xmpp.attributes;
 
 namespace xmpp.registries
 {

@@ -13,6 +13,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
 using xmpp.common;
+using xmpp.attributes;
 
 namespace xmpp.core
 {

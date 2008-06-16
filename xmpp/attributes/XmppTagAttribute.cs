@@ -14,7 +14,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System;
 
-namespace xmpp
+namespace xmpp.attributes
 {
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.
