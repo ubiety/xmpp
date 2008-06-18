@@ -67,12 +67,13 @@ namespace xmpp.registries
         /// <returns>A new instance of the requested tag</returns>
 		public xmpp.common.Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
 		{
+			Type t = null;
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
 			try
 			{
-				Type t = (Type)_registeredItems[qname];
+				t = (Type)_registeredItems[qname];
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				Logger.ErrorFormat(this, "Unable to find tag {0}.  Register it to remove this error", qname);
 			}

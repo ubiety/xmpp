@@ -69,13 +69,15 @@
     <File name="attributes" subtype="Directory" buildaction="Compile" />
     <File name="attributes/XmppTagAttribute.cs" subtype="Code" buildaction="Compile" />
     <File name="registries/CompressionRegistry.cs" subtype="Code" buildaction="Compile" />
+    <File name="attributes/CompressionAttribute.cs" subtype="Code" buildaction="Compile" />
+    <File name="compression" subtype="Directory" buildaction="Compile" />
+    <File name="compression/ZlibStream.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-    <ProjectReference type="Gac" localcopy="True" refto="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../log4net-1.2.10/bin/mono/2.0/debug/log4net.dll" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../../../zlib.net/bin/zlib.net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../../zlib.net/source/bin/Debug/zlib.net.dll" />
   </References>
   <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="./Makefile.am" SyncReferences="True" IsAutotoolsProject="True" RelativeConfigureInPath="../">
     <BuildFilesVar Sync="True" Name="FILES" />
