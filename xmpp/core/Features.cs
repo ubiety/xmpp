@@ -1,3 +1,5 @@
+// Features.cs
+//
 //XMPP .NET Library Copyright (C) 2006 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -13,6 +15,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
 using xmpp.common;
+using xmpp.core.compression;
 using xmpp.attributes;
 
 namespace xmpp.core
@@ -48,6 +51,11 @@ namespace xmpp.core
 		public StartTLS StartTLS
 		{
 			get { return this["starttls", Namespaces.START_TLS] as StartTLS; }
+		}
+		
+		public Compression Compression
+		{
+			get { return this["compression", Namespaces.COMPRESSION] as Compression; }
 		}
 	}
 }

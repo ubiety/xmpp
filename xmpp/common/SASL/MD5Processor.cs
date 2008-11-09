@@ -1,3 +1,5 @@
+// MD5Processor.cs
+//
 //XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -24,6 +26,7 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.IO;
 using xmpp.logging;
+using xmpp;
 
 namespace xmpp.common.SASL
 {
@@ -61,7 +64,12 @@ namespace xmpp.common.SASL
 				Logger.DebugFormat(this, "rspauth = {0}", this["rspauth"]);
 				
 				// Either this isn't returning or an exception is being thrown around here.
-				return null;
+				return succ;
+			}
+			else if (tag is Failure)
+			{
+				Errors.Instance.SendError(this, ErrorType.AuthorizationFailed, "Failed authorization");
+				return tag;
 			}
 			
 			Challenge chall = tag as Challenge;

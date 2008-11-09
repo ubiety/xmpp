@@ -15,12 +15,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
+using xmpp.common;
 using xmpp.attributes;
 
 namespace xmpp.core.compression
 {
-	[XmppTag("", "", typeof(Method))]
-	public class Method : xmpp.common.Tag
+	[XmppTag("method", Namespaces.COMPRESSION, typeof(Method))]
+	public class Method : Tag
 	{
 		public Method(string prefix, XmlQualifiedName qname, XmlDocument doc)
 			: base (prefix, qname, doc)

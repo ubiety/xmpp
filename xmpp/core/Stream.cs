@@ -1,3 +1,5 @@
+// Stream.cs
+//
 //XMPP .NET Library Copyright (C) 2006 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -51,6 +53,11 @@ namespace xmpp.core
 		{
 			get { return GetAttribute("xmlns"); }
 			set { SetAttribute("xmlns", value); }
+		}
+		
+		public Features Features
+		{
+			get { return this["features", Namespaces.STREAM] as Features; }
 		}
 
         /// <summary>

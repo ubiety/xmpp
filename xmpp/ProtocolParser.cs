@@ -1,3 +1,5 @@
+// ProtocolParser.cs
+//
 //XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -18,75 +20,46 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
+using System.Text;
 using xmpp.logging;
 using xmpp.common;
 using xmpp.registries;
+using xmpp.core;
+using xmpp.states;
 #endregion
 
 namespace xmpp
 {
-	/// <remarks>
-	/// Provides data for the Tag events
-	/// </remarks>
-	public class TagEventArgs : EventArgs
-	{
-		private xmpp.common.Tag _tag;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TagEventArgs"/> class.
-		/// </summary>
-		/// <param name="tag"></param>
-		public TagEventArgs(xmpp.common.Tag tag)
-		{
-			_tag = tag;
-		}
-
-		/// <summary>
-		/// Gets the tag parsed from the incoming stream.
-		/// </summary>
-		public xmpp.common.Tag Tag
-		{
-			get { return _tag; }
-			set { _tag = value; }
-		}
-	}
-
 	/// <remarks>
 	/// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
 	/// </remarks>
 	public class ProtocolParser
     {
         #region Private Members
-		/// <summary>
-		/// Occurs when the first <seealso cref="Tag"/> is seen on the stream.
-		/// </summary>
-		public event EventHandler<TagEventArgs> StreamStart;
+		private static XmlNamespaceManager _ns;
+		private static TagRegistry _reg = TagRegistry.Instance;
+		private static ProtocolState _states = ProtocolState.Instance;
+		private static XmlDocument _doc = new XmlDocument();
+		private static XmlElement _elem;
+		private static XmlElement _root = null;
 
-		/// <summary>
-		/// Occurs when the last <seealso cref="Tag"/> is seen on the stream.
-		/// </summary>
-		public event EventHandler StreamEnd;
-
-		/// <summary>
-		/// Occurs when any <seealso cref="Tag"/> is seen.
-		/// </summary>
-		public event EventHandler<TagEventArgs> Tag;
-
-		private XmlNamespaceManager _ns;
-		private TagRegistry _reg = TagRegistry.Instance;
-		private XmlDocument _doc = new XmlDocument();
-		private XmlElement _elem;
-		private XmlElement _root = null;
-
-		private XmlReader _reader;
-		private XmlReaderSettings _settings;
+		private static XmlReader _reader;
+		private static XmlReaderSettings _settings;
+		private static Decoder _decoder = Encoding.UTF8.GetDecoder();
         #endregion
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ProtocolParser"/> class.
+		/// Parses the message into its appropriate <seealso cref="Tag"/>
 		/// </summary>
-		public ProtocolParser()
+		public static void Parse(byte[] m, int length)
 		{
+			char[] chars = new char[length];
+            _decoder.GetChars(m, 0, length, chars, 0);
+            string message = new string(chars);
+            Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
+
+			// Moved the initialization into the parse method because it has become static.  Don't really need an instance to parse the string.
+			Logger.Info(typeof(ProtocolParser), "Setting up environment");
 			NameTable nt = new NameTable();
 			_settings = new XmlReaderSettings();
 			_settings.NameTable = nt;
@@ -94,32 +67,22 @@ namespace xmpp
 			_ns = new XmlNamespaceManager(nt);
 
 			_ns.AddNamespace("stream", Namespaces.STREAM);
-		}
 
-		/// <summary>
-		/// Parses the message into its appropriate <seealso cref="Tag"/>
-		/// </summary>
-		public void Parse(String message)
-		{
-#if DEBUG
-            Logger.Info(this, "Starting message parsing...");
-#endif
+            Logger.Info(typeof(ProtocolParser), "Starting message parsing...");
 
-			// We have to cheat because XmlTextReader doesn't like malformed XML
+			// We have received the end tag asking to finish communication so we change to the Disconnect State.
 			if (message.Contains("</stream:stream>"))
 			{
-#if DEBUG
-				Logger.Info(this, "End of stream received from server");
-#endif
-                OnDocumentEnd();
+				Logger.Info(typeof(ProtocolParser), "End of stream received from server");
+                _states.State = new DisconnectState();
+                _states.Execute(null);
                 return;
             }
 
+			// We have to cheat because XmlTextReader doesn't like malformed XML
             if (message.Contains("<stream:stream"))
             {
-#if DEBUG
-            	Logger.Info(this, "Adding closing tag so xml parser doesn't complain");
-#endif
+            	Logger.Debug(typeof(ProtocolParser), "Adding closing tag so xml parser doesn't complain");
                 message += "</stream:stream>";
             }
             
@@ -149,19 +112,15 @@ namespace xmpp
             }
             catch (XmlException e)
             {
-#if DEBUG
-                Logger.ErrorFormat(this, "Message Parsing Error: {0}", e);
-#endif
+                Logger.ErrorFormat(typeof(ProtocolParser), "Message Parsing Error: {0}", e);
             }
             catch (InvalidOperationException e)
             {
-#if DEBUG
-            	Logger.ErrorFormat(this, "Invalid Operation: {0}", e);
-#endif
+            	Logger.ErrorFormat(typeof(ProtocolParser), "Invalid Operation: {0}", e);
             }
 		}
 
-		private void AddText()
+		private static void AddText()
 		{
 			if (_elem != null)
 			{
@@ -169,7 +128,7 @@ namespace xmpp
 			}
 		}
 
-		private void StartTag()
+		private static void StartTag()
 		{
 			Hashtable ht = new Hashtable();
 
@@ -197,6 +156,8 @@ namespace xmpp
 			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
 			XmlElement elem = _reg.GetTag(_reader.Prefix, q, _doc);
 
+			Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
+
 			foreach (string attrname in ht.Keys)
 			{
 				int colon = attrname.IndexOf(':');
@@ -219,12 +180,14 @@ namespace xmpp
 				}
 			}
 
-			Logger.DebugFormat(this, "Start: {0}", elem.Name);
+//			Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 
 			if (_root == null)
 			{
 				_root = elem;
-				OnDocumentStart(_root);
+				// Changing ProtocolState to Singleton so this eliminates the events.
+				// If the tag is a stream change to the Server Features State.
+				_states.State = new ServerFeaturesState();
 			}
 			else
 			{
@@ -236,55 +199,28 @@ namespace xmpp
 			}
 		}
 
-		private void EndTag()
+		private static void EndTag()
 		{
-			if (_reader.Name == "stream:stream")
-			{
-				return;
-			}
+            if ((_elem == null) && (_reader.Name == "stream:stream"))
+                return;
 
-			if (_elem.Name != _reader.Name)
+			if ((_elem.Name != _reader.Name))
 			{
-				throw new XmlException();
+				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.AuthorizationFailed, "Wrong element");
+                return;
 			}
             
-#if DEBUG
-            Logger.DebugFormat(this, "End: {0}", _elem);
-#endif
+            Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
             
             XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)
 			{
-#if DEBUG
-				Logger.Debug(this, "Parent is null.  Returning tag with event");
-#endif
-				OnElement(_elem);
+				Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
+				xmpp.common.Tag tag = (xmpp.common.Tag)_elem;
+				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
+				_states.Execute(tag);
 			}
 			_elem = parent;
-		}
-
-		private void OnElement(XmlElement tag)
-		{
-			if (Tag != null)
-			{
-				Tag(this, new TagEventArgs((xmpp.common.Tag)tag));
-			}
-		}
-
-		private void OnDocumentEnd()
-		{
-			if (StreamEnd != null)
-			{
-				StreamEnd(this, EventArgs.Empty);
-			}
-		}
-
-		private void OnDocumentStart(XmlElement elem)
-		{
-			if (StreamStart != null)
-			{
-				StreamStart(this, new TagEventArgs((xmpp.common.Tag)elem));
-			}
 		}
 	}
 }

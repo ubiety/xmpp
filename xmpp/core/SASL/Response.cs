@@ -1,3 +1,5 @@
+// Response.cs
+//
 //XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under

@@ -1,3 +1,5 @@
+// AsyncSocket.cs
+//
 //XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -23,8 +25,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using xmpp.logging;
-
-using System.Diagnostics;
+using xmpp;
+using xmpp.states;
+using xmpp.registries;
 
 namespace xmpp.net
 {
@@ -33,12 +36,7 @@ namespace xmpp.net
     /// </remarks>
 	public class AsyncSocket
 	{
-        const int ConnectPortNo = 5222;
-		// Port 5223 for SSL connections has been deprecated.  SSL is now determined by stream features.
-		const int SslConnectPortNo = 5222;
-
-		private Socket _socket;
-		private Decoder _decoder = Encoding.UTF8.GetDecoder();
+ 		private Socket _socket;
 		private UTF8Encoding _utf = new UTF8Encoding();
 		private Address _dest;
 		private byte[] _buff = new byte[4096];
@@ -47,22 +45,13 @@ namespace xmpp.net
 		private bool _ssl;
 		private bool _secure;
 		private NetworkStream _netstream;
-        private int _port = 0;
+        private int _port;
+        private ProtocolState _states = ProtocolState.Instance;
 
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
 		private bool _encrypting = false;
 		private SslStream _sslstream;
 		//private ManualResetEvent _resetEvent = new ManualResetEvent(false);
-
-        /// <summary>
-        /// Occurs when a connection is established with a server.
-        /// </summary>
-		public event EventHandler Connection;
-
-        /// <summary>
-        /// Occurs when a message has been received from the server.
-        /// </summary>
-		public event EventHandler<MessageEventArgs> Message;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncSocket"/> class.
@@ -77,14 +66,6 @@ namespace xmpp.net
         /// <returns>True if we connected, false if we didn't</returns>
 		public bool Connect()
 		{
-            if (_port == 0)
-            {
-                if (SSL)
-                    _port = SslConnectPortNo;
-                else
-                    _port = ConnectPortNo;
-            }
-
 			_dest = Address.Resolve(_hostname, _port);
 			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _port.ToString());
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -95,14 +76,15 @@ namespace xmpp.net
             catch (SocketException)
 			{
                 //We Failed to connect
-                //TODO: Return an error so that the hosting application can take action.
+                //TODO: Return an error using the Errors class so that the hosting application can take action.
             }
             if (_socket.Connected)
             {
                 _netstream = new NetworkStream(_socket, true);
                 _stream = _netstream;
                 _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
-                OnConnect();
+                _states.State = new ConnectedState();
+                _states.Execute(null);
                 return true;
             }
             return false;
@@ -161,6 +143,7 @@ namespace xmpp.net
         public void Close()
         {
             Logger.Debug(this, "Closing socket (Graceful Shutdown)");
+            _stream.Close();
             _socket.Close();
         }
 
@@ -172,52 +155,42 @@ namespace xmpp.net
 		{
 			Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
             byte[] mesg = _utf.GetBytes(msg);
-			//_socket.Send(mesg, 0, mesg.Length, SocketFlags.None);
 			_stream.Write(mesg, 0, mesg.Length);
-		}
-
-		private void OnConnect()
-		{
-			if (Connection != null)
-			{
-				Connection(this, EventArgs.Empty);
-			}
-		}
-
-		private void OnMessage(String message)
-		{
-			if (Message != null)
-			{
-				Message(this, new MessageEventArgs(message));
-			}
 		}
 
 		private void Receive(IAsyncResult ar)
 		{
-			try
-			{
-				int rx = _stream.EndRead(ar);
-				char[] chars = new char[rx];
-				_decoder.GetChars(_buff, 0, rx, chars, 0);
-				string msg = new string(chars);
-				Logger.DebugFormat(this, "Incoming Message: {0}", msg);
-				_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
-				if (!_encrypting)
-					OnMessage(msg);
-			}
-			catch (Exception e)
-			{
-				Logger.ErrorFormat(this, "General Exception in socket receive: {0}", e);
-			}
-/*			catch (SocketException e)
-			{
-				Logger.DebugFormat(this, "Socket Exception: {0}", e);
-			}
-			catch (InvalidOperationException e)
-			{
-				Logger.DebugFormat(this, "Invalid Operation: {0}", e);
-			}
-			*/
+            try
+            {
+            	Logger.Debug(this, ar.GetType().FullName);
+                int rx = _stream.EndRead(ar);
+                _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+                if (!_encrypting)
+                    ProtocolParser.Parse(_buff, rx);
+            }
+            catch (SocketException e)
+            {
+                Logger.DebugFormat(this, "Socket Exception: {0}", e);
+            }
+            catch (InvalidOperationException e)
+            {
+                Logger.DebugFormat(this, "Invalid Operation: {0}", e);
+            }
+            catch (Exception e)
+            {
+                Logger.Error(this, e);
+            }
+		}
+		
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="algorithm"></param>
+		public void StartCompression(string algorithm)
+		{
+			Logger.DebugFormat(this, "Replacing stream with {0} compressed version.", algorithm);
+			_stream = CompressionRegistry.Instance.GetCompression(algorithm, _stream);
+			Logger.Debug(this, _stream.GetType().Name);
 		}
 
         /// <summary>
@@ -260,31 +233,5 @@ namespace xmpp.net
             get { return _port; }
             set { _port = value; }
         }
-	}
-
-	/// <remarks>
-	/// Provides data for the Message events.
-	/// </remarks>
-	public class MessageEventArgs : EventArgs
-	{
-		private string _message;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MessageEventArgs"/> class.
-		/// </summary>
-		/// <param name="message">The message received from the stream</param>
-		public MessageEventArgs(String message)
-		{
-			_message = message;
-		}
-
-		/// <summary>
-		/// Gets the message received from the stream.
-		/// </summary>
-		public String Message
-		{
-			get { return _message; }
-			set { _message = value; }
-		}
 	}
 }

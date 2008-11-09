@@ -1,3 +1,5 @@
+// Success.cs
+//
 //XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -18,7 +20,7 @@ using xmpp.common;
 using xmpp.attributes;
 using System.Xml;
 
-namespace xmpp.common.SASL
+namespace xmpp.core.SASL
 {
 	[XmppTag("success", Namespaces.SASL, typeof(Success))]
 	public class Success : Tag

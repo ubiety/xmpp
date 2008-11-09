@@ -1,14 +1,30 @@
-2008-06-20  Dieter Lunn <coder2000@gmail.com> 
+2008-11-09  Dieter Lunn <coder2000@gmail.com> 
 
-	
+	* ChangeLog: All changes should be in here including refactoring
+	  ProtocolState to singleton and ProtocolParser.Parse to static.  Visual
+	  Studio solution may not be up to date on current file arrangment.
 
-2008-06-17  Dieter Lunn <coder2000@gmail.com> 
+2008-10-27  Dieter Lunn <coder2000@gmail.com>
 
-	
+	* net/AsyncSocket.cs: Added compression.  Still not working but close.  It negotiates properly but as MonoDevelop doesn't trap all uncaught exceptions its hard to tell where the error is occuring.
 
-2008-06-16  Dieter Lunn <coder2000@gmail.com> 
+2008-10-26  Dieter Lunn <coder2000@gmail.com>
 
-	
+	* registries/CompressionRegistry.cs: Working on adding compression streams.
+
+	* Errors.cs: Added a new singleton class to handle bringing errors to the top.
+
+	* ProtocolParser.cs: Changed the parse method to static removing the need to create an instance.
+
+	* XMPP.cs: Removed unnecessary events for sockets and protocol parser.
+
+	* states/ProtocolState.cs: Changed to a singleton and added compression features.
+
+2008-10-23  Dieter Lunn <coder2000@gmail.com>
+
+	* ProtocolParser.cs: Removed unnessary #if statements.
+
+	* registries/TagRegistry.cs: Removed the need for the add tag methods.  AddAssembly adds to the hashtable on its own.
 
 2008-06-16  Dieter Lunn <coder2000@gmail.com> 
 

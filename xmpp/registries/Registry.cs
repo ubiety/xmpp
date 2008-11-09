@@ -1,3 +1,5 @@
+// Registry.cs
+//
 //XMPP .NET Library Copyright (C) 2006 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -30,7 +32,7 @@ namespace xmpp.registries
 		/// <summary>
 		/// 
 		/// </summary>
-		protected Hashtable _registeredItems = new Hashtable();
+		protected static Hashtable _registeredItems = new Hashtable();
 		
 		static Registry()
 		{

@@ -1,4 +1,6 @@
-//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
+// SASLState.cs
+//
+//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -13,58 +15,53 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
 using xmpp;
 using xmpp.common;
-#if DEBUG
 using xmpp.logging;
-#endif
 
 namespace xmpp.states
 {
 	/// <summary>
-	/// 
+	/// SASL state is used to authenticate the user with the current processor.
 	/// </summary>
 	public class SASLState : State
 	{
 		/// <summary>
-		/// 
+		/// Create a new state.
 		/// </summary>
-		/// <param name="state">
-		/// A <see cref="ProtocolState"/>
-		/// </param>
-		public SASLState(ProtocolState state)
+		public SASLState() : base ()
 		{
-			current = state;
 		}
 		
 		/// <summary>
-		/// 
+		/// Execute the actions to authenticate the user.
 		/// </summary>
 		/// <param name="data">
-		/// A <see cref="System.Object"/>
+		/// The <see cref="Tag"/> we received from the server.  Probably a challenge or response.
 		/// </param>
-		public override void Execute(xmpp.common.Tag data)
+		public override void Execute(Tag data)
 		{
-#if DEBUG
 			Logger.Debug(this, "Processing next SASL step");
-#endif
-			xmpp.common.Tag res = current.Processor.Step(data);
-			if (res != null)
+			xmpp.common.Tag res = _current.Processor.Step(data);
+			if (res is xmpp.core.SASL.Success)
 			{
-				current.Socket.Write(res);
+				// We have been successfully authenticated and we need to restart the stream.
+				Logger.Debug(this, "Sending start stream again");
+				_current.Authenticated = true;
+				// Return to the connected state to resend the start tag.
+				_current.State = new ConnectedState();
+				_current.Execute(null);
+			}
+			else if (res is xmpp.core.SASL.Failure)
+			{
+				// We have failed in our quest.  Error returned inside we just need to wrap this up.
+				return;
 			}
 			else
 			{
-#if DEBUG
-				Logger.Debug(this, "Sending start stream again");
-#endif
-				current.Authenticated = true;
-				current.State = new ConnectedState(current);
-				current.Execute(null);
+				// Neither success or failure so we send the result to the socket.
+				_current.Socket.Write(res);
 			}
-			
-			//Logger.Debug(this, "Outside in the cold where I am not supposed to be.");
 		}
 	}
 }

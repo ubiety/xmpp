@@ -1,4 +1,6 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+// ConnectedState.cs
+//
+//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -13,47 +15,41 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
 using System.Xml;
 using xmpp.net;
-using xmpp.registries;
 using xmpp.core;
 using xmpp.common;
 
 namespace xmpp.states
 {
 	/// <summary>
-	/// 
+	/// The state which occurs just after connecting and sends the starting stream:stream tag.
 	/// </summary>
 	public class ConnectedState : State
 	{
 		/// <summary>
-		/// 
+		/// Creates the new state.  Usually passed to the State property of the ProtocolState instance. 
 		/// </summary>
-		/// <param name="state">
-		/// A <see cref="ProtocolState"/>
-		/// </param>
-		public ConnectedState(ProtocolState state)
+		public ConnectedState() : base()
 		{
-			current = state;
 		}
 		
 		/// <summary>
-		/// 
+		/// Executes the state sending the tag to the just connected socket.
 		/// </summary>
 		/// <param name="data">
-		/// A <see cref="System.Object"/>
+		/// The <see cref="xmpp.common.Tag"/> to parse.  In this case null.
 		/// </param>
-		public override void Execute (xmpp.common.Tag data)
+		public override void Execute (Tag data)
 		{
-			TagRegistry reg = TagRegistry.Instance;
-			
-			Stream stream = (Stream)reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
+			Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
 			stream.Version = "1.0";
-			stream.To = current.Socket.Hostname;
+			stream.To = _current.Socket.Hostname;
 			stream.NS = "jabber:client";
-			string prefix = current.Authenticated ? "" : "<?xml version='1.0' encoding='UTF-8'?>";
-			current.Socket.Write(prefix + stream.StartTag());
+			string prefix = _current.Authenticated ? "" : "<?xml version='1.0' encoding='UTF-8'?>";
+			if (_current.Authenticated)
+				_current.State = new ServerFeaturesState();
+			_current.Socket.Write(prefix + stream.StartTag());
 		}
 	}
 }

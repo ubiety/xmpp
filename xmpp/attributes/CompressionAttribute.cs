@@ -1,4 +1,6 @@
-﻿//XMPP .NET Library Copyright (C) 2008 Dieter Lunn
+// CompressionAttribute.cs
+//
+//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -21,15 +23,22 @@ namespace xmpp.attributes
 	public class CompressionAttribute : Attribute
 	{
 		private string _compression;
+		private Type _type;
 
-		public CompressionAttribute(string compression)
+		public CompressionAttribute(string compression, Type type)
 		{
 			_compression = compression;
+			_type = type;
 		}
 
 		public string Algorithm
 		{
 			get { return _compression; }
+		}
+		
+		public Type ClassType
+		{
+			get { return _type; }
 		}
 	}
 }

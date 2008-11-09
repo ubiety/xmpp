@@ -32,6 +32,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Project" localcopy="True" refto="xmpp.compression.zlib" />
   </References>
   <GtkDesignInfo gtkVersion="2.12.0" />
 </Project>

@@ -4,17 +4,23 @@
       <Entry build="True" name="xmpp" configuration="Debug" />
       <Entry build="True" name="testmono" configuration="Debug" />
       <Entry build="True" name="testconsole" configuration="Debug" />
+      <Entry build="True" name="xmpp.compression.zlib" configuration="Debug" />
+      <Entry build="True" name="xmpp.compression.sharpziplib" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="xmpp" configuration="Release" />
       <Entry build="True" name="testmono" configuration="Release" />
       <Entry build="True" name="testconsole" configuration="Release" />
+      <Entry build="True" name="xmpp.compression.zlib" configuration="Release" />
+      <Entry build="True" name="xmpp.compression.sharpziplib" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="testmono" single="True">
     <Execute type="None" entry="xmpp" />
     <Execute type="None" entry="testmono" />
     <Execute type="None" entry="testconsole" />
+    <Execute type="None" entry="xmpp.compression.zlib" />
+    <Execute type="None" entry="xmpp.compression.sharpziplib" />
   </StartMode>
   <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
   <DeployTargets />
@@ -22,5 +28,7 @@
     <Entry filename="xmpp/xmpp.mdp" />
     <Entry filename="testmono/testmono.mdp" />
     <Entry filename="testconsole/testconsole.mdp" />
+    <Entry filename="xmpp.compression.zlib/xmpp.compression.zlib.mdp" />
+    <Entry filename="xmpp.compression.sharpziplib/xmpp.compression.sharpziplib.mdp" />
   </Entries>
 </Combine>

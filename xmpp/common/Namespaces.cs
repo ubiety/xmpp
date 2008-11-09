@@ -1,3 +1,5 @@
+// Namespaces.cs
+//
 //XMPP .NET Library Copyright (C) 2006 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -43,5 +45,6 @@ namespace xmpp.common
 		public const string SESSION = "urn:ietf:params:xml:ns:xmpp-session";
 		
 		public const string COMPRESSION = "http://jabber.org/features/compress";
+		public const string COMPRESSION_PROTOCOL = "http://jabber.org/protocol/compress";
 	}
 }

@@ -16,6 +16,11 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using xmpp.attributes;
+using System.IO;
+using System.Reflection;
+using xmpp;
+using xmpp.logging;
 
 namespace xmpp.registries
 {
@@ -23,6 +28,90 @@ namespace xmpp.registries
 	{
 		private CompressionRegistry()
 		{
+		}
+
+		/// <summary>
+		/// Add a compression stream to the library.  Zlib is the default.
+		/// </summary>
+		/// <param name="a">
+		/// The assembly containing the stream definition.
+		/// </param>
+		public void AddCompression(Assembly a)
+		{
+            Logger.DebugFormat(this, "Adding assembly {0}", a.FullName);
+            
+            CompressionAttribute[] tags = GetAttributes<CompressionAttribute>(a);
+            foreach (CompressionAttribute tag in tags)
+            {
+            	Logger.DebugFormat(this, "Adding {0}", tag.Algorithm);
+            	_registeredItems.Add(tag.Algorithm, tag.ClassType);
+            }			
+		}
+
+		/// <summary>
+		/// Creates the stream class for the compression algorithm specified.
+		/// </summary>
+		/// <param name="algorithm">
+		/// The algorithm we want to create the stream for.
+		/// </param>
+		/// <param name="inner">
+		/// The stream we want to wrap in our compression algorithm.
+		/// </param>
+		/// <returns>
+		/// The wrapped stream ready for compression.
+		/// </returns>
+		public Stream GetCompression(string algorithm, Stream inner)
+		{
+			Logger.InfoFormat(this, "Finding algorithm {0}.", algorithm);
+			Type t = null;
+			Stream stream = null;
+			try
+			{
+				t = (Type)_registeredItems[algorithm];
+				stream = (Stream)Activator.CreateInstance(t, new object[] { inner });
+			}
+			catch (Exception e)
+			{
+				Errors.Instance.SendError(this, xmpp.common.ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+				Logger.Error(this, e);
+			}
+			return stream;
+		}
+
+		/// <summary>
+		/// Does the library support the algorithm the server is requesting.
+		/// </summary>
+		/// <param name="algorithm">
+		/// The algorithm we are looking for.
+		/// </param>
+		/// <returns>
+		/// True if we have a stream class available.  False if not.
+		/// </returns>
+		public static bool SupportsAlgorithm(string algorithm)
+		{
+			try
+			{
+				object t = _registeredItems[algorithm];
+			}
+			catch
+			{
+				return false;
+			}
+			
+			return true;
+		}
+
+		/// <value>
+		/// Do we have any algorithms to use?
+		/// </value>
+		public static bool AlgorithmsAvailable
+		{
+			get
+			{
+				if (_registeredItems.Count >= 1)
+					return true;
+				return false;
+			}
 		}
 	}
 }

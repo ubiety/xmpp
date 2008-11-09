@@ -1,4 +1,4 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,18 +17,25 @@ using GLib;
 using xmpp;
 using xmpp.common;
 using xmpp.logging;
+using xmpp.registries;
 using System.Security.Cryptography.X509Certificates;
+using System.Reflection;
 
 public partial class MainWindow: Gtk.Window
 {	
 	private XMPP xmpp;
+	private Errors error = Errors.Instance;
+	private CompressionRegistry _creg = CompressionRegistry.Instance;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
 		xmpp = new XMPP();
+		error.OnError += new EventHandler<ErrorEventArgs>(OnError);
 		//xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
-		ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
+		//ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
+		lblVersion.Text = xmpp.Version;
+		_creg.AddCompression(Assembly.LoadFile("xmpp.compression.zlib.dll"));
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -49,5 +56,12 @@ public partial class MainWindow: Gtk.Window
 		xmpp.Password = password.Text;
 		xmpp.SSL = cbSSL.Active;
 		xmpp.Connect();
+	}
+	
+	protected void OnError(object sender, ErrorEventArgs e)
+	{
+		MessageDialog d = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Close, "");
+		d.Text = e.Message;
+		d.Show();
 	}
 }

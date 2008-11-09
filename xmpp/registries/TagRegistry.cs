@@ -1,4 +1,6 @@
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+// TagRegistry.cs
+//
+//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -14,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Collections;
 using System.Xml;
 using System.Reflection;
 using xmpp.common;
@@ -32,16 +33,6 @@ namespace xmpp.registries
 		{
 		}
 
-		private void AddTag(string localName, string ns, Type t)
-		{
-			AddTag(new XmlQualifiedName(localName, ns), t);
-		}
-
-		private void AddTag(XmlQualifiedName qname, Type t)
-		{
-			_registeredItems.Add(qname, t);
-		}
-
 		/// <summary>
 		/// Used to add <seealso cref="Tag">Tag(s)</seealso> to the registry.  Using attributes the <see cref="TagRegistry"/> looks for and adds any appropriate tags found in the assembly.
 		/// </summary>
@@ -51,10 +42,11 @@ namespace xmpp.registries
             Logger.DebugFormat(this, "Adding assembly {0}", ass.FullName);
             
             XmppTagAttribute[] tags = GetAttributes<XmppTagAttribute>(ass);
+            Logger.DebugFormat(this, "{0,-15}{1,-34}{2}", "Tag Prefix", "Class", "Namespace");
             foreach (XmppTagAttribute tag in tags)
             {
-            	Logger.DebugFormat(this, "Adding: {0}", tag.Prefix);
-            	AddTag(tag.Prefix, tag.NS, tag.ClassType);
+            	Logger.DebugFormat(this, "{0,-15}{1,-34}{2}", tag.Prefix, tag.ClassType.FullName, tag.NS);
+            	_registeredItems.Add(new XmlQualifiedName(tag.Prefix, tag.NS), tag.ClassType);
             }
 		}
 
@@ -65,19 +57,22 @@ namespace xmpp.registries
         /// <param name="qname">Qualified Namespace</param>
         /// <param name="doc">XmlDocument to create tag with</param>
         /// <returns>A new instance of the requested tag</returns>
-		public xmpp.common.Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
+		public Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
 		{
 			Type t = null;
+			Tag tag = null;
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
 			try
 			{
 				t = (Type)_registeredItems[qname];
+        		tag =  (Tag)Activator.CreateInstance(t, new object[] { prefix, qname, doc });
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
-				Logger.ErrorFormat(this, "Unable to find tag {0}.  Register it to remove this error", qname);
-			}
-        	return (xmpp.common.Tag)Activator.CreateInstance(t, new object[] { prefix, qname, doc });
+				Logger.ErrorFormat(this, "Unable to find tag {0} in registry.  Check to make sure library is loaded into registry.", qname);
+        		Logger.Error(this, e);
+			}        	
+        	return tag;
         }
 	}
 }

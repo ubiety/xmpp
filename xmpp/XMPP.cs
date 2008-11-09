@@ -1,3 +1,5 @@
+// XMPP.cs
+//
 //XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
@@ -69,18 +71,16 @@ namespace xmpp
 	/// </example>
 	public class XMPP
     {
-
         #region Private Members
         private TagRegistry _reg = TagRegistry.Instance;
-		private AsyncSocket _socket = new AsyncSocket();
-		private ProtocolParser _parser;
-		private String _password;
-		private XID _id;
-		private int _port;
-		private Boolean _ssl;
+		private string _password = "";
+		private XID _id = null;
+		private int _port = 5222;
+		private Boolean _ssl = false;
         private string _hostName = null;
-		
-		private ProtocolState _states;
+		private Errors _errors = Errors.Instance;
+		private ProtocolState _states = ProtocolState.Instance;
+		private string _version = "";
         #endregion
 
         /// <summary>
@@ -88,44 +88,11 @@ namespace xmpp
 		/// </summary>
 		public XMPP()
 		{
-			_parser = new ProtocolParser();
-			_parser.StreamStart += new EventHandler<TagEventArgs>(_parser_StreamStart);
-			_parser.StreamEnd += new EventHandler(_parser_StreamEnd);
-			_parser.Tag += new EventHandler<TagEventArgs>(_parser_Tag);
-
-			_socket.Connection += new EventHandler(_socket_Connection);
-			_socket.Message += new EventHandler<MessageEventArgs>(_socket_Message);
-
-			_reg.AddAssembly(Assembly.GetAssembly(typeof(XMPP)));
-			_states = new ProtocolState(_socket);
-		}
-
-        private void _parser_StreamEnd(object sender, EventArgs e)
-        {
-            Logger.Debug(this, "Socket closing");
-            _socket.Close();
-        }
-
-		private void _parser_Tag(object sender, TagEventArgs e)
-		{
-			Logger.Debug(this, "Got Tag...");
-			Logger.DebugFormat(this, "State: {0}", _states.State.GetType().Name);
-			
-			_states.Execute(e.Tag);
-		}
-
-		private void _parser_StreamStart(object sender, TagEventArgs e)
-		{
-			Stream stream = e.Tag as Stream;
-			if (stream.Version.StartsWith("1."))
-			{
-				_states.State = new ServerFeaturesState(_states);
-			}
-		}
-
-		private void _socket_Message(object sender, MessageEventArgs e)
-		{
-			_parser.Parse(e.Message);
+			Assembly x = Assembly.GetAssembly(typeof(XMPP));
+			_reg.AddAssembly(x);
+			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
+			_version = x.GetName().Version.ToString();
+			_states.Socket = new AsyncSocket();
 		}
 
         /// <summary>
@@ -133,30 +100,53 @@ namespace xmpp
         /// </summary>
         public void Connect()
         {
-            Logger.DebugFormat(this, "Connecting to {0}", _id.Server);
+        	// We need an XID and Password to connect to the server.
+			if (String.IsNullOrEmpty(_password))
+			{
+				_errors.SendError(this, ErrorType.MissingPassword, "Set the Password property before connecting.");
+				return;
+			}
+			else if (String.IsNullOrEmpty(_id))
+			{
+				_errors.SendError(this, ErrorType.MissingID, "Set the ID property before connecting.");
+				return;
+			}
 
+			// Do we use the server supplied from the XID or the alternate provided by the developer?
             if (!String.IsNullOrEmpty(_hostName))
-                _socket.Hostname = _hostName;
+                _states.Socket.Hostname = _hostName;
             else
-                _socket.Hostname = _id.Server;
+                _states.Socket.Hostname = _id.Server;
 
-			_socket.SSL = _ssl;
-            _socket.Port = _port;
+			Logger.InfoFormat(this, "Connecting to {0}", _states.Socket.Hostname);
+
+			// Set the values we need to connect.
+			_states.Socket.SSL = _ssl;
+            _states.Socket.Port = _port;
 			_states.ID = _id;
 			_states.Password = _password;
-			_states.State = new ConnectingState(_states);
+			// Set the current state to connecting and start the process.
+			_states.State = new ConnectingState();
 			_states.Execute(null);
 		}
-
-		private void _socket_Connection(object sender, EventArgs e)
-		{	
-			_states.State = new ConnectedState(_states);
+		
+		/// <summary>
+		/// Disconnect from the XMPP server
+		/// </summary>
+		public void Disconnect()
+		{
+			_states.State = new DisconnectState();
 			_states.Execute(null);
-        }
+		}
+		
+		private void OnError(object sender, ErrorEventArgs e)
+		{
+			Logger.ErrorFormat(this, "Error from {0}: {1}", sender, e.Message);
+		}
 
         #region Properties
         /// <summary>
-        /// 
+        /// This property defines whether SSL should be used to connect to the server.
         /// </summary>
         public Boolean SSL
         {
@@ -164,24 +154,27 @@ namespace xmpp
             set { _ssl = value; }
         }
 
-		///<summary>
-		///</summary>
+		/// <summary>
+		/// This is the XID we should use to determine the server and user name to connect to.
+		/// </summary>
 		public XID ID
 		{
 			get { return _id; }
 			set { _id = value; }
 		}
 
-		///<summary>
-		///</summary>
+		/// <summary>
+		/// The password for the username supplied in the XID.
+		/// </summary>
 		public String Password
 		{
 			get { return _password; }
 			set { _password = value; }
 		}
 
-		///<summary>
-		///</summary>
+		/// <summary>
+		/// The port to connect to.  Should only be used if not connecting to the default 5222.
+		/// </summary>
 		public int Port
 		{
 			get { return _port; }
@@ -189,12 +182,20 @@ namespace xmpp
 		}
 
         /// <summary>
-        /// 
+        /// The hostname to connect to.  Should only be used if the hostname is not part of the XID.
         /// </summary>
         public string HostName
         {
             get { return _hostName; }
             set { _hostName = value; }
+        }
+
+        /// <value>
+        /// The current version of the XMPP .NET library
+        /// </value>
+        public string Version
+        {
+        	get { return _version; }
         }
         #endregion
     }

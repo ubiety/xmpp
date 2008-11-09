@@ -16,13 +16,16 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using xmpp.attributes;
+using xmpp.common;
+using System.Xml;
 
-namespace xmpp
+namespace xmpp.core
 {
 	[XmppTag("stream", "", typeof(Error))]
-	public class Error
-	{		
-		public Error()
+	public class Error : Tag
+	{
+		public Error(string prefix, XmlQualifiedName qname, XmlDocument doc)
+			: base (prefix, qname, doc)
 		{
 		}
 	}
