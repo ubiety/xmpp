@@ -119,12 +119,22 @@ namespace xmpp.compression.sharpziplib
 		public override IAsyncResult BeginRead (byte[] buffer, int offset, int count, AsyncCallback cback, object state)
 		{
 			_outBuff = buffer;
-			return _innerStream.BeginRead(_inBuff, 0, _inBuff.Length, cback, state);
+			if ( _in.IsNeedingInput )
+				return _innerStream.BeginRead(_inBuff, 0, _inBuff.Length, cback, state);
+				
+			ZlibStreamAsyncResult ar = new ZlibStreamAsyncResult(state);
+			cback(ar);
+			return ar;
 		}
 
 		public override int EndRead (IAsyncResult async_result)
 		{
-			int avail = _innerStream.EndRead(async_result);
+			int avail = 0;
+			
+			if ( !(async_result is ZlibStreamAsyncResult) )
+			{
+				avail = _innerStream.EndRead(async_result);
+			}
 			
 			Logger.Debug(this, _inBuff);
 			
@@ -135,6 +145,48 @@ namespace xmpp.compression.sharpziplib
 			Logger.Debug(this, _outBuff);
 			
 			return avail;
+		}
+
+		private class ZlibStreamAsyncResult : IAsyncResult
+		{
+			private object _state = null;
+			private Exception _exception;
+			
+			public ZlibStreamAsyncResult(object state)
+			{
+				_state = state;
+			}
+			
+			public ZlibStreamAsyncResult(object state, Exception ex)
+			{
+				_state = state;
+				_exception = ex;
+			}
+			
+			public Exception Exception
+			{
+				get { return _exception; }
+			}
+			
+			public object AsyncState
+			{
+				get { return _state; }
+			}
+			
+			public System.Threading.WaitHandle AsyncWaitHandle
+			{
+				get { throw new NotImplementedException(); }
+			}
+			
+			public bool CompletedSynchronously
+			{
+				get { return true; }
+			}
+			
+			public bool IsCompleted
+			{
+				get { return true; }
+			}
 		}
 	}
 }

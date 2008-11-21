@@ -35,7 +35,7 @@ public partial class MainWindow: Gtk.Window
 		//xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
 		//ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
 		lblVersion.Text = xmpp.Version;
-		_creg.AddCompression(Assembly.LoadFile("xmpp.compression.zlib.dll"));
+		_creg.AddCompression(Assembly.LoadFile("xmpp.compression.sharpziplib.dll"));
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

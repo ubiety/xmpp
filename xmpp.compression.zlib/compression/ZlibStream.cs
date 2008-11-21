@@ -110,7 +110,7 @@ namespace xmpp.compression.zlib
 		
 		public override int EndRead (IAsyncResult async_result)
 		{
-			if ((async_result is ZlibStreamAsyncResult))
+			if (!(async_result is ZlibStreamAsyncResult))
 				_in.avail_in = _innerStream.EndRead(async_result);
 			return Inflate();
 		}
