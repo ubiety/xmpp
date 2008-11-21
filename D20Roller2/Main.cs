@@ -2,6 +2,8 @@ using System;
 using System.Windows.Forms;
 using xmpp;
 using xmpp.common;
+using xmpp.registries;
+using System.Reflection;
 
 namespace TestXMPP
 {
@@ -13,6 +15,7 @@ namespace TestXMPP
 		{
 			InitializeComponent();
 			xmpp = new XMPP();
+            CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\xmpp.compression.sharpziplib.dll"));
 		}
 
 		private void button1_Click(object sender, EventArgs e)

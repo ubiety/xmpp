@@ -82,7 +82,8 @@ namespace xmpp.states
 				_current.State = new SASLState();
 				return;
 			}
-			
+
+            Logger.Debug(this, "Authenticated");
 			// Do we want to do stream compression according to XEP-0138?
 			if (_current.Authenticated && !_current.Compress && CompressionRegistry.AlgorithmsAvailable)
 			{

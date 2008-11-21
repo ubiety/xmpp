@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using xmpp.attributes;
-using xmpp.logging;
 using ComponentAce.Compression.Libs.zlib;
 
 namespace xmpp.compression.zlib
@@ -35,7 +34,7 @@ namespace xmpp.compression.zlib
 		private byte[] _inBuff;
 		private byte[] _outBuff;
 		
-		private const int _buffSize = 4096;
+		private const int _buffSize = 1024;
 		
 		public ZlibStream(Stream innerStream)
 		{
@@ -111,7 +110,7 @@ namespace xmpp.compression.zlib
 		
 		public override int EndRead (IAsyncResult async_result)
 		{
-			if (!(async_result is ZlibStreamAsyncResult))
+			if ((async_result is ZlibStreamAsyncResult))
 				_in.avail_in = _innerStream.EndRead(async_result);
 			return Inflate();
 		}
