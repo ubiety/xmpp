@@ -144,7 +144,7 @@ namespace xmpp.compression.sharpziplib
 			
 			Logger.Debug(this, _outBuff);
 			
-			return avail;
+			return _outBuff.Length;
 		}
 
 		private class ZlibStreamAsyncResult : IAsyncResult
