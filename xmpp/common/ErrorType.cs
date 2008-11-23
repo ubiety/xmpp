@@ -23,6 +23,7 @@ namespace xmpp.common
 		MissingPassword,
 		AuthorizationFailed,
 		WrongProtocolVersion,
-		UnregisteredItem
+		UnregisteredItem,
+		CompressionFailed
 	}
 }

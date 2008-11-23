@@ -20,6 +20,7 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using xmpp.attributes;
 using xmpp.logging;
+using xmpp.common;
 
 namespace xmpp.compression.sharpziplib
 {
@@ -130,6 +131,7 @@ namespace xmpp.compression.sharpziplib
 		public override int EndRead (IAsyncResult async_result)
 		{
 			int avail = 0;
+			int ret = 0;
 			
 			if ( !(async_result is ZlibStreamAsyncResult) )
 			{
@@ -140,11 +142,18 @@ namespace xmpp.compression.sharpziplib
 			
 			_in.SetInput(_inBuff, _inBuff.Length - avail, avail);
 			
-			_in.Inflate(_outBuff, 0, _outBuff.Length);
+			try
+			{
+				ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
+			}
+			catch (Exception e)
+			{
+				Errors.Instance.SendError(this, ErrorType.CompressionFailed, e.Message);
+			}
 			
 			Logger.Debug(this, _outBuff);
 			
-			return _outBuff.Length;
+			return ret;
 		}
 
 		private class ZlibStreamAsyncResult : IAsyncResult
