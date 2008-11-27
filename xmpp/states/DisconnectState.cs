@@ -15,9 +15,9 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using xmpp.common;
+using ubiety.common;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// The state that disconnects from the server.
@@ -36,7 +36,7 @@ namespace xmpp.states
 		/// Executes the disconnect command by sending the closing stream tag and closing the socket.
 		/// </summary>
 		/// <param name="data">
-		/// No <see cref="xmpp.common.Tag"/> needed so we pass null.
+		/// No <see cref="ubiety.common.Tag"/> needed so we pass null.
 		/// </param>
 		public override void Execute(Tag data)
 		{

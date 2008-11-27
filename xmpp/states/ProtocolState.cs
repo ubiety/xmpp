@@ -15,11 +15,11 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using xmpp.net;
-using xmpp.common.SASL;
-using xmpp.common;
+using ubiety.net;
+using ubiety.common.SASL;
+using ubiety.common;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// Keeps track of all the current state information like id, password, socket and the current state.

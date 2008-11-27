@@ -16,11 +16,11 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 using System.Xml;
 
-namespace xmpp.core.SASL
+namespace ubiety.core.SASL
 {
 	[XmppTag("success", Namespaces.SASL, typeof(Success))]
 	public class Success : Tag

@@ -17,7 +17,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace xmpp.net
+namespace ubiety.net
 {
     /// <remarks>
     /// Implements a method of resolving urls to an <see cref="IPEndPoint"/>.

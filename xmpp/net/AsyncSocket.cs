@@ -24,12 +24,12 @@ using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using xmpp.logging;
-using xmpp;
-using xmpp.states;
-using xmpp.registries;
+using ubiety.logging;
+using ubiety;
+using ubiety.states;
+using ubiety.registries;
 
-namespace xmpp.net
+namespace ubiety.net
 {
     /// <remarks>
     /// AsyncSocket is the class that communicates with the server.

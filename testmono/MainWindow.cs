@@ -14,10 +14,10 @@
 using System;
 using Gtk;
 using GLib;
-using xmpp;
-using xmpp.common;
-using xmpp.logging;
-using xmpp.registries;
+using ubiety;
+using ubiety.common;
+using ubiety.logging;
+using ubiety.registries;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
 
@@ -32,10 +32,10 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 		xmpp = new XMPP();
 		error.OnError += new EventHandler<ErrorEventArgs>(OnError);
-		//xmpp.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
+		//ubiety.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
 		//ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
 		lblVersion.Text = xmpp.Version;
-		_creg.AddCompression(Assembly.LoadFile("xmpp.compression.sharpziplib.dll"));
+		_creg.AddCompression(Assembly.LoadFile("ubiety.compression.sharpziplib.dll"));
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

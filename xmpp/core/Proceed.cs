@@ -14,15 +14,15 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core
+namespace ubiety.core
 {
     ///<summary>
     ///</summary>
     [XmppTag("proceed", Namespaces.START_TLS, typeof(Proceed))]
-    public class Proceed : xmpp.common.Tag
+    public class Proceed : ubiety.common.Tag
     {
         ///<summary>
         ///</summary>

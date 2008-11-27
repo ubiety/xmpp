@@ -15,16 +15,16 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Text;
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core
+namespace ubiety.core
 {
     /// <summary>
     /// 
     /// </summary>
 	[XmppTag("stream", Namespaces.STREAM, typeof(Stream))]
-	public class Stream : xmpp.common.Tag
+	public class Stream : ubiety.common.Tag
 	{
         /// <summary>
         /// 

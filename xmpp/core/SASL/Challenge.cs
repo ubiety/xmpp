@@ -16,13 +16,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core.SASL
+namespace ubiety.core.SASL
 {
 	[XmppTag("challenge", Namespaces.SASL, typeof(Challenge))]
-	public class Challenge : xmpp.common.Tag
+	public class Challenge : ubiety.common.Tag
 	{		
 		public Challenge(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{

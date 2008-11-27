@@ -22,16 +22,16 @@ using System.Xml;
 #if __MonoCS__
 using System.Security.Cryptography.X509Certificates;
 #endif
-using xmpp.common;
-using xmpp.core;
-using xmpp.net;
-using xmpp.common.SASL;
-using xmpp.registries;
-using xmpp.states;
-using xmpp.logging;
+using ubiety.common;
+using ubiety.core;
+using ubiety.net;
+using ubiety.common.SASL;
+using ubiety.registries;
+using ubiety.states;
+using ubiety.logging;
 #endregion
 
-namespace xmpp
+namespace ubiety
 {
 	/// <summary>
 	/// Implements the XMPP(Jabber) Core and IM protocols
@@ -58,13 +58,13 @@ namespace xmpp
 	///			XID id = new XID("user@jabber.org/chat");
 	/// 
 	///			// Create a new instance of the XMPP class
-	///			XMPP xmpp = new XMPP();
+	///			XMPP ubiety = new XMPP();
 	///
-	///			xmpp.ID = id;
-	///			xmpp.Password = "password";
+	///			ubiety.ID = id;
+	///			ubiety.Password = "password";
 	/// 
 	///			// Connect to the server
-	///			xmpp.Connect();
+	///			ubiety.Connect();
 	///		}
 	/// }
 	/// </code>

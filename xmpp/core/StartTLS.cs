@@ -14,16 +14,16 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core
+namespace ubiety.core
 {
     /// <summary>
     /// StartTLS is used to start an encrypted authentication session.
     /// </summary>
 	[XmppTag("starttls", Namespaces.START_TLS, typeof(StartTLS))]
-	public class StartTLS : xmpp.common.Tag
+	public class StartTLS : ubiety.common.Tag
 	{
         /// <summary>
         /// Creates a new instance of the StartTLS tag.

@@ -17,15 +17,15 @@
 
 using System;
 using System.Xml;
-using xmpp.core;
-using xmpp.core.compression;
-using xmpp.registries;
-using xmpp.common.SASL;
-using xmpp.logging;
-using xmpp.common;
-using xmpp;
+using ubiety.core;
+using ubiety.core.compression;
+using ubiety.registries;
+using ubiety.common.SASL;
+using ubiety.logging;
+using ubiety.common;
+using ubiety;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// The server features state occurs just after connecting.

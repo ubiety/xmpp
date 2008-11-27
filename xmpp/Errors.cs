@@ -16,9 +16,9 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using xmpp.common;
+using ubiety.common;
 
-namespace xmpp
+namespace ubiety
 {
 	/// <summary>
 	/// Arguments class used to pass errors to the application.

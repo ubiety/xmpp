@@ -15,11 +15,11 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using xmpp;
-using xmpp.common;
-using xmpp.logging;
+using ubiety;
+using ubiety.common;
+using ubiety.logging;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// SASL state is used to authenticate the user with the current processor.
@@ -42,8 +42,8 @@ namespace xmpp.states
 		public override void Execute(Tag data)
 		{
 			Logger.Debug(this, "Processing next SASL step");
-			xmpp.common.Tag res = _current.Processor.Step(data);
-			if (res is xmpp.core.SASL.Success)
+			ubiety.common.Tag res = _current.Processor.Step(data);
+			if (res is ubiety.core.SASL.Success)
 			{
 				// We have been successfully authenticated and we need to restart the stream.
 				Logger.Debug(this, "Sending start stream again");
@@ -52,7 +52,7 @@ namespace xmpp.states
 				_current.State = new ConnectedState();
 				_current.Execute(null);
 			}
-			else if (res is xmpp.core.SASL.Failure)
+			else if (res is ubiety.core.SASL.Failure)
 			{
 				// We have failed in our quest.  Error returned inside we just need to wrap this up.
 				return;

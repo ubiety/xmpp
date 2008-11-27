@@ -14,10 +14,10 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core
+namespace ubiety.core
 {
     ///<summary>
 	///</summary>
@@ -41,7 +41,7 @@ namespace xmpp.core
     /// 
     /// </summary>
 	[XmppTag("mechanisms", Namespaces.SASL, typeof(Mechanisms))]
-	public class Mechanisms : xmpp.common.Tag
+	public class Mechanisms : ubiety.common.Tag
 	{
         /// <summary>
         /// 
@@ -92,7 +92,7 @@ namespace xmpp.core
     /// 
     /// </summary>
 	[XmppTag("mechanism", Namespaces.SASL, typeof(Mechanism))]
-	public class Mechanism : xmpp.common.Tag
+	public class Mechanism : ubiety.common.Tag
 	{
         /// <summary>
         /// 

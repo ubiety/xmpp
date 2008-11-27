@@ -14,16 +14,16 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core.iq
+namespace ubiety.core.iq
 {
     /// <summary>
     /// 
     /// </summary>
 	[XmppTag("auth", Namespaces.AUTH, typeof(Auth))]
-	public class Auth : xmpp.common.Tag
+	public class Auth : ubiety.common.Tag
 	{
         /// <summary>
         /// 

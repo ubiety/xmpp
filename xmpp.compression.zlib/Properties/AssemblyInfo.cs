@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XMPP Zlib Compression")]
-[assembly: AssemblyDescription("Implements Zlib Compression for the XMPP .NET library.")]
+[assembly: AssemblyTitle("XMPP zlib Compression for Ubiety")]
+[assembly: AssemblyDescription("Implements zlib Compression for the Ubiety XMPP library using zlib.net.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("xmpp.compression.zlib")]
+[assembly: AssemblyProduct("ubiety.compression.zlib")]
 [assembly: AssemblyCopyright("Copyright © 2008 Dieter Lunn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

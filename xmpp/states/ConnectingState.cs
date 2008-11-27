@@ -15,7 +15,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// The state used to connect to the server.  The initial state of the library.
@@ -34,9 +34,9 @@ namespace xmpp.states
 		/// Executes the state.  In this case we are telling the socket to connect to the server.
 		/// </summary>
 		/// <param name="data">
-		/// The <see cref="xmpp.common.Tag"/> is not needed here as we are just starting the connection.
+		/// The <see cref="ubiety.common.Tag"/> is not needed here as we are just starting the connection.
 		/// </param>
-		public override void Execute (xmpp.common.Tag data)
+		public override void Execute (ubiety.common.Tag data)
 		{
 			_current.Socket.Connect();
 		}

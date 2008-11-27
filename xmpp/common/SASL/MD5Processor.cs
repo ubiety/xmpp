@@ -16,19 +16,19 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using xmpp.registries;
-using xmpp.core.SASL;
-using xmpp.common;
-using xmpp.core;
+using ubiety.registries;
+using ubiety.core.SASL;
+using ubiety.common;
+using ubiety.core;
 using System.Xml;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.IO;
-using xmpp.logging;
-using xmpp;
+using ubiety.logging;
+using ubiety;
 
-namespace xmpp.common.SASL
+namespace ubiety.common.SASL
 {
 	public class MD5Processor : SASLProcessor
 	{
@@ -112,7 +112,7 @@ namespace xmpp.common.SASL
 			sb.Append(this["qop"]);
 			sb.Append(",");
 			sb.Append("digest-uri=\"");
-			sb.Append("xmpp/");
+			sb.Append("ubiety/");
 			sb.Append(this["realm"]);
 			sb.Append("\",");
 			sb.Append("response=");
@@ -131,7 +131,7 @@ namespace xmpp.common.SASL
 			byte[] H1, H2, H3, temp;
 			string A1, A2, A3, uri, p1, p2;
 			
-			uri = "xmpp/" + this["realm"];
+			uri = "ubiety/" + this["realm"];
 			Random r = new Random();
 			int v = r.Next(1024);
 			

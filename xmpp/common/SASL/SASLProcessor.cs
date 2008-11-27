@@ -16,10 +16,10 @@
 
 using System;
 using System.Collections;
-using xmpp.core;
-using xmpp.logging;
+using ubiety.core;
+using ubiety.logging;
 
-namespace xmpp.common.SASL
+namespace ubiety.common.SASL
 {
 	///<summary>
     ///</summary>

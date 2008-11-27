@@ -18,11 +18,11 @@
 using System;
 using System.Xml;
 using System.Reflection;
-using xmpp.common;
-using xmpp.logging;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.logging;
+using ubiety.attributes;
 
-namespace xmpp.registries
+namespace ubiety.registries
 {
     /// <remarks>
     /// TagRegistry stores all the construction information for the <seealso cref="Tag">Tags</seealso> the library is aware of.

@@ -1,8 +1,8 @@
 // project created on 12/10/2007 at 12:14 AM
 using System;
 using Common;
-using xmpp;
-using xmpp.common;
+using ubiety;
+using ubiety.common;
 using System.Collections;
 using System.Collections.Specialized;
 

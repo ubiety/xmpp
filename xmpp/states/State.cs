@@ -15,9 +15,9 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using xmpp.registries;
+using ubiety.registries;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// 
@@ -43,7 +43,7 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public virtual void Execute(xmpp.common.Tag data)
+		public virtual void Execute(ubiety.common.Tag data)
 		{
 		}
 	}

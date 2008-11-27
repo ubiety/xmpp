@@ -16,13 +16,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using xmpp.attributes;
-using xmpp.common;
+using ubiety.attributes;
+using ubiety.common;
 
-namespace xmpp.core.SASL
+namespace ubiety.core.SASL
 {
 	[XmppTag("failure", Namespaces.SASL, typeof(Failure))]
-	public class Failure : xmpp.common.Tag
+	public class Failure : ubiety.common.Tag
 	{
 		public Failure(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{
@@ -30,7 +30,7 @@ namespace xmpp.core.SASL
 	}
 	
 	[XmppTag("not-authorized", Namespaces.SASL, typeof(NotAuthorized))]
-	public class NotAuthorized : xmpp.common.Tag
+	public class NotAuthorized : ubiety.common.Tag
 	{
 		public NotAuthorized(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{

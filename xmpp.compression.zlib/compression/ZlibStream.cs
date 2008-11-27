@@ -17,10 +17,10 @@
 
 using System;
 using System.IO;
-using xmpp.attributes;
+using ubiety.attributes;
 using ComponentAce.Compression.Libs.zlib;
 
-namespace xmpp.compression.zlib
+namespace ubiety.compression.zlib
 {
 	[Compression("zlib", typeof(ZlibStream))]
 	public class ZlibStream : Stream

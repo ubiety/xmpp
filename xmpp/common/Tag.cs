@@ -17,7 +17,7 @@
 using System.Xml;
 using System;
 
-namespace xmpp.common
+namespace ubiety.common
 {
     /// <summary>
     /// Tag is the class from which all tags are subclassed.

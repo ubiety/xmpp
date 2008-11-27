@@ -18,11 +18,11 @@
 using System;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression;
-using xmpp.attributes;
-using xmpp.logging;
-using xmpp.common;
+using ubiety.attributes;
+using ubiety.logging;
+using ubiety.common;
 
-namespace xmpp.compression.sharpziplib
+namespace ubiety.compression.sharpziplib
 {
 	[Compression("zlib", typeof(ZLibStream))]
 	public class ZLibStream : Stream

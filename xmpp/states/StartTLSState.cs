@@ -16,12 +16,12 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using xmpp;
-using xmpp.core;
-using xmpp.registries;
-using xmpp.common;
+using ubiety;
+using ubiety.core;
+using ubiety.registries;
+using ubiety.common;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// 
@@ -45,7 +45,7 @@ namespace xmpp.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute (xmpp.common.Tag data)
+		public override void Execute (ubiety.common.Tag data)
 		{
 			if (data.LocalName == "proceed")
 			{

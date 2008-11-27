@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XMPP Client Library")]
+[assembly: AssemblyTitle("Ubiety XMPP Library")]
 [assembly: AssemblyDescription("C# XMPP Core and IM Implementation")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("xmpp")]
+[assembly: AssemblyProduct("ubiety")]
 [assembly: AssemblyCopyright("Copyright © 2006 - 2008 Dieter Lunn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

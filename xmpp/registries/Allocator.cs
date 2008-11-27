@@ -17,7 +17,7 @@
 
 using System;
 
-namespace xmpp.registries
+namespace ubiety.registries
 {
 	/// <summary>
 	/// 

@@ -17,16 +17,16 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core.iq
+namespace ubiety.core.iq
 {
     /// <summary>
     /// 
     /// </summary>
 	[XmppTag("register", Namespaces.REGISTER, typeof(Register))]
-	public class Register : xmpp.common.Tag
+	public class Register : ubiety.common.Tag
 	{
         /// <summary>
         /// 

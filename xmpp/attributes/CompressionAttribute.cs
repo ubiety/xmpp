@@ -17,7 +17,7 @@
 
 using System;
 
-namespace xmpp.attributes
+namespace ubiety.attributes
 {
 	[AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
 	public class CompressionAttribute : Attribute

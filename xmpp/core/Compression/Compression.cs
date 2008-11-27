@@ -16,13 +16,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core.compression
+namespace ubiety.core.compression
 {
 	[XmppTag("compression", Namespaces.COMPRESSION, typeof(Compression))]
-	public class Compression : xmpp.common.Tag
+	public class Compression : ubiety.common.Tag
 	{
 		public Compression(string prefix, XmlQualifiedName qname, XmlDocument doc)
 			: base (prefix, qname, doc)

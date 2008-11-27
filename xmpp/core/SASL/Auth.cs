@@ -14,13 +14,13 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core.SASL
+namespace ubiety.core.SASL
 {
 	[XmppTag("auth", Namespaces.SASL, typeof(Auth))]
-	class Auth : xmpp.common.Tag
+	class Auth : ubiety.common.Tag
 	{
 		public Auth(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{

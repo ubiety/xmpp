@@ -16,11 +16,11 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using xmpp.net;
-using xmpp.core;
-using xmpp.common;
+using ubiety.net;
+using ubiety.core;
+using ubiety.common;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	/// <summary>
 	/// The state which occurs just after connecting and sends the starting stream:stream tag.
@@ -38,7 +38,7 @@ namespace xmpp.states
 		/// Executes the state sending the tag to the just connected socket.
 		/// </summary>
 		/// <param name="data">
-		/// The <see cref="xmpp.common.Tag"/> to parse.  In this case null.
+		/// The <see cref="ubiety.common.Tag"/> to parse.  In this case null.
 		/// </param>
 		public override void Execute (Tag data)
 		{

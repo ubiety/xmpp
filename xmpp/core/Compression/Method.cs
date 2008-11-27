@@ -15,10 +15,10 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using xmpp.common;
-using xmpp.attributes;
+using ubiety.common;
+using ubiety.attributes;
 
-namespace xmpp.core.compression
+namespace ubiety.core.compression
 {
 	[XmppTag("method", Namespaces.COMPRESSION, typeof(Method))]
 	public class Method : Tag

@@ -15,11 +15,11 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using xmpp.attributes;
-using xmpp.common;
+using ubiety.attributes;
+using ubiety.common;
 using System.Xml;
 
-namespace xmpp.core.compression
+namespace ubiety.core.compression
 {
 	[XmppTag("compressed", Namespaces.COMPRESSION_PROTOCOL, typeof(Compressed))]
 	public class Compressed : Tag

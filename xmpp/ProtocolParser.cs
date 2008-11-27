@@ -21,14 +21,14 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 using System.Text;
-using xmpp.logging;
-using xmpp.common;
-using xmpp.registries;
-using xmpp.core;
-using xmpp.states;
+using ubiety.logging;
+using ubiety.common;
+using ubiety.registries;
+using ubiety.core;
+using ubiety.states;
 #endregion
 
-namespace xmpp
+namespace ubiety
 {
 	/// <remarks>
 	/// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
@@ -216,7 +216,7 @@ namespace xmpp
 			if (parent == null)
 			{
 				Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
-				xmpp.common.Tag tag = (xmpp.common.Tag)_elem;
+				ubiety.common.Tag tag = (ubiety.common.Tag)_elem;
 				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
 				_states.Execute(tag);
 			}

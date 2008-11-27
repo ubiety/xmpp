@@ -16,13 +16,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using xmpp.attributes;
+using ubiety.attributes;
 using System.IO;
 using System.Reflection;
-using xmpp;
-using xmpp.logging;
+using ubiety;
+using ubiety.logging;
 
-namespace xmpp.registries
+namespace ubiety.registries
 {
 	public sealed class CompressionRegistry : Registry<CompressionRegistry, RegistryAllocator<CompressionRegistry>>
 	{
@@ -72,7 +72,7 @@ namespace xmpp.registries
 			}
 			catch (Exception e)
 			{
-				Errors.Instance.SendError(this, xmpp.common.ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+				Errors.Instance.SendError(this, ubiety.common.ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
 				Logger.Error(this, e);
 			}
 			return stream;

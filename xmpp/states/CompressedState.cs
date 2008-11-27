@@ -15,10 +15,10 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using xmpp.common;
-using xmpp.logging;
+using ubiety.common;
+using ubiety.logging;
 
-namespace xmpp.states
+namespace ubiety.states
 {
 	public class CompressedState : State
 	{	
@@ -28,7 +28,7 @@ namespace xmpp.states
 		
 		public override void Execute (Tag data)
 		{
-			if (data is xmpp.core.compression.Compressed)
+			if (data is ubiety.core.compression.Compressed)
 			{
 				Logger.Debug(this, "Starting compression of the socket");
 				_current.Socket.StartCompression(_current.Algorithm);

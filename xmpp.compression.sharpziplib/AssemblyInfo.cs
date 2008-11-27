@@ -20,19 +20,19 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("xmpp.compression.sharpziplib")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("XMPP zlib Compression for Ubiety")]
+[assembly: AssemblyDescription("Implements zlib compression for the Ubiety XMPP library using SharpZipLib.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyProduct("ubiety.compression.sharpziplib")]
+[assembly: AssemblyCopyright("Copyright © 2008 Dieter Lunn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // If the build and revision are set to '*' they will be updated automatically.
 
-[assembly: AssemblyVersion("1.0.*.*")]
+[assembly: AssemblyVersion("0.1.*.*")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.

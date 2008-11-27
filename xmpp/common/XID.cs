@@ -19,7 +19,7 @@ using System.Text;
 
 using Gnu.Inet.Encoding;
 
-namespace xmpp.common
+namespace ubiety.common
 {
 	/// <summary>
 	/// Manages all aspects of a users identity on an XMPP network.

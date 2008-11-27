@@ -18,7 +18,7 @@
 using System;
 using System.Reflection;
 
-namespace xmpp.registries
+namespace ubiety.registries
 {	
 	/// <summary>
 	/// 
