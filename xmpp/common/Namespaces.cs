@@ -5,7 +5,8 @@
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
 //Software Foundation; either version 3 of the License, or (at your option)
-//any later version.
+//any later version.
+
 //This library is distributed in the hope that it will be useful, but WITHOUT
 //ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 //FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -27,11 +28,11 @@ namespace ubiety.common
         /// <summary>
         /// 
         /// </summary>
-		public const string START_TLS = "urn:ietf:params:xml:ns:ubiety-tls";
+		public const string START_TLS = "urn:ietf:params:xml:ns:xmpp-tls";
         /// <summary>
         /// 
         /// </summary>
-		public const string SASL = "urn:ietf:params:xml:ns:ubiety-sasl";
+		public const string SASL = "urn:ietf:params:xml:ns:xmpp-sasl";
         /// <summary>
         /// 
         /// </summary>
@@ -41,8 +42,8 @@ namespace ubiety.common
         /// </summary>
 		public const string REGISTER = "http://jabber.org/features/iq-register";
 		
-		public const string BIND = "urn:ietf:params:xml:ns:ubiety-bind";
-		public const string SESSION = "urn:ietf:params:xml:ns:ubiety-session";
+		public const string BIND = "urn:ietf:params:xml:ns:xmpp-bind";
+		public const string SESSION = "urn:ietf:params:xml:ns:xmpp-session";
 		
 		public const string COMPRESSION = "http://jabber.org/features/compress";
 		public const string COMPRESSION_PROTOCOL = "http://jabber.org/protocol/compress";

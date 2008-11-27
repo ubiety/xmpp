@@ -1,5 +1,6 @@
-# Ignore pidb files
-*.pidb
-
-# Ignore bin folders
 bin/
+obj/
+
+*.dll
+*.suo
+*.xml
