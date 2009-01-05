@@ -1,12 +1,12 @@
 // XID.cs
 //
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2008, 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
 //Software Foundation; either version 3 of the License, or (at your option)
 //any later version.
-
+//
 //This library is distributed in the hope that it will be useful, but WITHOUT
 //ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 //FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -16,6 +16,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using Gnu.Inet.Encoding;
 
@@ -53,6 +54,7 @@ namespace ubiety.common
 			Resource = resource;
 		}
 
+		#region Properties
 		/// <summary>
 		/// String representation of the id.
 		/// </summary>
@@ -71,7 +73,7 @@ namespace ubiety.common
 		public string User
 		{
 			get { return _user; }
-			set { _user = (value == null) ? null : Stringprep.NodePrep(value); }
+			set { _user = (value == null) ? null : Stringprep.NodePrep(Escape(value)); }
 		}
 
 		/// <summary>
@@ -91,6 +93,7 @@ namespace ubiety.common
 			get { return _resource; }
 			set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
 		}
+		#endregion
 
         /// <summary>
         /// 
@@ -229,7 +232,7 @@ namespace ubiety.common
 			StringBuilder sb = new StringBuilder();
 			if (_user != null)
 			{
-				sb.Append(_user);
+				sb.Append(Escape(_user));
 				sb.Append("@");
 			}
 			sb.Append(_server);
@@ -287,6 +290,96 @@ namespace ubiety.common
 				}
 			}
 		}
+		#endregion
+		
+		#region XEP-0106 JID Escaping
+		private string Escape(string user)
+		{
+			StringBuilder u = new StringBuilder();
+			int count = 0;
+			
+			foreach (char c in user)
+			{
+				switch (c)
+				{
+					case ' ':
+						if ((count == 0) || (count == (user.Length - 1)))
+							throw new FormatException("Username cannot start or end with a space");
+						u.Append(@"\20");
+						break;
+					case '"':
+						u.Append(@"\22");
+						break;
+					case '&':
+						u.Append(@"\26");
+						break;
+					case '\'':
+						u.Append(@"\27");
+						break;
+					case '/':
+						u.Append(@"\2f");
+						break;
+					case ':':
+						u.Append(@"\3a");
+						break;
+					case '<':
+						u.Append(@"\3c");
+						break;
+					case '>':
+						u.Append(@"\3e");
+						break;
+					case '@':
+						u.Append(@"\40");
+						break;
+					case '\\':
+						u.Append(@"\5c");
+						break;
+				
+					default:
+						u.Append(c);
+						break;
+				}
+				count++;
+			}
+			
+			return u.ToString();
+		}
+		
+		private string Unescape()
+		{
+			Regex re = new Regex(@"\\([2-5][0267face])");
+			string u = re.Replace(_user, new MatchEvaluator(delegate(Match m) 
+				{
+					switch (m.Groups[1].Value)
+					{
+						case "20":
+							return " ";
+						case "22":
+							return "\"";
+						case "26":
+							return "&";
+						case "27":
+							return "'";
+						case "2f":
+							return "/";
+						case "3a":
+							return ":";
+						case "3c":
+							return "<";
+						case "3e":
+							return ">";
+						case "40":
+							return "@";
+						case "5c":
+							return @"\";
+						default:
+							return m.Groups[0].Value;
+					}
+				}));
+				
+			return u;
+		}
+		
 		#endregion
 
 		#region IComparable Members

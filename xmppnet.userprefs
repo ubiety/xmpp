@@ -1,15 +1,23 @@
-﻿<UserCombinePreferences version="1.0" filename="/home/dieter/projects/xmppnet/xmppnet.mds">
-  <Files />
-  <Views>
-    <ViewMemento id="ProjectPad">
-      <Node expanded="True" />
-    </ViewMemento>
-    <ViewMemento id="ClassPad">
-      <Node expanded="True" />
-    </ViewMemento>
-  </Views>
-  <Properties>
-    <Property key="ActiveWindow" value="" />
-    <Property key="ActiveConfiguration" value="Debug" />
-  </Properties>
-</UserCombinePreferences>
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="xmpp/common/XID.cs" ctype="Workbench">
+    <Files>
+      <File FileName="xmpp/common/XID.cs" Line="362" Column="13" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="ubiety" expanded="True">
+            <Node name="common" expanded="True">
+              <Node name="XID.cs" selected="True" />
+            </Node>
+            <Node name="registries" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+</Properties>
