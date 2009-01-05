@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9B065315-959E-4775-9EDF-71837FD711CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>xmpp.compression.zlib</RootNamespace>
-    <AssemblyName>xmpp.compression.zlib</AssemblyName>
+    <RootNamespace>ubiety.compression.zlib</RootNamespace>
+    <AssemblyName>ubiety.compression.zlib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,9 +33,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\xmpp\bin\Debug\zlib.net.dll</HintPath>
+      <HintPath>..\..\..\My Documents\Visual Studio 2008\Projects\xmppnet\TestXMPP\bin\Debug\zlib.net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

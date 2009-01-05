@@ -78,16 +78,24 @@ namespace ubiety.net
 		public static Address Resolve(string hostname, int port)
 		{
 			// TODO: Deal with IPv6. Vista returns ::1: for localhost
-			IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
 			Address temp = new Address(hostname, port);
-			if (Socket.OSSupportsIPv6 && hostInfo.AddressList.Length > 1)
-			{
-				temp.IP = hostInfo.AddressList[1];
-			}
-			else
-			{
-				temp.IP = hostInfo.AddressList[0];
-			}
+
+            try
+            {
+                temp.IP = IPAddress.Parse(hostname);
+            }
+            catch
+            {
+                IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
+                if (Socket.OSSupportsIPv6 && hostInfo.AddressList.Length > 1)
+                {
+                    temp.IP = hostInfo.AddressList[1];
+                }
+                else
+                {
+                    temp.IP = hostInfo.AddressList[0];
+                }
+            }            
 			
 			return temp;
 		}

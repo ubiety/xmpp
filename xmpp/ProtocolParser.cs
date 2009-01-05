@@ -180,10 +180,14 @@ namespace ubiety
 				}
 			}
 
-//			Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
-
 			if (_root == null)
 			{
+                if (elem.Name != "stream:stream")
+                {
+                    Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.WrongProtocolVersion, "Missing stream:stream from server");
+                    return;
+                }
+
 				_root = elem;
 				// Changing ProtocolState to Singleton so this eliminates the events.
 				// If the tag is a stream change to the Server Features State.
