@@ -26,11 +26,29 @@ namespace ubietynunit
 	public class TestXID
 	{
 		[Test]
-		public void EncodeUsername()
+		public void EscapeUsernameFromString()
+		{
+			XID id = new XID("d'artangan@garcon.fr/testing");
+			
+			Assert.AreEqual(@"d\27artangan@garcon.fr/testing", id.ToString());
+		}
+		
+		[Test]
+		public void EscapeUsernameFromParts()
 		{
 			XID id = new XID("d'artangan", "garcon.fr", "testing");
 			
 			Assert.AreEqual(@"d\27artangan@garcon.fr/testing", id.ToString());
+		}
+		
+		[Test]
+		public void NewXIDFromString()
+		{
+			XID id = new XID("testing@jabber.org/home");
+			
+			Assert.AreEqual("testing", id.User);
+			Assert.AreEqual("jabber.org", id.Server);
+			Assert.AreEqual("home", id.Resource);
 		}
 	}
 }

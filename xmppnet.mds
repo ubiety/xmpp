@@ -1,26 +1,29 @@
 <Combine name="xmppnet" fileversion="2.0" outputpath="build/bin/" MakePkgConfig="False" MakeLibPC="True">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry build="True" name="xmpp" configuration="Debug" />
+      <Entry build="False" name="ubiety" configuration="Debug" />
       <Entry build="True" name="testmono" configuration="Debug" />
       <Entry build="True" name="testconsole" configuration="Debug" />
-      <Entry build="True" name="xmpp.compression.zlib" configuration="Debug" />
-      <Entry build="True" name="xmpp.compression.sharpziplib" configuration="Debug" />
+      <Entry build="False" name="ubiety.compression.zlib" configuration="Debug" />
+      <Entry build="False" name="ubiety.compression.sharpziplib" configuration="Debug" />
+      <Entry build="True" name="ubietynunit" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry build="True" name="xmpp" configuration="Release" />
+      <Entry build="False" name="ubiety" configuration="Release" />
       <Entry build="True" name="testmono" configuration="Release" />
       <Entry build="True" name="testconsole" configuration="Release" />
-      <Entry build="True" name="xmpp.compression.zlib" configuration="Release" />
-      <Entry build="True" name="xmpp.compression.sharpziplib" configuration="Release" />
+      <Entry build="False" name="ubiety.compression.zlib" configuration="Release" />
+      <Entry build="False" name="ubiety.compression.sharpziplib" configuration="Release" />
+      <Entry build="True" name="ubietynunit" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="testmono" single="True">
-    <Execute type="None" entry="xmpp" />
+    <Execute type="None" entry="ubiety" />
     <Execute type="None" entry="testmono" />
     <Execute type="None" entry="testconsole" />
-    <Execute type="None" entry="xmpp.compression.zlib" />
-    <Execute type="None" entry="xmpp.compression.sharpziplib" />
+    <Execute type="None" entry="ubiety.compression.zlib" />
+    <Execute type="None" entry="ubiety.compression.sharpziplib" />
+    <Execute type="None" entry="ubietynunit" />
   </StartMode>
   <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
   <DeployTargets />
@@ -30,5 +33,6 @@
     <Entry filename="testconsole/testconsole.mdp" />
     <Entry filename="xmpp.compression.zlib/xmpp.compression.zlib.mdp" />
     <Entry filename="xmpp.compression.sharpziplib/xmpp.compression.sharpziplib.mdp" />
+    <Entry filename="ubietynunit/ubietynunit.mdp" />
   </Entries>
 </Combine>

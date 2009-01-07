@@ -61,10 +61,7 @@ namespace ubiety.common
 		public string XmppID
 		{
 			get { return (_xid == null) ? build_xid() : _xid; }
-			set { 
-					_xid = value;
-					parse(value);
-				}
+			set { parse(value); }
 		}
 
 		/// <summary>
@@ -73,7 +70,14 @@ namespace ubiety.common
 		public string User
 		{
 			get { return _user; }
-			set { _user = (value == null) ? null : Stringprep.NodePrep(Escape(value)); }
+			set 
+			{
+				if (value != null)
+				{
+					string tmp = Escape(value);
+					_user = Stringprep.NodePrep(tmp);
+				}
+			}
 		}
 
 		/// <summary>
@@ -232,7 +236,7 @@ namespace ubiety.common
 			StringBuilder sb = new StringBuilder();
 			if (_user != null)
 			{
-				sb.Append(Escape(_user));
+				sb.Append(_user);
 				sb.Append("@");
 			}
 			sb.Append(_server);
@@ -250,42 +254,42 @@ namespace ubiety.common
 		/// Takes a string xid and breaks it into its parts.
 		/// </summary>
 		/// <param name="value">xid to parse</param>
-		private void parse(string value)
+		private void parse(string id)
 		{
-			int at = value.IndexOf('@');
-			int slash = value.IndexOf('/');
+			int at = id.IndexOf('@');
+			int slash = id.IndexOf('/');
 
 			if (at == -1)
 			{
 				if (slash == -1)
 				{
-					Server = value;
+					Server = id;
 				}
 				else
 				{
-					Server = value.Substring(0, slash);
-					Resource = value.Substring(slash + 1);
+					Server = id.Substring(0, slash);
+					Resource = id.Substring(slash + 1);
 				}
 			}
 			else
 			{
 				if (slash == -1)
 				{
-					User = value.Substring(0, at);
-					Server = value.Substring(at + 1);
+					User = id.Substring(0, at);
+					Server = id.Substring(at + 1);
 				}
 				else
 				{
 					if (at < slash)
 					{
-						User = value.Substring(0, at);
-						Server = value.Substring(at + 1, slash - at - 1);
-						Resource = value.Substring(slash + 1);
+						User = id.Substring(0, at);
+						Server = id.Substring(at + 1, slash - at - 1);
+						Resource = id.Substring(slash + 1);
 					}
 					else
 					{
-						Server = value.Substring(0, slash);
-						Resource = value.Substring(slash + 1);
+						Server = id.Substring(0, slash);
+						Resource = id.Substring(slash + 1);
 					}
 				}
 			}
@@ -334,7 +338,6 @@ namespace ubiety.common
 					case '\\':
 						u.Append(@"\5c");
 						break;
-				
 					default:
 						u.Append(c);
 						break;

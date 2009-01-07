@@ -1,18 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="xmpp/common/XID.cs" ctype="Workbench">
-    <Files>
-      <File FileName="xmpp/common/XID.cs" Line="362" Column="13" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="ubiety" expanded="True">
-            <Node name="common" expanded="True">
-              <Node name="XID.cs" selected="True" />
-            </Node>
-            <Node name="registries" expanded="True" />
-          </Node>
-        </State>
+        <State expanded="True" />
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" />

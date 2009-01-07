@@ -1,3 +1,7 @@
+2009-01-07  Dieter Lunn <coder2000@gmail.com>
+
+	* common/XID.cs: Added XEP-0106 JID Escaping and NUnit testing.
+
 2008-11-09  Dieter Lunn <coder2000@gmail.com> 
 
 	* ChangeLog: All changes should be in here including refactoring
