@@ -18,6 +18,8 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using System.Diagnostics;
+
 using Gnu.Inet.Encoding;
 
 namespace ubiety.common
@@ -36,6 +38,7 @@ namespace ubiety.common
         /// 
         /// </summary>
         /// <param name="xid"></param>
+        [Obsolete]
 		public XID(string xid)
 		{
 			XmppID = xid;
@@ -54,7 +57,7 @@ namespace ubiety.common
 			Resource = resource;
 		}
 
-		#region Properties
+		#region {{ Properties }}
 		/// <summary>
 		/// String representation of the id.
 		/// </summary>
@@ -72,11 +75,8 @@ namespace ubiety.common
 			get { return _user; }
 			set 
 			{
-				if (value != null)
-				{
-					string tmp = Escape(value);
-					_user = Stringprep.NodePrep(tmp);
-				}
+				string tmp = Escape(value);
+				_user = Stringprep.NodePrep(tmp);
 			}
 		}
 
@@ -140,7 +140,7 @@ namespace ubiety.common
 			return XmppID.Equals(((XID)obj).XmppID);
 		}
 
-		#region Operators
+		#region {{ Operators }}
         /// <summary>
         /// 
         /// </summary>
@@ -226,7 +226,7 @@ namespace ubiety.common
 		}
 		#endregion
 
-		#region Build and Parse functions
+		#region {{ Build and Parse functions }}
 		/// <summary>
 		/// Builds a string version of an XID from the three parts.
 		/// </summary>
@@ -296,7 +296,7 @@ namespace ubiety.common
 		}
 		#endregion
 		
-		#region XEP-0106 JID Escaping
+		#region {{ XEP-0106 JID Escaping }}
 		private string Escape(string user)
 		{
 			StringBuilder u = new StringBuilder();
