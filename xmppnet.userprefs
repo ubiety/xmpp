@@ -2,9 +2,16 @@
   <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" />
+        <State expanded="True">
+          <Node name="testmono" expanded="True">
+            <Node name="MainWindow.cs" selected="True" />
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
+        <State expanded="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
         <State expanded="True" />
       </Pad>
     </Pads>

@@ -41,7 +41,6 @@ namespace ubiety.states
 		public override void Execute(Tag data)
 		{
 			_current.Socket.Write("</stream:stream>");
-			_current.Socket.Close();
 		}
 
 	}

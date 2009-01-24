@@ -12,7 +12,15 @@
 
 public partial class MainWindow {
     
+    private Gtk.Action connectAction;
+    
+    private Gtk.ToggleAction SSLAction;
+    
+    private Gtk.Action quitAction;
+    
     private Gtk.VBox vbox1;
+    
+    private Gtk.Toolbar toolbar1;
     
     private Gtk.HBox hbox1;
     
@@ -26,28 +34,41 @@ public partial class MainWindow {
     
     private Gtk.Entry password;
     
-    private Gtk.HBox hbox3;
-    
-    private Gtk.CheckButton cbSSL;
-    
-    private Gtk.HBox hbox4;
-    
-    private Gtk.Label label3;
-    
-    private Gtk.Label lblVersion;
-    
-    private Gtk.Button button1;
+    private Gtk.Statusbar statusbar1;
     
     protected virtual void Build() {
         Stetic.Gui.Initialize(this);
         // Widget MainWindow
+        Gtk.UIManager w1 = new Gtk.UIManager();
+        Gtk.ActionGroup w2 = new Gtk.ActionGroup("Default");
+        this.connectAction = new Gtk.Action("connectAction", null, Mono.Unix.Catalog.GetString("Connect to server"), "gtk-connect");
+        w2.Add(this.connectAction, null);
+        this.SSLAction = new Gtk.ToggleAction("SSLAction", Mono.Unix.Catalog.GetString("SSL"), Mono.Unix.Catalog.GetString("Enable SSL for connection"), "gtk-dialog-authentication");
+        this.SSLAction.ShortLabel = Mono.Unix.Catalog.GetString("SSL");
+        w2.Add(this.SSLAction, null);
+        this.quitAction = new Gtk.Action("quitAction", null, null, "gtk-quit");
+        w2.Add(this.quitAction, null);
+        w1.InsertActionGroup(w2, 0);
+        this.AddAccelGroup(w1.AccelGroup);
         this.Name = "MainWindow";
         this.Title = Mono.Unix.Catalog.GetString("Login");
         this.WindowPosition = ((Gtk.WindowPosition)(4));
+        this.Modal = true;
         // Container child MainWindow.Gtk.Container+ContainerChild
         this.vbox1 = new Gtk.VBox();
         this.vbox1.Name = "vbox1";
         this.vbox1.Spacing = 6;
+        // Container child vbox1.Gtk.Box+BoxChild
+        w1.AddUiFromString("<ui><toolbar name='toolbar1'><toolitem action='connectAction'/><toolitem action='SSLAction'/><toolitem action='quitAction'/></toolbar></ui>");
+        this.toolbar1 = ((Gtk.Toolbar)(w1.GetWidget("/toolbar1")));
+        this.toolbar1.Name = "toolbar1";
+        this.toolbar1.ShowArrow = false;
+        this.toolbar1.ToolbarStyle = ((Gtk.ToolbarStyle)(0));
+        this.vbox1.Add(this.toolbar1);
+        Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.vbox1[this.toolbar1]));
+        w3.Position = 0;
+        w3.Expand = false;
+        w3.Fill = false;
         // Container child vbox1.Gtk.Box+BoxChild
         this.hbox1 = new Gtk.HBox();
         this.hbox1.Name = "hbox1";
@@ -57,10 +78,10 @@ public partial class MainWindow {
         this.label1.Name = "label1";
         this.label1.LabelProp = Mono.Unix.Catalog.GetString("Username");
         this.hbox1.Add(this.label1);
-        Gtk.Box.BoxChild w1 = ((Gtk.Box.BoxChild)(this.hbox1[this.label1]));
-        w1.Position = 0;
-        w1.Expand = false;
-        w1.Fill = false;
+        Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.hbox1[this.label1]));
+        w4.Position = 0;
+        w4.Expand = false;
+        w4.Fill = false;
         // Container child hbox1.Gtk.Box+BoxChild
         this.xid = new Gtk.Entry();
         this.xid.CanFocus = true;
@@ -68,13 +89,13 @@ public partial class MainWindow {
         this.xid.IsEditable = true;
         this.xid.InvisibleChar = '●';
         this.hbox1.Add(this.xid);
-        Gtk.Box.BoxChild w2 = ((Gtk.Box.BoxChild)(this.hbox1[this.xid]));
-        w2.Position = 1;
+        Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.hbox1[this.xid]));
+        w5.Position = 1;
         this.vbox1.Add(this.hbox1);
-        Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox1]));
-        w3.Position = 0;
-        w3.Expand = false;
-        w3.Fill = false;
+        Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox1]));
+        w6.Position = 1;
+        w6.Expand = false;
+        w6.Fill = false;
         // Container child vbox1.Gtk.Box+BoxChild
         this.hbox2 = new Gtk.HBox();
         this.hbox2.Name = "hbox2";
@@ -84,10 +105,10 @@ public partial class MainWindow {
         this.label2.Name = "label2";
         this.label2.LabelProp = Mono.Unix.Catalog.GetString("Password");
         this.hbox2.Add(this.label2);
-        Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.hbox2[this.label2]));
-        w4.Position = 0;
-        w4.Expand = false;
-        w4.Fill = false;
+        Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox2[this.label2]));
+        w7.Position = 0;
+        w7.Expand = false;
+        w7.Fill = false;
         // Container child hbox2.Gtk.Box+BoxChild
         this.password = new Gtk.Entry();
         this.password.CanFocus = true;
@@ -95,78 +116,32 @@ public partial class MainWindow {
         this.password.IsEditable = true;
         this.password.InvisibleChar = '●';
         this.hbox2.Add(this.password);
-        Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.hbox2[this.password]));
-        w5.Position = 1;
+        Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox2[this.password]));
+        w8.Position = 1;
         this.vbox1.Add(this.hbox2);
-        Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
-        w6.Position = 1;
-        w6.Expand = false;
-        w6.Fill = false;
-        // Container child vbox1.Gtk.Box+BoxChild
-        this.hbox3 = new Gtk.HBox();
-        this.hbox3.Name = "hbox3";
-        this.hbox3.Spacing = 6;
-        // Container child hbox3.Gtk.Box+BoxChild
-        this.cbSSL = new Gtk.CheckButton();
-        this.cbSSL.CanFocus = true;
-        this.cbSSL.Name = "cbSSL";
-        this.cbSSL.Label = Mono.Unix.Catalog.GetString("SSL");
-        this.cbSSL.DrawIndicator = true;
-        this.cbSSL.UseUnderline = true;
-        this.hbox3.Add(this.cbSSL);
-        Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox3[this.cbSSL]));
-        w7.Position = 0;
-        // Container child hbox3.Gtk.Box+BoxChild
-        this.hbox4 = new Gtk.HBox();
-        this.hbox4.Name = "hbox4";
-        this.hbox4.Spacing = 6;
-        // Container child hbox4.Gtk.Box+BoxChild
-        this.label3 = new Gtk.Label();
-        this.label3.Name = "label3";
-        this.label3.LabelProp = Mono.Unix.Catalog.GetString("XMPP Version:");
-        this.hbox4.Add(this.label3);
-        Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox4[this.label3]));
-        w8.Position = 0;
-        w8.Expand = false;
-        w8.Fill = false;
-        // Container child hbox4.Gtk.Box+BoxChild
-        this.lblVersion = new Gtk.Label();
-        this.lblVersion.Name = "lblVersion";
-        this.lblVersion.LabelProp = Mono.Unix.Catalog.GetString("label3");
-        this.hbox4.Add(this.lblVersion);
-        Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.hbox4[this.lblVersion]));
-        w9.Position = 1;
+        Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
+        w9.Position = 2;
         w9.Expand = false;
         w9.Fill = false;
-        this.hbox3.Add(this.hbox4);
-        Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.hbox3[this.hbox4]));
-        w10.Position = 1;
+        // Container child vbox1.Gtk.Box+BoxChild
+        this.statusbar1 = new Gtk.Statusbar();
+        this.statusbar1.Name = "statusbar1";
+        this.statusbar1.Spacing = 6;
+        this.vbox1.Add(this.statusbar1);
+        Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
+        w10.Position = 3;
         w10.Expand = false;
         w10.Fill = false;
-        // Container child hbox3.Gtk.Box+BoxChild
-        this.button1 = new Gtk.Button();
-        this.button1.CanFocus = true;
-        this.button1.Name = "button1";
-        this.button1.UseUnderline = true;
-        this.button1.Label = Mono.Unix.Catalog.GetString("Connect");
-        this.hbox3.Add(this.button1);
-        Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.hbox3[this.button1]));
-        w11.Position = 2;
-        w11.Expand = false;
-        w11.Fill = false;
-        this.vbox1.Add(this.hbox3);
-        Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.vbox1[this.hbox3]));
-        w12.Position = 2;
-        w12.Expand = false;
-        w12.Fill = false;
         this.Add(this.vbox1);
         if ((this.Child != null)) {
             this.Child.ShowAll();
         }
         this.DefaultWidth = 400;
-        this.DefaultHeight = 124;
+        this.DefaultHeight = 162;
         this.Show();
         this.DeleteEvent += new Gtk.DeleteEventHandler(this.OnDeleteEvent);
-        this.button1.Clicked += new System.EventHandler(this.OnConnect);
+        this.connectAction.Activated += new System.EventHandler(this.OnConnect);
+        this.SSLAction.Toggled += new System.EventHandler(this.OnSSL);
+        this.quitAction.Activated += new System.EventHandler(this.OnQuit);
     }
 }

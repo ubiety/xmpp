@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using ubiety.attributes;
-using zlib;
+using ComponentAce.Compression.Libs.zlib;
 
 namespace ubiety.compression.zlib
 {
