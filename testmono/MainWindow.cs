@@ -37,7 +37,7 @@ public partial class MainWindow: Gtk.Window
 		//ubiety.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
 		//ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
 		_creg.AddCompression(Assembly.LoadFile("ubiety.compression.zlib.dll"));
-		statusbar1.Push(1, "XMPP Version: " + xmpp.Version);
+		statusbar1.Push(1, "Ubiety Version: " + xmpp.Version);
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

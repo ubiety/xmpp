@@ -162,6 +162,10 @@ namespace ubiety.net
 		{
             try
             {
+            	if (!_socket.Connected)
+            	{
+            		return;
+            	}
             	Logger.Debug(this, ar.GetType().FullName);
                 int rx = _stream.EndRead(ar);
                 _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);

@@ -70,12 +70,17 @@ namespace ubiety
 
             Logger.Info(typeof(ProtocolParser), "Starting message parsing...");
 
+			Logger.InfoFormat(typeof(ProtocolParser), "Current State: {0}", _states.State);
+
 			// We have received the end tag asking to finish communication so we change to the Disconnect State.
 			if (message.Contains("</stream:stream>"))
 			{
 				Logger.Info(typeof(ProtocolParser), "End of stream received from server");
-                _states.State = new DisconnectState();
-                _states.Execute(null);
+				if (_states.State.GetType() != typeof(DisconnectState))
+				{
+                	_states.State = new DisconnectState();
+                	_states.Execute(null);
+                }
                 return;
             }
 
@@ -224,6 +229,8 @@ namespace ubiety
 				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
 				_states.Execute(tag);
 			}
+			
+			Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
 			_elem = parent;
 		}
 	}
