@@ -1,11 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="xmpp/ProtocolParser.cs" ctype="Workbench">
     <Files>
-      <File FileName="xmpp/ProtocolParser.cs" Line="77" Column="5" />
+      <File FileName="xmpp/ProtocolParser.cs" Line="81" Column="56" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" />
+        <State expanded="True">
+          <Node name="ubiety" expanded="True">
+            <Node name="ProtocolParser.cs" selected="True" />
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" />

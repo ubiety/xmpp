@@ -1,6 +1,6 @@
 // ProtocolParser.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -53,6 +53,12 @@ namespace ubiety
 		/// </summary>
 		public static void Parse(byte[] m, int length)
 		{
+			if (_states.State.GetType() == typeof(ClosedState))
+			{
+				Logger.Debug(typeof(ProtocolParser), "Closed.  Nothing to do");
+				return;
+			}
+		
 			char[] chars = new char[length];
             _decoder.GetChars(m, 0, length, chars, 0);
             string message = new string(chars);
@@ -76,11 +82,9 @@ namespace ubiety
 			if (message.Contains("</stream:stream>"))
 			{
 				Logger.Info(typeof(ProtocolParser), "End of stream received from server");
-				if (_states.State.GetType() != typeof(DisconnectState))
-				{
-                	_states.State = new DisconnectState();
-                	_states.Execute(null);
-                }
+				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
+				_states.State = new ClosedState();
+				_states.Socket.Close();
                 return;
             }
 

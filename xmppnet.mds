@@ -1,19 +1,19 @@
 <Combine name="xmppnet" fileversion="2.0" outputpath="build/bin/" MakePkgConfig="False" MakeLibPC="True">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry build="False" name="ubiety" configuration="Debug" />
+      <Entry build="True" name="ubiety" configuration="Debug" />
       <Entry build="True" name="testmono" configuration="Debug" />
       <Entry build="True" name="testconsole" configuration="Debug" />
-      <Entry build="False" name="ubiety.compression.zlib" configuration="Debug" />
-      <Entry build="False" name="ubiety.compression.sharpziplib" configuration="Debug" />
+      <Entry build="True" name="ubiety.compression.zlib" configuration="Debug" />
+      <Entry build="True" name="ubiety.compression.sharpziplib" configuration="Debug" />
       <Entry build="True" name="ubietynunit" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry build="False" name="ubiety" configuration="Release" />
+      <Entry build="True" name="ubiety" configuration="Release" />
       <Entry build="True" name="testmono" configuration="Release" />
       <Entry build="True" name="testconsole" configuration="Release" />
-      <Entry build="False" name="ubiety.compression.zlib" configuration="Release" />
-      <Entry build="False" name="ubiety.compression.sharpziplib" configuration="Release" />
+      <Entry build="True" name="ubiety.compression.zlib" configuration="Release" />
+      <Entry build="True" name="ubiety.compression.sharpziplib" configuration="Release" />
       <Entry build="True" name="ubietynunit" configuration="Release" />
     </Configuration>
   </Configurations>
