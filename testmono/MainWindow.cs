@@ -83,6 +83,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected virtual void OnQuit (object sender, System.EventArgs e)
 	{
+		if ( xmpp.Connected )
 		xmpp.Disconnect();
 		Application.Quit();
 	}

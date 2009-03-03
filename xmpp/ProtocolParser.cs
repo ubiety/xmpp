@@ -147,11 +147,11 @@ namespace ubiety
 				{
 					if (_reader.Prefix.Equals("xmlns"))
 					{
-						//_ns.AddNamespace(_reader.LocalName, _reader.Value);
+						_ns.AddNamespace(_reader.LocalName, _reader.Value);
 					}
 					else if (_reader.Name.Equals("xmlns"))
 					{
-						//_ns.AddNamespace(string.Empty, _reader.Value);
+						_ns.AddNamespace(string.Empty, _reader.Value);
 					}
 					else
 					{
@@ -198,7 +198,6 @@ namespace ubiety
                 }
 
 				_root = elem;
-				// Changing ProtocolState to Singleton so this eliminates the events.
 				// If the tag is a stream change to the Server Features State.
 				_states.State = new ServerFeaturesState();
 			}

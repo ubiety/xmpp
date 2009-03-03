@@ -1,4 +1,4 @@
-<Project name="ubietynunit" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+<Project name="ubietynunit" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="bin/Debug" assembly="ubietynunit" />
@@ -19,8 +19,8 @@
     <File name="MainTest.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
-    <ProjectReference type="Assembly" localcopy="True" refto="../../../NUnit-2.4.8-net-2.0/bin/nunit.core.dll" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../../../NUnit-2.4.8-net-2.0/bin/nunit.framework.dll" />
     <ProjectReference type="Project" localcopy="True" refto="ubiety" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../nunit.core.dll" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../nunit.framework.dll" />
   </References>
 </Project>

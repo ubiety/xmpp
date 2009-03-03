@@ -1,7 +1,14 @@
-<Project name="ubiety" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+<Project name="ubiety" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+  <Policies>
+    <ChangeLogPolicy UpdateMode="ProjectRoot" inheritsSet="Mono">
+      <MessageStyle LastFilePostfix=":&#xA;  " />
+    </ChangeLogPolicy>
+    <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileName" />
+    <StandardHeader inheritsSet="LGPLv2License" />
+  </Policies>
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="bin/Debug" assemblyKeyFile="xmpp.pfx" assembly="ubiety" />
+      <Output directory="bin/Debug" assemblyKeyFile="/home/dieter/projects/ubiety/xmpp/xmpp.pfx" assembly="ubiety" />
       <Build debugmode="True" target="Library" />
       <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
@@ -84,7 +91,7 @@
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../../log4net-1.2.10/bin/mono/2.0/debug/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../log4net.dll" />
   </References>
   <Deployment.LinuxDeployData scriptName="xmpp" />
   <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="./Makefile.am" SyncReferences="True" IsAutotoolsProject="True" RelativeConfigureInPath="../">
@@ -97,5 +104,4 @@
     <ProjectRefVar Sync="True" Name="REFERENCES" Prefix="-r:" />
   </MonoDevelop.Autotools.MakefileInfo>
   <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
-  <DeployTargets />
 </Project>

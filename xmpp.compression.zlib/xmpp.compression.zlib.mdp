@@ -1,4 +1,4 @@
-<Project name="ubiety.compression.zlib" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+<Project name="ubiety.compression.zlib" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="bin/Debug" assembly="ubiety.compression.zlib" />
@@ -19,7 +19,7 @@
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../../../zlib.net/source/bin/Debug/zlib.net.dll" />
     <ProjectReference type="Project" localcopy="True" refto="ubiety" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../zlib.net.dll" />
   </References>
 </Project>

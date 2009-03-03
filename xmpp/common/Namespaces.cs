@@ -23,7 +23,7 @@ namespace ubiety.common
 	public class Namespaces
 	{
         /// <summary>
-        /// 
+        /// Stream Namespace - http://etherx.jabber.org/streams
         /// </summary>
 		public const string STREAM = "http://etherx.jabber.org/streams";
         /// <summary>

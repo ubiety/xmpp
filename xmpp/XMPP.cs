@@ -93,6 +93,7 @@ namespace ubiety
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
 			_version = x.GetName().Version.ToString();
 			_states.Socket = new AsyncSocket();
+			_states.State = new ClosedState();
 		}
 
         /// <summary>
@@ -197,6 +198,17 @@ namespace ubiety
         {
         	get { return _version; }
         }
+		
+		public bool Connected
+		{
+			get 
+			{
+				if (_states.State.GetType() == typeof(ClosedState))
+					return false;
+				else
+					return true;
+			}
+		}
         #endregion
     }
 }
