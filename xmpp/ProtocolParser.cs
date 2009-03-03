@@ -68,7 +68,6 @@ namespace ubiety
 			Logger.Info(typeof(ProtocolParser), "Setting up environment");
 			NameTable nt = new NameTable();
 			_settings = new XmlReaderSettings();
-			_settings.NameTable = nt;
 			_settings.ConformanceLevel = ConformanceLevel.Fragment;
 			_ns = new XmlNamespaceManager(nt);
 
@@ -122,6 +121,12 @@ namespace ubiety
             catch (XmlException e)
             {
                 Logger.ErrorFormat(typeof(ProtocolParser), "Message Parsing Error: {0}", e);
+				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Error parsing incoming XML.  Please try again.");
+				if (_states.Socket.Connected)
+				{
+					_states.State = new DisconnectState();
+					_states.Execute(null);
+				}				
             }
             catch (InvalidOperationException e)
             {
@@ -218,7 +223,7 @@ namespace ubiety
 
 			if ((_elem.Name != _reader.Name))
 			{
-				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.AuthorizationFailed, "Wrong element");
+				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Wrong element");
                 return;
 			}
             

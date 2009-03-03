@@ -5,3 +5,6 @@ obj/
 *.suo
 *.xml
 *.pidb
+*.test-cache
+*.userprefs
+*.usertasks

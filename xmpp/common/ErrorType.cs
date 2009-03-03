@@ -24,6 +24,7 @@ namespace ubiety.common
 		AuthorizationFailed,
 		WrongProtocolVersion,
 		UnregisteredItem,
-		CompressionFailed
+		CompressionFailed,
+		XMLError
 	}
 }
