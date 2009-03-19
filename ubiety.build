@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+
+<project name="ubiety" default="all">
+	<property name="debug" value="true" />
+
+	<target name="all" depends="testmono.compile" />
+
+	<target name="clean">
+		<delete dir="build" if="${directory::exists('build')}" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="build" />
+	</target>
+
+	<target name="compile" depends="init">
+		<csc target="library" output="build/${project::get-name()}.dll" debug="${debug}">
+			<sources>
+				<include name="xmpp/**/*.cs" />
+			</sources>
+
+			<references>
+				<include name="log4net.dll" />
+			</references>
+		</csc>
+		<copy file="log4net.dll" tofile="build/log4net.dll" />
+	</target>
+
+	<target name="zlib.compile" depends="compile">
+		<csc target="library" output="build/${project::get-name()}.compression.zlib.dll" debug="${debug}">
+			<sources>
+				<include name="xmpp.compression.zlib/**/*.cs" />
+			</sources>
+
+			<references>
+				<include name="build/${project::get-name()}.dll" />
+				<include name="zlib.net.dll" />
+			</references>
+		</csc>
+		<copy file="zlib.net.dll" tofile="build/zlib.net.dll" />
+	</target>
+
+	<target name="ziplib.compile" depends="compile">
+		<csc target="library" output="build/${project::get-name()}.compression.sharpziplib.dll" debug="${debug}">
+			<sources>
+				<include name="xmpp.compression.sharpziplib/**/*.cs" />
+			</sources>
+
+			<references>
+				<include name="build/${project::get-name()}.dll" />
+				<include name="ICSharpCode.SharpZipLib.dll" />
+			</references>			
+		</csc>
+		<copy file="ICSharpCode.SharpZipLib.dll" tofile="build/ICSharpCode.SharpZipLib.dll" />
+	</target>
+
+	<target name="testmono.compile" depends="ziplib.compile, zlib.compile">
+		<csc if="${platform::is-unix()}" target="exe" output="build/testmono.exe" debug="${debug}">
+			<sources>
+				<include name="testmono/**/*.cs" />
+			</sources>
+
+			<references>
+				<include name="build/${project::get-name()}.dll" />
+				<include name="Mono.Posix.dll" />
+			</references>
+
+			<pkg-references>
+				<package name="gtk-sharp-2.0" />
+			</pkg-references>
+		</csc>
+
+		<copy file="testmono/testmono.exe.config" tofile="build/testmono.exe.config" />
+	</target>
+</project>
