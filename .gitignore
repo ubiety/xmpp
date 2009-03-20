@@ -1,5 +1,6 @@
 bin/
 obj/
+build/
 
 *.dll
 *.suo
@@ -8,3 +9,4 @@ obj/
 *.test-cache
 *.userprefs
 *.usertasks
+*.*~

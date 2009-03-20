@@ -39,7 +39,6 @@ namespace ubiety.common
         /// 
         /// </summary>
         /// <param name="xid"></param>
-        [Obsolete]
 		public XID(string xid)
 		{
 			XmppID = xid;

@@ -27,7 +27,6 @@ namespace ubietynunit
 	public class TestXID
 	{
 		[Test]
-		[Ignore("String constructor deprecated because it doesn't work.  Will reenable when working.")]
 		public void EscapeUsernameFromString()
 		{
 			XID id = new XID("d'artangan@garcon.fr/testing");
