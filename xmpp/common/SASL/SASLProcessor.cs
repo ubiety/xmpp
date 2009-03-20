@@ -40,7 +40,7 @@ namespace ubiety.common.SASL
             if ((type & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
 			{
 				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
-                //throw new NotSupportedException();
+                throw new NotSupportedException();
             }
 
             if ((type & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
