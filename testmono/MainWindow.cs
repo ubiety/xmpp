@@ -71,7 +71,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		MessageDialog d = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Close, "");
 		d.Text = e.Message;
-		int rsp = d.Run();
+		d.Run();
 		xmpp.Disconnect();
 		d.Destroy();
 	}

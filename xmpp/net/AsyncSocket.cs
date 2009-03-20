@@ -162,7 +162,7 @@ namespace ubiety.net
 		{
             try
             {
-            	if (!_socket.Connected)
+            	if (!_socket.Connected | _states.State is ClosedState)
             	{
             		return;
             	}

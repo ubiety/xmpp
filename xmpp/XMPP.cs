@@ -1,6 +1,6 @@
 // XMPP.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -19,13 +19,9 @@
 using System;
 using System.Reflection;
 using System.Xml;
-#if __MonoCS__
-using System.Security.Cryptography.X509Certificates;
-#endif
 using ubiety.common;
 using ubiety.core;
 using ubiety.net;
-using ubiety.common.SASL;
 using ubiety.registries;
 using ubiety.states;
 using ubiety.logging;
@@ -93,7 +89,6 @@ namespace ubiety
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
 			_version = x.GetName().Version.ToString();
 			_states.Socket = new AsyncSocket();
-			_states.State = new ClosedState();
 		}
 
         /// <summary>
