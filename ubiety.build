@@ -3,7 +3,7 @@
 <project name="ubiety" default="all">
 	<property name="debug" value="true" />
 
-	<target name="all" depends="testmono.compile" />
+	<target name="all" depends="testmono.compile, tests.run" />
 
 	<target name="clean">
 		<delete dir="build" if="${directory::exists('build')}" />
@@ -49,7 +49,7 @@
 			<references>
 				<include name="build/${project::get-name()}.dll" />
 				<include name="ICSharpCode.SharpZipLib.dll" />
-			</references>			
+			</references>
 		</csc>
 		<copy file="ICSharpCode.SharpZipLib.dll" tofile="build/ICSharpCode.SharpZipLib.dll" />
 	</target>
@@ -71,5 +71,30 @@
 		</csc>
 
 		<copy file="testmono/testmono.exe.config" tofile="build/testmono.exe.config" />
+	</target>
+
+	<target name="tests.compile" depends="compile">
+		<csc target="library" output="build/ubietynunit.dll" debug="${debug}">
+			<sources>
+				<include name="ubietynunit/**/*.cs" />
+			</sources>
+
+			<references>
+				<include name="build/${project::get-name()}.dll" />
+				<include name="nunit.framework.dll" />
+				<include name="nunit.core.dll" />
+			</references>
+		</csc>
+
+		<copy file="nunit.framework.dll" tofile="build/nunit.framework.dll" />
+		<copy file="nunit.core.dll" tofile="build/nunit.core.dll" />
+		<copy file="nunit.core.interfaces.dll" tofile="build/nunit.core.interfaces.dll" />
+	</target>
+
+	<target name="tests.run" depends="tests.compile">
+		<exec workingdir="build" program="nunit-console.exe" managed="Auto">
+			<arg value="ubietynunit.dll" />
+			<arg value="-xml=ubietynunit.xml" />
+		</exec>
 	</target>
 </project>

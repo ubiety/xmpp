@@ -1,6 +1,6 @@
 // State.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006, 2008, 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -27,14 +27,12 @@ namespace ubiety.states
 		/// <summary>
 		/// 
 		/// </summary>
-		protected ProtocolState _current;
-		
-		protected TagRegistry _reg;
+		protected ProtocolState _current = ProtocolState.Instance;
+		protected TagRegistry _reg = TagRegistry.Instance;
 		
 		public State()
 		{
-			_current = ProtocolState.Instance;
-			_reg = TagRegistry.Instance;
+			
 		}
 		
 		/// <summary>
