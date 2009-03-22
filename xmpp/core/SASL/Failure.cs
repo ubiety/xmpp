@@ -36,4 +36,11 @@ namespace ubiety.core.SASL
 		{
 		}
 	}
+	
+	[XmppTag("bad-protocol", Namespaces.SASL, typeof(BadProtocol))]
+	public class BadProtocol : Tag
+	{
+		public BadProtocol(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		{}
+	}
 }

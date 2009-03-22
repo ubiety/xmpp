@@ -1,6 +1,6 @@
 // MD5Processor.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2007 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -72,6 +72,7 @@ namespace ubiety.common.SASL
 			}
 			
 			Challenge chall = tag as Challenge;
+			Logger.Debug(this, _enc.GetString(tag.Bytes));
 			populateDirectives(chall);
 			Response res = (Response)TagRegistry.Instance.GetTag("", new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
 			generateResponseHash();
@@ -87,6 +88,9 @@ namespace ubiety.common.SASL
 			{
 				this[m.Groups["tag"].Value] = m.Groups["data"].Value;
 			}
+			
+			if (this["realm"] == null)
+				this["realm"] = _id.Server;
 		}
 		
 		private byte[] generateResponse()

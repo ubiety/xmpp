@@ -65,6 +65,11 @@ namespace ubiety.registries
 			try
 			{
 				t = (Type)_registeredItems[qname];
+				if (t == null)
+				{
+					Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Tag " + qname + " not found in registry.  Please load appropriate library.");
+					return null;
+				}
         		tag =  (Tag)Activator.CreateInstance(t, new object[] { prefix, qname, doc });
 			}
 			catch (Exception e)

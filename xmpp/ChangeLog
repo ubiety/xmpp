@@ -1,3 +1,11 @@
+2009-03-22  Dieter Lunn  <coder2000@gmail.com>
+
+	* registries/TagRegistry.cs: Added check for null on returned type from registry.  Should be better than letting CreateInstance throw an exception.
+
+	* common/SASL/MD5Processor.cs: Added check for SASL realm.  Still have to decide whether to throw an exception or not.
+
+	* core/SASL/Failure.cs: Added bad protocl failure tag
+
 2009-03-21  Dieter Lunn  <coder2000@gmail.com>
 
 	* net/AsyncSocket.cs: removed an unncessary logging command
