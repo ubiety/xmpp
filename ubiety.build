@@ -54,7 +54,22 @@
 		<copy file="ICSharpCode.SharpZipLib.dll" tofile="build/ICSharpCode.SharpZipLib.dll" />
 	</target>
 
-	<target name="testmono.compile" depends="ziplib.compile, zlib.compile">
+	<target name="dotnetzip.compile" depends="compile">
+		<csc target="library" output="build/${project::get-name()}.compression.dotnetzip.dll" debug="${debug}">
+			<sources>
+				<include name="ubiety.compression.dotnetzip/**/*.cs" />
+			</sources>
+
+			<references>
+				<include name="build/${project::get-name()}.dll" />
+				<include name="Ionic.Zlib.dll" />
+			</references>
+		</csc>
+
+		<copy file="Ionic.Zlib.dll" tofile="build/Ionic.Zlib.dll" />
+	</target>
+
+	<target name="testmono.compile" depends="ziplib.compile, zlib.compile, dotnetzip.compile">
 		<csc if="${platform::is-unix()}" target="exe" output="build/testmono.exe" debug="${debug}">
 			<sources>
 				<include name="testmono/**/*.cs" />

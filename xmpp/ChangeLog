@@ -1,3 +1,12 @@
+2009-03-21  Dieter Lunn  <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: removed an unncessary logging command
+
+2009-03-20  Dieter Lunn  <coder2000@gmail.com>
+
+	* common/SASL/MD5Processor.cs: Fixed a bug from the name change.  It had changed required xmpp names to ubiety.
+	* In general there are alot of fixes and minor changes.
+
 2009-01-07  Dieter Lunn <coder2000@gmail.com>
 
 	* common/XID.cs: Added XEP-0106 JID Escaping and NUnit testing.

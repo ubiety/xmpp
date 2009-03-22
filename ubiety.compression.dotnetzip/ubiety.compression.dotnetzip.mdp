@@ -1,0 +1,31 @@
+<Project name="ubiety.compression.dotnetzip" fileversion="2.0" language="C#" targetFramework="2.0" ctype="DotNetProject">
+  <Policies>
+    <StandardHeader inheritsSet="LGPLv2License" />
+    <ChangeLogPolicy UpdateMode="ProjectRoot" inheritsSet="Mono">
+      <MessageStyle LineAlign="0" />
+    </ChangeLogPolicy>
+  </Policies>
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="bin/Debug" assembly="ubiety.compression.dotnetzip" />
+      <Build debugmode="True" target="Library" />
+      <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" definesymbols="DEBUG" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="bin/Release" assembly="ubiety.compression.dotnetzip" />
+      <Build debugmode="False" target="Library" />
+      <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <Contents>
+    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="ZlibStream.cs" subtype="Code" buildaction="Compile" />
+  </Contents>
+  <References>
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../Ionic.Zlib.dll" />
+    <ProjectReference type="Project" localcopy="True" refto="ubiety" />
+  </References>
+</Project>

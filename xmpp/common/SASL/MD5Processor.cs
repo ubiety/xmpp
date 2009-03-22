@@ -111,7 +111,7 @@ namespace ubiety.common.SASL
 			sb.Append(this["qop"]);
 			sb.Append(",");
 			sb.Append("digest-uri=\"");
-			sb.Append("ubiety/");
+			sb.Append("xmpp/");
 			sb.Append(this["realm"]);
 			sb.Append("\",");
 			sb.Append("response=");
@@ -130,7 +130,7 @@ namespace ubiety.common.SASL
 			byte[] H1, H2, H3, temp;
 			string A1, A2, A3, uri, p1, p2;
 			
-			uri = "ubiety/" + this["realm"];
+			uri = "xmpp/" + this["realm"];
 			Random r = new Random();
 			int v = r.Next(1024);
 			

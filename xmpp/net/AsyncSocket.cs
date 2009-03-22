@@ -194,7 +194,6 @@ namespace ubiety.net
 		{
 			Logger.DebugFormat(this, "Replacing stream with {0} compressed version.", algorithm);
 			_stream = CompressionRegistry.Instance.GetCompression(algorithm, _stream);
-			Logger.Debug(this, _stream.GetType().Name);
 		}
 
         /// <summary>

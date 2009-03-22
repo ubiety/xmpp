@@ -1,4 +1,5 @@
 <Combine name="xmppnet" fileversion="2.0" outputpath="build/bin/" MakePkgConfig="False" MakeLibPC="True">
+  <Policies />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="ubiety" configuration="Debug" />
@@ -7,6 +8,7 @@
       <Entry build="True" name="ubiety.compression.zlib" configuration="Debug" />
       <Entry build="True" name="ubiety.compression.sharpziplib" configuration="Debug" />
       <Entry build="True" name="ubietynunit" configuration="Debug" />
+      <Entry build="True" name="ubiety.compression.dotnetzip" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="ubiety" configuration="Release" />
@@ -15,6 +17,7 @@
       <Entry build="True" name="ubiety.compression.zlib" configuration="Release" />
       <Entry build="True" name="ubiety.compression.sharpziplib" configuration="Release" />
       <Entry build="True" name="ubietynunit" configuration="Release" />
+      <Entry build="True" name="ubiety.compression.dotnetzip" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="testmono" single="True">
@@ -24,9 +27,9 @@
     <Execute type="None" entry="ubiety.compression.zlib" />
     <Execute type="None" entry="ubiety.compression.sharpziplib" />
     <Execute type="None" entry="ubietynunit" />
+    <Execute type="None" entry="ubiety.compression.dotnetzip" />
   </StartMode>
   <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
-  <DeployTargets />
   <Entries>
     <Entry filename="xmpp/xmpp.mdp" />
     <Entry filename="testmono/testmono.mdp" />
@@ -34,5 +37,6 @@
     <Entry filename="xmpp.compression.zlib/xmpp.compression.zlib.mdp" />
     <Entry filename="xmpp.compression.sharpziplib/xmpp.compression.sharpziplib.mdp" />
     <Entry filename="ubietynunit/ubietynunit.mdp" />
+    <Entry filename="ubiety.compression.dotnetzip/ubiety.compression.dotnetzip.mdp" />
   </Entries>
 </Combine>
