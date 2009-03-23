@@ -1,5 +1,11 @@
 2009-03-22  Dieter Lunn  <coder2000@gmail.com>
 
+	* states/ServerFeaturesState.cs: Moved compression before authentication for better compliance with standards.
+
+	* common/SASL/MD5Processor.cs: Added additional step that sends a blank response for the rspauth challenge according to RFC 3920bis
+
+	* common/SASL/MD5Processor.cs: Changed the SASL realm check to just the digest-uri.  This may help with connecting to ejabberd.
+
 	* registries/TagRegistry.cs: Added check for null on returned type from registry.  Should be better than letting CreateInstance throw an exception.
 
 	* common/SASL/MD5Processor.cs: Added check for SASL realm.  Still have to decide whether to throw an exception or not.

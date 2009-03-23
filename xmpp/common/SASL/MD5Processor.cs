@@ -40,6 +40,7 @@ namespace ubiety.common.SASL
 		private string _cnonce;
 		private int _nc;
 		private string _ncString;
+		private string _digestUri;
 		
 		public MD5Processor()
 		{
@@ -75,8 +76,11 @@ namespace ubiety.common.SASL
 			Logger.Debug(this, _enc.GetString(tag.Bytes));
 			populateDirectives(chall);
 			Response res = (Response)TagRegistry.Instance.GetTag("", new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
-			generateResponseHash();
-			res.Bytes = generateResponse();
+			if (this["rspauth"] == null)
+			{
+				generateResponseHash();
+				res.Bytes = generateResponse();				
+			}
 			
 			return res;
 		}
@@ -89,8 +93,10 @@ namespace ubiety.common.SASL
 				this[m.Groups["tag"].Value] = m.Groups["data"].Value;
 			}
 			
-			if (this["realm"] == null)
-				this["realm"] = _id.Server;
+			if (this["realm"] != null)
+				_digestUri = "xmpp/" + this["realm"];
+			else
+				_digestUri = "xmpp/" + _id.Server;
 		}
 		
 		private byte[] generateResponse()
@@ -115,8 +121,7 @@ namespace ubiety.common.SASL
 			sb.Append(this["qop"]);
 			sb.Append(",");
 			sb.Append("digest-uri=\"");
-			sb.Append("xmpp/");
-			sb.Append(this["realm"]);
+			sb.Append(_digestUri);
 			sb.Append("\",");
 			sb.Append("response=");
 			sb.Append(_responseHash);
@@ -134,7 +139,6 @@ namespace ubiety.common.SASL
 			byte[] H1, H2, H3, temp;
 			string A1, A2, A3, uri, p1, p2;
 			
-			uri = "xmpp/" + this["realm"];
 			Random r = new Random();
 			int v = r.Next(1024);
 			
@@ -187,7 +191,7 @@ namespace ubiety.common.SASL
 			//Create A2
 			sb.Remove(0, sb.Length);
 			sb.Append("AUTHENTICATE:");
-			sb.Append(uri);
+			sb.Append(_digestUri);
 			if (this["qop"].CompareTo("auth") != 0)
 			{
 				sb.Append(":00000000000000000000000000000000");

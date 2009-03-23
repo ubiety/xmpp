@@ -1,6 +1,6 @@
 // ServerFeaturesState.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -72,20 +72,9 @@ namespace ubiety.states
 				return;
 			}
 			
-			if (!_current.Authenticated)
-			{
-				Logger.Debug(this, "Creating SASL Processor");
-				_current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
-		        Logger.Debug(this, "Sending auth with mechanism type");
-				_current.Socket.Write(_current.Processor.Initialize(_current.ID, _current.Password));
-			
-				_current.State = new SASLState();
-				return;
-			}
-
-            Logger.Debug(this, "Authenticated");
+			// Moved before authentication to be inline with majority standard
 			// Do we want to do stream compression according to XEP-0138?
-			if (_current.Authenticated && !_current.Compress && CompressionRegistry.AlgorithmsAvailable)
+			if (!_current.Compress && CompressionRegistry.AlgorithmsAvailable && !_current.Socket.SSL)
 			{
 				Logger.Info(this, "Starting compression");
 				// Do we have a stream for any of the compressions supported by the server?
@@ -108,6 +97,19 @@ namespace ubiety.states
 					}
 				}
 			}
+
+			if (!_current.Authenticated)
+			{
+				Logger.Debug(this, "Creating SASL Processor");
+				_current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
+		        Logger.Debug(this, "Sending auth with mechanism type");
+				_current.Socket.Write(_current.Processor.Initialize(_current.ID, _current.Password));
+			
+				_current.State = new SASLState();
+				return;
+			}
+
+            Logger.Debug(this, "Authenticated");
 		}
 	}
 }
