@@ -67,7 +67,7 @@ namespace ubiety.states
 			if (f.StartTLS != null && _current.Socket.SSL)
 			{
 				_current.State = new StartTLSState();
-				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", Namespaces.START_TLS), new XmlDocument());
+				StartTLS tls = (StartTLS)_reg.GetTag("", new XmlQualifiedName("starttls", Namespaces.START_TLS), _current.Document);
 				_current.Socket.Write(tls);
 				return;
 			}
@@ -83,14 +83,11 @@ namespace ubiety.states
 					if (CompressionRegistry.SupportsAlgorithm(algorithm))
 					{
 						Logger.DebugFormat(this, "Using {0} for compression", algorithm);
-						// Creating an XML document for creating the tags because AppendChild only works with elements from the same document.
-						// TODO: Make Tag add children from any document using OwnerDocument.ImportNode.
-						XmlDocument d = new XmlDocument();
-						Compress c = (Compress)_reg.GetTag("", new XmlQualifiedName("compress", Namespaces.COMPRESSION), d);
-						Method m = (Method)_reg.GetTag("", new XmlQualifiedName("method", Namespaces.COMPRESSION), d);
+						Compress c = (Compress)_reg.GetTag("", new XmlQualifiedName("compress", Namespaces.COMPRESSION), _current.Document);
+						Method m = (Method)_reg.GetTag("", new XmlQualifiedName("method", Namespaces.COMPRESSION), _current.Document);
 						
 						m.InnerText = _current.Algorithm = algorithm;
-						c.AppendChild(m);
+						c.AddChildTag(m);
 						_current.Socket.Write(c);
 						_current.State = new CompressedState();
 						return;
@@ -110,6 +107,8 @@ namespace ubiety.states
 			}
 
             Logger.Debug(this, "Authenticated");
+            _current.State = new BindingState();
+            _current.Execute(null);
 		}
 	}
 }

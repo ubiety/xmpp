@@ -87,6 +87,8 @@
     <File name="states/CompressedState.cs" subtype="Code" buildaction="Compile" />
     <File name="core/Compression/Compressed.cs" subtype="Code" buildaction="Compile" />
     <File name="states/ClosedState.cs" subtype="Code" buildaction="Compile" />
+    <File name="core/iq/Iq.cs" subtype="Code" buildaction="Compile" />
+    <File name="states/BindingState.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

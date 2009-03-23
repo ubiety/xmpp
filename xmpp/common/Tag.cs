@@ -1,6 +1,6 @@
 // Tag.cs
 //
-//XMPP .NET Library Copyright (C) 2006 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -25,6 +25,8 @@ namespace ubiety.common
     /// </summary>
 	public class Tag : XmlElement
 	{
+		static int _packetCounter;
+	
         /// <summary>
         /// Creates a new tag
         /// </summary>
@@ -39,7 +41,28 @@ namespace ubiety.common
 		public Tag() : base("", "", "", null)
 		{
 		}
-
+		
+		public void AddChildTag(Tag child)
+		{
+			if (this.OwnerDocument == child.OwnerDocument)
+				this.AppendChild(child);
+			else
+				this.AppendChild(this.OwnerDocument.ImportNode(child, true));
+		}
+		
+		public T GetEnumAttribute<T>(string name)
+		{
+			string a = GetAttribute(name);
+			return (T) Enum.Parse(typeof(T), name, false);
+		}
+		
+		public string GetNextID()
+		{
+			System.Threading.Interlocked.Increment(ref _packetCounter);
+			return "U" + _packetCounter.ToString();
+		}
+		
+		#region << Properties >>
         /// <summary>
         /// Where the message is going.
         /// </summary>
@@ -64,6 +87,7 @@ namespace ubiety.common
 		public string ID
 		{
 			get { return GetAttribute("id"); }
+			set { SetAttribute("id", value); }
 		}
 
         ///<summary>
@@ -92,5 +116,6 @@ namespace ubiety.common
 			get { return Convert.FromBase64String(InnerText); }
 			set { InnerText = Convert.ToBase64String(value); }
 		}
+		#endregion
 	}
 }

@@ -60,6 +60,27 @@ namespace ubiety.core
 		{
 			get { return this["features", Namespaces.STREAM] as Features; }
 		}
+		
+		public string Lang
+		{
+			get 
+			{
+				if (!HasAttribute("lang", Namespaces.XML))
+					return null;
+				return GetAttribute("lang", Namespaces.XML);
+			}
+			set 
+			{
+				if (HasAttribute("lang", Namespaces.XML))
+					RemoveAttribute("lang", Namespaces.XML);
+				if (value != null)
+				{
+					XmlAttribute attr = OwnerDocument.CreateAttribute("xml:lang", Namespaces.XML);
+					attr.Value = value;
+					this.Attributes.Append(attr);
+				}
+			}
+		}
 
         /// <summary>
         /// 

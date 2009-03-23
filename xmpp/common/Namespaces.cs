@@ -22,6 +22,10 @@ namespace ubiety.common
     /// </summary>
 	public class Namespaces
 	{
+		public const string XMLNS = "http://www.w3.org/2000/xmlns";
+		public const string XML = "http://www.w3.org/XML/1998/namespace";
+		
+		public const string CLIENT = "jabber:client";
         /// <summary>
         /// Stream Namespace - http://etherx.jabber.org/streams
         /// </summary>

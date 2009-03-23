@@ -50,11 +50,8 @@ namespace ubiety.states
 			if (data.LocalName == "proceed")
 			{
 				_current.Socket.StartSecure();
-				Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
-				stream.Version = "1.0";
-				stream.To = _current.Socket.Hostname;
-				stream.NS = "jabber:client";
-				_current.Socket.Write(stream.StartTag());
+				_current.State = new ConnectedState();
+				_current.Execute(null);
 			}
 		}
 

@@ -1,8 +1,44 @@
+2009-03-23  Dieter Lunn  <coder2000@gmail.com>
+
+	* ProtocolParser.cs: Added jabber:client as the default namespace so TagRegistry can find the correct tags
+
+	* states/StartTLSState.cs: Changed to using connected state for sending start tag.  More DRY that way.
+
+	* states/ConnectedState.cs: Removed unneeded code after protocol parser change
+
+	* ProtocolParser.cs: Added check for stream tag so it can change the the features state on restarts
+
+	* states/ConnectedState.cs: Changed XmlDocument to state based document
+
+	* states/ServerFeaturesState.cs: Changed XmlDocument to state based document
+
+	* states/ServerFeaturesState.cs: Changes to binding state as last item to do
+
+	* states/BindingState.cs: Added new state for binding resource after SASL authentication
+
+	* common/Tag.cs: Added Enum attribute method and GetNextID method
+
+	* core/iq/Iq.cs: Added Iq tag
+
+	* ProtocolParser.cs: Modified to use the XmlDocument from the state
+
+	* states/ProtocolState.cs: Added XmlDocument for overall tag creation
+
+	* states/ConnectedState.cs: Defaulted xml:lang to 'en' until code is added to validate the language code
+
+	* core/Stream.cs: Added xml:lang to stream:stream for language support
+
+	* common/Namespaces.cs: Added XML namespaces and jabber:client namespace
+
 2009-03-22  Dieter Lunn  <coder2000@gmail.com>
+
+	* states/ServerFeaturesState.cs: Removed unncessary code due to changes in Tag
+
+	* common/Tag.cs: Added method to add children from other documents.
 
 	* states/ServerFeaturesState.cs: Moved compression before authentication for better compliance with standards.
 
-	* common/SASL/MD5Processor.cs: Added additional step that sends a blank response for the rspauth challenge according to RFC 3920bis
+	* common/SASL/MD5Processor.cs: Added additional step that sends a blank response for the rspauth challenge according to RFC 3920
 
 	* common/SASL/MD5Processor.cs: Changed the SASL realm check to just the digest-uri.  This may help with connecting to ejabberd.
 

@@ -42,10 +42,10 @@ namespace ubiety.registries
             Logger.DebugFormat(this, "Adding assembly {0}", ass.FullName);
             
             XmppTagAttribute[] tags = GetAttributes<XmppTagAttribute>(ass);
-            Logger.DebugFormat(this, "{0,-15}{1,-34}{2}", "Tag Prefix", "Class", "Namespace");
+            Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", "Tag Prefix", "Class", "Namespace");
             foreach (XmppTagAttribute tag in tags)
             {
-            	Logger.DebugFormat(this, "{0,-15}{1,-34}{2}", tag.Prefix, tag.ClassType.FullName, tag.NS);
+            	Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", tag.Prefix, tag.ClassType.FullName, tag.NS);
             	_registeredItems.Add(new XmlQualifiedName(tag.Prefix, tag.NS), tag.ClassType);
             }
 		}

@@ -35,11 +35,10 @@ namespace ubiety
 	/// </remarks>
 	public class ProtocolParser
     {
-        #region Private Members
+        #region << Private Members >>
 		private static XmlNamespaceManager _ns;
 		private static TagRegistry _reg = TagRegistry.Instance;
 		private static ProtocolState _states = ProtocolState.Instance;
-		private static XmlDocument _doc = new XmlDocument();
 		private static XmlElement _elem;
 		private static XmlElement _root = null;
 
@@ -66,11 +65,11 @@ namespace ubiety
 
 			// Moved the initialization into the parse method because it has become static.  Don't really need an instance to parse the string.
 			Logger.Info(typeof(ProtocolParser), "Setting up environment");
-			NameTable nt = new NameTable();
 			_settings = new XmlReaderSettings();
 			_settings.ConformanceLevel = ConformanceLevel.Fragment;
-			_ns = new XmlNamespaceManager(nt);
-
+			_ns = new XmlNamespaceManager(_states.Document.NameTable);
+			
+			_ns.AddNamespace("", Namespaces.CLIENT);
 			_ns.AddNamespace("stream", Namespaces.STREAM);
 
             Logger.Info(typeof(ProtocolParser), "Starting message parsing...");
@@ -138,7 +137,7 @@ namespace ubiety
 		{
 			if (_elem != null)
 			{
-				_elem.AppendChild(_doc.CreateTextNode(_reader.Value));
+				_elem.AppendChild(_states.Document.CreateTextNode(_reader.Value));
 			}
 		}
 
@@ -168,7 +167,7 @@ namespace ubiety
 
 			string ns = _ns.LookupNamespace(_reader.Prefix);
 			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
-			XmlElement elem = _reg.GetTag(_reader.Prefix, q, _doc);
+			XmlElement elem = _reg.GetTag(_reader.Prefix, q, _states.Document);
 
 			Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 
@@ -180,14 +179,14 @@ namespace ubiety
 					string prefix = attrname.Substring(0, colon);
 					string name = attrname.Substring(colon + 1);
 
-					XmlAttribute attr = _doc.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
+					XmlAttribute attr = _states.Document.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
 					attr.InnerXml = (string)ht[attrname];
 
 					elem.SetAttributeNode(attr);
 				}
 				else
 				{
-					XmlAttribute attr = _doc.CreateAttribute(attrname);
+					XmlAttribute attr = _states.Document.CreateAttribute(attrname);
 					attr.InnerXml = (string)ht[attrname];
 
 					elem.SetAttributeNode(attr);
@@ -234,6 +233,8 @@ namespace ubiety
 			{
 				Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
 				ubiety.common.Tag tag = (ubiety.common.Tag)_elem;
+				if (tag is ubiety.core.Stream)
+					_states.State = new ServerFeaturesState();
 				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
 				_states.Execute(tag);
 			}

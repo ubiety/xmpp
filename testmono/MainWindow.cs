@@ -36,7 +36,9 @@ public partial class MainWindow: Gtk.Window
 		error.OnError += new EventHandler<ErrorEventArgs>(OnError);
 		//ubiety.LocalCertificate = X509Certificate.CreateFromCertFile("cert.pem");
 		//ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
-		_creg.AddCompression(Assembly.LoadFile("ubiety.compression.dotnetzip.dll"));
+		
+		//Disabling compression until it can be fixed.
+		//_creg.AddCompression(Assembly.LoadFile("ubiety.compression.dotnetzip.dll"));
 		statusbar1.Push(1, "Ubiety Version: " + xmpp.Version);
 	}
 	

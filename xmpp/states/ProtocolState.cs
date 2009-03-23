@@ -15,6 +15,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System.Xml;
 using ubiety.net;
 using ubiety.common.SASL;
 using ubiety.common;
@@ -34,6 +35,7 @@ namespace ubiety.states
 		private bool _authenticated = false;
 		private bool _compress = false;
 		private string _algorithm;
+		private XmlDocument _doc = new XmlDocument();
 		
 		private static ProtocolState _instance = new ProtocolState();
 		
@@ -120,6 +122,11 @@ namespace ubiety.states
 		{
 			get { return _algorithm; }
 			set { _algorithm = value; }
+		}
+		
+		public XmlDocument Document
+		{
+			get { return _doc; }
 		}
 		
 		/// <value>

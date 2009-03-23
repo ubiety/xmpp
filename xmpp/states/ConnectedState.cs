@@ -1,6 +1,6 @@
 // ConnectedState.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -42,14 +42,12 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute (Tag data)
 		{
-			Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), new XmlDocument());
+			Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), _current.Document);
 			stream.Version = "1.0";
 			stream.To = _current.Socket.Hostname;
-			stream.NS = "jabber:client";
-			string prefix = _current.Authenticated ? "" : "<?xml version='1.0' encoding='UTF-8'?>";
-			if (_current.Authenticated)
-				_current.State = new ServerFeaturesState();
-			_current.Socket.Write(prefix + stream.StartTag());
+			stream.NS = Namespaces.CLIENT;
+			stream.Lang = "en";
+			_current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
 		}
 	}
 }
