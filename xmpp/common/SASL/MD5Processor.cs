@@ -51,7 +51,7 @@ namespace ubiety.common.SASL
 		{
 			base.Initialize(id, password);
 			
-			Auth tag = (Auth)TagRegistry.Instance.GetTag("", new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
+			Auth tag = (Auth)TagRegistry.Instance.GetTag(new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
 			tag.Mechanism = Mechanism.GetMechanism(MechanismType.DIGEST_MD5);
 			return tag;
 		}
@@ -75,7 +75,7 @@ namespace ubiety.common.SASL
 			Challenge chall = tag as Challenge;
 			Logger.Debug(this, _enc.GetString(tag.Bytes));
 			populateDirectives(chall);
-			Response res = (Response)TagRegistry.Instance.GetTag("", new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
+			Response res = (Response)TagRegistry.Instance.GetTag(new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
 			if (this["rspauth"] == null)
 			{
 				generateResponseHash();

@@ -34,8 +34,8 @@ namespace ubiety.core.iq
         /// <param name="prefix"></param>
         /// <param name="qname"></param>
         /// <param name="doc"></param>
-		public Register(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public Register(XmlDocument doc)
+			: base("", new XmlQualifiedName("register", Namespaces.REGISTER), doc)
 		{
 		}
 

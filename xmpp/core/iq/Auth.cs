@@ -32,8 +32,8 @@ namespace ubiety.core.iq
         /// <param name="prefix"></param>
         /// <param name="qname"></param>
         /// <param name="doc"></param>
-		public Auth(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public Auth(XmlDocument doc)
+			: base("", new XmlQualifiedName("auth", Namespaces.AUTH), doc)
 		{
 		}
 

@@ -23,8 +23,8 @@ namespace ubiety.core.compression
 	[XmppTag("method", Namespaces.COMPRESSION, typeof(Method))]
 	public class Method : Tag
 	{
-		public Method(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base (prefix, qname, doc)
+		public Method(XmlDocument doc)
+			: base ("", new XmlQualifiedName("method", Namespaces.COMPRESSION), doc)
 		{
 		}
 	}

@@ -42,11 +42,11 @@ namespace ubiety.registries
             Logger.DebugFormat(this, "Adding assembly {0}", ass.FullName);
             
             XmppTagAttribute[] tags = GetAttributes<XmppTagAttribute>(ass);
-            Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", "Tag Prefix", "Class", "Namespace");
+            Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", "Tag Name", "Class", "Namespace");
             foreach (XmppTagAttribute tag in tags)
             {
-            	Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", tag.Prefix, tag.ClassType.FullName, tag.NS);
-            	_registeredItems.Add(new XmlQualifiedName(tag.Prefix, tag.NS), tag.ClassType);
+            	Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.NS);
+            	_registeredItems.Add(new XmlQualifiedName(tag.Name, tag.NS), tag.ClassType);
             }
 		}
 
@@ -57,7 +57,7 @@ namespace ubiety.registries
         /// <param name="qname">Qualified Namespace</param>
         /// <param name="doc">XmlDocument to create tag with</param>
         /// <returns>A new instance of the requested tag</returns>
-		public Tag GetTag(string prefix, XmlQualifiedName qname, XmlDocument doc)
+		public Tag GetTag(XmlQualifiedName qname, XmlDocument doc)
 		{
 			Type t = null;
 			Tag tag = null;
@@ -70,7 +70,7 @@ namespace ubiety.registries
 					Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Tag " + qname + " not found in registry.  Please load appropriate library.");
 					return null;
 				}
-        		tag =  (Tag)Activator.CreateInstance(t, new object[] { prefix, qname, doc });
+        		tag =  (Tag)Activator.CreateInstance(t, new object[] { doc });
 			}
 			catch (Exception e)
 			{

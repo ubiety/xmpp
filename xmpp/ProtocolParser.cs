@@ -167,7 +167,7 @@ namespace ubiety
 
 			string ns = _ns.LookupNamespace(_reader.Prefix);
 			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
-			XmlElement elem = _reg.GetTag(_reader.Prefix, q, _states.Document);
+			XmlElement elem = _reg.GetTag(q, _states.Document);
 
 			Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 

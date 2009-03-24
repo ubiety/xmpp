@@ -1,5 +1,11 @@
 2009-03-23  Dieter Lunn  <coder2000@gmail.com>
 
+	* XMPP.cs: Changed all tags to new creation format: public Tag(XmlDocument doc) : base ("prefix", XmlQualifiedName("tagname", "namespace"), doc)
+
+	* registries/TagRegistry.cs: Changed how tags are created.  All that is needed is now the document.  The tags should know their own prefix and namespaces.
+
+	* attributes/XmppTagAttribute.cs: Changed prefix to name because it is not the prefix
+
 	* ProtocolParser.cs: Added jabber:client as the default namespace so TagRegistry can find the correct tags
 
 	* states/StartTLSState.cs: Changed to using connected state for sending start tag.  More DRY that way.

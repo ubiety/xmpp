@@ -24,8 +24,8 @@ namespace ubiety.core
 	[XmppTag("session", Namespaces.SESSION, typeof(Session))]
 	public class Session : Tag
 	{
-		public Session(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base (prefix, qname, doc)
+		public Session(XmlDocument doc)
+			: base ("", new XmlQualifiedName("session", Namespaces.SESSION), doc)
 		{
 		}
 	}

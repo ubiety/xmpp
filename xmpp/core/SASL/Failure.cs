@@ -1,6 +1,6 @@
 // Failure.cs
 //
-//XMPP .NET Library Copyright (C) 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2008 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -24,7 +24,7 @@ namespace ubiety.core.SASL
 	[XmppTag("failure", Namespaces.SASL, typeof(Failure))]
 	public class Failure : ubiety.common.Tag
 	{
-		public Failure(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public Failure(XmlDocument doc) : base("", new XmlQualifiedName("failure". Namespaces.SASL), doc)
 		{
 		}
 	}
@@ -32,7 +32,7 @@ namespace ubiety.core.SASL
 	[XmppTag("not-authorized", Namespaces.SASL, typeof(NotAuthorized))]
 	public class NotAuthorized : ubiety.common.Tag
 	{
-		public NotAuthorized(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public NotAuthorized(XmlDocument doc) : base("", new XmlQualifiedName("not-authorized", Namespaces.SASL), doc)
 		{
 		}
 	}
@@ -40,7 +40,7 @@ namespace ubiety.core.SASL
 	[XmppTag("bad-protocol", Namespaces.SASL, typeof(BadProtocol))]
 	public class BadProtocol : Tag
 	{
-		public BadProtocol(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public BadProtocol(XmlDocument doc) : base("", new XmlQualifiedName("bad-protocol", Namespaces.SASL), doc)
 		{}
 	}
 }

@@ -23,7 +23,7 @@ namespace ubiety.core.SASL
 	[XmppTag("auth", Namespaces.SASL, typeof(Auth))]
 	class Auth : ubiety.common.Tag
 	{
-		public Auth(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public Auth(XmlDocument doc) : base("", new XmlQualifiedName("auth", Namespaces.SASL), doc)
 		{
 		}
 

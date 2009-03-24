@@ -33,8 +33,8 @@ namespace ubiety.core
         /// <param name="prefix"></param>
         /// <param name="qname"></param>
         /// <param name="doc"></param>
-		public Stream(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public Stream(XmlDocument doc)
+			: base("stream", new XmlQualifiedName("stream", Namespaces.STREAM), doc)
 		{
 		}
 

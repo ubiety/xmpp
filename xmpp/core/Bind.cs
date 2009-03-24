@@ -24,8 +24,8 @@ namespace ubiety.core
 	[XmppTag("bind", Namespaces.BIND, typeof(Bind))]
 	public class Bind : Tag
 	{
-		public Bind(string prefix, XmlQualifiedName qname, XmlDocument doc) 
-			: base (prefix, qname, doc)
+		public Bind(XmlDocument doc) 
+			: base ("", new XmlQualifiedName("bind", Namespaces.BIND), doc)
 		{
 		}
 	}

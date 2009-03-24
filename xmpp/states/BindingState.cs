@@ -33,8 +33,8 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				Bind a = (Bind)_reg.GetTag("", new XmlQualifiedName("bind", Namespaces.BIND), _current.Document);
-				Iq b = (Iq)_reg.GetTag("", new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
+				Bind a = (Bind)_reg.GetTag(new XmlQualifiedName("bind", Namespaces.BIND), _current.Document);
+				Iq b = (Iq)_reg.GetTag(new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
 				
 				b.Type = IQType.Set;
 				b.AddChildTag(a);

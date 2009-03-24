@@ -34,9 +34,9 @@ namespace ubiety.attributes
 		/// <param name="prefix">The tag namspace prefix</param>
 		/// <param name="ns">The namespace the tag applies to</param>
 		/// <param name="type">The class-type the tag is for</param>
-		public XmppTagAttribute(string prefix, string ns, Type type)
+		public XmppTagAttribute(string name, string ns, Type type)
 		{
-			_prefix = prefix;
+			_prefix = name;
 			_namespace = ns;
 			_type = type;
 		}
@@ -44,7 +44,7 @@ namespace ubiety.attributes
 		/// <summary>
 		/// The tag namespace prefix
 		/// </summary>
-		public string Prefix
+		public string Name
 		{
 			get { return _prefix; }
 		}

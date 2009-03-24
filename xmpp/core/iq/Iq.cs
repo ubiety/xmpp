@@ -32,7 +32,7 @@ namespace ubiety.core.iq
 	[XmppTag("iq", Namespaces.CLIENT, typeof(Iq))]
 	public class Iq : Tag
 	{
-		public Iq(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public Iq(XmlDocument doc) : base("", new XmlQualifiedName("iq", Namespaces.CLIENT), doc)
 		{
 			ID = GetNextID();
 		}

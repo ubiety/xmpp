@@ -30,8 +30,8 @@ namespace ubiety.core
         ///<param name="prefix"></param>
         ///<param name="qname"></param>
         ///<param name="doc"></param>
-        public Proceed(string prefix, XmlQualifiedName qname, XmlDocument doc)
-            : base(prefix, qname, doc)
+        public Proceed(XmlDocument doc)
+            : base("", new XmlQualifiedName("proceed", Namespaces.START_TLS), doc)
         {
         }
     }

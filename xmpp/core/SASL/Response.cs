@@ -24,7 +24,7 @@ namespace ubiety.core.SASL
 	[XmppTag("response", Namespaces.SASL, typeof(Response))]
 	public class Response : ubiety.common.Tag
 	{
-		public Response(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public Response(XmlDocument doc) : base("", new XmlQualifiedName("response", Namespaces.SASL), doc)
 		{
 		}
 	}

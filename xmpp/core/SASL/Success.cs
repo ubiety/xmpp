@@ -24,7 +24,7 @@ namespace ubiety.core.SASL
 	[XmppTag("success", Namespaces.SASL, typeof(Success))]
 	public class Success : Tag
 	{
-		public Success(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public Success(XmlDocument doc) : base("", new XmlQualifiedName("success", Namespaces.SASL), doc)
 		{
 		}
 	}

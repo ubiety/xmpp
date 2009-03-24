@@ -24,8 +24,8 @@ namespace ubiety.core.compression
 	[XmppTag("compression", Namespaces.COMPRESSION, typeof(Compression))]
 	public class Compression : ubiety.common.Tag
 	{
-		public Compression(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base (prefix, qname, doc)
+		public Compression(XmlDocument doc)
+			: base ("", new XmlQualifiedName("compression", Namespaces.COMPRESSION), doc)
 		{
 		}
 		

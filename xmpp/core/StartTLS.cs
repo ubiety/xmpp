@@ -32,8 +32,8 @@ namespace ubiety.core
         /// <param name="prefix">Tag prefix.</param>
         /// <param name="qname">Qualified Namespace</param>
         /// <param name="doc">XmlDocument used for the tag.</param>
-		public StartTLS(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public StartTLS(XmlDocument doc)
+			: base("", new XmlQualifiedName("starttls", Namespaces.START_TLS), doc)
 		{
 		}
 

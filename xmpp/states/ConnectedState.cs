@@ -42,7 +42,7 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute (Tag data)
 		{
-			Stream stream = (Stream)_reg.GetTag("stream", new XmlQualifiedName("stream", Namespaces.STREAM), _current.Document);
+			Stream stream = (Stream)_reg.GetTag(new XmlQualifiedName("stream", Namespaces.STREAM), _current.Document);
 			stream.Version = "1.0";
 			stream.To = _current.Socket.Hostname;
 			stream.NS = Namespaces.CLIENT;

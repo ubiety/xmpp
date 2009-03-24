@@ -21,11 +21,11 @@ using System.Xml;
 
 namespace ubiety.core
 {
-	[XmppTag("stream", "", typeof(Error))]
+	[XmppTag("error", Namespaces.CLIENT, typeof(Error))]
 	public class Error : Tag
 	{
-		public Error(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base (prefix, qname, doc)
+		public Error(XmlDocument doc)
+			: base ("", new XmlQualifiedName("error", Namespaces.CLIENT), doc)
 		{
 		}
 	}

@@ -24,7 +24,7 @@ namespace ubiety.core.SASL
 	[XmppTag("challenge", Namespaces.SASL, typeof(Challenge))]
 	public class Challenge : ubiety.common.Tag
 	{		
-		public Challenge(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
+		public Challenge(XmlDocument doc) : base("", new XmlQualifiedName("challenge", Namespaces.SASL), doc)
 		{
 		}
 	}

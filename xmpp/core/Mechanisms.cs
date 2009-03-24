@@ -50,8 +50,8 @@ namespace ubiety.core
         /// <param name="prefix"></param>
         /// <param name="qname"></param>
         /// <param name="doc"></param>
-		public Mechanisms(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public Mechanisms(XmlDocument doc)
+			: base("", new XmlQualifiedName("mechanisms", Namespaces.SASL), doc)
 		{
 		}
 
@@ -101,8 +101,8 @@ namespace ubiety.core
         /// <param name="prefix"></param>
         /// <param name="qname"></param>
         /// <param name="doc"></param>
-		public Mechanism(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname, doc)
+		public Mechanism(XmlDocument doc)
+			: base("", new XmlQualifiedName("mechanism", Namespaces.SASL), doc)
 		{
 		}
 
