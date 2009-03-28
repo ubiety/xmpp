@@ -1,0 +1,7 @@
+Ubiety XMPP Library 0.2
+
+This is a very early release but it does connect and authenticate against an XMPP server.
+
+To build it open VS2008, MonoDevelop or use NAnt.
+
+For support please visit our website at http://ubietyxmpp.ca

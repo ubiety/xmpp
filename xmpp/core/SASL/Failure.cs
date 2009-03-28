@@ -24,7 +24,7 @@ namespace ubiety.core.SASL
 	[XmppTag("failure", Namespaces.SASL, typeof(Failure))]
 	public class Failure : ubiety.common.Tag
 	{
-		public Failure(XmlDocument doc) : base("", new XmlQualifiedName("failure". Namespaces.SASL), doc)
+		public Failure(XmlDocument doc) : base("", new XmlQualifiedName("failure", Namespaces.SASL), doc)
 		{
 		}
 	}

@@ -22,7 +22,7 @@ using log4net.Config;
 namespace ubiety.logging
 {
 	/// <summary>
-	/// 
+	/// A simple logging class that wraps log4net
 	/// </summary>
 	public class Logger
 	{

@@ -16,10 +16,12 @@
   <Contents>
     <File name="common" subtype="Directory" buildaction="Compile" />
     <File name="common/TestXID.cs" subtype="Code" buildaction="Compile" />
+    <File name="TestDotNetZip.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="ubiety" />
     <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../nunit.core.dll" />
     <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../nunit.framework.dll" />
+    <ProjectReference type="Project" localcopy="True" refto="ubiety.compression.dotnetzip" />
   </References>
 </Project>

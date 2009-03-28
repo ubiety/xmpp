@@ -3,7 +3,7 @@
 <project name="ubiety" default="all">
 	<property name="debug" value="true" />
 
-	<target name="all" depends="testmono.compile, tests.run" />
+	<target name="all" depends="testmono.compile" />
 
 	<target name="clean">
 		<delete dir="build" if="${directory::exists('build')}" />

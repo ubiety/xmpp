@@ -194,6 +194,9 @@ namespace ubiety
         	get { return _version; }
         }
 		
+		/// <value>
+		/// Returns if we are connected to the server or not
+		/// </value>
 		public bool Connected
 		{
 			get 

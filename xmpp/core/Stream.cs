@@ -81,6 +81,18 @@ namespace ubiety.core
 				}
 			}
 		}
+		
+		public string To
+		{
+			get { return GetAttribute("to"); }
+			set { SetAttribute("to", value); }
+		}
+		
+		public string ID
+		{
+			get { return GetAttribute("id"); }
+			set { SetAttribute("id", value); }
+		}
 
         /// <summary>
         /// 
