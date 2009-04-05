@@ -40,5 +40,11 @@ namespace ubiety.core.iq
 			get { return GetEnumAttribute<IQType>("type"); }
 			set { SetAttribute("type", value.ToString().ToLower()); }
 		}
+		
+		public Tag Payload
+		{
+			get { return (Tag)FirstChild; }
+			set { AddChildTag(value); }
+		}
 	}
 }

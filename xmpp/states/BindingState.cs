@@ -18,6 +18,7 @@ using System.Xml;
 using ubiety.common;
 using ubiety.core;
 using ubiety.core.iq;
+using ubiety.logging;
 
 namespace ubiety.states
 {
@@ -38,6 +39,16 @@ namespace ubiety.states
 				b.AddChildTag(a);
 				
 				_current.Socket.Write(b);
+			}
+			else
+			{
+				Iq iq = data as Iq;
+				Bind bind = iq.Payload as Bind;
+				_current.ID = bind.XID.XID;
+				Logger.InfoFormat(this, "Current XID is now: {0}", _current.ID);
+				
+				_current.State = new SessionState();
+				_current.Execute(null);
 			}
 		}
 	}

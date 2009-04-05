@@ -28,5 +28,10 @@ namespace ubiety.core
 			: base ("", new XmlQualifiedName("bind", Namespaces.BIND), doc)
 		{
 		}
+		
+		public Jid XID
+		{
+			get { return this["jid", Namespaces.BIND] as Jid; }
+		}
 	}
 }
