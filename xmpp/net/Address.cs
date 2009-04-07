@@ -15,8 +15,12 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
+using ubiety.logging;
+using ubiety.net.dns;
 
 namespace ubiety.net
 {
@@ -25,9 +29,12 @@ namespace ubiety.net
     /// </remarks>
 	public class Address
 	{
-		private int _port;
+		private static int _port;
 		private IPAddress _ip;
 		private string _hostname;
+		private static IPEndPoint _end;
+		
+		private static IPAddress[] _dns = new IPAddress[4];
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Address"/> class.
@@ -61,13 +68,18 @@ namespace ubiety.net
 			get { return _ip; }
 			set { _ip = value; }
 		}
+		
+		public bool IPV6
+		{
+			get { return (_end.AddressFamily == AddressFamily.InterNetworkV6); }
+		}
 
         /// <summary>
         /// <see cref="IPEndPoint"/> resolved from the hostname or ip address.
         /// </summary>
 		public IPEndPoint EndPoint
 		{
-			get { return new IPEndPoint(_ip, _port); }
+			get { return _end; }
 		}
 
         /// <summary>
@@ -80,14 +92,39 @@ namespace ubiety.net
 		{
 			// TODO: Deal with IPv6. Vista returns ::1: for localhost
 			Address temp = new Address(hostname, port);
+			
+			Logger.Debug(typeof(Address), "Getting DNS addresses");
+			NetworkInterface[] net = NetworkInterface.GetAllNetworkInterfaces();
+			foreach (NetworkInterface n in net)
+			{
+				if (true)
+				{
+					IPInterfaceProperties i = n.GetIPProperties();
+					i.DnsAddresses.CopyTo(_dns, 0);
+					foreach(IPAddress dns in i.DnsAddresses)
+					{
+						Logger.DebugFormat(typeof(Address), "Dns Address: {0}", dns.ToString());
+					}
+				}
+			}
 
             try
             {
-                temp.IP = IPAddress.Parse(hostname);
-            }
-            catch
-            {
-                IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
+                //IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
+                
+                IPHostEntry hostInfo;
+                
+                SRVRecord[] srv = Resolver.SRVLookup("_xmpp-client._tcp." + hostname, _dns[0]);
+                if (srv.Length > 0)
+                	hostInfo = Dns.GetHostEntry(srv[0].Target);
+                else
+                	hostInfo = Dns.GetHostEntry(hostname);
+                
+				temp.IP = hostInfo.AddressList[0];
+				
+				_end = new IPEndPoint(temp.IP, _port);
+                
+                /*
                 if (Socket.OSSupportsIPv6 && hostInfo.AddressList.Length > 1)
                 {
                     temp.IP = hostInfo.AddressList[1];
@@ -95,7 +132,11 @@ namespace ubiety.net
                 else
                 {
                     temp.IP = hostInfo.AddressList[0];
-                }
+                } */
+            }
+            catch (Exception e)
+            {
+            	Logger.ErrorFormat(typeof(Address), "Error resolving address: {0}", e);
             }            
 			
 			return temp;

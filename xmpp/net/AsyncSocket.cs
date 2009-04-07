@@ -68,7 +68,17 @@ namespace ubiety.net
 		{
 			_dest = Address.Resolve(_hostname, _port);
 			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _port.ToString());
-			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			if (!_dest.IPV6)
+			{
+				Logger.Debug(this, "Connecting using IPv4");
+				_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			}
+			else
+			{
+				Logger.Debug(this, "Connecting using IPv6");
+				_socket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+			}
+
             try
             {
                 _socket.Connect(_dest.EndPoint);

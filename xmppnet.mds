@@ -1,5 +1,4 @@
-<Combine name="xmppnet" fileversion="2.0" outputpath="build/bin/" MakePkgConfig="False" MakeLibPC="True">
-  <Policies />
+<Combine fileversion="2.0" outputpath="build/bin/" name="xmppnet" MakePkgConfig="False" MakeLibPC="True">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="ubiety" configuration="Debug" />

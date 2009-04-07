@@ -35,8 +35,17 @@ namespace ubiety.states
 				Bind a = (Bind)_reg.GetTag(new XmlQualifiedName("bind", Namespaces.BIND), _current.Document);
 				Iq b = (Iq)_reg.GetTag(new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
 				
+				if (_current.ID.Resource != null)
+				{
+					Resource res = (Resource)_reg.GetTag(new XmlQualifiedName("resource", Namespaces.BIND), _current.Document);
+					res.InnerText = _current.ID.Resource;
+					a.AddChildTag(res);
+				}
+				
+				b.From = _current.ID;
+				b.To = _current.ID.Server;
 				b.Type = IQType.Set;
-				b.AddChildTag(a);
+				b.Payload = a;
 				
 				_current.Socket.Write(b);
 			}

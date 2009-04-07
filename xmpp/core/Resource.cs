@@ -13,33 +13,18 @@
 // with this library; if not, write to the Free Software Foundation, Inc., 59
 // Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System;
 using System.Xml;
 using ubiety.common;
-using ubiety.core;
-using ubiety.core.iq;
+using ubiety.attributes;
 
-namespace ubiety.states
+namespace ubiety.core
 {
-	public class SessionState : State
+	[XmppTag("resource", Namespaces.BIND, typeof(Resource))]
+	public class Resource : Tag
 	{
-		public SessionState() : base()
+		public Resource(XmlDocument doc) : base("", new XmlQualifiedName("resource", Namespaces.BIND), doc)
 		{
-		}
-		
-		public override void Execute (Tag data)
-		{
-			if (data == null)
-			{
-				Iq iq = (Iq)_reg.GetTag(new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
-				Session sess = (Session)_reg.GetTag(new XmlQualifiedName("session", Namespaces.SESSION), _current.Document);
-				
-				iq.From = _current.ID;
-				iq.To = _current.ID.Server;
-				iq.Type = IQType.Set;
-				iq.Payload = sess;
-				
-				_current.Socket.Write(iq);
-			}
 		}
 	}
 }

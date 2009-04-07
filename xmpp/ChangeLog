@@ -1,3 +1,9 @@
+2009-04-06  Dieter Lunn  <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: Added IPv6 socket type
+
+	* net/Address.cs: Added SRV lookups to address resolution
+
 2009-03-23  Dieter Lunn  <coder2000@gmail.com>
 
 	* XMPP.cs: Changed all tags to new creation format: public Tag(XmlDocument doc) : base ("prefix", XmlQualifiedName("tagname", "namespace"), doc)
