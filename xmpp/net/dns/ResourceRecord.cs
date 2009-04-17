@@ -82,6 +82,9 @@ namespace ubiety.net.dns
                 case DnsType.SRV:
                     _record = new SRVRecord(pointer);
                     break;
+                case DnsType.ANAME:
+                	_record = new ANameRecord(pointer);
+                	break;
 				
                 default:
 				{

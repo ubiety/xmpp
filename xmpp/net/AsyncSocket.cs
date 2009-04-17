@@ -67,6 +67,8 @@ namespace ubiety.net
 		public bool Connect()
 		{
 			_dest = Address.Resolve(_hostname, _port);
+			if (_dest == null)
+				return false;
 			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _port.ToString());
 			if (!_dest.IPV6)
 			{

@@ -90,7 +90,6 @@ namespace ubiety.net
         /// <returns>An instance of the <see cref="Address"/> class.</returns>
 		public static Address Resolve(string hostname, int port)
 		{
-			// TODO: Deal with IPv6. Vista returns ::1: for localhost
 			Address temp = new Address(hostname, port);
 			
 			Logger.Debug(typeof(Address), "Getting DNS addresses");
@@ -110,29 +109,43 @@ namespace ubiety.net
 
             try
             {
-                //IPHostEntry hostInfo = Dns.GetHostEntry(hostname);
-                
-                IPHostEntry hostInfo;
+                string lookup;
                 
                 SRVRecord[] srv = Resolver.SRVLookup("_xmpp-client._tcp." + hostname, _dns[0]);
                 if (srv.Length > 0)
-                	hostInfo = Dns.GetHostEntry(srv[0].Target);
-                else
-                	hostInfo = Dns.GetHostEntry(hostname);
-                
-				temp.IP = hostInfo.AddressList[0];
-				
-				_end = new IPEndPoint(temp.IP, _port);
-                
-                /*
-                if (Socket.OSSupportsIPv6 && hostInfo.AddressList.Length > 1)
                 {
-                    temp.IP = hostInfo.AddressList[1];
+                	Logger.DebugFormat(typeof(Address), "SRV Address: {0}", srv[0].Target);
+                	lookup = srv[0].Target;
+                	_port = srv[0].Port;
                 }
                 else
+                	lookup = hostname;
+                	
+                Request req = new Request();
+                req.AddQuestion(new Question(lookup, DnsType.ANAME, DnsClass.IN));
+                Response resp = Resolver.Lookup(req, _dns[0]);
+                if (resp.Answers.Length > 0 && resp != null)
                 {
-                    temp.IP = hostInfo.AddressList[0];
-                } */
+                	foreach (Answer ans in resp.Answers)
+                	{
+                		if (ans.Type == DnsType.ANAME)
+                		{
+                			ANameRecord rec = (ANameRecord)ans.Record;
+							temp.IP = rec.IPAddress;
+						}
+						else
+						{
+							Logger.Debug(typeof(Address), "DNS Type: " + ans.Type.ToString());
+						}
+					}
+				}
+				else
+				{
+					Logger.Error(typeof(Address), "Error resolving address.  Ending connection");
+					return null;
+				}
+				
+				_end = new IPEndPoint(temp.IP, _port);
             }
             catch (Exception e)
             {
