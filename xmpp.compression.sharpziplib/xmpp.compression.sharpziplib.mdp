@@ -14,7 +14,7 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="ZLibStream.cs" subtype="Code" buildaction="Compile" />
+    <File name="ZlibStream.cs" subtype="Code" buildaction="Compile" />
     <File name="Properties/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>

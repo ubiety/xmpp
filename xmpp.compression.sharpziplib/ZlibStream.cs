@@ -24,8 +24,8 @@ using ubiety.common;
 
 namespace ubiety.compression.sharpziplib
 {
-	[Compression("zlib", typeof(ZLibStream))]
-	public class ZLibStream : Stream
+	[Compression("zlib", typeof(ZlibStream))]
+	public class ZlibStream : Stream
 	{
 		private Stream _innerStream;
 		private Inflater _in;
@@ -33,7 +33,7 @@ namespace ubiety.compression.sharpziplib
 		private byte[] _inBuff;
 		private byte[] _outBuff;
 
-		public ZLibStream(Stream inner, Inflater inflater, int buffSize)
+		public ZlibStream(Stream inner, Inflater inflater, int buffSize)
 		{
 			_innerStream = inner;
 			_in = inflater;
@@ -42,11 +42,11 @@ namespace ubiety.compression.sharpziplib
 			_out = new Deflater();
 		}
 		
-		public ZLibStream(Stream inner, Inflater inflater) : this(inner, inflater, 4096)
+		public ZlibStream(Stream inner, Inflater inflater) : this(inner, inflater, 4096)
 		{
 		}
 		
-		public ZLibStream(Stream inner) : this(inner, new Inflater())
+		public ZlibStream(Stream inner) : this(inner, new Inflater())
 		{
 		}
 		

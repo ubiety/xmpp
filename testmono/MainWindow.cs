@@ -26,7 +26,7 @@ public partial class MainWindow: Gtk.Window
 {	
 	private XMPP xmpp;
 	private Errors error = Errors.Instance;
-	//private CompressionRegistry _creg = CompressionRegistry.Instance;
+	private CompressionRegistry _creg = CompressionRegistry.Instance;
 	private Boolean ssl = false;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
@@ -38,7 +38,7 @@ public partial class MainWindow: Gtk.Window
 		//ExceptionManager.UnhandledException += new UnhandledExceptionHandler(OnExceptionEvent);
 		
 		//Disabling compression until it can be fixed.
-		//_creg.AddCompression(Assembly.LoadFile("ubiety.compression.dotnetzip.dll"));
+		_creg.AddCompression(Assembly.LoadFile("ubiety.compression.dotnetzip.dll"));
 		statusbar1.Push(1, "Ubiety Version: " + xmpp.Version);
 	}
 	

@@ -88,7 +88,7 @@
 		<copy file="testmono/testmono.exe.config" tofile="build/testmono.exe.config" />
 	</target>
 
-	<target name="tests.compile" depends="compile">
+	<target name="tests.compile" depends="compile, ziplib.compile, dotnetzip.compile">
 		<csc target="library" output="build/ubietynunit.dll" debug="${debug}">
 			<sources>
 				<include name="ubietynunit/**/*.cs" />
@@ -98,6 +98,8 @@
 				<include name="build/${project::get-name()}.dll" />
 				<include name="nunit.framework.dll" />
 				<include name="nunit.core.dll" />
+				<include name="build/${project::get-name()}.compression.dotnetzip.dll" />
+				<include name="build/${project::get-name()}.compression.sharpziplib.dll" />
 			</references>
 		</csc>
 
