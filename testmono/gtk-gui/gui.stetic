@@ -11,11 +11,13 @@
   <widget class="Gtk.Window" id="MainWindow" design-size="400 162">
     <action-group name="Default">
       <action id="connectAction">
-        <property name="Type">Action</property>
+        <property name="Type">Toggle</property>
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-connect</property>
         <property name="Tooltip" translatable="yes">Connect to server</property>
-        <signal name="Activated" handler="OnConnect" />
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnConnect" />
       </action>
       <action id="SSLAction">
         <property name="Type">Toggle</property>

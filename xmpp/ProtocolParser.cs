@@ -242,5 +242,11 @@ namespace ubiety
 			Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
 			_elem = parent;
 		}
+		
+		public static void Reset()
+		{
+			_root = null;
+			_states.Authenticated = false;
+		}
 	}
 }

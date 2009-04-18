@@ -46,7 +46,7 @@ namespace ubiety.registries
             foreach (XmppTagAttribute tag in tags)
             {
             	Logger.DebugFormat(this, "{0,-15}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.NS);
-            	_registeredItems.Add(new XmlQualifiedName(tag.Name, tag.NS), tag.ClassType);
+            	_registeredItems.Add(new XmlQualifiedName(tag.Name, tag.NS).ToString(), tag.ClassType);
             }
 		}
 
@@ -64,13 +64,16 @@ namespace ubiety.registries
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
 			try
 			{
-				t = (Type)_registeredItems[qname];
-				if (t == null)
+				//t = (Type)_registeredItems[qname];
+				if (_registeredItems.TryGetValue(qname.ToString(), out t))
 				{
+	        		tag =  (Tag)Activator.CreateInstance(t, new object[] { doc });
+				}
+				else
+				{				
 					Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Tag " + qname + " not found in registry.  Please load appropriate library.");
 					return null;
 				}
-        		tag =  (Tag)Activator.CreateInstance(t, new object[] { doc });
 			}
 			catch (Exception e)
 			{

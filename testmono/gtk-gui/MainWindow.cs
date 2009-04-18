@@ -14,7 +14,7 @@ public partial class MainWindow {
     
     private Gtk.UIManager UIManager;
     
-    private Gtk.Action connectAction;
+    private Gtk.ToggleAction connectAction;
     
     private Gtk.ToggleAction SSLAction;
     
@@ -43,7 +43,7 @@ public partial class MainWindow {
         // Widget MainWindow
         this.UIManager = new Gtk.UIManager();
         Gtk.ActionGroup w1 = new Gtk.ActionGroup("Default");
-        this.connectAction = new Gtk.Action("connectAction", null, Mono.Unix.Catalog.GetString("Connect to server"), "gtk-connect");
+        this.connectAction = new Gtk.ToggleAction("connectAction", null, Mono.Unix.Catalog.GetString("Connect to server"), "gtk-connect");
         w1.Add(this.connectAction, null);
         this.SSLAction = new Gtk.ToggleAction("SSLAction", Mono.Unix.Catalog.GetString("SSL"), Mono.Unix.Catalog.GetString("Enable SSL for connection"), "gtk-dialog-authentication");
         this.SSLAction.ShortLabel = Mono.Unix.Catalog.GetString("SSL");
@@ -142,7 +142,7 @@ public partial class MainWindow {
         this.DefaultHeight = 162;
         this.Show();
         this.DeleteEvent += new Gtk.DeleteEventHandler(this.OnDeleteEvent);
-        this.connectAction.Activated += new System.EventHandler(this.OnConnect);
+        this.connectAction.Toggled += new System.EventHandler(this.OnConnect);
         this.SSLAction.Toggled += new System.EventHandler(this.OnSSL);
         this.quitAction.Activated += new System.EventHandler(this.OnQuit);
     }

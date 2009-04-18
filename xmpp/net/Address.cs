@@ -19,6 +19,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
+using System.Collections.Generic;
 using ubiety.logging;
 using ubiety.net.dns;
 
@@ -32,8 +33,9 @@ namespace ubiety.net
 		private static int _port;
 		private IPAddress _ip;
 		private string _hostname;
-		private static IPEndPoint _end;
-		
+		private IPEndPoint _end;
+
+		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>();
 		private static IPAddress[] _dns = new IPAddress[4];
 
         /// <summary>
@@ -90,7 +92,15 @@ namespace ubiety.net
         /// <returns>An instance of the <see cref="Address"/> class.</returns>
 		public static Address Resolve(string hostname, int port)
 		{
-			Address temp = new Address(hostname, port);
+			Address temp;
+
+			if (_cache.TryGetValue(hostname, out temp))
+			{
+				Logger.Info(typeof(Address), "Using cached address for " + hostname);
+				return temp;
+			}
+			
+			temp = new Address(hostname, port);
 			
 			Logger.Debug(typeof(Address), "Getting DNS addresses");
 			NetworkInterface[] net = NetworkInterface.GetAllNetworkInterfaces();
@@ -145,12 +155,14 @@ namespace ubiety.net
 					return null;
 				}
 				
-				_end = new IPEndPoint(temp.IP, _port);
+				temp._end = new IPEndPoint(temp.IP, _port);
             }
             catch (Exception e)
             {
             	Logger.ErrorFormat(typeof(Address), "Error resolving address: {0}", e);
-            }            
+            }
+            
+            _cache.Add(hostname, temp);
 			
 			return temp;
 		}

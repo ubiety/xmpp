@@ -26,7 +26,7 @@ public partial class MainWindow: Gtk.Window
 {	
 	private XMPP xmpp;
 	private Errors error = Errors.Instance;
-	private CompressionRegistry _creg = CompressionRegistry.Instance;
+	//private CompressionRegistry _creg = CompressionRegistry.Instance;
 	private Boolean ssl = false;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
@@ -57,16 +57,23 @@ public partial class MainWindow: Gtk.Window
 
 	protected virtual void OnConnect(object sender, System.EventArgs e)
 	{
-		xmpp.ID = new XID(xid.Text);
-		xmpp.Password = password.Text;
-		xmpp.SSL = ssl;
-		xmpp.Connect();
-		string str = "Connecting to " + xmpp.ID.Server;
-		if (ssl)
+		if (((Gtk.ToggleAction)sender).Active)
 		{
-			str += " with SSL";
+			xmpp.ID = new XID(xid.Text);
+			xmpp.Password = password.Text;
+			xmpp.SSL = ssl;
+			xmpp.Connect();
+			string str = "Connecting to " + xmpp.ID.Server;
+			if (ssl)
+			{
+				str += " with SSL";
+			}
+			statusbar1.Push(2, str);
 		}
-		statusbar1.Push(2, str);
+		else
+		{
+			xmpp.Disconnect();
+		}
 	}
 	
 	protected void OnError(object sender, ErrorEventArgs e)

@@ -67,8 +67,16 @@ namespace ubiety.registries
 			Stream stream = null;
 			try
 			{
-				t = (Type)_registeredItems[algorithm];
-				stream = (Stream)Activator.CreateInstance(t, new object[] { inner });
+				//t = (Type)_registeredItems[algorithm];
+				if (_registeredItems.TryGetValue(algorithm, out t))
+				{				
+					stream = (Stream)Activator.CreateInstance(t, new object[] { inner });
+				}
+				else
+				{
+					Errors.Instance.SendError(this, ubiety.common.ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+					return null;
+				}
 			}
 			catch (Exception e)
 			{

@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -32,7 +31,7 @@ namespace ubiety.registries
 		/// <summary>
 		/// 
 		/// </summary>
-		protected static Hashtable _registeredItems = new Hashtable();
+		protected static Dictionary<string, Type> _registeredItems = new Dictionary<string, Type>();
 		
 		static Registry()
 		{
