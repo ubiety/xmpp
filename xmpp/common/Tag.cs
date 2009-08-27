@@ -52,7 +52,6 @@ namespace ubiety.common
 		
 		public T GetEnumAttribute<T>(string name)
 		{
-			string a = GetAttribute(name);
 			return (T) Enum.Parse(typeof(T), name, false);
 		}
 		

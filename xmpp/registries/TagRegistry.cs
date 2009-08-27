@@ -1,19 +1,19 @@
 // TagRegistry.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
-//
-//This library is free software; you can redistribute it and/or modify it under
-//the terms of the GNU Lesser General Public License as published by the Free
-//Software Foundation; either version 3 of the License, or (at your option)
-//any later version.
-//
-//This library is distributed in the hope that it will be useful, but WITHOUT
-//ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-//FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-//
-//You should have received a copy of the GNU Lesser General Public License along
-//with this library; if not, write to the Free Software Foundation, Inc., 59
-//Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// Ubiety XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
+// 
+// This library is free software; you can redistribute it and/or modify it under
+// the terms of the GNU Lesser General Public License as published by the Free
+// Software Foundation; either version 3 of the License, or (at your option)
+// any later version.
+// 
+// This library is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+// 
+// You should have received a copy of the GNU Lesser General Public License along
+// with this library; if not, write to the Free Software Foundation, Inc., 59
+// Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
 using System.Xml;
@@ -59,15 +59,25 @@ namespace ubiety.registries
         /// <returns>A new instance of the requested tag</returns>
 		public Tag GetTag(XmlQualifiedName qname, XmlDocument doc)
 		{
-			Type t = null;
+			Type t;
 			Tag tag = null;
+			ConstructorInfo ctor = null;
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
 			try
 			{
-				//t = (Type)_registeredItems[qname];
 				if (_registeredItems.TryGetValue(qname.ToString(), out t))
 				{
-	        		tag =  (Tag)Activator.CreateInstance(t, new object[] { doc });
+	        		//tag = (Tag)Activator.CreateInstance(t, new object[] { doc });
+	        		ctor = t.GetConstructor(new Type[] { typeof(XmlDocument) });
+	        		if (ctor == null)
+	        		{
+	        			ctor = t.GetConstructor(new Type[] { typeof(XmlDocument), typeof(XmlQualifiedName) });
+	        			tag = (Tag)ctor.Invoke(new object[] { doc, qname });
+	        		}
+	        		else
+	        		{
+	        			tag = (Tag)ctor.Invoke(new object[] { doc });
+	        		}
 				}
 				else
 				{				
@@ -79,7 +89,7 @@ namespace ubiety.registries
 			{
 				Logger.ErrorFormat(this, "Unable to find tag {0} in registry.  Check to make sure library is loaded into registry.", qname);
         		Logger.Error(this, e);
-			}        	
+			}
         	return tag;
         }
 	}

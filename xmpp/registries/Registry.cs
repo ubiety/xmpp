@@ -76,8 +76,10 @@ namespace ubiety.registries
 			foreach (Type type in types)
 			{
 				object[] temp = type.GetCustomAttributes(typeof(E), false);
-				if (temp.Length > 0)
-					attrs.Add((E)temp[0]);
+				foreach (object a in temp)
+				{
+					attrs.Add((E)a);
+				}
 			}
 			
 			return attrs.ToArray();

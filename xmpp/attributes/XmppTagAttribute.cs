@@ -21,7 +21,7 @@ namespace ubiety.attributes
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.
 	/// </remarks>
-	[AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
+	[AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=true)]
 	public class XmppTagAttribute : Attribute
 	{
 		string _prefix;

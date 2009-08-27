@@ -25,6 +25,7 @@ namespace ubiety.common
 		WrongProtocolVersion,
 		UnregisteredItem,
 		CompressionFailed,
-		XMLError
+		XMLError,
+		ConnectionTimeout
 	}
 }

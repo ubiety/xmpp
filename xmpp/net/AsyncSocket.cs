@@ -28,6 +28,7 @@ using ubiety.logging;
 using ubiety;
 using ubiety.states;
 using ubiety.registries;
+using ubiety.common;
 
 namespace ubiety.net
 {
@@ -47,11 +48,15 @@ namespace ubiety.net
 		private NetworkStream _netstream;
         private int _port;
         private ProtocolState _states = ProtocolState.Instance;
+        private bool _connected;
 
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
 		private bool _encrypting = false;
 		private SslStream _sslstream;
-		//private ManualResetEvent _resetEvent = new ManualResetEvent(false);
+		private ManualResetEvent _resetEvent = new ManualResetEvent(false);
+		
+		// Timeout after 15 seconds by default
+		private int _timeout = 15000;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncSocket"/> class.
@@ -64,11 +69,11 @@ namespace ubiety.net
         /// Establishes a connection to the specified remote host.
         /// </summary>
         /// <returns>True if we connected, false if we didn't</returns>
-		public bool Connect()
+		public void Connect()
 		{
 			_dest = Address.Resolve(_hostname, _port);
 			if (_dest == null)
-				return false;
+				return;
 			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _port.ToString());
 			if (!_dest.IPV6)
 			{
@@ -83,23 +88,46 @@ namespace ubiety.net
 
             try
             {
-                _socket.Connect(_dest.EndPoint);
+                //_socket.Connect(_dest.EndPoint);
+                _socket.BeginConnect(_dest.EndPoint, new AsyncCallback(FinishConnect), null);
+                if(_resetEvent.WaitOne(_timeout, false))
+                {
+		            if (_connected)
+    		        {
+        		        _netstream = new NetworkStream(_socket, true);
+            		    _stream = _netstream;
+                		_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+	                	_states.State = new ConnectedState();
+	    	            _states.Execute(null);
+    	    	    }
+                }
+                else
+                {
+                	Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out while connecting to server.");
+                }
             }
             catch (SocketException)
 			{
                 //We Failed to connect
                 //TODO: Return an error using the Errors class so that the hosting application can take action.
             }
-            if (_socket.Connected)
-            {
-                _netstream = new NetworkStream(_socket, true);
-                _stream = _netstream;
-                _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
-                _states.State = new ConnectedState();
-                _states.Execute(null);
-                return true;
-            }
-            return false;
+		}
+		
+		private void FinishConnect(IAsyncResult ar)
+		{
+			try
+			{
+				_socket.EndConnect(ar);
+				_connected = true;
+			}
+			catch (Exception)
+			{
+				//TODO: Return an error because we failed to connect
+			}
+			finally
+			{
+				_resetEvent.Set();
+			}
 		}
 
         /// <summary>
@@ -109,7 +137,7 @@ namespace ubiety.net
         {
 			//_encrypting = true;
 			Logger.Debug(this, "Starting .NET Secure Mode");
-			_sslstream = new SslStream(_stream, true, new RemoteCertificateValidationCallback(RemoteValidation));
+			_sslstream = new SslStream(_stream, true, new RemoteCertificateValidationCallback(RemoteValidation), null);
 			Logger.Debug(this, "Authenticating as Client");
 			try
 			{
@@ -165,16 +193,19 @@ namespace ubiety.net
         /// <param name="msg">Message to send</param>
 		public void Write(string msg)
 		{
-			Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
-            byte[] mesg = _utf.GetBytes(msg);
-			_stream.Write(mesg, 0, mesg.Length);
+			if (_connected)
+			{
+				Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
+    	        byte[] mesg = _utf.GetBytes(msg);
+				_stream.Write(mesg, 0, mesg.Length);			
+			}
 		}
 
 		private void Receive(IAsyncResult ar)
 		{
             try
             {
-            	if (!_socket.Connected | _states.State is ClosedState)
+            	if (!_connected || _states.State is ClosedState)
             	{
             		return;
             	}
@@ -213,7 +244,7 @@ namespace ubiety.net
         /// </summary>
 		public bool Connected
 		{
-			get { return _socket.Connected; }
+			get { return _connected; }
 		}
 		
 		/// <value>

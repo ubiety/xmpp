@@ -30,7 +30,6 @@ namespace ubiety.states
 		/// </summary>
 		public DisconnectState() : base()
 		{
-			//_current = ProtocolState.Instance;
 		}
 		
 		/// <summary>
@@ -41,7 +40,10 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data)
 		{
-			_current.Socket.Write("</stream:stream>");
+			if (_current.Socket.Connected)
+			{
+				_current.Socket.Write("</stream:stream>");
+			}
 			ubiety.ProtocolParser.Reset();
 			_current.State = new ClosedState();
 		}

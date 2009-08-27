@@ -52,5 +52,7 @@ namespace ubiety.common
 		
 		public const string COMPRESSION = "http://jabber.org/features/compress";
 		public const string COMPRESSION_PROTOCOL = "http://jabber.org/protocol/compress";
+
+		public const string STANZAS = "urn:ietf:params:xml:ns:xmpp-stanzas";
 	}
 }
