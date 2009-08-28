@@ -32,6 +32,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,9 +56,12 @@
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\My Documents\Visual Studio 2008\Projects\xmppnet\TestXMPP\bin\Debug\log4net.dll</HintPath>
+      <HintPath>..\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -69,6 +73,7 @@
     <Compile Include="common\SASL\MD5Processor.cs" />
     <Compile Include="common\SASL\PlainProcessor.cs" />
     <Compile Include="common\SASL\SASLProcessor.cs" />
+    <Compile Include="common\Stanza.cs" />
     <Compile Include="common\Tag.cs" />
     <Compile Include="common\XID.cs" />
     <Compile Include="core\Bind.cs" />
@@ -78,10 +83,12 @@
     <Compile Include="core\Compression\Method.cs" />
     <Compile Include="core\Error.cs" />
     <Compile Include="core\Features.cs" />
-    <Compile Include="core\iq\Auth.cs" />
-    <Compile Include="core\iq\Register.cs" />
+    <Compile Include="core\GenericTag.cs" />
+    <Compile Include="core\iq\Iq.cs" />
+    <Compile Include="core\Jid.cs" />
     <Compile Include="core\Mechanisms.cs" />
     <Compile Include="core\Proceed.cs" />
+    <Compile Include="core\Resource.cs" />
     <Compile Include="core\SASL\Auth.cs" />
     <Compile Include="core\SASL\Challenge.cs" />
     <Compile Include="core\SASL\Failure.cs" />
@@ -106,6 +113,18 @@
     <Compile Include="Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
+    <Compile Include="net\dns\ANameRecord.cs" />
+    <Compile Include="net\dns\Enums.cs" />
+    <Compile Include="net\dns\InvalidResponseException.cs" />
+    <Compile Include="net\dns\NoResponseException.cs" />
+    <Compile Include="net\dns\Pointer.cs" />
+    <Compile Include="net\dns\Question.cs" />
+    <Compile Include="net\dns\RecordBase.cs" />
+    <Compile Include="net\dns\Request.cs" />
+    <Compile Include="net\dns\Resolver.cs" />
+    <Compile Include="net\dns\ResourceRecord.cs" />
+    <Compile Include="net\dns\Response.cs" />
+    <Compile Include="net\dns\SRVRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtocolParser.cs" />
     <Compile Include="registries\Allocator.cs" />
@@ -113,6 +132,8 @@
     <Compile Include="registries\Registry.cs" />
     <Compile Include="registries\RegistryAllocator.cs" />
     <Compile Include="registries\TagRegistry.cs" />
+    <Compile Include="states\BindingState.cs" />
+    <Compile Include="states\ClosedState.cs" />
     <Compile Include="states\CompressedState.cs" />
     <Compile Include="states\ConnectedState.cs" />
     <Compile Include="states\ConnectingState.cs" />
@@ -120,6 +141,7 @@
     <Compile Include="states\ProtocolState.cs" />
     <Compile Include="states\SASLState.cs" />
     <Compile Include="states\ServerFeaturesState.cs" />
+    <Compile Include="states\SessionState.cs" />
     <Compile Include="states\StartTLSState.cs" />
     <Compile Include="states\State.cs" />
     <Compile Include="XMPP.cs" />
