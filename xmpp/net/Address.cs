@@ -33,10 +33,10 @@ namespace ubiety.net
 		private static int _port;
 		private IPAddress _ip;
 		private string _hostname;
-		private IPEndPoint _end;
+        private IPEndPoint _end;
 
 		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>();
-		private static IPAddress[] _dns = new IPAddress[4];
+        private static List<IPAddress> _dns = new List<IPAddress>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Address"/> class.
@@ -71,6 +71,9 @@ namespace ubiety.net
 			set { _ip = value; }
 		}
 		
+        /// <summary>
+        /// Is the address IPV6?
+        /// </summary>
 		public bool IPV6
 		{
 			get { return (_end.AddressFamily == AddressFamily.InterNetworkV6); }
@@ -106,14 +109,14 @@ namespace ubiety.net
 			NetworkInterface[] net = NetworkInterface.GetAllNetworkInterfaces();
 			foreach (NetworkInterface n in net)
 			{
-				if (true)
+				IPInterfaceProperties i = n.GetIPProperties();
+				foreach(IPAddress dns in i.DnsAddresses)
 				{
-					IPInterfaceProperties i = n.GetIPProperties();
-					i.DnsAddresses.CopyTo(_dns, 0);
-					foreach(IPAddress dns in i.DnsAddresses)
-					{
-						Logger.DebugFormat(typeof(Address), "Dns Address: {0}", dns.ToString());
-					}
+                    if (dns.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        _dns.Add(dns);
+                        Logger.DebugFormat(typeof(Address), "Dns Address: {0}", dns.ToString());
+                    }
 				}
 			}
 
