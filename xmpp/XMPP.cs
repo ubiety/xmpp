@@ -76,7 +76,7 @@ namespace ubiety
         private string _hostName = null;
 		private Errors _errors = Errors.Instance;
 		private ProtocolState _states = ProtocolState.Instance;
-		private string _version = "";
+		private static string _version = "";
         #endregion
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace ubiety
         /// <value>
         /// The current version of the XMPP .NET library
         /// </value>
-        public string Version
+        public static string Version
         {
         	get { return _version; }
         }

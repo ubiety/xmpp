@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXMPP", "TestXMPP\TestXMPP.csproj", "{F6E95CED-F304-481B-A644-D78B74749436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmpp", "xmpp\xmpp.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubiety", "xmpp\ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testconsole", "testconsole\testconsole.csproj", "{67D034B6-2599-4D09-927B-56CC3561FF9A}"
 EndProject
@@ -42,7 +42,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		CodeStyleEnforcer_RulesLocation = 
 		CodeStyleEnforcer_Active = 
+		CodeStyleEnforcer_RulesLocation = 
 	EndGlobalSection
 EndGlobal

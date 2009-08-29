@@ -1,11 +1,15 @@
 bin/
 obj/
 build/
+Backup/
+_UpgradeReport_Files/
 
 *.dll
 *.suo
 *.xml
+*.XML
 *.pidb
+*.user
 *.test-cache
 *.userprefs
 *.usertasks

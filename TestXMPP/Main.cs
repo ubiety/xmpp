@@ -15,7 +15,7 @@ namespace TestXMPP
 		{
 			InitializeComponent();
 			xmpp = new XMPP();
-            CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
+            //CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
 		}
 
 		private void button1_Click(object sender, EventArgs e)
