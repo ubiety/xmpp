@@ -42,9 +42,9 @@ namespace ubiety.states
 					a.AddChildTag(res);
 				}
 				
-				b.From = _current.ID;
-				b.To = _current.ID.Server;
-				b.Type = IQType.Set;
+				//b.From = _current.ID;
+				//b.To = _current.ID.Server;
+				b.IQType = IQType.Set;
 				b.Payload = a;
 				
 				_current.Socket.Write(b);
@@ -52,6 +52,10 @@ namespace ubiety.states
 			else
 			{
 				Iq iq = data as Iq;
+                if (iq.IQType == IQType.Error)
+                {
+                    Error e = (Error)iq["error"];
+                }
 				Bind bind = iq.Payload as Bind;
 				_current.ID = bind.XID.XID;
 				Logger.InfoFormat(this, "Current XID is now: {0}", _current.ID);

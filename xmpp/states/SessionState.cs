@@ -35,7 +35,7 @@ namespace ubiety.states
 				
 				iq.From = _current.ID;
 				iq.To = _current.ID.Server;
-				iq.Type = IQType.Set;
+				iq.IQType = IQType.Set;
 				iq.Payload = sess;
 				
 				_current.Socket.Write(iq);

@@ -52,7 +52,8 @@ namespace ubiety.common
 		
 		public T GetEnumAttribute<T>(string name)
 		{
-			return (T) Enum.Parse(typeof(T), name, false);
+            string value = this.Attributes[name].Value;
+			return (T) Enum.Parse(typeof(T), value, true);
 		}
 		
 		public string GetNextID()

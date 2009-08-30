@@ -35,7 +35,7 @@ namespace ubiety.core.iq
 			ID = GetNextID();
 		}
 		
-		public IQType Type
+		public IQType IQType
 		{
 			get { return GetEnumAttribute<IQType>("type"); }
 			set { SetAttribute("type", value.ToString().ToLower()); }
