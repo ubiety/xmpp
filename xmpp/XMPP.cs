@@ -69,8 +69,6 @@ namespace ubiety
     {
         #region Private Members
         private TagRegistry _reg = TagRegistry.Instance;
-		private string _password = "";
-		private XID _id = null;
 		private int _port = 5222;
 		private Boolean _ssl = false;
         private string _hostName = null;
@@ -91,6 +89,13 @@ namespace ubiety
 			_states.Socket = new AsyncSocket();
 		}
 
+        public void Connect(XID id, string password)
+        {
+            this.ID = id;
+            this.Password = password;
+            Connect();
+        }
+
         /// <summary>
         /// Connect to the XMPP server for the XID
         /// </summary>
@@ -102,7 +107,7 @@ namespace ubiety
 				_errors.SendError(this, ErrorType.MissingPassword, "Set the Password property before connecting.");
 				return;
 			}
-			else if (String.IsNullOrEmpty(_id))
+			else if (String.IsNullOrEmpty(_states.ID))
 			{
 				_errors.SendError(this, ErrorType.MissingID, "Set the ID property before connecting.");
 				return;
@@ -112,15 +117,13 @@ namespace ubiety
             if (!String.IsNullOrEmpty(_hostName))
                 _states.Socket.Hostname = _hostName;
             else
-                _states.Socket.Hostname = _id.Server;
+                _states.Socket.Hostname = _states.ID.Server;
 
 			Logger.InfoFormat(this, "Connecting to {0}", _states.Socket.Hostname);
 
 			// Set the values we need to connect.
 			_states.Socket.SSL = _ssl;
             _states.Socket.Port = _port;
-			_states.ID = _id;
-			_states.Password = _password;
 			// Set the current state to connecting and start the process.
 			_states.State = new ConnectingState();
 			_states.Execute(null);
@@ -155,8 +158,8 @@ namespace ubiety
 		/// </summary>
 		public XID ID
 		{
-			get { return _id; }
-			set { _id = value; }
+			get { return _states.ID; }
+			set { _states.ID = value; }
 		}
 
 		/// <summary>
@@ -164,8 +167,8 @@ namespace ubiety
 		/// </summary>
 		public String Password
 		{
-			get { return _password; }
-			set { _password = value; }
+			get { return _states.Password; }
+			set { _states.Password = value; }
 		}
 
 		/// <summary>
