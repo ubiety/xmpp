@@ -1,6 +1,7 @@
 build/
 Backup/
 _UpgradeReport_Files/
+Help/
 
 *.dll
 *.suo
