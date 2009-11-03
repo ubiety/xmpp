@@ -54,6 +54,11 @@ namespace ubiety.states
 		{
 			_state.Execute(data);
 		}
+
+        public void Execute()
+        {
+            _state.Execute(null);
+        }
 		
 		/// <value>
 		/// The current state we are in.

@@ -89,6 +89,25 @@ namespace ubiety
 			_states.Socket = new AsyncSocket();
 		}
 
+        /// <summary>
+        /// Connect to an XMPP server with an XID, hostname and password.
+        /// </summary>
+        /// <param name="id">The XID that should be used for connecting.</param>
+        /// <param name="hostname">The hostname we should connect to instead of the XID's.</param>
+        /// <param name="password">The password that should be used for authentication.</param>
+        public void Connect(XID id, string hostname, string password)
+        {
+            this.ID = id;
+            this.HostName = hostname;
+            this.Password = password;
+            Connect();
+        }
+
+        /// <summary>
+        /// Connect to an XMPP server with the XID and password.
+        /// </summary>
+        /// <param name="id">The XID that should be used for connecting.</param>
+        /// <param name="password">The password that should be used for authentication.</param>
         public void Connect(XID id, string password)
         {
             this.ID = id;
@@ -102,7 +121,7 @@ namespace ubiety
         public void Connect()
         {
         	// We need an XID and Password to connect to the server.
-			if (String.IsNullOrEmpty(_password))
+			if (String.IsNullOrEmpty(_states.Password))
 			{
 				_errors.SendError(this, ErrorType.MissingPassword, "Set the Password property before connecting.");
 				return;
@@ -126,7 +145,7 @@ namespace ubiety
             _states.Socket.Port = _port;
 			// Set the current state to connecting and start the process.
 			_states.State = new ConnectingState();
-			_states.Execute(null);
+			_states.Execute();
 		}
 		
 		/// <summary>
@@ -135,7 +154,7 @@ namespace ubiety
 		public void Disconnect()
 		{
 			_states.State = new DisconnectState();
-			_states.Execute(null);
+			_states.Execute();
 		}
 		
 		private void OnError(object sender, ErrorEventArgs e)
@@ -189,17 +208,17 @@ namespace ubiety
             set { _hostName = value; }
         }
 
-        /// <value>
-        /// The current version of the XMPP .NET library
-        /// </value>
+        /// <summary>
+        /// Provides the Ubiety assembly version
+        /// </summary>
         public static string Version
         {
         	get { return _version; }
         }
 		
-		/// <value>
-		/// Returns if we are connected to the server or not
-		/// </value>
+        /// <summary>
+        /// Returns true if it is not in a closed state.
+        /// </summary>
 		public bool Connected
 		{
 			get 
