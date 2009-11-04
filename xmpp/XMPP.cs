@@ -54,13 +54,7 @@ namespace ubiety
 	///			XID id = new XID("user@jabber.org/chat");
 	/// 
 	///			// Create a new instance of the XMPP class
-	///			XMPP ubiety = new XMPP();
-	///
-	///			ubiety.ID = id;
-	///			ubiety.Password = "password";
-	/// 
-	///			// Connect to the server
-	///			ubiety.Connect();
+	///			XMPP ubiety = XMPP.Connect(id, "password");
 	///		}
 	/// }
 	/// </code>
@@ -69,9 +63,9 @@ namespace ubiety
     {
         #region Private Members
         private TagRegistry _reg = TagRegistry.Instance;
-		private Errors _errors = Errors.Instance;
-		private ProtocolState _states = ProtocolState.Instance;
-		private static string _version = "";
+		private static Errors _errors = Errors.Instance;
+		private static ProtocolState _states = ProtocolState.Instance;
+		//private static string _version = "";
         #endregion
 
         /// <summary>
@@ -82,8 +76,7 @@ namespace ubiety
 			Assembly x = Assembly.GetAssembly(typeof(XMPP));
 			_reg.AddAssembly(x);
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
-			_version = x.GetName().Version.ToString();
-			_states.Socket = new AsyncSocket();
+			//_version = x.GetName().Version.ToString();
 		}
 
         /// <summary>
@@ -91,7 +84,7 @@ namespace ubiety
         /// </summary>
         /// <param name="id">The XID that should be used for connecting.</param>
         /// <param name="password">The password that should be used for authentication.</param>
-        public XMPP Connect(XID id, string password)
+        public static XMPP Connect(XID id, string password)
         {
 			return Connect(id, password, id.Server, 5222, false);
         }
@@ -105,20 +98,21 @@ namespace ubiety
 		/// <param name="port">The port to connect to.</param>
 		/// <param name="ssl">Use encryption if available?</param>
 		/// <returns></returns>
-		public XMPP Connect(XID id, string password, string hostname, int port, bool ssl)
+		public static XMPP Connect(XID id, string password, string hostname, int port, bool ssl)
         {
 			XMPP me = new XMPP();
 
+			_states.Socket = new AsyncSocket();
         	// We need an XID and Password to connect to the server.
 			if (String.IsNullOrEmpty(password))
 			{
-				_errors.SendError(this, ErrorType.MissingPassword, "Set the Password property before connecting.");
-				return;
+				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property before connecting.");
+				return null;
 			}
 			else if (String.IsNullOrEmpty(id))
 			{
-				_errors.SendError(this, ErrorType.MissingID, "Set the ID property before connecting.");
-				return;
+				_errors.SendError(typeof(XMPP), ErrorType.MissingID, "Set the ID property before connecting.");
+				return null;
 			}
 
 			// Do we use the server supplied from the XID or the alternate provided by the developer?
@@ -127,7 +121,7 @@ namespace ubiety
 			else
 				_states.Socket.Hostname = id.Server;
 
-			Logger.InfoFormat(this, "Connecting to {0}", _states.Socket.Hostname);
+			Logger.InfoFormat(typeof(XMPP), "Connecting to {0}", _states.Socket.Hostname);
 
 			// Set the values we need to connect.
 			_states.Socket.SSL = ssl;
@@ -159,7 +153,7 @@ namespace ubiety
         /// </summary>
         public static string Version
         {
-        	get { return _version; }
+			get { return "0.2"; }
         }
 		
         /// <summary>

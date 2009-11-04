@@ -14,7 +14,7 @@ namespace TestXMPP
 		public Main()
 		{
 			InitializeComponent();
-			xmpp = new XMPP();
+			//xmpp = new XMPP();
             //CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
             slVersion.Text = "Ubiety Version: " + XMPP.Version;
             Errors.Instance.OnError += new EventHandler<ErrorEventArgs>(Errors_OnError);
@@ -28,10 +28,10 @@ namespace TestXMPP
 		private void button1_Click(object sender, EventArgs e)
 		{
             XID id = new XID(txtUsername.Text);
-            xmpp.SSL = btnSSL.Checked;
-			xmpp.ID = id;
-			xmpp.Password = txtPassword.Text;
-			xmpp.Connect();
+			//xmpp.SSL = btnSSL.Checked;
+			//xmpp.ID = id;
+			//xmpp.Password = txtPassword.Text;
+			xmpp = XMPP.Connect(id, txtPassword.Text, null, 5222, btnSSL.Checked);
 		}
 
         private void btnExit_Click(object sender, EventArgs e)

@@ -27,7 +27,7 @@ namespace ubiety.states
 		/// <summary>
 		/// 
 		/// </summary>
-		protected ProtocolState _current = ProtocolState.Instance;
+		internal ProtocolState _current = ProtocolState.Instance;
 		protected TagRegistry _reg = TagRegistry.Instance;
 		
 		public State()

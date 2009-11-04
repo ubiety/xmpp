@@ -72,7 +72,7 @@ namespace ubiety.states
 		/// <value>
 		/// The socket used for connecting to the server.
 		/// </value>
-		public AsyncSocket Socket
+		internal AsyncSocket Socket
 		{
 			get { return _socket; }
 			set { _socket = value; }
