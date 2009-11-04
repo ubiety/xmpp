@@ -72,8 +72,7 @@ namespace ubiety
 		/// </summary>
 		private XMPP()
 		{
-			Assembly x = Assembly.GetAssembly(typeof(XMPP));
-			_reg.AddAssembly(x);
+			_reg.AddAssembly(Assembly.GetExecutingAssembly());
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
 		}
 
