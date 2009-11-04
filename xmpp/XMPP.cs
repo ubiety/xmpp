@@ -65,7 +65,6 @@ namespace ubiety
         private TagRegistry _reg = TagRegistry.Instance;
 		private static Errors _errors = Errors.Instance;
 		private static ProtocolState _states = ProtocolState.Instance;
-		//private static string _version = "";
         #endregion
 
         /// <summary>
@@ -76,7 +75,6 @@ namespace ubiety
 			Assembly x = Assembly.GetAssembly(typeof(XMPP));
 			_reg.AddAssembly(x);
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
-			//_version = x.GetName().Version.ToString();
 		}
 
         /// <summary>
@@ -153,7 +151,7 @@ namespace ubiety
         /// </summary>
         public static string Version
         {
-			get { return "0.2"; }
+			get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 		
         /// <summary>

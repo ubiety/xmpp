@@ -16,8 +16,8 @@ namespace TestXMPP
 			InitializeComponent();
 			//xmpp = new XMPP();
             //CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
-            slVersion.Text = "Ubiety Version: " + XMPP.Version;
             Errors.Instance.OnError += new EventHandler<ErrorEventArgs>(Errors_OnError);
+			slVersion.Text = "Ubiety Version: " + XMPP.Version;
 		}
 
         void Errors_OnError(object sender, ErrorEventArgs e)
