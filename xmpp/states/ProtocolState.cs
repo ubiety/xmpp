@@ -1,6 +1,6 @@
 // ProtocolState.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2007, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -25,7 +25,7 @@ namespace ubiety.states
 	/// <summary>
 	/// Keeps track of all the current state information like id, password, socket and the current state.
 	/// </summary>
-	public class ProtocolState
+	internal class ProtocolState
 	{
 		private State _state;
 		private AsyncSocket _socket;

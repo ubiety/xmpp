@@ -97,10 +97,8 @@ namespace ubiety
         /// <param name="password">The password that should be used for authentication.</param>
         public void Connect(XID id, string hostname, string password)
         {
-            this.ID = id;
             this.HostName = hostname;
-            this.Password = password;
-            Connect();
+            Connect(id, password);
         }
 
         /// <summary>

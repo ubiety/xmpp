@@ -33,7 +33,7 @@ namespace ubiety
 	/// <remarks>
 	/// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
 	/// </remarks>
-	public class ProtocolParser
+	internal class ProtocolParser
     {
         #region << Private Members >>
 		private static XmlNamespaceManager _ns;

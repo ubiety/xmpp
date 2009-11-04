@@ -5,11 +5,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXMPP", "TestXMPP\TestXM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubiety", "xmpp\ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testconsole", "testconsole\testconsole.csproj", "{67D034B6-2599-4D09-927B-56CC3561FF9A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmpp.compression.zlib", "xmpp.compression.zlib\xmpp.compression.zlib.csproj", "{9B065315-959E-4775-9EDF-71837FD711CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmpp.compression.sharpziplib", "xmpp.compression.sharpziplib\xmpp.compression.sharpziplib.csproj", "{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{A0DD3132-E75B-4ABF-81FD-736F4D0CC5ED}"
+	ProjectSection(SolutionItems) = preProject
+		README = README
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +28,6 @@ Global
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67D034B6-2599-4D09-927B-56CC3561FF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B065315-959E-4775-9EDF-71837FD711CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B065315-959E-4775-9EDF-71837FD711CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B065315-959E-4775-9EDF-71837FD711CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,7 +41,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		CodeStyleEnforcer_Active = 
 		CodeStyleEnforcer_RulesLocation = 
+		CodeStyleEnforcer_Active = 
 	EndGlobalSection
 EndGlobal

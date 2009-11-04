@@ -1,6 +1,6 @@
 // Address.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -28,7 +28,7 @@ namespace ubiety.net
     /// <remarks>
     /// Implements a method of resolving urls to an <see cref="IPEndPoint"/>.
     /// </remarks>
-	public class Address
+	internal class Address
 	{
 		private static int _port;
 		private IPAddress _ip;

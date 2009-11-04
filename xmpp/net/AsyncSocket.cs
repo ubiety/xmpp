@@ -1,6 +1,6 @@
 // AsyncSocket.cs
 //
-//XMPP .NET Library Copyright (C) 2006, 2008, 2009 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2006 - 2009 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -35,7 +35,7 @@ namespace ubiety.net
     /// <remarks>
     /// AsyncSocket is the class that communicates with the server.
     /// </remarks>
-	public class AsyncSocket
+	internal class AsyncSocket
 	{
  		private Socket _socket;
 		private UTF8Encoding _utf = new UTF8Encoding();
