@@ -69,9 +69,6 @@ namespace ubiety
     {
         #region Private Members
         private TagRegistry _reg = TagRegistry.Instance;
-		private int _port = 5222;
-		private Boolean _ssl = false;
-        private string _hostName = null;
 		private Errors _errors = Errors.Instance;
 		private ProtocolState _states = ProtocolState.Instance;
 		private static string _version = "";
@@ -80,7 +77,7 @@ namespace ubiety
         /// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
 		/// </summary>
-		public XMPP()
+		private XMPP()
 		{
 			Assembly x = Assembly.GetAssembly(typeof(XMPP));
 			_reg.AddAssembly(x);
@@ -90,60 +87,56 @@ namespace ubiety
 		}
 
         /// <summary>
-        /// Connect to an XMPP server with an XID, hostname and password.
-        /// </summary>
-        /// <param name="id">The XID that should be used for connecting.</param>
-        /// <param name="hostname">The hostname we should connect to instead of the XID's.</param>
-        /// <param name="password">The password that should be used for authentication.</param>
-        public void Connect(XID id, string hostname, string password)
-        {
-            this.HostName = hostname;
-            Connect(id, password);
-        }
-
-        /// <summary>
-        /// Connect to an XMPP server with the XID and password.
+        /// Connect to an XMPP server on port 5222 unencrypted with the XID and password.
         /// </summary>
         /// <param name="id">The XID that should be used for connecting.</param>
         /// <param name="password">The password that should be used for authentication.</param>
-        public void Connect(XID id, string password)
+        public XMPP Connect(XID id, string password)
         {
-            this.ID = id;
-            this.Password = password;
-            Connect();
+			return Connect(id, password, id.Server, 5222, false);
         }
 
-        /// <summary>
-        /// Connect to the XMPP server for the XID
-        /// </summary>
-        public void Connect()
+		/// <summary>
+		/// Connect to an XMPP server.
+		/// </summary>
+		/// <param name="id">The XID to be used for connecting.</param>
+		/// <param name="password">The password to be used for authentication</param>
+		/// <param name="hostname">The hostname to connect to. Can be set to null to use XID server.</param>
+		/// <param name="port">The port to connect to.</param>
+		/// <param name="ssl">Use encryption if available?</param>
+		/// <returns></returns>
+		public XMPP Connect(XID id, string password, string hostname, int port, bool ssl)
         {
+			XMPP me = new XMPP();
+
         	// We need an XID and Password to connect to the server.
-			if (String.IsNullOrEmpty(_states.Password))
+			if (String.IsNullOrEmpty(password))
 			{
 				_errors.SendError(this, ErrorType.MissingPassword, "Set the Password property before connecting.");
 				return;
 			}
-			else if (String.IsNullOrEmpty(_states.ID))
+			else if (String.IsNullOrEmpty(id))
 			{
 				_errors.SendError(this, ErrorType.MissingID, "Set the ID property before connecting.");
 				return;
 			}
 
 			// Do we use the server supplied from the XID or the alternate provided by the developer?
-            if (!String.IsNullOrEmpty(_hostName))
-                _states.Socket.Hostname = _hostName;
-            else
-                _states.Socket.Hostname = _states.ID.Server;
+			if (!String.IsNullOrEmpty(hostname))
+				_states.Socket.Hostname = hostname;
+			else
+				_states.Socket.Hostname = id.Server;
 
 			Logger.InfoFormat(this, "Connecting to {0}", _states.Socket.Hostname);
 
 			// Set the values we need to connect.
-			_states.Socket.SSL = _ssl;
-            _states.Socket.Port = _port;
+			_states.Socket.SSL = ssl;
+            _states.Socket.Port = port;
 			// Set the current state to connecting and start the process.
 			_states.State = new ConnectingState();
 			_states.Execute();
+
+			return me;
 		}
 		
 		/// <summary>
@@ -161,51 +154,6 @@ namespace ubiety
 		}
 
         #region Properties
-        /// <summary>
-        /// This property defines whether SSL should be used to connect to the server.
-        /// </summary>
-        public Boolean SSL
-        {
-            get { return _ssl; }
-            set { _ssl = value; }
-        }
-
-		/// <summary>
-		/// This is the XID we should use to determine the server and user name to connect to.
-		/// </summary>
-		public XID ID
-		{
-			get { return _states.ID; }
-			set { _states.ID = value; }
-		}
-
-		/// <summary>
-		/// The password for the username supplied in the XID.
-		/// </summary>
-		public String Password
-		{
-			get { return _states.Password; }
-			set { _states.Password = value; }
-		}
-
-		/// <summary>
-		/// The port to connect to.  Should only be used if not connecting to the default 5222.
-		/// </summary>
-		public int Port
-		{
-			get { return _port; }
-			set { _port = value; }
-		}
-
-        /// <summary>
-        /// The hostname to connect to.  Should only be used if the hostname is not part of the XID.
-        /// </summary>
-        public string HostName
-        {
-            get { return _hostName; }
-            set { _hostName = value; }
-        }
-
         /// <summary>
         /// Provides the Ubiety assembly version
         /// </summary>
