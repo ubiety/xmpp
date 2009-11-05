@@ -32,6 +32,7 @@ namespace TestXMPP
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+			xmpp.Disconnect();
             Application.Exit();
         }
 	}
