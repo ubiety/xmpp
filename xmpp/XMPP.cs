@@ -120,6 +120,9 @@ namespace ubiety
 
 			Logger.InfoFormat(typeof(XMPP), "Connecting to {0}", _states.Socket.Hostname);
 
+			_states.ID = id;
+			_states.Password = password;
+
 			// Set the values we need to connect.
 			_states.Socket.SSL = ssl;
             _states.Socket.Port = port;

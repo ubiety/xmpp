@@ -223,10 +223,6 @@ namespace ubiety.net
             {
                 Logger.DebugFormat(this, "Invalid Operation: {0}", e);
             }
-            catch (Exception e)
-            {
-                Logger.Error(this, e);
-            }
 		}
 		
         /// <summary>
