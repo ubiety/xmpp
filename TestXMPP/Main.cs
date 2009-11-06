@@ -4,6 +4,8 @@ using ubiety;
 using ubiety.common;
 using ubiety.registries;
 using System.Reflection;
+using log4net.Config;
+using log4net.Appender;
 
 namespace TestXMPP
 {
@@ -16,6 +18,7 @@ namespace TestXMPP
 			InitializeComponent();
             //CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
             Errors.Instance.OnError += new EventHandler<ErrorEventArgs>(Errors_OnError);
+			XmlConfigurator.Configure();
 			slVersion.Text = "Ubiety Version: " + XMPP.Version;
 		}
 
@@ -32,8 +35,14 @@ namespace TestXMPP
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-			xmpp.Disconnect();
+			if (xmpp != null)
+				xmpp.Disconnect();
             Application.Exit();
         }
+
+		private void Main_Load(object sender, EventArgs e)
+		{
+			RichTextBoxAppender.SetRichTextBox(rtbDebug, "RichTextAppender");
+		}
 	}
 }

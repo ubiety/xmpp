@@ -32,7 +32,7 @@ namespace ubiety.logging
 
 		static Logger()
 		{
-			XmlConfigurator.Configure();
+			//XmlConfigurator.Configure();
 		}
 
       #region .: Enabled Checks :.
