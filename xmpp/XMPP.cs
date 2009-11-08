@@ -92,7 +92,7 @@ namespace ubiety
 		/// <param name="id">The XID to be used for connecting.</param>
 		/// <param name="password">The password to be used for authentication</param>
 		/// <param name="hostname">The hostname to connect to. Can be set to null to use XID server.</param>
-		/// <param name="port">The port to connect to.</param>
+		/// <param name="port">The port to connect to if one is not provided by an SRV record.</param>
 		/// <param name="ssl">Use encryption if available?</param>
 		/// <returns></returns>
 		public static XMPP Connect(XID id, string password, string hostname, int port, bool ssl)

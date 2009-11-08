@@ -109,14 +109,17 @@ namespace ubiety.net
 			NetworkInterface[] net = NetworkInterface.GetAllNetworkInterfaces();
 			foreach (NetworkInterface n in net)
 			{
-				IPInterfaceProperties i = n.GetIPProperties();
-				foreach(IPAddress dns in i.DnsAddresses)
+				if (n.OperationalStatus == OperationalStatus.Up && n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
 				{
-                    if (dns.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        _dns.Add(dns);
-                        Logger.DebugFormat(typeof(Address), "Dns Address: {0}", dns.ToString());
-                    }
+					IPInterfaceProperties i = n.GetIPProperties();
+					foreach (IPAddress dns in i.DnsAddresses)
+					{
+						if (dns.AddressFamily == AddressFamily.InterNetwork)
+						{
+							_dns.Add(dns);
+							Logger.DebugFormat(typeof(Address), "Dns Address: {0}", dns.ToString());
+						}
+					}
 				}
 			}
 

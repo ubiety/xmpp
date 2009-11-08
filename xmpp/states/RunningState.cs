@@ -1,4 +1,4 @@
-// SessionState.cs
+﻿// RunningState.cs
 //
 //Ubiety XMPP Library Copyright (C) 2009 Dieter Lunn
 //
@@ -18,37 +18,19 @@
 using System.Xml;
 using ubiety.common;
 using ubiety.core;
-using ubiety.core.iq;
 
 namespace ubiety.states
 {
-	public class SessionState : State
+	public class RunningState : State
 	{
-		public SessionState() : base()
+		public RunningState()
+			: base()
 		{
 		}
-		
-		public override void Execute (Tag data)
+
+		public override void Execute(Tag data)
 		{
-			if (data == null)
-			{
-				Iq iq = (Iq)_reg.GetTag(new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
-				Session sess = (Session)_reg.GetTag(new XmlQualifiedName("session", Namespaces.SESSION), _current.Document);
-
-				iq.From = _current.ID;
-				iq.To = _current.ID.Server;
-				iq.IQType = IQType.Set;
-				iq.Payload = sess;
-
-				_current.Socket.Write(iq);
-			}
-			else
-			{
-				Presence p = (Presence)_reg.GetTag(new XmlQualifiedName("presence", Namespaces.CLIENT), _current.Document);
-				_current.Socket.Write(p);
-
-				_current.State = new RunningState();
-			}
+			base.Execute(data);
 		}
 	}
 }

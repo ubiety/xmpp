@@ -87,6 +87,7 @@
     <Compile Include="core\iq\Iq.cs" />
     <Compile Include="core\Jid.cs" />
     <Compile Include="core\Mechanisms.cs" />
+    <Compile Include="core\Presence.cs" />
     <Compile Include="core\Proceed.cs" />
     <Compile Include="core\Resource.cs" />
     <Compile Include="core\SASL\Auth.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="states\ConnectingState.cs" />
     <Compile Include="states\DisconnectState.cs" />
     <Compile Include="states\ProtocolState.cs" />
+    <Compile Include="states\RunningState.cs" />
     <Compile Include="states\SASLState.cs" />
     <Compile Include="states\ServerFeaturesState.cs" />
     <Compile Include="states\SessionState.cs" />
