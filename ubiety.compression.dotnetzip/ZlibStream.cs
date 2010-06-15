@@ -41,9 +41,9 @@ namespace ubiety.compression.dotnetzip
 			if (_inner.CanRead)
 			{
 				_in = new ZlibCodec(CompressionMode.Decompress);
-				int ret = _in.InitializeInflate();
-				if (ret != ZlibConstants.Z_OK)
-					throw new ZlibException("Unable to initialize Inflate");
+                //int ret = _in.InitializeInflate();
+                //if (ret != ZlibConstants.Z_OK)
+                //    throw new ZlibException("Unable to initialize Inflate");
 				_inBuff = new byte[_bufferSize];
 				_in.AvailableBytesIn = 0;
 				_in.InputBuffer = _inBuff;
@@ -183,12 +183,25 @@ namespace ubiety.compression.dotnetzip
 			{
 				_out.NextOut = 0;
 				_out.AvailableBytesOut = _bufferSize;
-				int error = _out.Deflate(ZlibConstants.Z_PARTIAL_FLUSH);
-				if (error != ZlibConstants.Z_STREAM_END)
-				{
-					if (error != ZlibConstants.Z_OK)
-						throw new ZlibException("Unable to deflate data: " + _out.Message);
-				}
+                //int error = _out.Deflate(ZlibConstants.Z_PARTIAL_FLUSH);
+                //if (error != ZlibConstants.Z_STREAM_END)
+                //{
+                //    if (error != ZlibConstants.Z_OK)
+                //        throw new ZlibException("Unable to deflate data: " + _out.Message);
+                //}
+
+                while (_out.TotalBytesOut < _bufferSize)
+                {
+                    _out.Deflate(FlushType.None);
+                }
+
+                while (true)
+                {
+                    int rc = _out.Deflate(FlushType.Finish);
+                    if (rc == ZlibConstants.Z_STREAM_END) break;
+                }
+
+                _out.EndDeflate();
 				
 				_inner.Write(_outBuff, 0, _bufferSize - _out.AvailableBytesOut);
 			}
