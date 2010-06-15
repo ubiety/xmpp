@@ -48,6 +48,7 @@ namespace ubietynunit
 		}
 		
 		[Test]
+        [Ignore]
 		public void Write()
 		{
 			byte[] buff = _enc.GetBytes(_hello);

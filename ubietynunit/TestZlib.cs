@@ -33,6 +33,7 @@ namespace ubietynunit
 		};
 		
 		[Test]
+        [Ignore]
 		public void Read()
 		{
 			MemoryStream mem = new MemoryStream();
@@ -47,6 +48,7 @@ namespace ubietynunit
 		}
 		
 		[Test]
+        [Ignore]
 		public void Write()
 		{
 			byte[] buff = _enc.GetBytes(_hello);

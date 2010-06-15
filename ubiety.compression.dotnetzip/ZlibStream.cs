@@ -40,7 +40,7 @@ namespace ubiety.compression.dotnetzip
 			
 			if (_inner.CanRead)
 			{
-				_in = new ZlibCodec();
+				_in = new ZlibCodec(CompressionMode.Decompress);
 				int ret = _in.InitializeInflate();
 				if (ret != ZlibConstants.Z_OK)
 					throw new ZlibException("Unable to initialize Inflate");
@@ -52,7 +52,7 @@ namespace ubiety.compression.dotnetzip
 			
 			if (_inner.CanWrite)
 			{
-				_out = new ZlibCodec();
+				_out = new ZlibCodec(CompressionMode.Compress);
 				int ret = _out.InitializeDeflate(CompressionLevel.DEFAULT);
 				if (ret != ZlibConstants.Z_OK)
 					throw new ZlibException("Unable to initialize Deflate");
