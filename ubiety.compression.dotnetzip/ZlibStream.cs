@@ -53,7 +53,7 @@ namespace ubiety.compression.dotnetzip
 			if (_inner.CanWrite)
 			{
 				_out = new ZlibCodec(CompressionMode.Compress);
-				int ret = _out.InitializeDeflate(CompressionLevel.DEFAULT);
+				int ret = _out.InitializeDeflate(CompressionLevel.Default);
 				if (ret != ZlibConstants.Z_OK)
 					throw new ZlibException("Unable to initialize Deflate");
 				_outBuff = new byte[_bufferSize];
@@ -159,7 +159,7 @@ namespace ubiety.compression.dotnetzip
 		private int Inflate()
 		{
 			int count = _in.AvailableBytesOut;
-			int error = _in.Inflate(ZlibConstants.Z_PARTIAL_FLUSH);
+			int error = _in.Inflate(FlushType.None);
 			if ((error != ZlibConstants.Z_OK) && (error != ZlibConstants.Z_STREAM_END))
 			{
 				if (error == ZlibConstants.Z_STREAM_ERROR)
