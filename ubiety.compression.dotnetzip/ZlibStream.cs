@@ -190,7 +190,7 @@ namespace ubiety.compression.dotnetzip
                 //        throw new ZlibException("Unable to deflate data: " + _out.Message);
                 //}
 
-                while (_out.TotalBytesOut < _bufferSize)
+                while (_out.TotalBytesIn != buffer.Length && _out.TotalBytesOut < _bufferSize)
                 {
                     _out.Deflate(FlushType.None);
                 }
