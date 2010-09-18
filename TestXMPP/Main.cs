@@ -30,7 +30,7 @@ namespace TestXMPP
 		private void button1_Click(object sender, EventArgs e)
 		{
             XID id = new XID(txtUsername.Text);
-			xmpp = XMPP.Connect(id, txtPassword.Text, null, 5222, btnSSL.Checked);
+			xmpp = XMPP.Connect(id, txtPassword.Text, ssl: btnSSL.Checked);
 		}
 
         private void btnExit_Click(object sender, EventArgs e)

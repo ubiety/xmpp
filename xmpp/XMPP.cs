@@ -1,6 +1,6 @@
 // XMPP.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2010 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -65,6 +65,7 @@ namespace ubiety
         private TagRegistry _reg = TagRegistry.Instance;
 		private static Errors _errors = Errors.Instance;
 		private static ProtocolState _states = ProtocolState.Instance;
+        private static string _version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         #endregion
 
         /// <summary>
@@ -81,6 +82,7 @@ namespace ubiety
         /// </summary>
         /// <param name="id">The XID that should be used for connecting.</param>
         /// <param name="password">The password that should be used for authentication.</param>
+        [Obsolete("Use Connect(id, password, hostname, port, ssl).")]
         public static XMPP Connect(XID id, string password)
         {
 			return Connect(id, password, id.Server, 5222, false);
@@ -95,7 +97,7 @@ namespace ubiety
 		/// <param name="port">The port to connect to if one is not provided by an SRV record.</param>
 		/// <param name="ssl">Use encryption if available?</param>
 		/// <returns></returns>
-		public static XMPP Connect(XID id, string password, string hostname, int port, bool ssl)
+		public static XMPP Connect(XID id, string password, string hostname = null, int port = 5222, bool ssl = false)
         {
 			XMPP me = new XMPP();
 
@@ -153,7 +155,7 @@ namespace ubiety
         /// </summary>
         public static string Version
         {
-			get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get { return _version; }
         }
 		
         /// <summary>
