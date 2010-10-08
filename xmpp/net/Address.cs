@@ -35,7 +35,7 @@ namespace ubiety.net
 		private string _hostname;
         private IPEndPoint _end;
 
-		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>();
+		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>(10);
         private static List<IPAddress> _dns = new List<IPAddress>();
 
         /// <summary>
