@@ -93,16 +93,13 @@ namespace ubiety.net
         /// <param name="hostname">Hostname to resolve.</param>
         /// <param name="port">Port to connect to</param>
         /// <returns>An instance of the <see cref="Address"/> class.</returns>
-		public static Address Resolve(string hostname, int port)
-		{
+		public static Address Resolve(string hostname, int port) {
+			return ResolveDNS(hostname, port) ?? ResolveSystem(hostname, port);
+		}
+
+		private static Address ResolveDNS(string hostname, int port) {
 			Address temp;
 
-			if (_cache.TryGetValue(hostname, out temp))
-			{
-				Logger.Info(typeof(Address), "Using cached address for " + hostname);
-				return temp;
-			}
-			
 			temp = new Address(hostname, port);
 			
 			Logger.Debug(typeof(Address), "Getting DNS addresses");
@@ -157,7 +154,7 @@ namespace ubiety.net
 				}
 				else
 				{
-					Logger.Error(typeof(Address), "Error resolving address.  Ending connection");
+					Logger.Error(typeof(Address), "Error resolving DNS address.");
 					return null;
 				}
 				
@@ -165,11 +162,27 @@ namespace ubiety.net
             }
             catch (Exception e)
             {
-            	Logger.ErrorFormat(typeof(Address), "Error resolving address: {0}", e);
+            	Logger.ErrorFormat(typeof(Address), "Error resolving DNS address: {0}", e);
+				return null;
             }
             
-            _cache.Add(hostname, temp);
-			
+			return temp;
+		}
+
+		private static Address ResolveSystem(string hostname, int port) {
+			Address temp;
+
+			temp = new Address(hostname, port);
+
+			try {
+				IPAddress addr = Dns.GetHostEntry(hostname).AddressList[0];
+				temp._ip = addr;
+				temp._end = new IPEndPoint(addr, _port);
+			} catch (Exception e) {
+				Logger.ErrorFormat(typeof(Address), "Error resolving address: {0}", e);
+				return null;
+			}
+
 			return temp;
 		}
 	}
