@@ -41,6 +41,7 @@ namespace ubiety.common.SASL
 		private int _nc;
 		private string _ncString;
 		private string _digestUri;
+        static RNGCryptoServiceProvider _rand;
 		
 		public MD5Processor()
 		{
@@ -137,10 +138,11 @@ namespace ubiety.common.SASL
 		{
 			ASCIIEncoding ae = new ASCIIEncoding();
 			byte[] H1, H2, H3, temp;
-			string A1, A2, A3, uri, p1, p2;
+			string A1, A2, A3, p1, p2;
 			
-			Random r = new Random();
-			int v = r.Next(1024);
+            //_rand = new Random();
+            //int v = _rand.Next(1024);
+            Int64 v = NextInt64();
 			
 			// Create cnonce value using a random number, username and password
 			StringBuilder sb = new StringBuilder();
@@ -232,5 +234,13 @@ namespace ubiety.common.SASL
 			
 			return sb.ToString();
 		}
+
+        private static Int64 NextInt64()
+        {
+            var bytes = new byte[sizeof(Int64)];
+            _rand = new RNGCryptoServiceProvider();
+            _rand.GetBytes(bytes);
+            return BitConverter.ToInt64(bytes, 0);
+        }
 	}
 }
