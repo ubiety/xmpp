@@ -1,6 +1,6 @@
 // MD5Processor.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2010 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -76,7 +76,7 @@ namespace ubiety.common.SASL
 			Challenge chall = tag as Challenge;
 			Logger.Debug(this, _enc.GetString(tag.Bytes));
 			populateDirectives(chall);
-			Response res = (Response)TagRegistry.Instance.GetTag(new XmlQualifiedName("response", Namespaces.SASL), new XmlDocument());
+			Response res = (Response)TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
 			if (this["rspauth"] == null)
 			{
 				generateResponseHash();
@@ -143,7 +143,7 @@ namespace ubiety.common.SASL
             //_rand = new Random();
             //int v = _rand.Next(1024);
             Int64 v = NextInt64();
-			
+
 			// Create cnonce value using a random number, username and password
 			StringBuilder sb = new StringBuilder();
 			sb.Append(v.ToString());
