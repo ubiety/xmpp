@@ -56,7 +56,7 @@ namespace ubiety.common.SASL
 			sb.Append((char) 0);
 			sb.Append(password);
 
-			Auth auth = (Auth)TagRegistry.Instance.GetTag(new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
+			Auth auth = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 
 			auth.Text = sb.ToString();
 			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);

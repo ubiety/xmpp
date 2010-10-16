@@ -151,6 +151,7 @@ namespace ubiety.net
 			} catch (Exception e)
 			{
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
+                Errors.Instance.SendError(this, ErrorType.XMLError, "SSL connection error", true);
 			}
 			//_encrypting = false;
         }

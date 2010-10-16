@@ -27,11 +27,18 @@ namespace ubiety
 	{
 		private string _message;
 		private ErrorType _type;
+        private Boolean _fatal;
 		
-		public ErrorEventArgs(string message, ErrorType type)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="type"></param>
+		public ErrorEventArgs(string message, ErrorType type, Boolean fatal)
 		{
 			_message = message;
 			_type = type;
+            _fatal = fatal;
 		}
 		
 		/// <value>
@@ -49,8 +56,16 @@ namespace ubiety
 		{
 			get { return _type; }
 		}
+
+        public Boolean Fatal
+        {
+            get { return _fatal; }
+        }
 	}
 
+    /// <summary>
+    /// 
+    /// </summary>
 	public class Errors
 	{
 		private static Errors _instance = new Errors();
@@ -76,11 +91,11 @@ namespace ubiety
 		/// <param name="message">
 		/// The default message to be supplied with the error.
 		/// </param>
-		public void SendError(object sender, ErrorType type, string message)
+		public void SendError(object sender, ErrorType type, string message, Boolean fatal = false)
 		{
 			if (OnError != null)
 			{
-				OnError(sender, new ErrorEventArgs(message, type));
+				OnError(sender, new ErrorEventArgs(message, type, fatal));
 			}
 		}
 		

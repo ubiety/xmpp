@@ -105,12 +105,12 @@ namespace ubiety
         	// We need an XID and Password to connect to the server.
 			if (String.IsNullOrEmpty(password))
 			{
-				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property before connecting.");
+				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property before connecting.", true);
 				return null;
 			}
 			else if (String.IsNullOrEmpty(id))
 			{
-				_errors.SendError(typeof(XMPP), ErrorType.MissingID, "Set the ID property before connecting.");
+				_errors.SendError(typeof(XMPP), ErrorType.MissingID, "Set the ID property before connecting.", true);
 				return null;
 			}
 
@@ -147,6 +147,10 @@ namespace ubiety
 		private void OnError(object sender, ErrorEventArgs e)
 		{
 			Logger.ErrorFormat(this, "Error from {0}: {1}", sender, e.Message);
+            if ( e.Fatal )
+            {
+                Disconnect();
+            }
 		}
 
         #region Properties

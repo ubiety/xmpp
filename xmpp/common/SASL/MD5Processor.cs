@@ -52,7 +52,7 @@ namespace ubiety.common.SASL
 		{
 			base.Initialize(id, password);
 			
-			Auth tag = (Auth)TagRegistry.Instance.GetTag(new XmlQualifiedName("auth", Namespaces.SASL), new XmlDocument());
+			Auth tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 			tag.Mechanism = Mechanism.GetMechanism(MechanismType.DIGEST_MD5);
 			return tag;
 		}

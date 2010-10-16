@@ -51,9 +51,21 @@ namespace ubiety.registries
 		}
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ns"></param>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public Tag GetTag(string name, string ns, XmlDocument doc)
+        {
+            XmlQualifiedName qname = new XmlQualifiedName(name, ns);
+            return GetTag(qname, doc);
+        }
+
+        /// <summary>
         /// Creates a new instance of the wanted tag.
         /// </summary>
-        /// <param name="prefix">The tag prefix</param>
         /// <param name="qname">Qualified Namespace</param>
         /// <param name="doc">XmlDocument to create tag with</param>
         /// <returns>A new instance of the requested tag</returns>
@@ -62,6 +74,7 @@ namespace ubiety.registries
 			Type t;
 			Tag tag = null;
 			ConstructorInfo ctor = null;
+
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
 			try
 			{

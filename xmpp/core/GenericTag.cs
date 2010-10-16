@@ -22,11 +22,23 @@ using ubiety.attributes;
 
 namespace ubiety.core
 {
+    /// <summary>
+    /// 
+    /// </summary>
 	[XmppTag("register", Namespaces.REGISTER, typeof(GenericTag))]
 	[XmppTag("auth", Namespaces.AUTH, typeof(GenericTag))]
 	[XmppTag("bad-request", Namespaces.STANZAS, typeof(GenericTag))]
+    [XmppTag("ver", Namespaces.ROSTVER, typeof(GenericTag))]
+    [XmppTag("optional", Namespaces.ROSTVER, typeof(GenericTag))]
+    [XmppTag("required", Namespaces.START_TLS, typeof(GenericTag))]
+    [XmppTag("unsupported-stanza-type", Namespaces.XMPP_STREAMS, typeof(GenericTag))]
 	public class GenericTag : Tag
 	{
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="qname"></param>
 		public GenericTag(XmlDocument doc, XmlQualifiedName qname) : base("", qname, doc)
 		{
 		}

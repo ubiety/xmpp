@@ -34,12 +34,12 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				Bind a = (Bind)_reg.GetTag(new XmlQualifiedName("bind", Namespaces.BIND), _current.Document);
-				Iq b = (Iq)_reg.GetTag(new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
+				Bind a = (Bind)_reg.GetTag("bind", Namespaces.BIND, _current.Document);
+				Iq b = (Iq)_reg.GetTag("iq", Namespaces.CLIENT, _current.Document);
 				
 				if (_current.ID.Resource != null)
 				{
-					Resource res = (Resource)_reg.GetTag(new XmlQualifiedName("resource", Namespaces.BIND), _current.Document);
+					Resource res = (Resource)_reg.GetTag("resource", Namespaces.BIND, _current.Document);
 					res.InnerText = _current.ID.Resource;
 					a.AddChildTag(res);
 				}

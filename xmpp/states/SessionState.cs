@@ -32,8 +32,8 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				Iq iq = (Iq)_reg.GetTag(new XmlQualifiedName("iq", Namespaces.CLIENT), _current.Document);
-				Session sess = (Session)_reg.GetTag(new XmlQualifiedName("session", Namespaces.SESSION), _current.Document);
+				Iq iq = (Iq)_reg.GetTag("iq", Namespaces.CLIENT, _current.Document);
+				Session sess = (Session)_reg.GetTag("session", Namespaces.SESSION, _current.Document);
 
 				iq.From = _current.ID;
 				iq.To = _current.ID.Server;
@@ -44,7 +44,7 @@ namespace ubiety.states
 			}
 			else
 			{
-				Presence p = (Presence)_reg.GetTag(new XmlQualifiedName("presence", Namespaces.CLIENT), _current.Document);
+				Presence p = (Presence)_reg.GetTag("presence", Namespaces.CLIENT, _current.Document);
 				_current.Socket.Write(p);
 
 				_current.State = new RunningState();

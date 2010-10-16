@@ -27,6 +27,6 @@ namespace ubiety.core
 		public Error(XmlDocument doc)
 			: base ("", new XmlQualifiedName("error", Namespaces.CLIENT), doc)
 		{
-	}	
+	    }	
 	}
 }

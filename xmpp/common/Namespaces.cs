@@ -30,6 +30,8 @@ namespace ubiety.common
         /// Stream Namespace - http://etherx.jabber.org/streams
         /// </summary>
 		public const string STREAM = "http://etherx.jabber.org/streams";
+
+        public const string XMPP_STREAMS = "urn:ietf:params:xml:ns:xmpp-streams";
         /// <summary>
         /// 
         /// </summary>
@@ -54,5 +56,7 @@ namespace ubiety.common
 		public const string COMPRESSION_PROTOCOL = "http://jabber.org/protocol/compress";
 
 		public const string STANZAS = "urn:ietf:params:xml:ns:xmpp-stanzas";
+
+        public const string ROSTVER = "urn:xmpp:features:rosterver";
 	}
 }

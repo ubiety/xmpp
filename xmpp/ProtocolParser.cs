@@ -236,7 +236,14 @@ namespace ubiety
 				if (tag is ubiety.core.Stream)
 					_states.State = new ServerFeaturesState();
 				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
-				_states.Execute(tag);
+                if (tag is ubiety.core.Error)
+                {
+                    Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Stream Error", true);
+                }
+                else
+                {
+                    _states.Execute(tag);
+                }
 			}
 			
 			Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");

@@ -20,6 +20,9 @@ using ubiety.logging;
 
 namespace ubiety.states
 {
+    /// <summary>
+    /// 
+    /// </summary>
 	public class CompressedState : State
 	{	
 		public CompressedState()
