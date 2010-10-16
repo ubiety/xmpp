@@ -21,7 +21,7 @@ using System.Xml;
 
 namespace ubiety.core
 {
-	[XmppTag("presence", Namespaces.CLIENT, typeof(Presence))]
+	//[XmppTag("presence", Namespaces.CLIENT, typeof(Presence))]
 	public class Presence : Tag
 	{
 		public Presence(XmlDocument doc)

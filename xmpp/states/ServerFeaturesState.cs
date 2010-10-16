@@ -72,29 +72,6 @@ namespace ubiety.states
 				return;
 			}
 			
-			// Moved before authentication to be inline with majority standard
-			// Do we want to do stream compression according to XEP-0138?
-			if (!_current.Compress && CompressionRegistry.AlgorithmsAvailable && !_current.Socket.SSL)
-			{
-				Logger.Info(this, "Starting compression");
-				// Do we have a stream for any of the compressions supported by the server?
-				foreach (string algorithm in f.Compression.Algorithms)
-				{
-					if (CompressionRegistry.SupportsAlgorithm(algorithm))
-					{
-						Logger.DebugFormat(this, "Using {0} for compression", algorithm);
-						Compress c = (Compress)_reg.GetTag("compress", Namespaces.COMPRESSION_PROTOCOL, _current.Document);
-						Method m = (Method)_reg.GetTag("method", Namespaces.COMPRESSION_PROTOCOL, _current.Document);
-						
-						m.InnerText = _current.Algorithm = algorithm;
-						c.AddChildTag(m);
-						_current.Socket.Write(c);
-						_current.State = new CompressedState();
-						return;
-					}
-				}
-			}
-
 			if (!_current.Authenticated)
 			{
 				Logger.Debug(this, "Creating SASL Processor");
@@ -105,6 +82,28 @@ namespace ubiety.states
 				_current.State = new SASLState();
 				return;
 			}
+
+            // Takes place after authentication according to XEP-0170
+            if (!_current.Compress && CompressionRegistry.AlgorithmsAvailable && !_current.Socket.SSL)
+            {
+                Logger.Info(this, "Starting compression");
+                // Do we have a stream for any of the compressions supported by the server?
+                foreach (string algorithm in f.Compression.Algorithms)
+                {
+                    if (CompressionRegistry.SupportsAlgorithm(algorithm))
+                    {
+                        Logger.DebugFormat(this, "Using {0} for compression", algorithm);
+                        Tag c = _reg.GetTag("compress", Namespaces.COMPRESSION_PROTOCOL, _current.Document);
+                        Tag m = _reg.GetTag("method", Namespaces.COMPRESSION_PROTOCOL, _current.Document);
+
+                        m.InnerText = _current.Algorithm = algorithm;
+                        c.AddChildTag(m);
+                        _current.Socket.Write(c);
+                        _current.State = new CompressedState();
+                        return;
+                    }
+                }
+            }
 
             Logger.Debug(this, "Authenticated");
             _current.State = new BindingState();

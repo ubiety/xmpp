@@ -24,7 +24,7 @@ namespace ubiety.core.compression
     /// <summary>
     /// 
     /// </summary>
-    [XmppTag("compress", Namespaces.COMPRESSION_PROTOCOL, typeof(Compress))]
+    //[XmppTag("compress", Namespaces.COMPRESSION_PROTOCOL, typeof(Compress))]
 	public class Compress : Tag
 	{
         /// <summary>

@@ -34,6 +34,10 @@ namespace ubiety.core
     [XmppTag("required", Namespaces.BIND, typeof(GenericTag))]
     [XmppTag("unsupported-stanza-type", Namespaces.XMPP_STREAMS, typeof(GenericTag))]
     [XmppTag("method", Namespaces.COMPRESSION, typeof(GenericTag))]
+    [XmppTag("compress", Namespaces.COMPRESSION_PROTOCOL, typeof(GenericTag))]
+    [XmppTag("method", Namespaces.COMPRESSION_PROTOCOL, typeof(GenericTag))]
+    [XmppTag("presence", Namespaces.CLIENT, typeof(GenericTag))]
+    [XmppTag("proceed", Namespaces.START_TLS, typeof(GenericTag))]
     public class GenericTag : Tag
 	{
         /// <summary>

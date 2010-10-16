@@ -23,7 +23,7 @@ namespace ubiety.core
 {
     ///<summary>
     ///</summary>
-    [XmppTag("proceed", Namespaces.START_TLS, typeof(Proceed))]
+    //[XmppTag("proceed", Namespaces.START_TLS, typeof(Proceed))]
     public class Proceed : ubiety.common.Tag
     {
         ///<summary>
