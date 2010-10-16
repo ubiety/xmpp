@@ -140,8 +140,11 @@ namespace ubiety
 		/// </summary>
 		public void Disconnect()
 		{
-			_states.State = new DisconnectState();
-			_states.Execute();
+            if (!(_states.State is DisconnectState))
+            {
+                _states.State = new DisconnectState();
+                _states.Execute();
+            }
 		}
 		
 		private void OnError(object sender, ErrorEventArgs e)

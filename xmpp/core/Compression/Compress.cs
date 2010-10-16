@@ -21,11 +21,18 @@ using System.Xml;
 
 namespace ubiety.core.compression
 {
-	[XmppTag("compress", Namespaces.COMPRESSION, typeof(Compress))]
+    /// <summary>
+    /// 
+    /// </summary>
+    [XmppTag("compress", Namespaces.COMPRESSION_PROTOCOL, typeof(Compress))]
 	public class Compress : Tag
 	{
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
 		public Compress(XmlDocument doc)
-			: base ("", new XmlQualifiedName("compress", Namespaces.COMPRESSION), doc)
+			: base ("", new XmlQualifiedName("compress", Namespaces.COMPRESSION_PROTOCOL), doc)
 		{
 		}
 	}

@@ -21,11 +21,12 @@ using ubiety.attributes;
 
 namespace ubiety.core.compression
 {
-	[XmppTag("method", Namespaces.COMPRESSION, typeof(Method))]
+	//[XmppTag("method", Namespaces.COMPRESSION, typeof(Method))]
+    [XmppTag("method", Namespaces.COMPRESSION_PROTOCOL, typeof(Method))]
 	public class Method : Tag
 	{
 		public Method(XmlDocument doc)
-			: base ("", new XmlQualifiedName("method", Namespaces.COMPRESSION), doc)
+			: base ("", new XmlQualifiedName("method", Namespaces.COMPRESSION_PROTOCOL), doc)
 		{
 		}
 	}

@@ -1,6 +1,6 @@
 // GenericTag.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2010 Dieter Lunn
 // 
 // This library is free software; you can redistribute it and/or modify it under
 // the terms of the GNU Lesser General Public License as published by the Free
@@ -31,8 +31,10 @@ namespace ubiety.core
     [XmppTag("ver", Namespaces.ROSTVER, typeof(GenericTag))]
     [XmppTag("optional", Namespaces.ROSTVER, typeof(GenericTag))]
     [XmppTag("required", Namespaces.START_TLS, typeof(GenericTag))]
+    [XmppTag("required", Namespaces.BIND, typeof(GenericTag))]
     [XmppTag("unsupported-stanza-type", Namespaces.XMPP_STREAMS, typeof(GenericTag))]
-	public class GenericTag : Tag
+    [XmppTag("method", Namespaces.COMPRESSION, typeof(GenericTag))]
+    public class GenericTag : Tag
 	{
         /// <summary>
         /// 

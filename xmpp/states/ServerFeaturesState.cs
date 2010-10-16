@@ -1,6 +1,6 @@
 // ServerFeaturesState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2010 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -83,8 +83,8 @@ namespace ubiety.states
 					if (CompressionRegistry.SupportsAlgorithm(algorithm))
 					{
 						Logger.DebugFormat(this, "Using {0} for compression", algorithm);
-						Compress c = (Compress)_reg.GetTag("compress", Namespaces.COMPRESSION, _current.Document);
-						Method m = (Method)_reg.GetTag("method", Namespaces.COMPRESSION, _current.Document);
+						Compress c = (Compress)_reg.GetTag("compress", Namespaces.COMPRESSION_PROTOCOL, _current.Document);
+						Method m = (Method)_reg.GetTag("method", Namespaces.COMPRESSION_PROTOCOL, _current.Document);
 						
 						m.InnerText = _current.Algorithm = algorithm;
 						c.AddChildTag(m);
