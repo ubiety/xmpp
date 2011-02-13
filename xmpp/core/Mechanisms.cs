@@ -36,7 +36,11 @@ namespace ubiety.core
         DIGEST_MD5 = (1 << 1),
         ///<summary>
         ///</summary>
-        EXTERNAL = (1 << 2)
+        EXTERNAL = (1 << 2),
+        /// <summary>
+        /// 
+        /// </summary>
+        SCRAM = (1 << 3)
     }
 
     /// <summary>
@@ -138,6 +142,8 @@ namespace ubiety.core
                     return MechanismType.DIGEST_MD5;
                 case "EXTERNAL":
                     return MechanismType.EXTERNAL;
+                case "SCRAM-SHA-1":
+                    return MechanismType.SCRAM;
                 default:
                     return MechanismType.None;
             }
@@ -157,6 +163,8 @@ namespace ubiety.core
 					return "EXTERNAL";
 				case MechanismType.DIGEST_MD5:
 					return "DIGEST-MD5";
+                case MechanismType.SCRAM:
+                    return "SCRAM-SHA-1";
 				default:
 					return "";
 			}

@@ -74,7 +74,7 @@ namespace ubiety.net
 			_dest = Address.Resolve(_hostname, _port);
 			if (_dest == null)
 				return;
-			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _port.ToString());
+			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _dest.Port.ToString());
 			if (!_dest.IPV6)
 			{
 				Logger.Debug(this, "Connecting using IPv4");

@@ -70,6 +70,11 @@ namespace ubiety.net
 			get { return _ip; }
 			set { _ip = value; }
 		}
+
+        public int Port
+        {
+            get { return _port; }
+        }
 		
         /// <summary>
         /// Is the address IPV6?

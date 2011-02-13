@@ -30,6 +30,7 @@ namespace ubiety.core
 	[XmppTag("bad-request", Namespaces.STANZAS, typeof(GenericTag))]
     [XmppTag("ver", Namespaces.ROSTVER, typeof(GenericTag))]
     [XmppTag("optional", Namespaces.ROSTVER, typeof(GenericTag))]
+    [XmppTag("optional", Namespaces.SESSION, typeof(GenericTag))]
     [XmppTag("required", Namespaces.START_TLS, typeof(GenericTag))]
     [XmppTag("required", Namespaces.BIND, typeof(GenericTag))]
     [XmppTag("unsupported-stanza-type", Namespaces.XMPP_STREAMS, typeof(GenericTag))]
@@ -39,6 +40,7 @@ namespace ubiety.core
     [XmppTag("method", Namespaces.COMPRESSION_PROTOCOL, typeof(GenericTag))]
     [XmppTag("presence", Namespaces.CLIENT, typeof(GenericTag))]
     [XmppTag("proceed", Namespaces.START_TLS, typeof(GenericTag))]
+    [XmppTag("malformed-request", Namespaces.SASL, typeof(GenericTag))]
     public class GenericTag : Tag
 	{
         /// <summary>

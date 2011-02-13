@@ -44,6 +44,12 @@ namespace ubiety.common.SASL
                 throw new NotSupportedException();
             }
 
+            if ((type & MechanismType.SCRAM) == MechanismType.SCRAM)
+            {
+                Logger.Debug(typeof(SASLProcessor), "Creating SCRAM-SHA-1 Processor");
+                return new SCRAMProcessor();
+            }
+
             if ((type & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
