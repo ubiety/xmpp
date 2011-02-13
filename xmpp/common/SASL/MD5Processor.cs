@@ -28,6 +28,9 @@ using ubiety.core;
 
 namespace ubiety.common.SASL
 {
+    /// <summary>
+    /// 
+    /// </summary>
 	public class MD5Processor : SASLProcessor
 	{
 		private readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
@@ -41,11 +44,20 @@ namespace ubiety.common.SASL
 		private string _digestUri;
         static RNGCryptoServiceProvider _rand;
 		
+        /// <summary>
+        /// 
+        /// </summary>
 		public MD5Processor()
 		{
 			_nc = 0;
 		}
 		
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
 		public override Tag Initialize(XID id, string password)
 		{
 			base.Initialize(id, password);
@@ -55,6 +67,11 @@ namespace ubiety.common.SASL
 			return tag;
 		}
 		
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
 		public override Tag Step(Tag tag)
 		{
 			if (tag is Success)
@@ -138,8 +155,6 @@ namespace ubiety.common.SASL
 			byte[] H1, H2, H3, temp;
 			string A1, A2, A3, p1, p2;
 			
-            //_rand = new Random();
-            //int v = _rand.Next(1024);
             Int64 v = NextInt64();
 
 			// Create cnonce value using a random number, username and password
@@ -222,23 +237,23 @@ namespace ubiety.common.SASL
 			_responseHash = HexString(H3).ToLower();
 		}
 		
-		private string HexString(byte[] buff)
-		{
-			StringBuilder sb = new StringBuilder();
-			foreach (byte b in buff)
-			{
-				sb.Append(b.ToString("x2"));
-			}
+        //private string HexString(byte[] buff)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    foreach (byte b in buff)
+        //    {
+        //        sb.Append(b.ToString("x2"));
+        //    }
 			
-			return sb.ToString();
-		}
+        //    return sb.ToString();
+        //}
 
-        private static Int64 NextInt64()
-        {
-            var bytes = new byte[sizeof(Int64)];
-            _rand = new RNGCryptoServiceProvider();
-            _rand.GetBytes(bytes);
-            return BitConverter.ToInt64(bytes, 0);
-        }
+        //private static Int64 NextInt64()
+        //{
+        //    var bytes = new byte[sizeof(Int64)];
+        //    _rand = new RNGCryptoServiceProvider();
+        //    _rand.GetBytes(bytes);
+        //    return BitConverter.ToInt64(bytes, 0);
+        //}
 	}
 }

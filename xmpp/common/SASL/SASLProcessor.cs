@@ -19,6 +19,8 @@ using System;
 using System.Collections;
 using ubiety.core;
 using ubiety.logging;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace ubiety.common.SASL
 {
@@ -80,10 +82,43 @@ namespace ubiety.common.SASL
 			return null;
 		}
 		
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directive"></param>
+        /// <returns></returns>
 		public string this[string directive]
 		{
 			get { return (string)directives[directive]; }
 			set { directives[directive] = value; }
 		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        protected string HexString(byte[] buff)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in buff)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Generates a new random 64bit number
+        /// </summary>
+        /// <returns>Random Int64</returns>
+        protected static Int64 NextInt64()
+        {
+            var bytes = new byte[sizeof(Int64)];
+            RNGCryptoServiceProvider rand = new RNGCryptoServiceProvider();
+            rand.GetBytes(bytes);
+            return BitConverter.ToInt64(bytes, 0);
+        }
     }
 }

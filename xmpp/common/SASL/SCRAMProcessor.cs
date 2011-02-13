@@ -33,6 +33,11 @@ namespace ubiety.common.SASL
     /// </summary>
     public class SCRAMProcessor : SASLProcessor
     {
+        private ASCIIEncoding _ae = new ASCIIEncoding();
+        private readonly Encoding _utf = Encoding.UTF8;
+
+        private string _nonce;
+
         /// <summary>
         /// 
         /// </summary>
@@ -42,9 +47,22 @@ namespace ubiety.common.SASL
         public override Tag Initialize(XID id, string password)
         {
             base.Initialize(id, password);
-            Logger.Debug(this, "Intializing SCRAM Processor");
+            Logger.Debug(this, "Initializing SCRAM Processor");
+
+            Logger.Debug(this, "Generating nonce");
+            _nonce = NextInt64().ToString();
+            Logger.DebugFormat(this, "Nonce: {0}", _nonce);
+            Logger.Debug(this, "Building Initial Message");
+            StringBuilder msg = new StringBuilder();
+            msg.Append("n,,n=");
+            msg.Append(id.User);
+            msg.Append(",r=");
+            msg.Append(_nonce);
+            Logger.DebugFormat(this, "Message: {0}", msg.ToString());
+
             Auth tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
             tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
+            tag.Bytes = _utf.GetBytes(msg.ToString());
             return tag;
         }
 
@@ -55,7 +73,9 @@ namespace ubiety.common.SASL
         /// <returns></returns>
         public override Tag Step(Tag tag)
         {
-            throw new NotImplementedException();
+            Challenge c = tag as Challenge;
+            Logger.DebugFormat(this, "Challenge: {0}", _utf.GetString(c.Bytes));
+            return null;
         }
     }
 }
