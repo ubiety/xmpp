@@ -37,6 +37,8 @@ namespace ubiety.common.SASL
         private readonly Encoding _utf = Encoding.UTF8;
 
         private string _nonce;
+        private byte[] _salt;
+        private int _i;
 
         /// <summary>
         /// 
@@ -74,8 +76,68 @@ namespace ubiety.common.SASL
         public override Tag Step(Tag tag)
         {
             Challenge c = tag as Challenge;
-            Logger.DebugFormat(this, "Challenge: {0}", _utf.GetString(c.Bytes));
+            string response = _utf.GetString(c.Bytes);
+            Logger.DebugFormat(this, "Challenge: {0}", response);
+
+            // Split challenge into pieces
+            string[] tokens = response.Split(',');
+
+            // Ensure that the first length of nonce is the same nonce we sent.
+            string r = tokens[0].Substring(2, _nonce.Length);
+            if (0 != String.Compare(r, _nonce))
+            {
+                Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
+            }
+
+            Logger.Debug(this, "Getting Salt");
+            string a = tokens[1].Substring(2);
+            _salt = Convert.FromBase64String(a);
+            string b = _utf.GetString(_salt);
+            Logger.DebugFormat(this, "Salt: {0}", b);
+
+            Logger.Debug(this, "Getting Iterations");
+            string i = tokens[2].Substring(2);
+            _i = int.Parse(i);
+            Logger.DebugFormat(this, "Iterations: {0}", _i);
+
+            CalculateProofs();
+
             return null;
+        }
+
+        private void CalculateProofs()
+        {
+            string salted_password = Hi();
+            Logger.DebugFormat(this, "Salted Password: {0}", salted_password);
+        }
+
+        private string Hi()
+        {
+            HMAC hmac = HMACSHA1.Create();
+            byte[] prev = null;
+            byte[] temp = null;
+            byte[] result;
+            byte[] password = _utf.GetBytes(_password);
+
+            Array.Copy(new byte[] { 0,0,0,1 }, 0, _salt, _salt.Length, 4);
+
+            hmac.Key = _salt;
+            result = hmac.ComputeHash(password);
+            Array.Copy(result, prev, result.Length);
+
+            for (int i = 1; i < _i; ++i)
+            {
+                hmac.Key = prev;
+                temp = hmac.ComputeHash(password);
+                for (int j = 1; j < temp.Length; ++j)
+                {
+                    result[j] ^= temp[j];
+                }
+
+                Array.Copy(temp, prev, temp.Length);
+            }
+
+            return _utf.GetString(result);
         }
     }
 }

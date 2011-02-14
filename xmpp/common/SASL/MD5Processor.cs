@@ -42,7 +42,6 @@ namespace ubiety.common.SASL
 		private int _nc;
 		private string _ncString;
 		private string _digestUri;
-        static RNGCryptoServiceProvider _rand;
 		
         /// <summary>
         /// 
@@ -236,24 +235,5 @@ namespace ubiety.common.SASL
 			H3 = _md5.ComputeHash(ae.GetBytes(A3));
 			_responseHash = HexString(H3).ToLower();
 		}
-		
-        //private string HexString(byte[] buff)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    foreach (byte b in buff)
-        //    {
-        //        sb.Append(b.ToString("x2"));
-        //    }
-			
-        //    return sb.ToString();
-        //}
-
-        //private static Int64 NextInt64()
-        //{
-        //    var bytes = new byte[sizeof(Int64)];
-        //    _rand = new RNGCryptoServiceProvider();
-        //    _rand.GetBytes(bytes);
-        //    return BitConverter.ToInt64(bytes, 0);
-        //}
 	}
 }
