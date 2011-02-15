@@ -1,6 +1,6 @@
 // ClosedState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009, 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,6 +16,8 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using ubiety.common;
+using ubiety.logging;
+using ubiety;
 
 namespace ubiety.states
 {
@@ -27,6 +29,9 @@ namespace ubiety.states
 		
 		public override void Execute (Tag data)
 		{
+            Logger.Debug(this, "Cleaning up");
+            ProtocolParser.Reset();
+            _current.Socket.Close();
 		}
 	}
 }

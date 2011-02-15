@@ -102,7 +102,7 @@ namespace ubiety.common.SASL
 
             CalculateProofs();
 
-            return null;
+            return TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
         }
 
         private void CalculateProofs()
@@ -113,15 +113,21 @@ namespace ubiety.common.SASL
 
         private string Hi()
         {
-            HMAC hmac = HMACSHA1.Create();
-            byte[] prev = null;
-            byte[] temp = null;
-            byte[] result;
+            HMACSHA1 hmac;
+            byte[] prev = new byte[20];
+            byte[] temp = new byte[20];
+            byte[] result = new byte[20];
             byte[] password = _utf.GetBytes(_password);
 
-            Array.Copy(new byte[] { 0,0,0,1 }, 0, _salt, _salt.Length, 4);
+            // Add 1 to the end of salt with most significat octet first
+            byte[] key = new byte[_salt.Length + 4];
 
-            hmac.Key = _salt;
+            Array.Copy(_salt, key, _salt.Length);
+            byte[] g = { 0, 0, 0, 1 };
+            Array.Copy(g, 0, key, _salt.Length, 4);
+
+            // Compute initial hash
+            hmac = new HMACSHA1(key);
             result = hmac.ComputeHash(password);
             Array.Copy(result, prev, result.Length);
 

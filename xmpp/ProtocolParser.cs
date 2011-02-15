@@ -82,7 +82,7 @@ namespace ubiety
 				Logger.Info(typeof(ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
 				_states.State = new ClosedState();
-				_states.Socket.Close();
+                _states.Execute(null);
                 return;
             }
 

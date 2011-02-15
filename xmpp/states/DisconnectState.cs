@@ -44,7 +44,6 @@ namespace ubiety.states
 			{
 				_current.Socket.Write("</stream:stream>");
 			}
-			ubiety.ProtocolParser.Reset();
 			_current.State = new ClosedState();
 		}
 
