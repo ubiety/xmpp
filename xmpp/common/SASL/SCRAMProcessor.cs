@@ -37,8 +37,15 @@ namespace ubiety.common.SASL
         private readonly Encoding _utf = Encoding.UTF8;
 
         private string _nonce;
+        private string _snonce;
         private byte[] _salt;
         private int _i;
+        private byte[] _client_first;
+        private byte[] _server_first;
+        private byte[] _client_final;
+
+        private string _server_signature;
+        private string _client_proof;
 
         /// <summary>
         /// 
@@ -64,7 +71,7 @@ namespace ubiety.common.SASL
 
             Auth tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
             tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
-            tag.Bytes = _utf.GetBytes(msg.ToString());
+            tag.Bytes = _client_first = _utf.GetBytes(msg.ToString());
             return tag;
         }
 
@@ -76,12 +83,14 @@ namespace ubiety.common.SASL
         public override Tag Step(Tag tag)
         {
             Challenge c = tag as Challenge;
+            _server_first = c.Bytes;
             string response = _utf.GetString(c.Bytes);
             Logger.DebugFormat(this, "Challenge: {0}", response);
 
             // Split challenge into pieces
             string[] tokens = response.Split(',');
 
+            _snonce = tokens[0].Substring(2);
             // Ensure that the first length of nonce is the same nonce we sent.
             string r = tokens[0].Substring(2, _nonce.Length);
             if (0 != String.Compare(r, _nonce))
@@ -100,18 +109,65 @@ namespace ubiety.common.SASL
             _i = int.Parse(i);
             Logger.DebugFormat(this, "Iterations: {0}", _i);
 
+            StringBuilder final = new StringBuilder();
+            final.Append("c=biws,r=");
+            final.Append(_snonce);
+
+            _client_final = _utf.GetBytes(final.ToString());
+
             CalculateProofs();
 
-            return TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
+            final.Append(",p=");
+            final.Append(_client_proof);
+
+            Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
+
+            Response resp = (Response)TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
+            resp.Bytes = _utf.GetBytes(final.ToString());
+
+            return resp;
         }
 
         private void CalculateProofs()
         {
-            string salted_password = Hi();
-            Logger.DebugFormat(this, "Salted Password: {0}", salted_password);
+            HMACSHA1 hmac = new HMACSHA1();
+            SHA1 hash = new SHA1CryptoServiceProvider();
+
+            byte[] salted_password = Hi();
+            
+            hmac.Key = _utf.GetBytes("Client Key");
+            byte[] client_key = hmac.ComputeHash(salted_password);
+
+            hmac.Key = _utf.GetBytes("Server Key");
+            byte[] server_key = hmac.ComputeHash(salted_password);
+
+            byte[] stored_key = hash.ComputeHash(client_key);
+
+            StringBuilder a = new StringBuilder();
+            a.Append(_utf.GetString(_client_first));
+            a.Append(",");
+            a.Append(_utf.GetString(_server_first));
+            a.Append(",");
+            a.Append(_utf.GetString(_client_final));
+
+            byte[] auth = _utf.GetBytes(a.ToString());
+
+            hmac.Key = auth;
+            byte[] signature = hmac.ComputeHash(stored_key);
+            byte[] server = hmac.ComputeHash(server_key);
+
+            _server_signature = _utf.GetString(server);
+
+            byte[] proof = new byte[20];
+            for (int i = 0; i < signature.Length; ++i)
+            {
+                proof[i] = (byte)(client_key[i] ^ signature[i]);
+            }
+
+            _client_proof = _utf.GetString(proof);
         }
 
-        private string Hi()
+        private byte[] Hi()
         {
             HMACSHA1 hmac;
             byte[] prev = new byte[20];
@@ -143,7 +199,7 @@ namespace ubiety.common.SASL
                 Array.Copy(temp, prev, temp.Length);
             }
 
-            return _utf.GetString(result);
+            return result;
         }
     }
 }
