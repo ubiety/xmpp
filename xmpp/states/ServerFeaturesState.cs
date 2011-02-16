@@ -76,6 +76,13 @@ namespace ubiety.states
 			{
 				Logger.Debug(this, "Creating SASL Processor");
 				_current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
+                if (_current.Processor == null)
+                {
+                    Logger.Debug(this, "No allowed type available. Allow more authentication options.");
+                    _current.State = new DisconnectState();
+                    _current.Execute();
+                    return;
+                }
 		        Logger.Debug(this, "Sending auth with mechanism type");
 				_current.Socket.Write(_current.Processor.Initialize(_current.ID, _current.Password));
 			

@@ -135,6 +135,7 @@
     <Compile Include="registries\Registry.cs" />
     <Compile Include="registries\RegistryAllocator.cs" />
     <Compile Include="registries\TagRegistry.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="states\BindingState.cs" />
     <Compile Include="states\ClosedState.cs" />
     <Compile Include="states\CompressedState.cs" />

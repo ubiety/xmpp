@@ -29,6 +29,7 @@ namespace TestXMPP
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+            Settings.AuthenticationTypes = ubiety.core.MechanismType.Default;
             XID id = new XID(txtUsername.Text);
 			xmpp = XMPP.Connect(id, txtPassword.Text, ssl: btnSSL.Checked);
 		}

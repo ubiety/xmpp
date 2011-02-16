@@ -26,21 +26,29 @@ namespace ubiety.core
     public enum MechanismType
     {
         ///<summary>
+        /// No Authentication
         ///</summary>
         None,
         ///<summary>
+        /// Plain Text Authentication (Only use on encrypted connections)
         ///</summary>
         PLAIN = (1 << 0),
         ///<summary>
+        /// DIGEST-MD5 Authentication
         ///</summary>
         DIGEST_MD5 = (1 << 1),
         ///<summary>
+        /// External Certificate Authentication (Not Implmented Yet)
         ///</summary>
         EXTERNAL = (1 << 2),
         /// <summary>
-        /// 
+        /// SCRAM-SHA-1 Authentication
         /// </summary>
-        SCRAM = (1 << 3)
+        SCRAM = (1 << 3),
+        /// <summary>
+        /// Default Authentication Types (SCRAM-SHA-1 and DIGEST-MD5)
+        /// </summary>
+        Default = SCRAM | DIGEST_MD5
     }
 
     /// <summary>

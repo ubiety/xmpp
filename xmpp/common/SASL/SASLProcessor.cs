@@ -21,6 +21,7 @@ using ubiety.core;
 using ubiety.logging;
 using System.Text;
 using System.Security.Cryptography;
+using ubiety;
 
 namespace ubiety.common.SASL
 {
@@ -40,29 +41,30 @@ namespace ubiety.common.SASL
         ///<exception cref="NotSupportedException"></exception>
         public static SASLProcessor CreateProcessor(MechanismType type)
         {
-            if ((type & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
+            if ((type & MechanismType.EXTERNAL & Settings.AuthenticationTypes) == MechanismType.EXTERNAL)
 			{
 				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
                 throw new NotSupportedException();
             }
 
-            if ((type & MechanismType.SCRAM) == MechanismType.SCRAM)
+            if ((type & MechanismType.SCRAM & Settings.AuthenticationTypes) == MechanismType.SCRAM)
             {
                 Logger.Debug(typeof(SASLProcessor), "Creating SCRAM-SHA-1 Processor");
                 return new SCRAMProcessor();
             }
 
-            if ((type & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
+            if ((type & MechanismType.DIGEST_MD5 & Settings.AuthenticationTypes) == MechanismType.DIGEST_MD5)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
 				return new MD5Processor();
             }
 
-            if ((type & MechanismType.PLAIN) == MechanismType.PLAIN)
+            if ((type & MechanismType.PLAIN & Settings.AuthenticationTypes) == MechanismType.PLAIN)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating PLAIN SASL processor");
             	return new PlainProcessor();
             }
+
             return null;
         }
 

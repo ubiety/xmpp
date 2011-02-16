@@ -50,15 +50,10 @@ namespace ubiety.states
 		/// <param name="data">
 		/// The <see cref="Tag"/> used in the state.
 		/// </param>
-		public void Execute(Tag data)
+		public void Execute(Tag data = null)
 		{
 			_state.Execute(data);
 		}
-
-        public void Execute()
-        {
-            _state.Execute(null);
-        }
 		
 		/// <value>
 		/// The current state we are in.
