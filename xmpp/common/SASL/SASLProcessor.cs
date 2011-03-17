@@ -74,12 +74,12 @@ namespace ubiety.common.SASL
 
     	///<summary>
     	///</summary>
-    	public virtual Tag Initialize(XID id, string password)
+    	public virtual Tag Initialize()
 		{
 			Logger.Debug(this, "Initializing Base Processor");
 			
-			_id = id;
-			_password = password;
+			_id = Settings.ID;
+			_password = Settings.Password;
 
 			return null;
 		}

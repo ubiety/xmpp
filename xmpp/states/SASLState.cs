@@ -1,6 +1,6 @@
 // SASLState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -50,7 +50,7 @@ namespace ubiety.states
 				_current.Authenticated = true;
 				// Return to the connected state to resend the start tag.
 				_current.State = new ConnectedState();
-				_current.Execute(null);
+				_current.Execute();
 			}
 			else if (res is ubiety.core.SASL.Failure)
 			{

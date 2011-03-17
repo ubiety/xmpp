@@ -57,9 +57,9 @@ namespace ubiety.common.SASL
         /// <param name="id"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-		public override Tag Initialize(XID id, string password)
+		public override Tag Initialize()
 		{
-			base.Initialize(id, password);
+			base.Initialize();
 			
 			Auth tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 			tag.Mechanism = Mechanism.GetMechanism(MechanismType.DIGEST_MD5);

@@ -15,20 +15,50 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ubiety.core;
+using ubiety.common;
 
 namespace ubiety
 {
     public static class Settings
     {
+        private static bool _ssl = false;
+        private static int _port = 5222;
+
         public static MechanismType AuthenticationTypes
         {
             get;
             set;
+        }
+
+        public static XID ID
+        {
+            get;
+            set;
+        }
+
+        public static string Password
+        {
+            get;
+            set;
+        }
+
+        public static string Hostname
+        {
+            get;
+            set;
+        }
+
+        public static int Port
+        {
+            get { return _port; }
+            set { _port = value; }
+        }
+
+        public static bool SSL
+        {
+            get { return _ssl; }
+            set { _ssl = value; }
         }
     }
 }

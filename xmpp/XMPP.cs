@@ -1,6 +1,6 @@
 // XMPP.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2010 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -51,10 +51,13 @@ namespace ubiety
 	///		public static Main()
 	///		{
 	///			// Create a new ID for authentication
-	///			XID id = new XID("user@jabber.org/chat");
+	///			Settings.ID = new XID("user@jabber.org/chat");
+    ///			Settings.Password = "password";
 	/// 
 	///			// Create a new instance of the XMPP class
-	///			XMPP ubiety = XMPP.Connect(id, "password");
+	///			XMPP ubiety = new XMPP();
+    ///			
+    ///         ubiety.Connect();
 	///		}
 	/// }
 	/// </code>
@@ -71,68 +74,47 @@ namespace ubiety
         /// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
 		/// </summary>
-		private XMPP()
+		public XMPP()
 		{
 			_reg.AddAssembly(Assembly.GetExecutingAssembly());
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
+            _states.Socket = new AsyncSocket();
 		}
-
-        /// <summary>
-        /// Connect to an XMPP server on port 5222 unencrypted with the XID and password.
-        /// </summary>
-        /// <param name="id">The XID that should be used for connecting.</param>
-        /// <param name="password">The password that should be used for authentication.</param>
-        [Obsolete("Use Connect(id, password, hostname, port, ssl).")]
-        public static XMPP Connect(XID id, string password)
-        {
-			return Connect(id, password, id.Server, 5222, false);
-        }
 
 		/// <summary>
 		/// Connect to an XMPP server.
 		/// </summary>
-		/// <param name="id">The XID to be used for connecting.</param>
-		/// <param name="password">The password to be used for authentication</param>
-		/// <param name="hostname">The hostname to connect to. Can be set to null to use XID server.</param>
-		/// <param name="port">The port to connect to if one is not provided by an SRV record.</param>
-		/// <param name="ssl">Use encryption if available?</param>
-		/// <returns></returns>
-		public static XMPP Connect(XID id, string password, string hostname = null, int port = 5222, bool ssl = false)
+		public void Connect()
         {
-			XMPP me = new XMPP();
-
-			_states.Socket = new AsyncSocket();
         	// We need an XID and Password to connect to the server.
-			if (String.IsNullOrEmpty(password))
+			if (String.IsNullOrEmpty(Settings.Password))
 			{
-				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property before connecting.", true);
-				return null;
+				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property of the Settings before connecting.", true);
+				return;
 			}
-			else if (String.IsNullOrEmpty(id))
+			else if (String.IsNullOrEmpty(Settings.ID))
 			{
-				_errors.SendError(typeof(XMPP), ErrorType.MissingID, "Set the ID property before connecting.", true);
-				return null;
+				_errors.SendError(typeof(XMPP), ErrorType.MissingID, "Set the ID property of the Settings before connecting.", true);
+				return;
 			}
 
-			// Do we use the server supplied from the XID or the alternate provided by the developer?
-			if (!String.IsNullOrEmpty(hostname))
-				_states.Socket.Hostname = hostname;
-			else
-				_states.Socket.Hostname = id.Server;
+            //// Do we use the server supplied from the XID or the alternate provided by the developer?
+            //if (!String.IsNullOrEmpty(Settings.Hostname))
+            //    _states.Socket.Hostname = Settings.Hostname;
+            //else
+            //    _states.Socket.Hostname = Settings.ID.Server;
 
 			Logger.InfoFormat(typeof(XMPP), "Connecting to {0}", _states.Socket.Hostname);
 
-			_states.ID = id;
-			_states.Password = password;
+            //_states.ID = id;
+            //_states.Password = password;
 
 			// Set the values we need to connect.
-			_states.Socket.SSL = ssl;
-            _states.Socket.Port = port;
+            //_states.Socket.SSL = ssl;
+            //_states.Socket.Port = port;
 			// Set the current state to connecting and start the process.
 			_states.State = new ConnectingState();
 			_states.Execute();
-
-			return me;
 		}
 		
 		/// <summary>

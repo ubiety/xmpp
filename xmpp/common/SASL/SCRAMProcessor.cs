@@ -25,6 +25,7 @@ using ubiety.logging;
 using ubiety.registries;
 using ubiety.core.SASL;
 using ubiety.core;
+using Gnu.Inet.Encoding;
 
 namespace ubiety.common.SASL
 {
@@ -53,9 +54,9 @@ namespace ubiety.common.SASL
         /// <param name="id"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public override Tag Initialize(XID id, string password)
+        public override Tag Initialize()
         {
-            base.Initialize(id, password);
+            base.Initialize();
             Logger.Debug(this, "Initializing SCRAM Processor");
 
             Logger.Debug(this, "Generating nonce");
@@ -64,7 +65,7 @@ namespace ubiety.common.SASL
             Logger.Debug(this, "Building Initial Message");
             StringBuilder msg = new StringBuilder();
             msg.Append("n,,n=");
-            msg.Append(id.User);
+            msg.Append(_id.User);
             msg.Append(",r=");
             msg.Append(_nonce);
             Logger.DebugFormat(this, "Message: {0}", msg.ToString());
@@ -101,8 +102,10 @@ namespace ubiety.common.SASL
             Logger.Debug(this, "Getting Salt");
             string a = tokens[1].Substring(2);
             _salt = Convert.FromBase64String(a);
-            string b = _utf.GetString(_salt);
-            Logger.DebugFormat(this, "Salt: {0}", b);
+            //string b = _utf.GetString(_salt);
+            //b += "1";
+            //_salt = _utf.GetBytes(b);
+            Logger.DebugFormat(this, "Salt: {0}", _salt);
 
             Logger.Debug(this, "Getting Iterations");
             string i = tokens[2].Substring(2);
@@ -173,7 +176,7 @@ namespace ubiety.common.SASL
             byte[] prev = new byte[20];
             byte[] temp = new byte[20];
             byte[] result = new byte[20];
-            byte[] password = _utf.GetBytes(_password);
+            byte[] password = _utf.GetBytes(Stringprep.SASLPrep(_password));
 
             // Add 1 to the end of salt with most significat octet first
             byte[] key = new byte[_salt.Length + 4];

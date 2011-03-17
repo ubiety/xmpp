@@ -289,6 +289,53 @@ namespace Gnu.Inet.Encoding
 			
 			return s.ToString();
 		}
+
+        public static string[] SASLPREP_SPACE_MAP = new string[] {
+            "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020", "\u0020"
+        };
+
+        public static string SASLPrep(string input, bool allowUnsigned = false)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+
+            StringBuilder s = new StringBuilder(input);
+
+            if (!allowUnsigned && Contains(s, RFC3454.A1))
+            {
+                throw new StringprepException(StringprepException.CONTAINS_UNASSIGNED);
+            }
+
+            Filter(s, RFC3454.B1);
+            Map(s, RFC3454.C12, SASLPREP_SPACE_MAP);
+
+            s = new StringBuilder(NFKC.NormalizeNFKC(s.ToString()));
+
+            if (Contains(s, RFC3454.C12) || Contains(s, RFC3454.C21) || Contains(s, RFC3454.C22) || Contains(s, RFC3454.C3) || Contains(s, RFC3454.C4) || Contains(s, RFC3454.C5) || Contains(s, RFC3454.C6) || Contains(s, RFC3454.C7) || Contains(s, RFC3454.C8)) 
+            {
+                throw new StringprepException(StringprepException.CONTAINS_PROHIBITED);
+            }
+
+            bool r = Contains(s, RFC3454.D1);
+            bool l = Contains(s, RFC3454.D2);
+
+            if (r && l)
+            {
+                throw new StringprepException(StringprepException.BIDI_BOTHRAL);
+            }
+
+            if (r)
+            {
+                if (!Contains(s[0], RFC3454.D1) || !Contains(s[s.Length - 1], RFC3454.D1))
+                {
+                    throw new StringprepException(StringprepException.BIDI_LTRAL);
+                }
+            }
+
+            return s.ToString();
+        }
 		
 		internal static bool Contains(StringBuilder s, char[] p)
 		{

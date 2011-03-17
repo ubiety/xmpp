@@ -30,8 +30,8 @@ namespace ubiety.states
 		private State _state;
 		private AsyncSocket _socket;
 		private SASLProcessor _proc;
-		private XID _id;
-		private string _password;
+        //private XID _id;
+        //private string _password;
 		private bool _authenticated = false;
 		private bool _compress = false;
 		private string _algorithm;
@@ -82,23 +82,23 @@ namespace ubiety.states
 			set { _proc = value; }
 		}
 		
-		/// <value>
-		/// The current XID used by the socket to connect.
-		/// </value>
-		public XID ID
-		{
-			get { return _id; }
-			set { _id = value; }
-		}
+        ///// <value>
+        ///// The current XID used by the socket to connect.
+        ///// </value>
+        //public XID ID
+        //{
+        //    get { return _id; }
+        //    set { _id = value; }
+        //}
 		
-		/// <value>
-		/// The password used to authenticate the user.
-		/// </value>
-		public string Password
-		{
-			get { return _password; }
-			set { _password = value; }
-		}
+        ///// <value>
+        ///// The password used to authenticate the user.
+        ///// </value>
+        //public string Password
+        //{
+        //    get { return _password; }
+        //    set { _password = value; }
+        //}
 		
 		/// <value>
 		/// Are we authenticated yet?

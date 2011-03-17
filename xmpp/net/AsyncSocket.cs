@@ -43,10 +43,10 @@ namespace ubiety.net
 		private byte[] _buff = new byte[4096];
 		private Stream _stream;
 		private string _hostname;
-		private bool _ssl;
+        //private bool _ssl;
 		private bool _secure;
 		private NetworkStream _netstream;
-        private int _port;
+        //private int _port;
         private ProtocolState _states = ProtocolState.Instance;
         private bool _connected;
 
@@ -71,7 +71,16 @@ namespace ubiety.net
         /// <returns>True if we connected, false if we didn't</returns>
 		public void Connect()
 		{
-			_dest = Address.Resolve(_hostname, _port);
+            if (!String.IsNullOrEmpty(Settings.Hostname))
+            {
+                _hostname = Settings.Hostname;
+            }
+            else
+            {
+                _hostname = Settings.ID.Server;
+            }
+
+			_dest = Address.Resolve(_hostname, Settings.Port);
 			if (_dest == null)
 				return;
 			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _dest.Port.ToString());
@@ -243,24 +252,29 @@ namespace ubiety.net
 		{
 			get { return _connected; }
 		}
+
+        public string Hostname
+        {
+            get { return _hostname; }
+        }
 		
-		/// <value>
-		/// 
-		/// </value>
-		public string Hostname
-		{
-			get { return _hostname; }
-			set { _hostname = value; }
-		}
+        ///// <value>
+        ///// 
+        ///// </value>
+        //public string Hostname
+        //{
+        //    get { return _hostname; }
+        //    set { _hostname = value; }
+        //}
 		
-		/// <value>
-		/// 
-		/// </value>
-		public bool SSL
-		{
-			get { return _ssl; }
-			set { _ssl = value; }
-		}
+        ///// <value>
+        ///// 
+        ///// </value>
+        //public bool SSL
+        //{
+        //    get { return _ssl; }
+        //    set { _ssl = value; }
+        //}
 		
 		/// <value>
 		/// 
@@ -271,10 +285,10 @@ namespace ubiety.net
 			set { _secure = value; }
 		}
 
-        public int Port
-        {
-            get { return _port; }
-            set { _port = value; }
-        }
+        //public int Port
+        //{
+        //    get { return _port; }
+        //    set { _port = value; }
+        //}
 	}
 }

@@ -64,7 +64,7 @@ namespace ubiety.states
 				f = data as Features;
 			}
 			
-			if (f.StartTLS != null && _current.Socket.SSL)
+			if (f.StartTLS != null && Settings.SSL)
 			{
 				_current.State = new StartTLSState();
 				StartTLS tls = (StartTLS)_reg.GetTag("starttls", Namespaces.START_TLS, _current.Document);
@@ -84,14 +84,14 @@ namespace ubiety.states
                     return;
                 }
 		        Logger.Debug(this, "Sending auth with mechanism type");
-				_current.Socket.Write(_current.Processor.Initialize(_current.ID, _current.Password));
+				_current.Socket.Write(_current.Processor.Initialize());
 			
 				_current.State = new SASLState();
 				return;
 			}
 
             // Takes place after authentication according to XEP-0170
-            if (!_current.Compress && CompressionRegistry.AlgorithmsAvailable && !_current.Socket.SSL)
+            if (!_current.Compress && CompressionRegistry.AlgorithmsAvailable && !Settings.SSL)
             {
                 Logger.Info(this, "Starting compression");
                 // Do we have a stream for any of the compressions supported by the server?

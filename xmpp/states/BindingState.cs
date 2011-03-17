@@ -37,10 +37,10 @@ namespace ubiety.states
 				Bind a = (Bind)_reg.GetTag("bind", Namespaces.BIND, _current.Document);
 				Iq b = (Iq)_reg.GetTag("iq", Namespaces.CLIENT, _current.Document);
 				
-				if (_current.ID.Resource != null)
+				if (Settings.ID.Resource != null)
 				{
 					Resource res = (Resource)_reg.GetTag("resource", Namespaces.BIND, _current.Document);
-					res.InnerText = _current.ID.Resource;
+					res.InnerText = Settings.ID.Resource;
 					a.AddChildTag(res);
 				}
 				
@@ -59,8 +59,8 @@ namespace ubiety.states
                     Error e = (Error)iq["error"];
                 }
 				Bind bind = iq.Payload as Bind;
-				_current.ID = bind.XID.XID;
-				Logger.InfoFormat(this, "Current XID is now: {0}", _current.ID);
+				Settings.ID = bind.XID.XID;
+				Logger.InfoFormat(this, "Current XID is now: {0}", Settings.ID);
 				
 				_current.State = new SessionState();
 				_current.Execute(null);

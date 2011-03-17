@@ -41,20 +41,20 @@ namespace ubiety.common.SASL
 		///<summary>
 		///</summary>
 		///<exception cref="NotImplementedException"></exception>
-		public override Tag Initialize(XID id, string password)
+		public override Tag Initialize()
 		{
 			//base.Initialize(id, password);
 			
 			Logger.Debug(this, "Initializing Plain Processor");
-			Logger.DebugFormat(this, "ID User: {0}", id.User);
-			Logger.DebugFormat(this, "Password: {0}", password);
+			Logger.DebugFormat(this, "ID User: {0}", Settings.ID.User);
+			Logger.DebugFormat(this, "Password: {0}", Settings.Password);
 
 			StringBuilder sb = new StringBuilder();
 
 			sb.Append((char) 0);
-			sb.Append(id.User);
+			sb.Append(Settings.ID.User);
 			sb.Append((char) 0);
-			sb.Append(password);
+			sb.Append(Settings.Password);
 
 			Auth auth = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 
