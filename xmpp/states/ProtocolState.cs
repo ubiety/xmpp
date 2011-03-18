@@ -1,6 +1,6 @@
 // ProtocolState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -30,8 +30,6 @@ namespace ubiety.states
 		private State _state;
 		private AsyncSocket _socket;
 		private SASLProcessor _proc;
-        //private XID _id;
-        //private string _password;
 		private bool _authenticated = false;
 		private bool _compress = false;
 		private string _algorithm;
@@ -82,24 +80,6 @@ namespace ubiety.states
 			set { _proc = value; }
 		}
 		
-        ///// <value>
-        ///// The current XID used by the socket to connect.
-        ///// </value>
-        //public XID ID
-        //{
-        //    get { return _id; }
-        //    set { _id = value; }
-        //}
-		
-        ///// <value>
-        ///// The password used to authenticate the user.
-        ///// </value>
-        //public string Password
-        //{
-        //    get { return _password; }
-        //    set { _password = value; }
-        //}
-		
 		/// <value>
 		/// Are we authenticated yet?
 		/// </value>
@@ -109,10 +89,10 @@ namespace ubiety.states
 			set { _authenticated = value; }
 		}
 		
-		/// <value>
-		/// Should we compress the stream if available?
-		/// </value>
-		public bool Compress
+		/// <summary>
+		/// Is the stream currently compressed?
+		/// </summary>
+		public bool Compressed
 		{
 			get { return _compress; }
 			set { _compress = value; }

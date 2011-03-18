@@ -42,7 +42,7 @@ namespace ubiety.states
 			{
 				Logger.Debug(this, "Starting compression of the socket");
 				_current.Socket.StartCompression(_current.Algorithm);
-				_current.Compress = true;
+				_current.Compressed = true;
 				_current.State = new ConnectedState();
 				_current.Execute(null);
 			}

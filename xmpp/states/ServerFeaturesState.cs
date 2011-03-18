@@ -91,7 +91,7 @@ namespace ubiety.states
 			}
 
             // Takes place after authentication according to XEP-0170
-            if (!_current.Compress && CompressionRegistry.AlgorithmsAvailable && !Settings.SSL)
+            if (!_current.Compressed && CompressionRegistry.AlgorithmsAvailable && !Settings.SSL && f.Compression.Algorithms.Length > 0)
             {
                 Logger.Info(this, "Starting compression");
                 // Do we have a stream for any of the compressions supported by the server?
