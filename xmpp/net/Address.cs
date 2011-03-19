@@ -103,9 +103,10 @@ namespace ubiety.net
 		}
 
 		private static Address ResolveDNS(string hostname, int port) {
-			Address temp;
+            if (hostname == "localhost" || hostname == "ubiety")
+                return null;
 
-			temp = new Address(hostname, port);
+			Address temp = new Address(hostname, port);
 			
 			Logger.Debug(typeof(Address), "Getting DNS addresses");
 			NetworkInterface[] net = NetworkInterface.GetAllNetworkInterfaces();

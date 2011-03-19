@@ -1,6 +1,6 @@
 // ZLibStream.cs
 //
-//XMPP .NET Library Copyright (C) 2008 Dieter Lunn
+//XMPP .NET Library Copyright (C) 2008, 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -89,6 +89,7 @@ namespace ubiety.compression.sharpziplib
 		public override void Write (byte[] buffer, int offset, int count)
 		{
 			_out.SetInput(buffer, offset, count);
+            _out.Flush();
 			
 			while (!_out.IsNeedingInput)
 			{
@@ -132,26 +133,33 @@ namespace ubiety.compression.sharpziplib
 		{
 			int avail = 0;
 			int ret = 0;
+            MemoryStream ms = new MemoryStream();
 			
 			if ( !(async_result is ZlibStreamAsyncResult) )
 			{
 				avail = _innerStream.EndRead(async_result);
 			}
 			
-			Logger.Debug(this, _inBuff);
+            //Logger.Debug(this, _inBuff);
 			
-			_in.SetInput(_inBuff, _inBuff.Length - avail, avail);
+			_in.SetInput(_inBuff, 0, avail);
 			
 			try
 			{
-				ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
+                do {
+    				ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
+                    if (ret > 0)
+                        ms.Write(_outBuff, 0, ret);
+                } while (ret > 0);
 			}
 			catch (Exception e)
 			{
 				Errors.Instance.SendError(this, ErrorType.CompressionFailed, e.Message);
 			}
+
+            _outBuff = ms.ToArray();
 			
-			Logger.Debug(this, _outBuff);
+            //Logger.Debug(this, _outBuff);
 			
 			return ret;
 		}

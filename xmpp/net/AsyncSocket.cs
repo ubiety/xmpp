@@ -107,7 +107,7 @@ namespace ubiety.net
             		    _stream = _netstream;
                 		_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
 	                	_states.State = new ConnectedState();
-	    	            _states.Execute(null);
+	    	            _states.Execute();
     	    	    }
                 }
                 else
@@ -215,11 +215,11 @@ namespace ubiety.net
 		{
             try
             {
-            	if (!_connected || _states.State is ClosedState)
-            	{
-            		return;
-            	}
-            	Logger.Debug(this, ar.GetType().FullName);
+                if (!_connected || _states.State is ClosedState)
+                {
+                    return;
+                }
+                Logger.Debug(this, ar.GetType().FullName);
                 int rx = _stream.EndRead(ar);
                 _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
                 if (!_encrypting)
@@ -232,6 +232,10 @@ namespace ubiety.net
             catch (InvalidOperationException e)
             {
                 Logger.DebugFormat(this, "Invalid Operation: {0}", e);
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
 		}
 		

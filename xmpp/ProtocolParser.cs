@@ -124,7 +124,7 @@ namespace ubiety
 				if (_states.Socket.Connected)
 				{
 					_states.State = new DisconnectState();
-					_states.Execute(null);
+					_states.Execute();
 				}				
             }
             catch (InvalidOperationException e)
