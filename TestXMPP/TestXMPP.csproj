@@ -93,17 +93,9 @@
       <Project>{E66CB0F8-4300-4FA7-B416-E5387AAB3655}</Project>
       <Name>log4net.Appender.RichTextBoxAppender</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ubiety.compression.dotnetzip\ubiety.compression.dotnetzip.csproj">
-      <Project>{7FD66F5D-47AC-411C-9734-01D79CC56F1D}</Project>
-      <Name>ubiety.compression.dotnetzip</Name>
-    </ProjectReference>
     <ProjectReference Include="..\xmpp.compression.sharpziplib\xmpp.compression.sharpziplib.csproj">
       <Project>{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}</Project>
       <Name>xmpp.compression.sharpziplib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\xmpp.compression.zlib\xmpp.compression.zlib.csproj">
-      <Project>{9B065315-959E-4775-9EDF-71837FD711CF}</Project>
-      <Name>xmpp.compression.zlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\xmpp\ubiety.csproj">
       <Project>{FB8056A1-0547-4CEF-BA68-0154462BC3DB}</Project>

@@ -219,11 +219,15 @@ namespace ubiety.net
                 {
                     return;
                 }
-                Logger.Debug(this, ar.GetType().FullName);
+                //Logger.Debug(this, ar.GetType().FullName);
                 int rx = _stream.EndRead(ar);
-                _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+
+                string m = _utf.GetString(TrimNull(_buff));
+
+                Logger.DebugFormat(this, "Incoming Message: {0}", m);
                 if (!_encrypting)
-                    ProtocolParser.Parse(_buff, rx);
+                    ProtocolParser.Parse(m, rx);
+                _stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
             }
             catch (SocketException e)
             {
@@ -249,6 +253,28 @@ namespace ubiety.net
 			_stream = CompressionRegistry.Instance.GetCompression(algorithm, _stream);
 		}
 
+        private byte[] TrimNull(byte[] message)
+        {
+            if (message.Length > 1)
+            {
+                int c = message.Length - 1;
+                while (message[c] == 0x00)
+                {
+                    c--;
+                }
+
+                byte[] r = new byte[(c + 1)];
+                for (int i = 0; i < (c + 1); i++)
+                {
+                    r[i] = message[i];
+                }
+
+                return r;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Gets the current status of the socket.
         /// </summary>
@@ -257,42 +283,21 @@ namespace ubiety.net
 			get { return _connected; }
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Hostname
         {
             get { return _hostname; }
         }
 		
-        ///// <value>
-        ///// 
-        ///// </value>
-        //public string Hostname
-        //{
-        //    get { return _hostname; }
-        //    set { _hostname = value; }
-        //}
-		
-        ///// <value>
-        ///// 
-        ///// </value>
-        //public bool SSL
-        //{
-        //    get { return _ssl; }
-        //    set { _ssl = value; }
-        //}
-		
-		/// <value>
+		/// <summary>
 		/// 
-		/// </value>
+		/// </summary>
 		public bool Secure
 		{
 			get { return _secure; }
 			set { _secure = value; }
 		}
-
-        //public int Port
-        //{
-        //    get { return _port; }
-        //    set { _port = value; }
-        //}
 	}
 }

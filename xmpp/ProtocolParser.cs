@@ -44,24 +44,20 @@ namespace ubiety
 
 		private static XmlReader _reader;
 		private static XmlReaderSettings _settings;
-		private static Decoder _decoder = Encoding.UTF8.GetDecoder();
         #endregion
 
 		/// <summary>
 		/// Parses the message into its appropriate <seealso cref="Tag"/>
 		/// </summary>
-		public static void Parse(byte[] m, int length)
+		public static void Parse(string message, int length)
 		{
 			if (_states.State.GetType() == typeof(ClosedState))
 			{
 				Logger.Debug(typeof(ProtocolParser), "Closed.  Nothing to do");
 				return;
 			}
-		
-			char[] chars = new char[length];
-            _decoder.GetChars(m, 0, length, chars, 0);
-            string message = new string(chars);
-            Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
+
+            //Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
 
 			// Moved the initialization into the parse method because it has become static.  Don't really need an instance to parse the string.
 			Logger.Info(typeof(ProtocolParser), "Setting up environment");
@@ -231,7 +227,7 @@ namespace ubiety
             XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)
 			{
-				Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
+                //Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
 				ubiety.common.Tag tag = (ubiety.common.Tag)_elem;
 				if (tag is ubiety.core.Stream)
 					_states.State = new ServerFeaturesState();
@@ -246,7 +242,7 @@ namespace ubiety
                 }
 			}
 			
-			Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
+            //Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
 			_elem = parent;
 		}
 		
