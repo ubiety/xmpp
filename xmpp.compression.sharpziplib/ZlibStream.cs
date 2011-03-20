@@ -115,7 +115,12 @@ namespace ubiety.compression.sharpziplib
 		
 		public override int Read (byte[] buffer, int offset, int count)
 		{
-			throw new NotImplementedException ();
+			if (count <= 0)
+				return 0;
+
+			_outBuff = buffer;
+			int ret = _innerStream.Read(_inBuff, 0, _inBuff.Length);
+			_in.SetInput(_inBuff, 0, _inBuff.Length);
 		}
 
 		public override IAsyncResult BeginRead (byte[] buffer, int offset, int count, AsyncCallback cback, object state)
