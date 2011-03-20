@@ -20,45 +20,81 @@ using ubiety.common;
 
 namespace ubiety
 {
-    public static class Settings
-    {
-        private static bool _ssl = false;
-        private static int _port = 5222;
+	public static class Settings
+	{
+		private static bool _ssl = false;
+		private static int _port = 5222;
 
-        public static MechanismType AuthenticationTypes
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		/// Gets or sets the authentication types to be used when connecting to a server.
+		/// </summary>
+		/// <value>
+		/// The authentication type or types to be used.
+		/// </value>
+		public static MechanismType AuthenticationTypes
+		{
+			get;
+			set;
+		}
 
-        public static XID ID
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		/// Gets or sets the ID of the user for authentication.
+		/// </summary>
+		/// <value>
+		/// The ID.
+		/// </value>
+		public static XID ID
+		{
+			get;
+			set;
+		}
 
-        public static string Password
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		/// Gets or sets the users password for authentication.
+		/// </summary>
+		/// <value>
+		/// The password.
+		/// </value>
+		public static string Password
+		{
+			get;
+			set;
+		}
 
-        public static string Hostname
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		/// Gets or sets the hostname used to connect to the server if you don't want to connect to the server provided in the ID.
+		/// </summary>
+		/// <value>
+		/// The hostname.
+		/// </value>
+		public static string Hostname
+		{
+			get;
+			set;
+		}
 
-        public static int Port
-        {
-            get { return _port; }
-            set { _port = value; }
-        }
+		/// <summary>
+		/// Gets or sets the port to connect to if your server doesn't support the default 5222 and its not set with SRV.
+		/// </summary>
+		/// <value>
+		/// The port.
+		/// </value>
+		public static int Port
+		{
+			get { return _port; }
+			set { _port = value; }
+		}
 
-        public static bool SSL
-        {
-            get { return _ssl; }
-            set { _ssl = value; }
-        }
-    }
+		/// <summary>
+		/// Gets or sets a value indicating whether this connection should use SSL encryption.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if SSL is to be used; otherwise, <c>false</c>.
+		/// </value>
+		public static bool SSL
+		{
+			get { return _ssl; }
+			set { _ssl = value; }
+		}
+	}
 }
