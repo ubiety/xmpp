@@ -52,41 +52,42 @@ namespace ubiety
 	///		{
 	///			// Create a new ID for authentication
 	///			Settings.ID = new XID("user@jabber.org/chat");
-    ///			Settings.Password = "password";
+	///			Settings.Password = "password";
 	/// 
 	///			// Create a new instance of the XMPP class
 	///			XMPP ubiety = new XMPP();
-    ///			
-    ///         ubiety.Connect();
+	///			
+	///         ubiety.Connect();
 	///		}
 	/// }
 	/// </code>
 	/// </example>
 	public class XMPP
-    {
-        #region Private Members
-        private TagRegistry _reg = TagRegistry.Instance;
+	{
+		#region Private Members
+		private TagRegistry _reg = TagRegistry.Instance;
 		private static Errors _errors = Errors.Instance;
 		private static ProtocolState _states = ProtocolState.Instance;
-        private static string _version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        #endregion
+		private static string _version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		#endregion
 
-        /// <summary>
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
 		/// </summary>
 		public XMPP()
 		{
 			_reg.AddAssembly(Assembly.GetExecutingAssembly());
 			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
-            _states.Socket = new AsyncSocket();
+			_states.Socket = new AsyncSocket();
 		}
 
 		/// <summary>
-		/// Connect to an XMPP server.
+		/// Connects this instance to an XMPP server.
 		/// </summary>
 		public void Connect()
-        {
-        	// We need an XID and Password to connect to the server.
+		{
+			// We need an XID and Password to connect to the server.
 			if (String.IsNullOrEmpty(Settings.Password))
 			{
 				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property of the Settings before connecting.", true);
@@ -98,58 +99,50 @@ namespace ubiety
 				return;
 			}
 
-            //// Do we use the server supplied from the XID or the alternate provided by the developer?
-            //if (!String.IsNullOrEmpty(Settings.Hostname))
-            //    _states.Socket.Hostname = Settings.Hostname;
-            //else
-            //    _states.Socket.Hostname = Settings.ID.Server;
-
 			Logger.InfoFormat(typeof(XMPP), "Connecting to {0}", _states.Socket.Hostname);
 
-            //_states.ID = id;
-            //_states.Password = password;
-
-			// Set the values we need to connect.
-            //_states.Socket.SSL = ssl;
-            //_states.Socket.Port = port;
 			// Set the current state to connecting and start the process.
 			_states.State = new ConnectingState();
 			_states.Execute();
 		}
-		
+
 		/// <summary>
-		/// Disconnect from the XMPP server
+		/// Disconnects this instance from the server.
 		/// </summary>
 		public void Disconnect()
 		{
-            if (!(_states.State is DisconnectState))
-            {
-                _states.State = new DisconnectState();
-                _states.Execute();
-            }
+			if (!(_states.State is DisconnectState))
+			{
+				_states.State = new DisconnectState();
+				_states.Execute();
+			}
 		}
 		
 		private void OnError(object sender, ErrorEventArgs e)
 		{
 			Logger.ErrorFormat(this, "Error from {0}: {1}", sender, e.Message);
-            if ( e.Fatal )
-            {
-                Disconnect();
-            }
+			if ( e.Fatal )
+			{
+				Disconnect();
+			}
 		}
 
-        #region Properties
-        /// <summary>
-        /// Provides the Ubiety assembly version
-        /// </summary>
-        public static string Version
-        {
-            get { return _version; }
-        }
-		
-        /// <summary>
-        /// Returns true if it is not in a closed state.
-        /// </summary>
+		#region Properties
+
+		/// <summary>
+		/// Gets the version of the assembly.
+		/// </summary>
+		public static string Version
+		{
+			get { return _version; }
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this <see cref="XMPP"/> is connected to a server.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if connected; otherwise, <c>false</c>.
+		/// </value>
 		public bool Connected
 		{
 			get 
@@ -160,6 +153,6 @@ namespace ubiety
 					return true;
 			}
 		}
-        #endregion
-    }
+		#endregion
+	}
 }

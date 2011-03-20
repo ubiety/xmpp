@@ -89,7 +89,7 @@ namespace ubiety.compression.sharpziplib
 		public override void Write (byte[] buffer, int offset, int count)
 		{
 			_out.SetInput(buffer, offset, count);
-            _out.Flush();
+			_out.Flush();
 			
 			while (!_out.IsNeedingInput)
 			{
@@ -133,33 +133,33 @@ namespace ubiety.compression.sharpziplib
 		{
 			int avail = 0;
 			int ret = 0;
-            MemoryStream ms = new MemoryStream();
+			MemoryStream ms = new MemoryStream();
 			
 			if ( !(async_result is ZlibStreamAsyncResult) )
 			{
 				avail = _innerStream.EndRead(async_result);
 			}
 			
-            //Logger.Debug(this, _inBuff);
+			//Logger.Debug(this, _inBuff);
 			
 			_in.SetInput(_inBuff, 0, avail);
 			
 			try
 			{
-                do {
-    				ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
-                    if (ret > 0)
-                        ms.Write(_outBuff, 0, ret);
-                } while (ret > 0);
+				do {
+					ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
+					if (ret > 0)
+						ms.Write(_outBuff, 0, ret);
+				} while (ret > 0);
 			}
 			catch (Exception e)
 			{
 				Errors.Instance.SendError(this, ErrorType.CompressionFailed, e.Message);
 			}
 
-            _outBuff = ms.ToArray();
+			_outBuff = ms.ToArray();
 			
-            //Logger.Debug(this, _outBuff);
+			//Logger.Debug(this, _outBuff);
 			
 			return ret;
 		}

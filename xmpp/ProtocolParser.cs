@@ -34,8 +34,8 @@ namespace ubiety
 	/// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
 	/// </remarks>
 	internal class ProtocolParser
-    {
-        #region << Private Members >>
+	{
+		#region << Private Members >>
 		private static XmlNamespaceManager _ns;
 		private static TagRegistry _reg = TagRegistry.Instance;
 		private static ProtocolState _states = ProtocolState.Instance;
@@ -44,7 +44,7 @@ namespace ubiety
 
 		private static XmlReader _reader;
 		private static XmlReaderSettings _settings;
-        #endregion
+		#endregion
 
 		/// <summary>
 		/// Parses the message into its appropriate <seealso cref="Tag"/>
@@ -57,7 +57,7 @@ namespace ubiety
 				return;
 			}
 
-            //Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
+			//Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
 
 			// Moved the initialization into the parse method because it has become static.  Don't really need an instance to parse the string.
 			Logger.Info(typeof(ProtocolParser), "Setting up environment");
@@ -68,7 +68,7 @@ namespace ubiety
 			_ns.AddNamespace("", Namespaces.CLIENT);
 			_ns.AddNamespace("stream", Namespaces.STREAM);
 
-            Logger.Info(typeof(ProtocolParser), "Starting message parsing...");
+			Logger.Info(typeof(ProtocolParser), "Starting message parsing...");
 
 			Logger.InfoFormat(typeof(ProtocolParser), "Current State: {0}", _states.State);
 
@@ -78,55 +78,55 @@ namespace ubiety
 				Logger.Info(typeof(ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
 				_states.State = new ClosedState();
-                _states.Execute(null);
-                return;
-            }
+				_states.Execute(null);
+				return;
+			}
 
 			// We have to cheat because XmlTextReader doesn't like malformed XML
-            if (message.Contains("<stream:stream"))
-            {
-            	Logger.Debug(typeof(ProtocolParser), "Adding closing tag so xml parser doesn't complain");
-                message += "</stream:stream>";
-            }
-            
+			if (message.Contains("<stream:stream"))
+			{
+				Logger.Debug(typeof(ProtocolParser), "Adding closing tag so xml parser doesn't complain");
+				message += "</stream:stream>";
+			}
+			
 			XmlParserContext context = new XmlParserContext(null, _ns, null, XmlSpace.None);
-            _reader = XmlReader.Create(new StringReader(message), _settings, context);
-            try
-            {
-                while (_reader.Read())
-                {
-                    switch (_reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-                            StartTag();
-                            if (_reader.IsEmptyElement)
-                            {
-                                EndTag();
-                            }
-                            break;
-                        case XmlNodeType.EndElement:
-                            EndTag();
-                            break;
-                        case XmlNodeType.Text:
-                            AddText();
-                            break;
-                    }
-                }
-            }
-            catch (XmlException e)
-            {
-                Logger.ErrorFormat(typeof(ProtocolParser), "Message Parsing Error: {0}", e);
+			_reader = XmlReader.Create(new StringReader(message), _settings, context);
+			try
+			{
+				while (_reader.Read())
+				{
+					switch (_reader.NodeType)
+					{
+						case XmlNodeType.Element:
+							StartTag();
+							if (_reader.IsEmptyElement)
+							{
+								EndTag();
+							}
+							break;
+						case XmlNodeType.EndElement:
+							EndTag();
+							break;
+						case XmlNodeType.Text:
+							AddText();
+							break;
+					}
+				}
+			}
+			catch (XmlException e)
+			{
+				Logger.ErrorFormat(typeof(ProtocolParser), "Message Parsing Error: {0}", e);
 				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Error parsing incoming XML.  Please try again.");
 				if (_states.Socket.Connected)
 				{
 					_states.State = new DisconnectState();
 					_states.Execute();
 				}				
-            }
-            catch (InvalidOperationException e)
-            {
-            	Logger.ErrorFormat(typeof(ProtocolParser), "Invalid Operation: {0}", e);
-            }
+			}
+			catch (InvalidOperationException e)
+			{
+				Logger.ErrorFormat(typeof(ProtocolParser), "Invalid Operation: {0}", e);
+			}
 		}
 
 		private static void AddText()
@@ -165,7 +165,7 @@ namespace ubiety
 			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
 			XmlElement elem = _reg.GetTag(q, _states.Document);
 
-            //Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
+			//Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 
 			foreach (string attrname in ht.Keys)
 			{
@@ -191,11 +191,11 @@ namespace ubiety
 
 			if (_root == null)
 			{
-                if (elem.Name != "stream:stream")
-                {
-                    Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.WrongProtocolVersion, "Missing stream:stream from server");
-                    return;
-                }
+				if (elem.Name != "stream:stream")
+				{
+					Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.WrongProtocolVersion, "Missing stream:stream from server");
+					return;
+				}
 
 				_root = elem;
 				// If the tag is a stream change to the Server Features State.
@@ -213,36 +213,36 @@ namespace ubiety
 
 		private static void EndTag()
 		{
-            if ((_elem == null) && (_reader.Name == "stream:stream"))
-                return;
+			if ((_elem == null) && (_reader.Name == "stream:stream"))
+				return;
 
 			if ((_elem.Name != _reader.Name))
 			{
 				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Wrong element");
-                return;
+				return;
 			}
-            
-            //Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
-            
-            XmlElement parent = (XmlElement)_elem.ParentNode;
+			
+			//Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
+			
+			XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)
 			{
-                //Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
+				//Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
 				ubiety.common.Tag tag = (ubiety.common.Tag)_elem;
 				if (tag is ubiety.core.Stream)
 					_states.State = new ServerFeaturesState();
 				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
-                if (tag is ubiety.core.Error)
-                {
-                    Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Stream Error", true);
-                }
-                else
-                {
-                    _states.Execute(tag);
-                }
+				if (tag is ubiety.core.Error)
+				{
+					Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Stream Error", true);
+				}
+				else
+				{
+					_states.Execute(tag);
+				}
 			}
 			
-            //Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
+			//Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
 			_elem = parent;
 		}
 		
