@@ -1,6 +1,6 @@
 // ProtocolParser.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -165,7 +165,7 @@ namespace ubiety
 			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
 			XmlElement elem = _reg.GetTag(q, _states.Document);
 
-			Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
+            //Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 
 			foreach (string attrname in ht.Keys)
 			{
@@ -222,7 +222,7 @@ namespace ubiety
                 return;
 			}
             
-            Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
+            //Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
             
             XmlElement parent = (XmlElement)_elem.ParentNode;
 			if (parent == null)
