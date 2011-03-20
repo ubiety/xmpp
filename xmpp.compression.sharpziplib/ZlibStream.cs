@@ -115,32 +115,20 @@ namespace ubiety.compression.sharpziplib
 		
 		public override int Read (byte[] buffer, int offset, int count)
 		{
-			int ret = 0;
-			MemoryStream ms = new MemoryStream();
-
 			if (count <= 0)
 				return 0;
 
-			_outBuff = buffer;
 			int r = _innerStream.Read(_inBuff, 0, _inBuff.Length);
-			_in.SetInput(_inBuff, 0, _inBuff.Length);
 			try
 			{
-				do
-				{
-					ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
-					if (ret > 0)
-						ms.Write(_outBuff, 0, ret);
-				} while (ret > 0);
+				buffer = Inflate(_inBuff, r);
 			}
 			catch (Exception e)
 			{
 				Errors.Instance.SendError(this, ErrorType.CompressionFailed, e.Message);
 			}
 
-			_outBuff = ms.ToArray();
-
-			return ret;
+			return r;
 		}
 
 		public override IAsyncResult BeginRead (byte[] buffer, int offset, int count, AsyncCallback cback, object state)
@@ -157,8 +145,6 @@ namespace ubiety.compression.sharpziplib
 		public override int EndRead (IAsyncResult async_result)
 		{
 			int avail = 0;
-			int ret = 0;
-			MemoryStream ms = new MemoryStream();
 			
 			if ( !(async_result is ZlibStreamAsyncResult) )
 			{
@@ -167,26 +153,36 @@ namespace ubiety.compression.sharpziplib
 			
 			//Logger.Debug(this, _inBuff);
 			
-			_in.SetInput(_inBuff, 0, avail);
-			
 			try
 			{
-				do {
-					ret = _in.Inflate(_outBuff, 0, _outBuff.Length);
-					if (ret > 0)
-						ms.Write(_outBuff, 0, ret);
-				} while (ret > 0);
+				_outBuff = Inflate(_inBuff, avail);
 			}
 			catch (Exception e)
 			{
 				Errors.Instance.SendError(this, ErrorType.CompressionFailed, e.Message);
 			}
-
-			_outBuff = ms.ToArray();
 			
 			//Logger.Debug(this, _outBuff);
 			
-			return ret;
+			return avail;
+		}
+
+		private byte[] Inflate(byte[] data, int length)
+		{
+			int ret;
+
+			_in.SetInput(data, 0, length);
+
+			MemoryStream ms = new MemoryStream();
+			do
+			{
+				byte[] buffer = new byte[_outBuff.Length];
+				ret = _in.Inflate(buffer);
+				if (ret > 0)
+					ms.Write(buffer, 0, ret);
+			} while (ret > 0);
+
+			return ms.ToArray();
 		}
 
 		private class ZlibStreamAsyncResult : IAsyncResult
