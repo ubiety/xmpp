@@ -116,6 +116,22 @@
     <Compile Include="Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
+    <Compile Include="net\compression\Checksums\Adler32.cs" />
+    <Compile Include="net\compression\Checksums\CRC32.cs" />
+    <Compile Include="net\compression\Checksums\IChecksum.cs" />
+    <Compile Include="net\compression\Checksums\StrangeCRC.cs" />
+    <Compile Include="net\compression\SharpZipBaseException.cs" />
+    <Compile Include="net\compression\Zip\Compression\Deflater.cs" />
+    <Compile Include="net\compression\Zip\Compression\DeflaterConstants.cs" />
+    <Compile Include="net\compression\Zip\Compression\DeflaterEngine.cs" />
+    <Compile Include="net\compression\Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="net\compression\Zip\Compression\DeflaterPending.cs" />
+    <Compile Include="net\compression\Zip\Compression\Inflater.cs" />
+    <Compile Include="net\compression\Zip\Compression\InflaterDynHeader.cs" />
+    <Compile Include="net\compression\Zip\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="net\compression\Zip\Compression\PendingBuffer.cs" />
+    <Compile Include="net\compression\Zip\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="net\compression\Zip\Compression\Streams\StreamManipulator.cs" />
     <Compile Include="net\dns\ANameRecord.cs" />
     <Compile Include="net\dns\Enums.cs" />
     <Compile Include="net\dns\InvalidResponseException.cs" />
@@ -181,7 +197,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
