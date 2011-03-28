@@ -16,24 +16,33 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
 using ubiety.attributes;
+using ubiety.common;
 
 namespace ubiety.core.SASL
 {
-	[XmppTag("auth", Namespaces.SASL, typeof(Auth))]
-	class Auth : ubiety.common.Tag
+	///<summary>
+	///</summary>
+	[XmppTag("auth", Namespaces.SASL, typeof (Auth))]
+	public class Auth : Tag
 	{
+		///<summary>
+		///</summary>
+		///<param name="doc"></param>
 		public Auth(XmlDocument doc) : base("", new XmlQualifiedName("auth", Namespaces.SASL), doc)
 		{
 		}
 
+		///<summary>
+		///</summary>
 		public string Mechanism
 		{
 			get { return GetAttribute("mechanism"); }
 			set { SetAttribute("mechanism", value); }
 		}
 
+		///<summary>
+		///</summary>
 		public string Text
 		{
 			get { return InnerText; }

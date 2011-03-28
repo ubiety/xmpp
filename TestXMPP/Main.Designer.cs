@@ -63,7 +63,7 @@ namespace TestXMPP
 			this.btnConnect.Name = "btnConnect";
 			this.btnConnect.Size = new System.Drawing.Size(23, 22);
 			this.btnConnect.Text = "Connect";
-			this.btnConnect.Click += new System.EventHandler(this.button1_Click);
+			this.btnConnect.Click += new System.EventHandler(this.Button1Click);
 			// 
 			// btnSSL
 			// 
@@ -83,7 +83,7 @@ namespace TestXMPP
 			this.btnExit.Name = "btnExit";
 			this.btnExit.Size = new System.Drawing.Size(23, 22);
 			this.btnExit.Text = "Exit";
-			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+			this.btnExit.Click += new System.EventHandler(this.BtnExitClick);
 			// 
 			// statusStrip1
 			// 
@@ -165,7 +165,7 @@ namespace TestXMPP
 			this.Controls.Add(this.toolStrip1);
 			this.Name = "Main";
 			this.Text = "TestXMPP";
-			this.Load += new System.EventHandler(this.Main_Load);
+			this.Load += new System.EventHandler(this.MainLoad);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.statusStrip1.ResumeLayout(false);

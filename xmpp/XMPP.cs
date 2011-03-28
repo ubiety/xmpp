@@ -16,15 +16,15 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 #region Usings
+
 using System;
 using System.Reflection;
-using System.Xml;
 using ubiety.common;
-using ubiety.core;
+using ubiety.logging;
 using ubiety.net;
 using ubiety.registries;
 using ubiety.states;
-using ubiety.logging;
+
 #endregion
 
 namespace ubiety
@@ -64,13 +64,12 @@ namespace ubiety
 	/// </example>
 	public class XMPP
 	{
-		#region Private Members
-		private TagRegistry _reg = TagRegistry.Instance;
-		private static Errors _errors = Errors.Instance;
-		private static ProtocolState _states = ProtocolState.Instance;
-		private static string _version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-		#endregion
-
+		private static readonly Errors Errors = Errors.Instance;
+		private static readonly ProtocolState States = ProtocolState.Instance;
+		///<summary>
+		///</summary>
+		public static readonly string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		private readonly TagRegistry _reg = TagRegistry.Instance;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
@@ -78,8 +77,8 @@ namespace ubiety
 		public XMPP()
 		{
 			_reg.AddAssembly(Assembly.GetExecutingAssembly());
-			_errors.OnError += new EventHandler<ErrorEventArgs>(OnError);
-			_states.Socket = new AsyncSocket();
+			Errors.OnError += OnError;
+			States.Socket = new AsyncSocket();
 		}
 
 		/// <summary>
@@ -90,20 +89,22 @@ namespace ubiety
 			// We need an XID and Password to connect to the server.
 			if (String.IsNullOrEmpty(Settings.Password))
 			{
-				_errors.SendError(typeof(XMPP), ErrorType.MissingPassword, "Set the Password property of the Settings before connecting.", true);
-				return;
-			}
-			else if (String.IsNullOrEmpty(Settings.ID))
-			{
-				_errors.SendError(typeof(XMPP), ErrorType.MissingID, "Set the ID property of the Settings before connecting.", true);
+				Errors.SendError(typeof (XMPP), ErrorType.MissingPassword,
+				                  "Set the Password property of the Settings before connecting.", true);
 				return;
 			}
 
-			Logger.InfoFormat(typeof(XMPP), "Connecting to {0}", _states.Socket.Hostname);
+			if (String.IsNullOrEmpty(Settings.Id))
+			{
+				Errors.SendError(typeof (XMPP), ErrorType.MissingId, "Set the ID property of the Settings before connecting.", true);
+				return;
+			}
+
+			Logger.InfoFormat(typeof (XMPP), "Connecting to {0}", States.Socket.Hostname);
 
 			// Set the current state to connecting and start the process.
-			_states.State = new ConnectingState();
-			_states.Execute();
+			States.State = new ConnectingState();
+			States.Execute();
 		}
 
 		/// <summary>
@@ -111,32 +112,21 @@ namespace ubiety
 		/// </summary>
 		public void Disconnect()
 		{
-			if (!(_states.State is DisconnectState))
-			{
-				_states.State = new DisconnectState();
-				_states.Execute();
-			}
+			if ((States.State is DisconnectState)) return;
+			States.State = new DisconnectState();
+			States.Execute();
 		}
-		
+
 		private void OnError(object sender, ErrorEventArgs e)
 		{
 			Logger.ErrorFormat(this, "Error from {0}: {1}", sender, e.Message);
-			if ( e.Fatal )
+			if (e.Fatal)
 			{
 				Disconnect();
 			}
 		}
 
 		#region Properties
-
-		/// <summary>
-		/// Gets the version of the assembly.
-		/// </summary>
-		public static string Version
-		{
-			get { return _version; }
-		}
-
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="XMPP"/> is connected to a server.
 		/// </summary>
@@ -145,14 +135,9 @@ namespace ubiety
 		/// </value>
 		public bool Connected
 		{
-			get 
-			{
-				if (_states.State.GetType() == typeof(ClosedState))
-					return false;
-				else
-					return true;
-			}
+			get { return States.State.GetType() != typeof (ClosedState); }
 		}
+
 		#endregion
 	}
 }

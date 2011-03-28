@@ -15,23 +15,30 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System.Xml;
 using ubiety.attributes;
 using ubiety.common;
-using System.Xml;
 
 namespace ubiety.core
 {
-	[XmppTag("bind", Namespaces.BIND, typeof(Bind))]
+	///<summary>
+	///</summary>
+	[XmppTag("bind", Namespaces.Bind, typeof (Bind))]
 	public class Bind : Tag
 	{
-		public Bind(XmlDocument doc) 
-			: base ("", new XmlQualifiedName("bind", Namespaces.BIND), doc)
+		///<summary>
+		///</summary>
+		///<param name="doc"></param>
+		public Bind(XmlDocument doc)
+			: base("", new XmlQualifiedName("bind", Namespaces.Bind), doc)
 		{
 		}
-		
+
+		///<summary>
+		///</summary>
 		public Jid XID
 		{
-			get { return this["jid", Namespaces.BIND] as Jid; }
+			get { return this["jid", Namespaces.Bind] as Jid; }
 		}
 	}
 }

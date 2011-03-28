@@ -16,36 +16,28 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using ubiety.common;
+using ubiety.core.compression;
 using ubiety.logging;
 
 namespace ubiety.states
 {
-    /// <summary>
-    /// 
-    /// </summary>
+	/// <summary>
+	/// 
+	/// </summary>
 	public class CompressedState : State
 	{
-        /// <summary>
-        /// 
-        /// </summary>
-		public CompressedState()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data"></param>
+		public override void Execute(Tag data)
 		{
-		}
-		
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-		public override void Execute (Tag data)
-		{
-			if (data is ubiety.core.compression.Compressed)
-			{
-				Logger.Debug(this, "Starting compression of the socket");
-				_current.Socket.StartCompression(_current.Algorithm);
-				_current.Compressed = true;
-				_current.State = new ConnectedState();
-				_current.Execute(null);
-			}
+			if (data.Name != "compressed") return;
+			Logger.Debug(this, "Starting compression of the socket");
+			Current.Socket.StartCompression(Current.Algorithm);
+			Current.Compressed = true;
+			Current.State = new ConnectedState();
+			Current.Execute();
 		}
 	}
 }

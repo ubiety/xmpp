@@ -17,19 +17,16 @@
 
 using System;
 using System.IO;
-using System.Net;
 using System.Net.Security;
-using System.Security.Authentication;
 using System.Net.Sockets;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using ubiety.logging;
-using ubiety;
-using ubiety.states;
-using ubiety.registries;
-using ubiety.common;
 using ICSharpCode.SharpZipLib.Zip.Compression;
+using ubiety.common;
+using ubiety.logging;
+using ubiety.states;
 
 namespace ubiety.net
 {
@@ -38,34 +35,39 @@ namespace ubiety.net
 	/// </remarks>
 	internal class AsyncSocket
 	{
-		private Socket _socket;
-		private UTF8Encoding _utf = new UTF8Encoding();
-		private Address _dest;
-		private byte[] _buff = new byte[4096];
-		private Stream _stream;
-		private string _hostname;
-		private bool _secure;
-		private NetworkStream _netstream;
-		private ProtocolState _states = ProtocolState.Instance;
-		private bool _connected;
-		private Inflater _inflate;
+		private readonly byte[] _buff = new byte[4096];
+		private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
+		private readonly ProtocolState _states = ProtocolState.Instance;
+		private readonly UTF8Encoding _utf = new UTF8Encoding();
+		private bool _compressed;
 		private Deflater _deflate;
-		private bool _compressed = false;
+		private Address _dest;
 
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
-		private bool _encrypting = false;
+		private bool _encrypting;
+		private Inflater _inflate;
+		private NetworkStream _netstream;
+		private Socket _socket;
 		private SslStream _sslstream;
-		private ManualResetEvent _resetEvent = new ManualResetEvent(false);
-		
+		private Stream _stream;
+
 		// Timeout after 15 seconds by default
-		private int _timeout = 15000;
+		private const int Timeout = 15000;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AsyncSocket"/> class.
+		/// Gets the current status of the socket.
 		/// </summary>
-		public AsyncSocket()
-		{
-		}
+		public bool Connected { get; private set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public string Hostname { get; private set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool Secure { get; set; }
 
 		/// <summary>
 		/// Establishes a connection to the specified remote host.
@@ -73,20 +75,13 @@ namespace ubiety.net
 		/// <returns>True if we connected, false if we didn't</returns>
 		public void Connect()
 		{
-			if (!String.IsNullOrEmpty(Settings.Hostname))
-			{
-				_hostname = Settings.Hostname;
-			}
-			else
-			{
-				_hostname = Settings.ID.Server;
-			}
+			Hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
 
-			_dest = Address.Resolve(_hostname, Settings.Port);
+			_dest = Address.Resolve(Hostname, Settings.Port);
 			if (_dest == null)
 				return;
-			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.IP.ToString(), _dest.Port.ToString());
-			if (!_dest.IPV6)
+			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.Ip.ToString(), _dest.Port.ToString());
+			if (!_dest.IPv6)
 			{
 				Logger.Debug(this, "Connecting using IPv4");
 				_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -100,14 +95,14 @@ namespace ubiety.net
 			try
 			{
 				//_socket.Connect(_dest.EndPoint);
-				_socket.BeginConnect(_dest.EndPoint, new AsyncCallback(FinishConnect), null);
-				if(_resetEvent.WaitOne(_timeout, false))
+				_socket.BeginConnect(_dest.EndPoint, FinishConnect, null);
+				if (_resetEvent.WaitOne(Timeout, false))
 				{
-					if (_connected)
+					if (Connected)
 					{
 						_netstream = new NetworkStream(_socket, true);
 						_stream = _netstream;
-						_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+						_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 						_states.State = new ConnectedState();
 						_states.Execute();
 					}
@@ -117,23 +112,18 @@ namespace ubiety.net
 					Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out while connecting to server.");
 				}
 			}
-			catch (SocketException)
+			catch (SocketException e)
 			{
-				//We Failed to connect
-				//TODO: Return an error using the Errors class so that the hosting application can take action.
+				Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, e.Message);
 			}
 		}
-		
+
 		private void FinishConnect(IAsyncResult ar)
 		{
 			try
 			{
 				_socket.EndConnect(ar);
-				_connected = true;
-			}
-			catch (Exception)
-			{
-				//TODO: Return an error because we failed to connect
+				Connected = true;
 			}
 			finally
 			{
@@ -148,7 +138,7 @@ namespace ubiety.net
 		{
 			//_encrypting = true;
 			Logger.Debug(this, "Starting .NET Secure Mode");
-			_sslstream = new SslStream(_stream, true, new RemoteCertificateValidationCallback(RemoteValidation), null);
+			_sslstream = new SslStream(_stream, true, RemoteValidation, null);
 			Logger.Debug(this, "Authenticating as Client");
 			try
 			{
@@ -159,14 +149,15 @@ namespace ubiety.net
 					//_resetEvent.Set();
 				}
 				//_resetEvent.WaitOne();
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
 				Errors.Instance.SendError(this, ErrorType.XMLError, "SSL connection error", true);
 			}
 			//_encrypting = false;
 		}
-		
+
 		/*
 		private void EndAuthenticate(IAsyncResult result)
 		{
@@ -185,7 +176,7 @@ namespace ubiety.net
 				return true;
 			}
 
-			Logger.DebugFormat(typeof(AsyncSocket), "Policy Errors: {0}", errors);
+			Logger.DebugFormat(typeof (AsyncSocket), "Policy Errors: {0}", errors);
 			return false;
 		}
 
@@ -205,34 +196,32 @@ namespace ubiety.net
 		/// <param name="msg">Message to send</param>
 		public void Write(string msg)
 		{
-			if (_connected)
-			{
-				Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
-				byte[] mesg = _utf.GetBytes(msg);
-				mesg = _compressed ? Deflate(mesg) : mesg;
-				_stream.Write(mesg, 0, mesg.Length);
-			}
+			if (!Connected) return;
+			Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
+			var mesg = _utf.GetBytes(msg);
+			mesg = _compressed ? Deflate(mesg) : mesg;
+			_stream.Write(mesg, 0, mesg.Length);
 		}
 
 		private void Receive(IAsyncResult ar)
 		{
 			try
 			{
-				if (!_connected || _states.State is ClosedState)
+				if (!Connected || _states.State is ClosedState)
 				{
 					return;
 				}
 				//Logger.Debug(this, ar.GetType().FullName);
-				int rx = _stream.EndRead(ar);
+				var rx = _stream.EndRead(ar);
 
-				byte[] t = TrimNull(_buff);
+				var t = TrimNull(_buff);
 
-				string m = _utf.GetString(_compressed ? Inflate(t, t.Length) : t);
+				var m = _utf.GetString(_compressed ? Inflate(t, t.Length) : t);
 
 				Logger.DebugFormat(this, "Incoming Message: {0}", m);
 				if (!_encrypting)
 					ProtocolParser.Parse(m, rx);
-				_stream.BeginRead(_buff, 0, _buff.Length, new AsyncCallback(Receive), null);
+				_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 			}
 			catch (SocketException e)
 			{
@@ -242,12 +231,8 @@ namespace ubiety.net
 			{
 				Logger.DebugFormat(this, "Invalid Operation: {0}", e);
 			}
-			catch (Exception e)
-			{
-				throw e;
-			}
 		}
-		
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -262,18 +247,18 @@ namespace ubiety.net
 			_compressed = true;
 		}
 
-		private byte[] TrimNull(byte[] message)
+		private static byte[] TrimNull(byte[] message)
 		{
 			if (message.Length > 1)
 			{
-				int c = message.Length - 1;
+				var c = message.Length - 1;
 				while (message[c] == 0x00)
 				{
 					c--;
 				}
 
-				byte[] r = new byte[(c + 1)];
-				for (int i = 0; i < (c + 1); i++)
+				var r = new byte[(c + 1)];
+				for (var i = 0; i < (c + 1); i++)
 				{
 					r[i] = message[i];
 				}
@@ -285,6 +270,7 @@ namespace ubiety.net
 		}
 
 		#region << Compression >>
+
 		private byte[] Deflate(byte[] data)
 		{
 			int ret;
@@ -292,10 +278,10 @@ namespace ubiety.net
 			_deflate.SetInput(data);
 			_deflate.Flush();
 
-			MemoryStream ms = new MemoryStream();
+			var ms = new MemoryStream();
 			do
 			{
-				byte[] buf = new byte[4096];
+				var buf = new byte[4096];
 				ret = _deflate.Deflate(buf);
 				if (ret > 0)
 					ms.Write(buf, 0, ret);
@@ -310,10 +296,10 @@ namespace ubiety.net
 
 			_inflate.SetInput(data, 0, length);
 
-			MemoryStream ms = new MemoryStream();
+			var ms = new MemoryStream();
 			do
 			{
-				byte[] buffer = new byte[4096];
+				var buffer = new byte[4096];
 				ret = _inflate.Inflate(buffer);
 				if (ret > 0)
 					ms.Write(buffer, 0, ret);
@@ -321,31 +307,7 @@ namespace ubiety.net
 
 			return ms.ToArray();
 		}
+
 		#endregion
-
-		/// <summary>
-		/// Gets the current status of the socket.
-		/// </summary>
-		public bool Connected
-		{
-			get { return _connected; }
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public string Hostname
-		{
-			get { return _hostname; }
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		public bool Secure
-		{
-			get { return _secure; }
-			set { _secure = value; }
-		}
 	}
 }

@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using ubiety.common;
-using ubiety.logging;
 
 namespace ubiety.states
 {
@@ -26,13 +25,6 @@ namespace ubiety.states
 	public class DisconnectState : State
 	{
 		/// <summary>
-		/// Creates a new instance of the diconnect state.
-		/// </summary>
-		public DisconnectState() : base()
-		{
-		}
-		
-		/// <summary>
 		/// Executes the disconnect command by sending the closing stream tag and closing the socket.
 		/// </summary>
 		/// <param name="data">
@@ -40,12 +32,11 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data)
 		{
-			if (_current.Socket.Connected)
+			if (Current.Socket.Connected)
 			{
-				_current.Socket.Write("</stream:stream>");
+				Current.Socket.Write("</stream:stream>");
 			}
-			_current.State = new ClosedState();
+			Current.State = new ClosedState();
 		}
-
 	}
 }

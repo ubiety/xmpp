@@ -20,9 +20,10 @@ using ubiety.common;
 
 namespace ubiety
 {
+	///<summary>
+	///</summary>
 	public static class Settings
 	{
-		private static bool _ssl = false;
 		private static int _port = 5222;
 
 		/// <summary>
@@ -43,7 +44,7 @@ namespace ubiety
 		/// <value>
 		/// The ID.
 		/// </value>
-		public static XID ID
+		public static XID Id
 		{
 			get;
 			set;
@@ -91,10 +92,6 @@ namespace ubiety
 		/// <value>
 		///   <c>true</c> if SSL is to be used; otherwise, <c>false</c>.
 		/// </value>
-		public static bool SSL
-		{
-			get { return _ssl; }
-			set { _ssl = value; }
-		}
+		public static bool SSL { get; set; }
 	}
 }

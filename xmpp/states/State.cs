@@ -27,21 +27,16 @@ namespace ubiety.states
 		/// <summary>
 		/// 
 		/// </summary>
-		internal ProtocolState _current = ProtocolState.Instance;
-		protected TagRegistry _reg = TagRegistry.Instance;
-		
-		public State()
-		{
-			
-		}
-		
+		internal ProtocolState Current = ProtocolState.Instance;
+		protected TagRegistry Reg = TagRegistry.Instance;
+
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public virtual void Execute(ubiety.common.Tag data)
+		public virtual void Execute(common.Tag data)
 		{
 		}
 	}

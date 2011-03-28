@@ -17,15 +17,33 @@
 
 namespace ubiety.common
 {
+	///<summary>
+	///</summary>
 	public enum ErrorType
 	{
-		MissingID,
+		///<summary>
+		///</summary>
+		MissingId,
+		///<summary>
+		///</summary>
 		MissingPassword,
+		///<summary>
+		///</summary>
 		AuthorizationFailed,
+		///<summary>
+		///</summary>
 		WrongProtocolVersion,
+		///<summary>
+		///</summary>
 		UnregisteredItem,
+		///<summary>
+		///</summary>
 		CompressionFailed,
+		///<summary>
+		///</summary>
 		XMLError,
+		///<summary>
+		///</summary>
 		ConnectionTimeout
 	}
 }

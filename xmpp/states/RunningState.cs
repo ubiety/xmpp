@@ -15,19 +15,14 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System.Xml;
 using ubiety.common;
-using ubiety.core;
 
 namespace ubiety.states
 {
+	///<summary>
+	///</summary>
 	public class RunningState : State
 	{
-		public RunningState()
-			: base()
-		{
-		}
-
 		public override void Execute(Tag data)
 		{
 			base.Execute(data);

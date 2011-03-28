@@ -15,8 +15,8 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety;
 using ubiety.common;
+using ubiety.core.SASL;
 using ubiety.logging;
 
 namespace ubiety.states
@@ -27,13 +27,6 @@ namespace ubiety.states
 	public class SASLState : State
 	{
 		/// <summary>
-		/// Create a new state.
-		/// </summary>
-		public SASLState() : base ()
-		{
-		}
-		
-		/// <summary>
 		/// Execute the actions to authenticate the user.
 		/// </summary>
 		/// <param name="data">
@@ -42,17 +35,17 @@ namespace ubiety.states
 		public override void Execute(Tag data)
 		{
 			Logger.Debug(this, "Processing next SASL step");
-			ubiety.common.Tag res = _current.Processor.Step(data);
-			if (res is ubiety.core.SASL.Success)
+			var res = Current.Processor.Step(data);
+			if (res.Name == "success")
 			{
 				// We have been successfully authenticated and we need to restart the stream.
 				Logger.Debug(this, "Sending start stream again");
-				_current.Authenticated = true;
+				Current.Authenticated = true;
 				// Return to the connected state to resend the start tag.
-				_current.State = new ConnectedState();
-				_current.Execute();
+				Current.State = new ConnectedState();
+				Current.Execute();
 			}
-			else if (res is ubiety.core.SASL.Failure)
+			else if (res.Name == "failure")
 			{
 				// We have failed in our quest.  Error returned inside we just need to wrap this up.
 				return;
@@ -60,7 +53,7 @@ namespace ubiety.states
 			else
 			{
 				// Neither success or failure so we send the result to the socket.
-				_current.Socket.Write(res);
+				Current.Socket.Write(res);
 			}
 		}
 	}

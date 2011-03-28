@@ -19,37 +19,44 @@ using System.Xml;
 
 namespace ubiety.common
 {
+	///<summary>
+	///</summary>
 	public class Stanza : Tag
 	{
-		public Stanza(string prefix, XmlQualifiedName qname, XmlDocument doc) : base (prefix, qname, doc)
+		///<summary>
+		///</summary>
+		///<param name="prefix"></param>
+		///<param name="qname"></param>
+		///<param name="doc"></param>
+		public Stanza(string prefix, XmlQualifiedName qname, XmlDocument doc) : base(prefix, qname, doc)
 		{
 		}
 
-        /// <summary>
-        /// Where the message is going.
-        /// </summary>
+		/// <summary>
+		/// Where the message is going.
+		/// </summary>
 		public XID To
 		{
 			get { return new XID(GetAttribute("to")); }
 			set { SetAttribute("to", value); }
 		}
 
-        /// <summary>
-        /// Where the message came from.
-        /// </summary>
+		/// <summary>
+		/// Where the message came from.
+		/// </summary>
 		public XID From
 		{
 			get { return new XID(GetAttribute("from")); }
 			set { SetAttribute("from", value); }
 		}
 
-        /// <summary>
-        /// The server id.
-        /// </summary>
-		public string ID
+		/// <summary>
+		/// The server id.
+		/// </summary>
+		public string Id
 		{
 			get { return GetAttribute("id"); }
 			set { SetAttribute("id", value); }
-		}	
+		}
 	}
 }

@@ -21,13 +21,20 @@ using ubiety.common;
 
 namespace ubiety.core
 {
-	[XmppTag("jid", Namespaces.BIND, typeof(Jid))]
+	///<summary>
+	///</summary>
+	[XmppTag("jid", Namespaces.Bind, typeof (Jid))]
 	public class Jid : Tag
 	{
-		public Jid(XmlDocument doc) : base("", new XmlQualifiedName("jid", Namespaces.BIND), doc)
+		///<summary>
+		///</summary>
+		///<param name="doc"></param>
+		public Jid(XmlDocument doc) : base("", new XmlQualifiedName("jid", Namespaces.Bind), doc)
 		{
 		}
-		
+
+		///<summary>
+		///</summary>
 		public XID XID
 		{
 			get { return new XID(InnerText); }

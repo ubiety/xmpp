@@ -26,18 +26,20 @@ namespace ubiety.registries
 	public class RegistryAllocator<T> : Allocator<T> where T : class
 	{
 	
-		private static readonly T instance;
+// ReSharper disable InconsistentNaming
+		private static readonly T _instance;
+// ReSharper restore InconsistentNaming
 		
 		static RegistryAllocator()
 		{
-			ConstructorInfo constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], new ParameterModifier[0]);
+			var constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], new ParameterModifier[0]);
 			if (constructor == null) {
 				throw new Exception("The singleton doesn't have a private/protected constructor");
 			}
 			
 			try
 			{
-				instance = constructor.Invoke(new object[0]) as T;
+				_instance = constructor.Invoke(new object[0]) as T;
 			}
 			catch (Exception e)
 			{
@@ -50,8 +52,9 @@ namespace ubiety.registries
 		/// <value>
 		/// 
 		/// </value>
-		public override T Instance {
-			get { return instance; }
+		public override T Instance 
+		{
+			get { return _instance; }
 		}
 		
 		/// <summary>

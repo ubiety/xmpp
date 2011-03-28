@@ -22,20 +22,28 @@ namespace ubiety.common
     /// </summary>
 	public class Namespaces
 	{
+		///<summary>
+		///</summary>
 		public const string XMLNS = "http://www.w3.org/2000/xmlns";
+		///<summary>
+		///</summary>
 		public const string XML = "http://www.w3.org/XML/1998/namespace";
 		
-		public const string CLIENT = "jabber:client";
+		///<summary>
+		///</summary>
+		public const string Client = "jabber:client";
         /// <summary>
         /// Stream Namespace - http://etherx.jabber.org/streams
         /// </summary>
-		public const string STREAM = "http://etherx.jabber.org/streams";
+		public const string Stream = "http://etherx.jabber.org/streams";
 
-        public const string XMPP_STREAMS = "urn:ietf:params:xml:ns:xmpp-streams";
+        ///<summary>
+        ///</summary>
+        public const string XMPPStreams = "urn:ietf:params:xml:ns:xmpp-streams";
         /// <summary>
         /// 
         /// </summary>
-		public const string START_TLS = "urn:ietf:params:xml:ns:xmpp-tls";
+		public const string StartTLS = "urn:ietf:params:xml:ns:xmpp-tls";
         /// <summary>
         /// 
         /// </summary>
@@ -43,20 +51,32 @@ namespace ubiety.common
         /// <summary>
         /// 
         /// </summary>
-		public const string AUTH = "http://jabber.org/features/iq-auth";
+		public const string Auth = "http://jabber.org/features/iq-auth";
         /// <summary>
         /// 
         /// </summary>
-		public const string REGISTER = "http://jabber.org/features/iq-register";
+		public const string Register = "http://jabber.org/features/iq-register";
 		
-		public const string BIND = "urn:ietf:params:xml:ns:xmpp-bind";
-		public const string SESSION = "urn:ietf:params:xml:ns:xmpp-session";
+		///<summary>
+		///</summary>
+		public const string Bind = "urn:ietf:params:xml:ns:xmpp-bind";
+		///<summary>
+		///</summary>
+		public const string Session = "urn:ietf:params:xml:ns:xmpp-session";
 		
-		public const string COMPRESSION = "http://jabber.org/features/compress";
-		public const string COMPRESSION_PROTOCOL = "http://jabber.org/protocol/compress";
+		///<summary>
+		///</summary>
+		public const string Compression = "http://jabber.org/features/compress";
+		///<summary>
+		///</summary>
+		public const string CompressionProtocol = "http://jabber.org/protocol/compress";
 
-		public const string STANZAS = "urn:ietf:params:xml:ns:xmpp-stanzas";
+		///<summary>
+		///</summary>
+		public const string Stanzas = "urn:ietf:params:xml:ns:xmpp-stanzas";
 
-        public const string ROSTVER = "urn:xmpp:features:rosterver";
+        ///<summary>
+        ///</summary>
+        public const string Rostver = "urn:xmpp:features:rosterver";
 	}
 }

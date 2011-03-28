@@ -15,6 +15,8 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using ubiety.common;
+
 namespace ubiety.states
 {
 	/// <summary>
@@ -23,22 +25,14 @@ namespace ubiety.states
 	public class ConnectingState : State
 	{
 		/// <summary>
-		/// Create a new instance of the connecting state.
-		/// </summary>
-		public ConnectingState() : base()
-		{
-			//_current = ProtocolState.Instance;
-		}
-		
-		/// <summary>
 		/// Executes the state.  In this case we are telling the socket to connect to the server.
 		/// </summary>
 		/// <param name="data">
 		/// The <see cref="ubiety.common.Tag"/> is not needed here as we are just starting the connection.
 		/// </param>
-		public override void Execute (ubiety.common.Tag data)
+		public override void Execute(Tag data)
 		{
-			_current.Socket.Connect();
+			Current.Socket.Connect();
 		}
 	}
 }

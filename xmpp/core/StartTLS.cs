@@ -16,31 +16,29 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
 using ubiety.attributes;
+using ubiety.common;
 
 namespace ubiety.core
 {
-    /// <summary>
-    /// StartTLS is used to start an encrypted authentication session.
-    /// </summary>
-	[XmppTag("starttls", Namespaces.START_TLS, typeof(StartTLS))]
-	public class StartTLS : ubiety.common.Tag
+	/// <summary>
+	/// StartTLS is used to start an encrypted authentication session.
+	/// </summary>
+	[XmppTag("starttls", Namespaces.StartTLS, typeof (StartTLS))]
+	public class StartTLS : Tag
 	{
-        /// <summary>
-        /// Creates a new instance of the StartTLS tag.
-        /// </summary>
-        /// <param name="prefix">Tag prefix.</param>
-        /// <param name="qname">Qualified Namespace</param>
-        /// <param name="doc">XmlDocument used for the tag.</param>
+		/// <summary>
+		/// Creates a new instance of the StartTLS tag.
+		/// </summary>
+		/// <param name="doc">XmlDocument used for the tag.</param>
 		public StartTLS(XmlDocument doc)
-			: base("", new XmlQualifiedName("starttls", Namespaces.START_TLS), doc)
+			: base("", new XmlQualifiedName("starttls", Namespaces.StartTLS), doc)
 		{
 		}
 
-        /// <summary>
-        /// Is StartTLS required by the server for authentication.
-        /// </summary>
+		/// <summary>
+		/// Is StartTLS required by the server for authentication.
+		/// </summary>
 		public bool Required
 		{
 			get { return this["required"] != null; }

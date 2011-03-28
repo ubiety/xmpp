@@ -79,25 +79,13 @@
     <Compile Include="common\Tag.cs" />
     <Compile Include="common\XID.cs" />
     <Compile Include="core\Bind.cs" />
-    <Compile Include="core\Compression\Compress.cs" />
-    <Compile Include="core\Compression\Compressed.cs" />
     <Compile Include="core\Compression\Compression.cs" />
-    <Compile Include="core\Compression\Method.cs" />
-    <Compile Include="core\Error.cs" />
     <Compile Include="core\Features.cs" />
     <Compile Include="core\GenericTag.cs" />
     <Compile Include="core\iq\Iq.cs" />
     <Compile Include="core\Jid.cs" />
     <Compile Include="core\Mechanisms.cs" />
-    <Compile Include="core\Presence.cs" />
-    <Compile Include="core\Proceed.cs" />
-    <Compile Include="core\Resource.cs" />
     <Compile Include="core\SASL\Auth.cs" />
-    <Compile Include="core\SASL\Challenge.cs" />
-    <Compile Include="core\SASL\Failure.cs" />
-    <Compile Include="core\SASL\Response.cs" />
-    <Compile Include="core\SASL\Success.cs" />
-    <Compile Include="core\Session.cs" />
     <Compile Include="core\StartTLS.cs" />
     <Compile Include="core\Stream.cs" />
     <Compile Include="Errors.cs" />
@@ -197,7 +185,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

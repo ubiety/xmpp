@@ -17,21 +17,18 @@
 
 using ubiety.common;
 using ubiety.logging;
-using ubiety;
 
 namespace ubiety.states
 {
+	///<summary>
+	///</summary>
 	public class ClosedState : State
 	{
-		public ClosedState() : base()
+		public override void Execute(Tag data)
 		{
-		}
-		
-		public override void Execute (Tag data)
-		{
-            Logger.Debug(this, "Cleaning up");
-            ProtocolParser.Reset();
-            _current.Socket.Close();
+			Logger.Debug(this, "Cleaning up");
+			ProtocolParser.Reset();
+			Current.Socket.Close();
 		}
 	}
 }

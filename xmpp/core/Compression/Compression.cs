@@ -16,26 +16,33 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
 using ubiety.attributes;
+using ubiety.common;
 
 namespace ubiety.core.compression
 {
-	[XmppTag("compression", Namespaces.COMPRESSION, typeof(Compression))]
-	public class Compression : ubiety.common.Tag
+	///<summary>
+	///</summary>
+	[XmppTag("compression", Namespaces.Compression, typeof (Compression))]
+	public class Compression : Tag
 	{
+		///<summary>
+		///</summary>
+		///<param name="doc"></param>
 		public Compression(XmlDocument doc)
-			: base ("", new XmlQualifiedName("compression", Namespaces.COMPRESSION), doc)
+			: base("", new XmlQualifiedName("compression", Namespaces.Compression), doc)
 		{
 		}
-		
+
+		///<summary>
+		///</summary>
 		public string[] Algorithms
 		{
 			get
 			{
-				XmlNodeList nl = GetElementsByTagName("method", Namespaces.COMPRESSION);
-				string[] als = new string[nl.Count];
-				int i = 0;
+				var nl = GetElementsByTagName("method", Namespaces.Compression);
+				var als = new string[nl.Count];
+				var i = 0;
 				foreach (XmlElement m in nl)
 				{
 					als[i] = m.InnerText;

@@ -11,40 +11,40 @@ namespace TestXMPP
 {
 	public partial class Main : Form
 	{
-		XMPP xmpp;
+		XMPP _xmpp;
 
 		public Main()
 		{
 			InitializeComponent();
 			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
-			Errors.Instance.OnError += new EventHandler<ErrorEventArgs>(Errors_OnError);
+			Errors.Instance.OnError += Errors_OnError;
 			XmlConfigurator.Configure();
 			slVersion.Text = "Ubiety Version: " + XMPP.Version;
 		}
 
-		void Errors_OnError(object sender, ErrorEventArgs e)
+		static void Errors_OnError(object sender, ErrorEventArgs e)
 		{
 			MessageBox.Show(e.Message, "Protocol Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void Button1Click(object sender, EventArgs e)
 		{
-			xmpp = new XMPP();
-			Settings.AuthenticationTypes = ubiety.core.MechanismType.DIGEST_MD5;
-			Settings.ID = new XID(txtUsername.Text);
+			_xmpp = new XMPP();
+			Settings.AuthenticationTypes = ubiety.core.MechanismType.DigestMD5;
+			Settings.Id = new XID(txtUsername.Text);
 			Settings.Password = txtPassword.Text;
 			Settings.SSL = btnSSL.Checked;
-			xmpp.Connect();
+			_xmpp.Connect();
 		}
 
-		private void btnExit_Click(object sender, EventArgs e)
+		private void BtnExitClick(object sender, EventArgs e)
 		{
-			if (xmpp != null)
-				xmpp.Disconnect();
+			if (_xmpp != null)
+				_xmpp.Disconnect();
 			Application.Exit();
 		}
 
-		private void Main_Load(object sender, EventArgs e)
+		private void MainLoad(object sender, EventArgs e)
 		{
 			RichTextBoxAppender.SetRichTextBox(rtbDebug, "RichTextAppender");
 		}

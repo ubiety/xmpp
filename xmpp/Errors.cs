@@ -25,22 +25,23 @@ namespace ubiety
 	/// </summary>
 	public class ErrorEventArgs : EventArgs
 	{
-		private string _message;
-		private ErrorType _type;
-        private Boolean _fatal;
-		
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="type"></param>
+		private readonly Boolean _fatal;
+		private readonly string _message;
+		private readonly ErrorType _type;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="message"></param>
+		/// <param name="type"></param>
+		/// <param name="fatal"></param>
 		public ErrorEventArgs(string message, ErrorType type, Boolean fatal)
 		{
 			_message = message;
 			_type = type;
-            _fatal = fatal;
+			_fatal = fatal;
 		}
-		
+
 		/// <value>
 		/// The default error message.
 		/// </value>
@@ -48,7 +49,7 @@ namespace ubiety
 		{
 			get { return _message; }
 		}
-		
+
 		/// <value>
 		/// The type of error that is being returned.
 		/// </value>
@@ -57,28 +58,32 @@ namespace ubiety
 			get { return _type; }
 		}
 
-        public Boolean Fatal
-        {
-            get { return _fatal; }
-        }
+		///<summary>
+		///</summary>
+		public Boolean Fatal
+		{
+			get { return _fatal; }
+		}
 	}
 
-    /// <summary>
-    /// 
-    /// </summary>
+	/// <summary>
+	/// 
+	/// </summary>
 	public class Errors
 	{
-		private static Errors _instance = new Errors();
+		///<summary>
+		///</summary>
+		public static readonly Errors Instance = new Errors();
+
+		private Errors()
+		{
+		}
 
 		/// <summary>
 		/// Subscribing to this event will allow you to receive all errors generated in the library.
 		/// </summary>
 		public event EventHandler<ErrorEventArgs> OnError;
 
-		private Errors()
-		{
-		}
-		
 		/// <summary>
 		/// Sends an error from the calling class to the application.
 		/// </summary>
@@ -97,14 +102,6 @@ namespace ubiety
 			{
 				OnError(sender, new ErrorEventArgs(message, type, fatal));
 			}
-		}
-		
-		/// <value>
-		/// The singleton instance property.
-		/// </value>
-		public static Errors Instance
-		{
-			get { return _instance; }
 		}
 	}
 }

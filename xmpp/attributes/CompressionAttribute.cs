@@ -19,23 +19,33 @@ using System;
 
 namespace ubiety.attributes
 {
-	[AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
+	///<summary>
+	///</summary>
+	[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 	public class CompressionAttribute : Attribute
 	{
-		private string _compression;
-		private Type _type;
+		private readonly string _compression;
+		private readonly Type _type;
 
+		///<summary>
+		///</summary>
+		///<param name="compression"></param>
+		///<param name="type"></param>
 		public CompressionAttribute(string compression, Type type)
 		{
 			_compression = compression;
 			_type = type;
 		}
 
+		///<summary>
+		///</summary>
 		public string Algorithm
 		{
 			get { return _compression; }
 		}
-		
+
+		///<summary>
+		///</summary>
 		public Type ClassType
 		{
 			get { return _type; }

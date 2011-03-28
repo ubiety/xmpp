@@ -15,10 +15,6 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System.Xml;
-using ubiety;
-using ubiety.core;
-using ubiety.registries;
 using ubiety.common;
 
 namespace ubiety.states
@@ -31,29 +27,15 @@ namespace ubiety.states
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="state">
-		/// A <see cref="ProtocolState"/>
-		/// </param>
-		public StartTLSState() : base ()
-		{
-			//_current = state;
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute (ubiety.common.Tag data)
+		public override void Execute(Tag data)
 		{
-			if (data.LocalName == "proceed")
-			{
-				_current.Socket.StartSecure();
-				_current.State = new ConnectedState();
-				_current.Execute(null);
-			}
+			if (data.LocalName != "proceed") return;
+			Current.Socket.StartSecure();
+			Current.State = new ConnectedState();
+			Current.Execute();
 		}
-
 	}
 }

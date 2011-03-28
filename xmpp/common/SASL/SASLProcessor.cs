@@ -21,7 +21,6 @@ using ubiety.core;
 using ubiety.logging;
 using System.Text;
 using System.Security.Cryptography;
-using ubiety;
 
 namespace ubiety.common.SASL
 {
@@ -29,10 +28,10 @@ namespace ubiety.common.SASL
     ///</summary>
     public abstract class SASLProcessor
 	{
-		protected XID _id;
-		protected string _password;
+		protected XID Id;
+		protected string Password;
 		
-		private Hashtable directives = new Hashtable();
+		private readonly Hashtable _directives = new Hashtable();
 
         ///<summary>
         ///</summary>
@@ -41,7 +40,7 @@ namespace ubiety.common.SASL
         ///<exception cref="NotSupportedException"></exception>
         public static SASLProcessor CreateProcessor(MechanismType type)
         {
-            if ((type & MechanismType.EXTERNAL & Settings.AuthenticationTypes) == MechanismType.EXTERNAL)
+            if ((type & MechanismType.External & Settings.AuthenticationTypes) == MechanismType.External)
 			{
 				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
                 throw new NotSupportedException();
@@ -53,13 +52,13 @@ namespace ubiety.common.SASL
                 return new SCRAMProcessor();
             }
 
-            if ((type & MechanismType.DIGEST_MD5 & Settings.AuthenticationTypes) == MechanismType.DIGEST_MD5)
+            if ((type & MechanismType.DigestMD5 & Settings.AuthenticationTypes) == MechanismType.DigestMD5)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
 				return new MD5Processor();
             }
 
-            if ((type & MechanismType.PLAIN & Settings.AuthenticationTypes) == MechanismType.PLAIN)
+            if ((type & MechanismType.Plain & Settings.AuthenticationTypes) == MechanismType.Plain)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating PLAIN SASL processor");
             	return new PlainProcessor();
@@ -78,8 +77,8 @@ namespace ubiety.common.SASL
 		{
 			Logger.Debug(this, "Initializing Base Processor");
 			
-			_id = Settings.ID;
-			_password = Settings.Password;
+			Id = Settings.Id;
+			Password = Settings.Password;
 
 			return null;
 		}
@@ -91,8 +90,8 @@ namespace ubiety.common.SASL
         /// <returns></returns>
 		public string this[string directive]
 		{
-			get { return (string)directives[directive]; }
-			set { directives[directive] = value; }
+			get { return (string)_directives[directive]; }
+			set { _directives[directive] = value; }
 		}
 
         /// <summary>
@@ -102,7 +101,7 @@ namespace ubiety.common.SASL
         /// <returns></returns>
         protected string HexString(byte[] buff)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (byte b in buff)
             {
                 sb.Append(b.ToString("x2"));
@@ -118,7 +117,7 @@ namespace ubiety.common.SASL
         protected static Int64 NextInt64()
         {
             var bytes = new byte[sizeof(Int64)];
-            RNGCryptoServiceProvider rand = new RNGCryptoServiceProvider();
+            var rand = new RNGCryptoServiceProvider();
             rand.GetBytes(bytes);
             return BitConverter.ToInt64(bytes, 0);
         }

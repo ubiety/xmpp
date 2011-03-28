@@ -16,48 +16,48 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
+using ubiety.attributes;
 using ubiety.common;
 using ubiety.core.compression;
-using ubiety.attributes;
 
 namespace ubiety.core
 {
-    /// <summary>
-    /// 
-    /// </summary>
-	[XmppTag("features", Namespaces.STREAM, typeof(Features))]
-	public class Features : ubiety.common.Tag
+	/// <summary>
+	/// 
+	/// </summary>
+	[XmppTag("features", Namespaces.Stream, typeof (Features))]
+	public class Features : Tag
 	{
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prefix"></param>
-        /// <param name="qname"></param>
-        /// <param name="doc"></param>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="doc"></param>
 		public Features(XmlDocument doc)
-			: base("stream", new XmlQualifiedName("features", Namespaces.STREAM), doc)
+			: base("stream", new XmlQualifiedName("features", Namespaces.Stream), doc)
 		{
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public Mechanisms StartSASL
 		{
 			get { return this["mechanisms", Namespaces.SASL] as Mechanisms; }
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public StartTLS StartTLS
 		{
-			get { return this["starttls", Namespaces.START_TLS] as StartTLS; }
+			get { return this["starttls", Namespaces.StartTLS] as StartTLS; }
 		}
-		
+
+		///<summary>
+		///</summary>
 		public Compression Compression
 		{
-			get { return this["compression", Namespaces.COMPRESSION] as Compression; }
+			get { return this["compression", Namespaces.Compression] as Compression; }
 		}
 	}
 }

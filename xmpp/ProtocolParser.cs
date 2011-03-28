@@ -16,16 +16,18 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 #region Usings
+
 using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-using System.Text;
-using ubiety.logging;
 using ubiety.common;
-using ubiety.registries;
 using ubiety.core;
+using ubiety.logging;
+using ubiety.registries;
 using ubiety.states;
+using Stream = ubiety.core.Stream;
+
 #endregion
 
 namespace ubiety
@@ -35,61 +37,59 @@ namespace ubiety
 	/// </remarks>
 	internal class ProtocolParser
 	{
-		#region << Private Members >>
 		private static XmlNamespaceManager _ns;
-		private static TagRegistry _reg = TagRegistry.Instance;
-		private static ProtocolState _states = ProtocolState.Instance;
+		private static readonly TagRegistry Reg = TagRegistry.Instance;
+		private static readonly ProtocolState States = ProtocolState.Instance;
 		private static XmlElement _elem;
-		private static XmlElement _root = null;
+		private static XmlElement _root;
 
 		private static XmlReader _reader;
 		private static XmlReaderSettings _settings;
-		#endregion
 
 		/// <summary>
 		/// Parses the message into its appropriate <seealso cref="Tag"/>
 		/// </summary>
 		public static void Parse(string message, int length)
 		{
-			if (_states.State.GetType() == typeof(ClosedState))
+			if (States.State.GetType() == typeof (ClosedState))
 			{
-				Logger.Debug(typeof(ProtocolParser), "Closed.  Nothing to do");
+				Logger.Debug(typeof (ProtocolParser), "Closed.  Nothing to do");
 				return;
 			}
 
 			//Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
 
 			// Moved the initialization into the parse method because it has become static.  Don't really need an instance to parse the string.
-			Logger.Info(typeof(ProtocolParser), "Setting up environment");
+			Logger.Info(typeof (ProtocolParser), "Setting up environment");
 			_settings = new XmlReaderSettings();
 			_settings.ConformanceLevel = ConformanceLevel.Fragment;
-			_ns = new XmlNamespaceManager(_states.Document.NameTable);
-			
-			_ns.AddNamespace("", Namespaces.CLIENT);
-			_ns.AddNamespace("stream", Namespaces.STREAM);
+			_ns = new XmlNamespaceManager(States.Document.NameTable);
 
-			Logger.Info(typeof(ProtocolParser), "Starting message parsing...");
+			_ns.AddNamespace("", Namespaces.Client);
+			_ns.AddNamespace("stream", Namespaces.Stream);
 
-			Logger.InfoFormat(typeof(ProtocolParser), "Current State: {0}", _states.State);
+			Logger.Info(typeof (ProtocolParser), "Starting message parsing...");
+
+			Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", States.State);
 
 			// We have received the end tag asking to finish communication so we change to the Disconnect State.
 			if (message.Contains("</stream:stream>"))
 			{
-				Logger.Info(typeof(ProtocolParser), "End of stream received from server");
+				Logger.Info(typeof (ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
-				_states.State = new ClosedState();
-				_states.Execute(null);
+				States.State = new ClosedState();
+				States.Execute(null);
 				return;
 			}
 
 			// We have to cheat because XmlTextReader doesn't like malformed XML
 			if (message.Contains("<stream:stream"))
 			{
-				Logger.Debug(typeof(ProtocolParser), "Adding closing tag so xml parser doesn't complain");
+				Logger.Debug(typeof (ProtocolParser), "Adding closing tag so xml parser doesn't complain");
 				message += "</stream:stream>";
 			}
-			
-			XmlParserContext context = new XmlParserContext(null, _ns, null, XmlSpace.None);
+
+			var context = new XmlParserContext(null, _ns, null, XmlSpace.None);
 			_reader = XmlReader.Create(new StringReader(message), _settings, context);
 			try
 			{
@@ -115,17 +115,18 @@ namespace ubiety
 			}
 			catch (XmlException e)
 			{
-				Logger.ErrorFormat(typeof(ProtocolParser), "Message Parsing Error: {0}", e);
-				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Error parsing incoming XML.  Please try again.");
-				if (_states.Socket.Connected)
+				Logger.ErrorFormat(typeof (ProtocolParser), "Message Parsing Error: {0}", e);
+				Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.XMLError,
+				                          "Error parsing incoming XML.  Please try again.");
+				if (States.Socket.Connected)
 				{
-					_states.State = new DisconnectState();
-					_states.Execute();
-				}				
+					States.State = new DisconnectState();
+					States.Execute();
+				}
 			}
 			catch (InvalidOperationException e)
 			{
-				Logger.ErrorFormat(typeof(ProtocolParser), "Invalid Operation: {0}", e);
+				Logger.ErrorFormat(typeof (ProtocolParser), "Invalid Operation: {0}", e);
 			}
 		}
 
@@ -133,13 +134,13 @@ namespace ubiety
 		{
 			if (_elem != null)
 			{
-				_elem.AppendChild(_states.Document.CreateTextNode(_reader.Value));
+				_elem.AppendChild(States.Document.CreateTextNode(_reader.Value));
 			}
 		}
 
 		private static void StartTag()
 		{
-			Hashtable ht = new Hashtable();
+			var ht = new Hashtable();
 
 			if (_reader.HasAttributes)
 			{
@@ -162,8 +163,8 @@ namespace ubiety
 			}
 
 			string ns = _ns.LookupNamespace(_reader.Prefix);
-			XmlQualifiedName q = new XmlQualifiedName(_reader.LocalName, ns);
-			XmlElement elem = _reg.GetTag(q, _states.Document);
+			var q = new XmlQualifiedName(_reader.LocalName, ns);
+			XmlElement elem = Reg.GetTag(q, States.Document);
 
 			//Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 
@@ -175,15 +176,15 @@ namespace ubiety
 					string prefix = attrname.Substring(0, colon);
 					string name = attrname.Substring(colon + 1);
 
-					XmlAttribute attr = _states.Document.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
-					attr.InnerXml = (string)ht[attrname];
+					XmlAttribute attr = States.Document.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
+					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);
 				}
 				else
 				{
-					XmlAttribute attr = _states.Document.CreateAttribute(attrname);
-					attr.InnerXml = (string)ht[attrname];
+					XmlAttribute attr = States.Document.CreateAttribute(attrname);
+					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);
 				}
@@ -193,13 +194,14 @@ namespace ubiety
 			{
 				if (elem.Name != "stream:stream")
 				{
-					Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.WrongProtocolVersion, "Missing stream:stream from server");
+					Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.WrongProtocolVersion,
+					                          "Missing stream:stream from server");
 					return;
 				}
 
 				_root = elem;
 				// If the tag is a stream change to the Server Features State.
-				_states.State = new ServerFeaturesState();
+				States.State = new ServerFeaturesState();
 			}
 			else
 			{
@@ -218,38 +220,38 @@ namespace ubiety
 
 			if ((_elem.Name != _reader.Name))
 			{
-				Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Wrong element");
+				Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.XMLError, "Wrong element");
 				return;
 			}
-			
+
 			//Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
-			
-			XmlElement parent = (XmlElement)_elem.ParentNode;
+
+			var parent = (XmlElement) _elem.ParentNode;
 			if (parent == null)
 			{
 				//Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
-				ubiety.common.Tag tag = (ubiety.common.Tag)_elem;
-				if (tag is ubiety.core.Stream)
-					_states.State = new ServerFeaturesState();
-				Logger.DebugFormat(typeof(ProtocolParser), "Current State: {0}", _states.State.ToString());
-				if (tag is ubiety.core.Error)
+				var tag = (Tag) _elem;
+				if (tag is Stream)
+					States.State = new ServerFeaturesState();
+				Logger.DebugFormat(typeof (ProtocolParser), "Current State: {0}", States.State.ToString());
+				if (tag.Name == "error")
 				{
-					Errors.Instance.SendError(typeof(ProtocolParser), ErrorType.XMLError, "Stream Error", true);
+					Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.XMLError, "Stream Error", true);
 				}
 				else
 				{
-					_states.Execute(tag);
+					States.Execute(tag);
 				}
 			}
-			
+
 			//Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
 			_elem = parent;
 		}
-		
+
 		public static void Reset()
 		{
 			_root = null;
-			_states.Authenticated = false;
+			States.Authenticated = false;
 		}
 	}
 }

@@ -17,104 +17,105 @@
 
 using System.Text;
 using System.Xml;
-using ubiety.common;
 using ubiety.attributes;
+using ubiety.common;
 
 namespace ubiety.core
 {
-    /// <summary>
-    /// 
-    /// </summary>
-	[XmppTag("stream", Namespaces.STREAM, typeof(Stream))]
-	public class Stream : ubiety.common.Tag
+	/// <summary>
+	/// 
+	/// </summary>
+	[XmppTag("stream", Namespaces.Stream, typeof (Stream))]
+	public class Stream : Tag
 	{
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prefix"></param>
-        /// <param name="qname"></param>
-        /// <param name="doc"></param>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="doc"></param>
 		public Stream(XmlDocument doc)
-			: base("stream", new XmlQualifiedName("stream", Namespaces.STREAM), doc)
+			: base("stream", new XmlQualifiedName("stream", Namespaces.Stream), doc)
 		{
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public string Version
 		{
 			get { return GetAttribute("version"); }
 			set { SetAttribute("version", value); }
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-		public string NS
+		/// <summary>
+		/// 
+		/// </summary>
+		public string Ns
 		{
 			get { return GetAttribute("xmlns"); }
 			set { SetAttribute("xmlns", value); }
 		}
-		
+
+		///<summary>
+		///</summary>
 		public Features Features
 		{
-			get { return this["features", Namespaces.STREAM] as Features; }
+			get { return this["features", Namespaces.Stream] as Features; }
 		}
-		
+
+		///<summary>
+		///</summary>
 		public string Lang
 		{
-			get 
+			get
 			{
-				if (!HasAttribute("lang", Namespaces.XML))
-					return null;
-				return GetAttribute("lang", Namespaces.XML);
+				return !HasAttribute("lang", Namespaces.XML) ? null : GetAttribute("lang", Namespaces.XML);
 			}
-			set 
+			set
 			{
 				if (HasAttribute("lang", Namespaces.XML))
 					RemoveAttribute("lang", Namespaces.XML);
-				if (value != null)
-				{
-					XmlAttribute attr = OwnerDocument.CreateAttribute("xml:lang", Namespaces.XML);
-					attr.Value = value;
-					this.Attributes.Append(attr);
-				}
+				if (value == null) return;
+				if (OwnerDocument == null) return;
+				var attr = OwnerDocument.CreateAttribute("xml:lang", Namespaces.XML);
+				attr.Value = value;
+				Attributes.Append(attr);
 			}
 		}
-		
+
+		///<summary>
+		///</summary>
 		public string To
 		{
 			get { return GetAttribute("to"); }
 			set { SetAttribute("to", value); }
 		}
-		
-		public string ID
+
+		///<summary>
+		///</summary>
+		public string Id
 		{
 			get { return GetAttribute("id"); }
 			set { SetAttribute("id", value); }
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public string StartTag()
 		{
-			StringBuilder sb = new StringBuilder("<");
+			var sb = new StringBuilder("<");
 			sb.Append(Name);
-			if (NamespaceURI != null)
+			sb.Append(" xmlns");
+			if (Prefix != null)
 			{
-				sb.Append(" xmlns");
-				if (Prefix != null)
-				{
-					sb.Append(":");
-					sb.Append(Prefix);
-				}
-				sb.Append("=\"");
-				sb.Append(NamespaceURI);
-				sb.Append("\"");
+				sb.Append(":");
+				sb.Append(Prefix);
 			}
+			sb.Append("=\"");
+			sb.Append(NamespaceURI);
+			sb.Append("\"");
+
 			foreach (XmlAttribute attr in Attributes)
 			{
 				sb.Append(" ");

@@ -19,11 +19,13 @@ using System;
 using ubiety.attributes;
 using System.IO;
 using System.Reflection;
-using ubiety;
 using ubiety.logging;
+using ubiety.common;
 
 namespace ubiety.registries
 {
+	///<summary>
+	///</summary>
 	public sealed class CompressionRegistry : Registry<CompressionRegistry, RegistryAllocator<CompressionRegistry>>
 	{
 		private CompressionRegistry()
@@ -40,11 +42,11 @@ namespace ubiety.registries
 		{
             Logger.DebugFormat(this, "Adding assembly {0}", a.FullName);
             
-            CompressionAttribute[] tags = GetAttributes<CompressionAttribute>(a);
-            foreach (CompressionAttribute tag in tags)
+            var tags = GetAttributes<CompressionAttribute>(a);
+            foreach (var tag in tags)
             {
             	Logger.DebugFormat(this, "Adding {0}", tag.Algorithm);
-            	_registeredItems.Add(tag.Algorithm, tag.ClassType);
+            	RegisteredItems.Add(tag.Algorithm, tag.ClassType);
             }			
 		}
 
@@ -63,24 +65,24 @@ namespace ubiety.registries
 		public Stream GetCompression(string algorithm, Stream inner)
 		{
 			Logger.InfoFormat(this, "Finding algorithm {0}.", algorithm);
-			Type t = null;
 			Stream stream = null;
 			try
 			{
 				//t = (Type)_registeredItems[algorithm];
-				if (_registeredItems.TryGetValue(algorithm, out t))
+				Type t;
+				if (RegisteredItems.TryGetValue(algorithm, out t))
 				{				
 					stream = (Stream)Activator.CreateInstance(t, new object[] { inner });
 				}
 				else
 				{
-					Errors.Instance.SendError(this, ubiety.common.ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+					Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
 					return null;
 				}
 			}
 			catch (Exception e)
 			{
-				Errors.Instance.SendError(this, ubiety.common.ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+				Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
 				Logger.Error(this, e);
 			}
 			return stream;
@@ -99,7 +101,7 @@ namespace ubiety.registries
 		{
 			try
 			{
-				object t = _registeredItems[algorithm];
+				object t = RegisteredItems[algorithm];
 			}
 			catch
 			{
@@ -116,9 +118,7 @@ namespace ubiety.registries
 		{
 			get
 			{
-				if (_registeredItems.Count >= 1)
-					return true;
-				return false;
+				return RegisteredItems.Count >= 1;
 			}
 		}
 	}

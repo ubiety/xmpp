@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace ubiety.registries
@@ -24,18 +25,18 @@ namespace ubiety.registries
 	/// <summary>
 	/// 
 	/// </summary>
-	public class Registry<T, Allocator> : IDisposable where T : class where Allocator : Allocator<T>
+	public class Registry<T, TAllocator> : IDisposable where T : class where TAllocator : Allocator<T>
 	{
-		private static readonly Allocator<T> allocator;
+		private static readonly Allocator<T> Allocator;
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		protected static Dictionary<string, Type> _registeredItems = new Dictionary<string, Type>();
+		protected static Dictionary<string, Type> RegisteredItems = new Dictionary<string, Type>();
 		
 		static Registry()
 		{
-			ConstructorInfo constructor = typeof(Allocator).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], new ParameterModifier[0]);
+			var constructor = typeof(TAllocator).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], new ParameterModifier[0]);
 			if (constructor == null)
 			{
 				throw new Exception("The allocator that you want to create doesn't have a protected/private constructor");
@@ -43,7 +44,7 @@ namespace ubiety.registries
 			
 			try
 			{
-				allocator = constructor.Invoke(new object[0]) as Allocator<T>;
+				Allocator = constructor.Invoke(new object[0]) as Allocator<T>;
 			}
 			catch (Exception e)
 			{
@@ -56,7 +57,7 @@ namespace ubiety.registries
 		/// </value>
 		public static T Instance
 		{
-			get { return allocator.Instance; }
+			get { return Allocator.Instance; }
 		}
 		
 		/// <summary>
@@ -68,21 +69,11 @@ namespace ubiety.registries
 		/// <returns>
 		/// A <see cref="System.Object"/>
 		/// </returns>
-		protected E[] GetAttributes<E> (Assembly ass)
+		protected TE[] GetAttributes<TE> (Assembly ass)
 		{
-			List<E> attrs = new List<E>();
-			Type[] types = ass.GetTypes();
-			
-			foreach (Type type in types)
-			{
-				object[] temp = type.GetCustomAttributes(typeof(E), false);
-				foreach (object a in temp)
-				{
-					attrs.Add((E)a);
-				}
-			}
-			
-			return attrs.ToArray();
+			var types = ass.GetTypes();
+
+			return (from type in types from a in type.GetCustomAttributes(typeof (TE), false) select (TE) a).ToArray();
 		}
 		
 		/// <summary>
@@ -90,8 +81,8 @@ namespace ubiety.registries
 		/// </summary>
 		public virtual void Dispose() 
 		{
-			allocator.Dispose();
-			_registeredItems.Clear();
+			Allocator.Dispose();
+			RegisteredItems.Clear();
 		}
 	}
 }

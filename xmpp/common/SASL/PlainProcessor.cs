@@ -20,8 +20,8 @@ using System.Text;
 using System.Xml;
 using ubiety.core;
 using ubiety.core.SASL;
-using ubiety.registries;
 using ubiety.logging;
+using ubiety.registries;
 
 namespace ubiety.common.SASL
 {
@@ -44,22 +44,22 @@ namespace ubiety.common.SASL
 		public override Tag Initialize()
 		{
 			//base.Initialize(id, password);
-			
+
 			Logger.Debug(this, "Initializing Plain Processor");
-			Logger.DebugFormat(this, "ID User: {0}", Settings.ID.User);
+			Logger.DebugFormat(this, "ID User: {0}", Settings.Id.User);
 			Logger.DebugFormat(this, "Password: {0}", Settings.Password);
 
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 
 			sb.Append((char) 0);
-			sb.Append(Settings.ID.User);
+			sb.Append(Settings.Id.User);
 			sb.Append((char) 0);
 			sb.Append(Settings.Password);
 
-			Auth auth = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
+			var auth = (Auth) TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 
 			auth.Text = sb.ToString();
-			auth.Mechanism = Mechanism.GetMechanism(MechanismType.PLAIN);
+			auth.Mechanism = Mechanism.GetMechanism(MechanismType.Plain);
 
 			return auth;
 		}

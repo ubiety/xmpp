@@ -18,9 +18,6 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-
-using System.Diagnostics;
-
 using Gnu.Inet.Encoding;
 
 namespace ubiety.common
@@ -30,26 +27,26 @@ namespace ubiety.common
 	/// </summary>
 	public class XID : IComparable
 	{
-		private string _xid = null;
-		private string _user = null;
-		private string _resource = null;
-		private string _server = null;
+		private string _resource;
+		private string _server;
+		private string _user;
+		private string _xid;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xid"></param>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="xid"></param>
 		public XID(string xid)
 		{
-			XmppID = xid;
+			XmppId = xid;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="server"></param>
-        /// <param name="resource"></param>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="user"></param>
+		/// <param name="server"></param>
+		/// <param name="resource"></param>
 		public XID(string user, string server, string resource)
 		{
 			User = user;
@@ -58,13 +55,14 @@ namespace ubiety.common
 		}
 
 		#region {{ Properties }}
+
 		/// <summary>
 		/// String representation of the id.
 		/// </summary>
-		public string XmppID
+		public string XmppId
 		{
-			get { return (_xid == null) ? build_xid() : _xid; }
-			set { parse(value); }
+			get { return _xid ?? BuildXID(); }
+			set { Parse(value); }
 		}
 
 		/// <summary>
@@ -73,9 +71,9 @@ namespace ubiety.common
 		public string User
 		{
 			get { return _user; }
-			set 
+			set
 			{
-				string tmp = Escape(value);
+				var tmp = Escape(value);
 				_user = Stringprep.NodePrep(tmp);
 			}
 		}
@@ -97,31 +95,46 @@ namespace ubiety.common
 			get { return _resource; }
 			set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
 		}
+
 		#endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+		#region IComparable Members
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public int CompareTo(object obj)
+		{
+			throw new Exception("The method or operation is not implemented.");
+		}
+
+		#endregion
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public override int GetHashCode()
 		{
 			return _xid.GetHashCode();
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString()
 		{
-			return XmppID;
+			return XmppId;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public override bool Equals(object obj)
 		{
 			if (obj == null)
@@ -130,110 +143,113 @@ namespace ubiety.common
 			}
 			if (obj is string)
 			{
-				return XmppID.Equals(obj);
+				return XmppId.Equals(obj);
 			}
 			if (!(obj is XID))
 			{
 				return false;
 			}
 
-			return XmppID.Equals(((XID)obj).XmppID);
+			return XmppId.Equals(((XID) obj).XmppId);
 		}
 
 		#region {{ Operators }}
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one"></param>
+		/// <param name="two"></param>
+		/// <returns></returns>
 		public static bool operator ==(XID one, XID two)
 		{
-			if ((object)one == null)
+			if ((object) one == null)
 			{
-				return ((object)two == null);
+				return ((object) two == null);
 			}
 
 			return one.Equals(two);
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one"></param>
+		/// <param name="two"></param>
+		/// <returns></returns>
 		public static bool operator ==(string one, XID two)
 		{
-			if ((object)two == null)
+			if ((object) two == null)
 			{
-				return ((object)one == null);
+				return ((object) one == null);
 			}
 
 			return two.Equals(one);
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one"></param>
+		/// <param name="two"></param>
+		/// <returns></returns>
 		public static bool operator !=(XID one, XID two)
 		{
-			if ((object)one == null)
+			if ((object) one == null)
 			{
-				return ((object)two != null);
+				return ((object) two != null);
 			}
 
 			return !one.Equals(two);
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one"></param>
+		/// <param name="two"></param>
+		/// <returns></returns>
 		public static bool operator !=(string one, XID two)
 		{
-			if ((object)two == null)
+			if ((object) two == null)
 			{
-				return ((object)one != null);
+				return ((object) one != null);
 			}
 
 			return !two.Equals(one);
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="one"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one"></param>
+		/// <returns></returns>
 		public static implicit operator XID(string one)
 		{
 			return new XID(one);
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="one"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="one"></param>
+		/// <returns></returns>
 		public static implicit operator string(XID one)
 		{
-			return one.XmppID;
+			return one.XmppId;
 		}
+
 		#endregion
 
 		#region {{ Build and Parse functions }}
+
 		/// <summary>
 		/// Builds a string version of an XID from the three parts.
 		/// </summary>
 		/// <returns>string version of xid</returns>
-		private string build_xid()
+		private string BuildXID()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			if (_user != null)
 			{
 				sb.Append(_user);
@@ -253,11 +269,10 @@ namespace ubiety.common
 		/// <summary>
 		/// Takes a string xid and breaks it into its parts.
 		/// </summary>
-		/// <param name="value">xid to parse</param>
-		private void parse(string id)
+		private void Parse(string id)
 		{
-			int at = id.IndexOf('@');
-			int slash = id.IndexOf('/');
+			var at = id.IndexOf('@');
+			var slash = id.IndexOf('/');
 
 			if (at == -1)
 			{
@@ -294,14 +309,16 @@ namespace ubiety.common
 				}
 			}
 		}
+
 		#endregion
-		
+
 		#region {{ XEP-0106 JID Escaping }}
-		private string Escape(string user)
+
+		private static string Escape(string user)
 		{
-			StringBuilder u = new StringBuilder();
-			int count = 0;
-			
+			var u = new StringBuilder();
+			var count = 0;
+
 			foreach (char c in user)
 			{
 				switch (c)
@@ -344,56 +361,43 @@ namespace ubiety.common
 				}
 				count++;
 			}
-			
+
 			return u.ToString();
 		}
-		
+
 		private string Unescape()
 		{
-			Regex re = new Regex(@"\\([2-5][0267face])");
-			string u = re.Replace(_user, new MatchEvaluator(delegate(Match m) 
-				{
-					switch (m.Groups[1].Value)
-					{
-						case "20":
-							return " ";
-						case "22":
-							return "\"";
-						case "26":
-							return "&";
-						case "27":
-							return "'";
-						case "2f":
-							return "/";
-						case "3a":
-							return ":";
-						case "3c":
-							return "<";
-						case "3e":
-							return ">";
-						case "40":
-							return "@";
-						case "5c":
-							return @"\";
-						default:
-							return m.Groups[0].Value;
-					}
-				}));
-				
-			return u;
-		}
-		
-		#endregion
+			var re = new Regex(@"\\([2-5][0267face])");
+			var u = re.Replace(_user, new MatchEvaluator(delegate(Match m)
+			                                                	{
+			                                                		switch (m.Groups[1].Value)
+			                                                		{
+			                                                			case "20":
+			                                                				return " ";
+			                                                			case "22":
+			                                                				return "\"";
+			                                                			case "26":
+			                                                				return "&";
+			                                                			case "27":
+			                                                				return "'";
+			                                                			case "2f":
+			                                                				return "/";
+			                                                			case "3a":
+			                                                				return ":";
+			                                                			case "3c":
+			                                                				return "<";
+			                                                			case "3e":
+			                                                				return ">";
+			                                                			case "40":
+			                                                				return "@";
+			                                                			case "5c":
+			                                                				return @"\";
+			                                                			default:
+			                                                				return m.Groups[0].Value;
+			                                                		}
+			                                                	}));
 
-		#region IComparable Members
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-		public int CompareTo(object obj)
-		{
-			throw new Exception("The method or operation is not implemented.");
+			return u;
 		}
 
 		#endregion

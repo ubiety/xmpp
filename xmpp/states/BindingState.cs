@@ -15,8 +15,6 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
-using System.Xml;
 using ubiety.common;
 using ubiety.core;
 using ubiety.core.iq;
@@ -24,46 +22,49 @@ using ubiety.logging;
 
 namespace ubiety.states
 {
+	///<summary>
+	///</summary>
 	public class BindingState : State
 	{
-		public BindingState() : base()
-		{
-		}
-		
-		public override void Execute (Tag data)
+		public override void Execute(Tag data)
 		{
 			if (data == null)
 			{
-				Bind a = (Bind)_reg.GetTag("bind", Namespaces.BIND, _current.Document);
-				Iq b = (Iq)_reg.GetTag("iq", Namespaces.CLIENT, _current.Document);
-				
-				if (Settings.ID.Resource != null)
+				var a = (Bind) Reg.GetTag("bind", Namespaces.Bind, Current.Document);
+				var b = (Iq) Reg.GetTag("iq", Namespaces.Client, Current.Document);
+
+				if (Settings.Id.Resource != null)
 				{
-					Resource res = (Resource)_reg.GetTag("resource", Namespaces.BIND, _current.Document);
-					res.InnerText = Settings.ID.Resource;
+					var res = Reg.GetTag("resource", Namespaces.Bind, Current.Document);
+					res.InnerText = Settings.Id.Resource;
 					a.AddChildTag(res);
 				}
-				
+
 				//b.From = _current.ID;
 				//b.To = _current.ID.Server;
-				b.IQType = IQType.Set;
+				b.IqType = IqType.Set;
 				b.Payload = a;
-				
-				_current.Socket.Write(b);
+
+				Current.Socket.Write(b);
 			}
 			else
 			{
-				Iq iq = data as Iq;
-                if (iq.IQType == IQType.Error)
-                {
-                    Error e = (Error)iq["error"];
-                }
-				Bind bind = iq.Payload as Bind;
-				Settings.ID = bind.XID.XID;
-				Logger.InfoFormat(this, "Current XID is now: {0}", Settings.ID);
-				
-				_current.State = new SessionState();
-				_current.Execute(null);
+				var iq = data as Iq;
+				Bind bind = null;
+				if (iq != null)
+				{
+					if (iq.IqType == IqType.Error)
+					{
+						var e = iq["error"];
+						if (e != null) Errors.Instance.SendError(this, ErrorType.XMLError, e.InnerText);
+					}
+					bind = iq.Payload as Bind;
+				}
+				if (bind != null) Settings.Id = bind.XID.XID;
+				Logger.InfoFormat(this, "Current XID is now: {0}", Settings.Id);
+
+				Current.State = new SessionState();
+				Current.Execute();
 			}
 		}
 	}

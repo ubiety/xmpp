@@ -15,80 +15,95 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System.Xml;
 using System;
+using System.Threading;
+using System.Xml;
 
 namespace ubiety.common
 {
-    /// <summary>
-    /// Tag is the class from which all tags are subclassed.
-    /// </summary>
+	/// <summary>
+	/// Tag is the class from which all tags are subclassed.
+	/// </summary>
 	public class Tag : XmlElement
 	{
-		static int _packetCounter;
-	
-        /// <summary>
-        /// Creates a new tag
-        /// </summary>
-        /// <param name="prefix">Tag Prefix</param>
-        /// <param name="qname">Qualified Namespace</param>
-        /// <param name="doc">XmlDocument associated with the tag</param>
+		private static int _packetCounter;
+
+		/// <summary>
+		/// Creates a new tag
+		/// </summary>
+		/// <param name="prefix">Tag Prefix</param>
+		/// <param name="qname">Qualified Namespace</param>
+		/// <param name="doc">XmlDocument associated with the tag</param>
 		public Tag(string prefix, XmlQualifiedName qname, XmlDocument doc)
 			: base(prefix, qname.Name, qname.Namespace, doc)
 		{
 		}
-		
-		public Tag() : base("", "", "", null)
+
+		///<summary>
+		///</summary>
+		public Tag() : base("", "", "", new XmlDocument())
 		{
 		}
-		
+
+		///<summary>
+		///</summary>
+		///<param name="child"></param>
 		public void AddChildTag(Tag child)
 		{
-			if (this.OwnerDocument == child.OwnerDocument)
-				this.AppendChild(child);
-			else
-				this.AppendChild(this.OwnerDocument.ImportNode(child, true));
+			if (OwnerDocument == child.OwnerDocument)
+				AppendChild(child);
+			else if (OwnerDocument != null) AppendChild(OwnerDocument.ImportNode(child, true));
 		}
-		
+
+		///<summary>
+		///</summary>
+		///<param name="name"></param>
+		///<typeparam name="T"></typeparam>
+		///<returns></returns>
 		public T GetEnumAttribute<T>(string name)
 		{
-            string value = this.Attributes[name].Value;
-			return (T) Enum.Parse(typeof(T), value, true);
+			string value = Attributes[name].Value;
+			return (T) Enum.Parse(typeof (T), value, true);
 		}
-		
-		public string GetNextID()
-		{
-			System.Threading.Interlocked.Increment(ref _packetCounter);
-			return "U" + _packetCounter.ToString();
-		}
-		
-		#region << Properties >>
-        ///<summary>
-        ///</summary>
-        ///<param name="one"></param>
-        ///<returns></returns>
-        public static implicit operator string(Tag one)
-        {
-            return one.ToString();
-        }
 
-        /// <summary>
-        /// Returns a string representation of the tag.
-        /// </summary>
-        /// <returns>String object representing the tag.</returns>
-		public override string ToString()
+		///<summary>
+		///</summary>
+		///<returns></returns>
+		public string GetNextId()
 		{
-			return OuterXml;
+			Interlocked.Increment(ref _packetCounter);
+			return "U" + _packetCounter;
 		}
-		
+
+		#region << Properties >>
+
 		/// <value>
 		/// 
 		/// </value>
 		public byte[] Bytes
-			{
+		{
 			get { return Convert.FromBase64String(InnerText); }
 			set { InnerText = Convert.ToBase64String(value); }
 		}
+
+		///<summary>
+		///</summary>
+		///<param name="one"></param>
+		///<returns></returns>
+		public static implicit operator string(Tag one)
+		{
+			return one.ToString();
+		}
+
+		/// <summary>
+		/// Returns a string representation of the tag.
+		/// </summary>
+		/// <returns>String object representing the tag.</returns>
+		public override string ToString()
+		{
+			return OuterXml;
+		}
+
 		#endregion
 	}
 }

@@ -22,32 +22,30 @@ using ubiety.core.iq;
 
 namespace ubiety.states
 {
+	///<summary>
+	///</summary>
 	public class SessionState : State
 	{
-		public SessionState() : base()
-		{
-		}
-		
 		public override void Execute (Tag data)
 		{
 			if (data == null)
 			{
-				Iq iq = (Iq)_reg.GetTag("iq", Namespaces.CLIENT, _current.Document);
-				Session sess = (Session)_reg.GetTag("session", Namespaces.SESSION, _current.Document);
+				var iq = (Iq)Reg.GetTag("iq", Namespaces.Client, Current.Document);
+				var sess = Reg.GetTag("session", Namespaces.Session, Current.Document);
 
-				iq.From = Settings.ID;
-				iq.To = Settings.ID.Server;
-				iq.IQType = IQType.Set;
+				iq.From = Settings.Id;
+				iq.To = Settings.Id.Server;
+				iq.IqType = IqType.Set;
 				iq.Payload = sess;
 
-				_current.Socket.Write(iq);
+				Current.Socket.Write(iq);
 			}
 			else
 			{
-				Presence p = (Presence)_reg.GetTag("presence", Namespaces.CLIENT, _current.Document);
-				_current.Socket.Write(p);
+				var p = Reg.GetTag("presence", Namespaces.Client, Current.Document);
+				Current.Socket.Write(p);
 
-				_current.State = new RunningState();
+				Current.State = new RunningState();
 			}
 		}
 	}

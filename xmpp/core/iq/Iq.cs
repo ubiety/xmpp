@@ -16,36 +16,55 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
 using ubiety.attributes;
+using ubiety.common;
 
 namespace ubiety.core.iq
 {
-	public enum IQType
+	///<summary>
+	///</summary>
+	public enum IqType
 	{
+		///<summary>
+		///</summary>
 		Get,
+		///<summary>
+		///</summary>
 		Set,
+		///<summary>
+		///</summary>
 		Error,
+		///<summary>
+		///</summary>
 		Result
 	}
 
-	[XmppTag("iq", Namespaces.CLIENT, typeof(Iq))]
+	///<summary>
+	///</summary>
+	[XmppTag("iq", Namespaces.Client, typeof (Iq))]
 	public class Iq : Stanza
 	{
-		public Iq(XmlDocument doc) : base("", new XmlQualifiedName("iq", Namespaces.CLIENT), doc)
+		///<summary>
+		///</summary>
+		///<param name="doc"></param>
+		public Iq(XmlDocument doc) : base("", new XmlQualifiedName("iq", Namespaces.Client), doc)
 		{
-			ID = GetNextID();
+			Id = GetNextId();
 		}
-		
-		public IQType IQType
+
+		///<summary>
+		///</summary>
+		public IqType IqType
 		{
-			get { return GetEnumAttribute<IQType>("type"); }
+			get { return GetEnumAttribute<IqType>("type"); }
 			set { SetAttribute("type", value.ToString().ToLower()); }
 		}
-		
+
+		///<summary>
+		///</summary>
 		public Tag Payload
 		{
-			get { return (Tag)FirstChild; }
+			get { return (Tag) FirstChild; }
 			set { AddChildTag(value); }
 		}
 	}
