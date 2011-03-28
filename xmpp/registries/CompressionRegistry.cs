@@ -99,16 +99,7 @@ namespace ubiety.registries
 		/// </returns>
 		public static bool SupportsAlgorithm(string algorithm)
 		{
-			try
-			{
-				object t = RegisteredItems[algorithm];
-			}
-			catch
-			{
-				return false;
-			}
-			
-			return true;
+			return RegisteredItems.ContainsKey(algorithm);
 		}
 
 		/// <value>
