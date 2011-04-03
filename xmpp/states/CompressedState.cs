@@ -17,7 +17,6 @@
 
 using ubiety.common;
 using ubiety.core.compression;
-using ubiety.logging;
 
 namespace ubiety.states
 {

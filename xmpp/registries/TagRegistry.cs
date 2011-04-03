@@ -20,7 +20,6 @@ using System.Reflection;
 using System.Xml;
 using ubiety.attributes;
 using ubiety.common;
-using ubiety.logging;
 
 namespace ubiety.registries
 {

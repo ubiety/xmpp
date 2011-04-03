@@ -25,7 +25,6 @@ using System.Text;
 using System.Threading;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ubiety.common;
-using ubiety.logging;
 using ubiety.states;
 
 namespace ubiety.net
@@ -41,7 +40,7 @@ namespace ubiety.net
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private bool _compressed;
 		private Deflater _deflate;
-		private Address _dest;
+		private readonly Address _dest;
 
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
 		private bool _encrypting;
@@ -54,6 +53,11 @@ namespace ubiety.net
 		// Timeout after 15 seconds by default
 		private const int Timeout = 15000;
 
+		public AsyncSocket()
+		{
+			_dest = new Address();
+		}
+
 		/// <summary>
 		/// Gets the current status of the socket.
 		/// </summary>
@@ -62,7 +66,10 @@ namespace ubiety.net
 		/// <summary>
 		/// 
 		/// </summary>
-		public string Hostname { get; private set; }
+		public string Hostname
+		{
+			get { return _dest.Hostname; }
+		}
 
 		/// <summary>
 		/// 
@@ -75,12 +82,7 @@ namespace ubiety.net
 		/// <returns>True if we connected, false if we didn't</returns>
 		public void Connect()
 		{
-			Hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
-
-			_dest = Address.Resolve(Hostname, Settings.Port);
-			if (_dest == null)
-				return;
-			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.Ip.ToString(), _dest.Port.ToString());
+			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.Ip.ToString(), Settings.Port.ToString());
 			if (!_dest.IPv6)
 			{
 				Logger.Debug(this, "Connecting using IPv4");

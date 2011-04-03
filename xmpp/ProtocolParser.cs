@@ -22,8 +22,6 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 using ubiety.common;
-using ubiety.core;
-using ubiety.logging;
 using ubiety.registries;
 using ubiety.states;
 using Stream = ubiety.core.Stream;

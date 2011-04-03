@@ -21,8 +21,6 @@
 // distributed and edited without restriction.
 // 
 
-using System;
-
 namespace ubiety.net.dns
 {
 	/// <summary>
@@ -30,66 +28,73 @@ namespace ubiety.net.dns
 	/// </summary>
 	public enum DnsType
 	{
+		///<summary>
+		///</summary>
 		None = 0,
-        /// <summary>
-        /// a host address
-        /// </summary>
-        ANAME = 1,
+		/// <summary>
+		/// a host address
+		/// </summary>
+		ANAME = 1,
 
-        /// <summary>
-        /// an authoritative name server
-        /// </summary>
-        NS = 2,
-        //	MD    = 3,  Obsolete
-        //	MF    = 5,  Obsolete
+		/// <summary>
+		/// an authoritative name server
+		/// </summary>
+		NS = 2,
+		//	MD    = 3,  Obsolete
+		//	MF    = 5,  Obsolete
 
-        /// <summary>
-        /// the canonical name for an alias
-        /// </summary>
-        CNAME = 5,
+		/// <summary>
+		/// the canonical name for an alias
+		/// </summary>
+		CNAME = 5,
 
-        /// <summary>
-        /// marks the start of a zone of authority
-        /// </summary>
-        SOA = 6,
-        //	MB    = 7,  EXPERIMENTAL
-        //	MG    = 8,  EXPERIMENTAL
-        //  MR    = 9,  EXPERIMENTAL
-        //	NULL  = 10, EXPERIMENTAL
-        /// <summary>
-        /// a well known service description
-        /// </summary>
-        WKS = 11,
+		/// <summary>
+		/// marks the start of a zone of authority
+		/// </summary>
+		SOA = 6,
+		//	MB    = 7,  EXPERIMENTAL
+		//	MG    = 8,  EXPERIMENTAL
+		//  MR    = 9,  EXPERIMENTAL
+		//	NULL  = 10, EXPERIMENTAL
+		/// <summary>
+		/// a well known service description
+		/// </summary>
+		WKS = 11,
 
-        /// <summary>
-        /// a domain name pointer
-        /// </summary>
-        PTR = 12,
+		/// <summary>
+		/// a domain name pointer
+		/// </summary>
+		PTR = 12,
 
-        /// <summary>
-        /// host information
-        /// </summary>
-        HINFO = 13,
+		/// <summary>
+		/// host information
+		/// </summary>
+		HINFO = 13,
 
-        /// <summary>
-        /// mailbox or mail list information
-        /// </summary>
-        MINFO = 14,
+		/// <summary>
+		/// mailbox or mail list information
+		/// </summary>
+		MINFO = 14,
 
-        /// <summary>
-        /// mail exchange
-        /// </summary>
-        MX = 15,
+		/// <summary>
+		/// mail exchange
+		/// </summary>
+		MX = 15,
 
-        /// <summary>
-        /// text strings
-        /// </summary>
-        TXT = 16,
+		/// <summary>
+		/// text strings
+		/// </summary>
+		TXT = 16,
 
-        /// <summary>
-        /// SRV Records
-        /// </summary>
-        SRV = 33,
+		///<summary>
+		/// IPv6 address extension
+		///</summary>
+		AAAA = 28,
+
+		/// <summary>
+		/// SRV Records
+		/// </summary>
+		SRV = 33,
 	}
 
 	/// <summary>
@@ -99,10 +104,10 @@ namespace ubiety.net.dns
 	public enum DnsClass
 	{
 		None = 0,
-        IN = 1,
-        CS = 2,
-        CH = 3,
-        HS = 4
+		IN = 1,
+		CS = 2,
+		CH = 3,
+		HS = 4
 	}
 
 	/// <summary>

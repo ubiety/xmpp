@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ubiety.attributes;
-using ubiety.logging;
 using ubiety.common;
 
 namespace ubiety.compression.sharpziplib

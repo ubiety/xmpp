@@ -18,7 +18,6 @@
 using System;
 using System.Collections;
 using ubiety.core;
-using ubiety.logging;
 using System.Text;
 using System.Security.Cryptography;
 

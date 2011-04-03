@@ -19,7 +19,6 @@ using System;
 using ubiety.attributes;
 using System.IO;
 using System.Reflection;
-using ubiety.logging;
 using ubiety.common;
 
 namespace ubiety.registries

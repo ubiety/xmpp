@@ -21,7 +21,6 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using ubiety.logging;
 using ubiety.net.dns;
 
 namespace ubiety.net
@@ -31,44 +30,32 @@ namespace ubiety.net
 	/// </remarks>
 	internal class Address
 	{
-		private static int _port;
-
 		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>(10);
 		private static readonly List<IPAddress> Dns = new List<IPAddress>();
-		private IPAddress _ip;
+		private readonly string _hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Address"/> class.
-		/// </summary>
-		/// <param name="port">Port for the <see cref="IPEndPoint"/></param>
-		private Address(int port)
+		public Address()
 		{
-			_port = port;
+			Logger.Debug(this, "Getting DNS addresses");
+			var net = NetworkInterface.GetAllNetworkInterfaces();
+			foreach (var dns in from n in net
+									  where
+										n.OperationalStatus == OperationalStatus.Up &&
+										n.NetworkInterfaceType != NetworkInterfaceType.Loopback
+									  select n.GetIPProperties()
+										  into i
+										  from dns in i.DnsAddresses
+										  where dns.AddressFamily == AddressFamily.InterNetwork
+										  select dns)
+			{
+				Dns.Add(dns);
+				Logger.DebugFormat(this, "Dns Address: {0}", dns.ToString());
+			}
 		}
 
-		private Address(string hostname, int port)
-			: this(port)
+		public IPAddress NextIPAddress()
 		{
-			Hostname = hostname;
-		}
-
-		/// <summary>
-		/// Hostname to connect to.
-		/// </summary>
-		public string Hostname { get; set; }
-
-		/// <summary>
-		/// IP Address of the host to connect to.
-		/// </summary>
-		public IPAddress Ip
-		{
-			get { return _ip; }
-			set { _ip = value; }
-		}
-
-		public int Port
-		{
-			get { return _port; }
+			return null;
 		}
 
 		/// <summary>
@@ -76,13 +63,13 @@ namespace ubiety.net
 		/// </summary>
 		public bool IPv6
 		{
-			get { return (EndPoint.AddressFamily == AddressFamily.InterNetworkV6); }
+			get { return Socket.OSSupportsIPv6; }
 		}
 
-		/// <summary>
-		/// <see cref="IPEndPoint"/> resolved from the hostname or ip address.
-		/// </summary>
-		public IPEndPoint EndPoint { get; private set; }
+		public string Hostname
+		{
+			get { return _hostname; }
+		}
 
 		/// <summary>
 		/// Resolves a hostname to its ip address.
@@ -90,6 +77,7 @@ namespace ubiety.net
 		/// <param name="hostname">Hostname to resolve.</param>
 		/// <param name="port">Port to connect to</param>
 		/// <returns>An instance of the <see cref="Address"/> class.</returns>
+		[Obsolete]
 		public static Address Resolve(string hostname, int port)
 		{
 			return ResolveDNS(hostname, port) ?? ResolveSystem(hostname, port);
@@ -100,18 +88,7 @@ namespace ubiety.net
 			if (hostname == "localhost" || hostname == "ubiety")
 				return null;
 
-			var temp = new Address(hostname, port);
-
-			Logger.Debug(typeof (Address), "Getting DNS addresses");
-			var net = NetworkInterface.GetAllNetworkInterfaces();
-			foreach (var dns in from n in net
-			                          where n.OperationalStatus == OperationalStatus.Up && n.NetworkInterfaceType != NetworkInterfaceType.Loopback
-			                          select n.GetIPProperties()
-			                          into i from dns in i.DnsAddresses where dns.AddressFamily == AddressFamily.InterNetwork select dns)
-			{
-				Dns.Add(dns);
-				Logger.DebugFormat(typeof (Address), "Dns Address: {0}", dns.ToString());
-			}
+			//var temp = new Address(hostname, port);
 
 			try
 			{
@@ -122,7 +99,7 @@ namespace ubiety.net
 				{
 					Logger.DebugFormat(typeof (Address), "SRV Address: {0}", srv[0].Target);
 					lookup = srv[0].Target;
-					_port = srv[0].Port;
+					//_port = srv[0].Port;
 				}
 				else
 					lookup = hostname;
@@ -137,7 +114,7 @@ namespace ubiety.net
 						if (ans.Type == DnsType.ANAME)
 						{
 							var rec = (ANameRecord) ans.Record;
-							temp.Ip = rec.IPAddress;
+							//temp.Ip = rec.IPAddress;
 						}
 						else
 						{
@@ -151,7 +128,7 @@ namespace ubiety.net
 					return null;
 				}
 
-				temp.EndPoint = new IPEndPoint(temp.Ip, _port);
+				//temp.EndPoint = new IPEndPoint(temp.Ip, _port);
 			}
 			catch (Exception e)
 			{
@@ -159,18 +136,19 @@ namespace ubiety.net
 				return null;
 			}
 
-			return temp;
+			//return temp;
+			return null;
 		}
 
 		private static Address ResolveSystem(string hostname, int port)
 		{
-			var temp = new Address(hostname, port);
+			//var temp = new Address(hostname, port);
 
 			try
 			{
 				var addr = System.Net.Dns.GetHostEntry(hostname).AddressList[0];
-				temp._ip = addr;
-				temp.EndPoint = new IPEndPoint(addr, _port);
+				//temp.Ip = addr;
+				//temp.EndPoint = new IPEndPoint(addr, _port);
 			}
 			catch (Exception e)
 			{
@@ -178,7 +156,8 @@ namespace ubiety.net
 				return null;
 			}
 
-			return temp;
+			//return temp;
+			return null;
 		}
 	}
 }

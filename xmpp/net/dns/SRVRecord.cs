@@ -22,75 +22,86 @@ namespace ubiety.net.dns
 	/// <summary>
 	/// Summary description for SRVRecord.
 	/// </summary>
-   public class SRVRecord : RecordBase, IComparable
-   {
-       /// <summary>
-       /// Constructs a NS record by reading bytes from a return message
-       /// </summary>
-       /// <param name="pointer">A logical pointer to the bytes holding the record</param>
-       internal SRVRecord(Pointer pointer)
-       {
-           _Priority = pointer.ReadShort();
-           _Weight = pointer.ReadShort();
-           _Port = pointer.ReadShort();
-           _Target = pointer.ReadDomain();
-       }
-           
-        // the fields exposed outside the assembly
-        private int     _Priority;
-        private int     _Weight;
-        private int     _Port;
-        private string  _Target;
+	public class SRVRecord : RecordBase, IComparable
+	{
+		private readonly int _port;
+		private readonly int _priority;
+		private readonly string _target;
+		private readonly int _weight;
 
-        public int Priority	
-        { 
-          get { return _Priority; } 
-        }
+		/// <summary>
+		/// Constructs a NS record by reading bytes from a return message
+		/// </summary>
+		/// <param name="pointer">A logical pointer to the bytes holding the record</param>
+		internal SRVRecord(Pointer pointer)
+		{
+			_priority = pointer.ReadShort();
+			_weight = pointer.ReadShort();
+			_port = pointer.ReadShort();
+			_target = pointer.ReadDomain();
+		}
 
-        public int Weight	
-        { 
-          get { return _Weight; } 
-        }
+		///<summary>
+		///</summary>
+		public int Priority
+		{
+			get { return _priority; }
+		}
 
-        public int Port
-        { 
-          get { return _Port; } 
-        }
-      
-        public string Target	
-        { 
-            get { return _Target; } 
-        }
-				
-        public override string ToString()
-        {
+		///<summary>
+		///</summary>
+		public int Weight
+		{
+			get { return _weight; }
+		}
+
+		///<summary>
+		///</summary>
+		public int Port
+		{
+			get { return _port; }
+		}
+
+		///<summary>
+		///</summary>
+		public string Target
+		{
+			get { return _target; }
+		}
+
+		#region IComparable Members
+
+		/// <summary>
+		/// Implements the IComparable interface so that we can sort the SRV records by their
+		/// lowest priority
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns>1, 0, -1</returns>
+		public int CompareTo(object obj)
+		{
+			var srvOther = (SRVRecord) obj;
+
+			// we want to be able to sort them by priority from lowest to highest.
+			if (_priority < srvOther._priority) return -1;
+			if (_priority > srvOther._priority) return 1;
+
+			// if the priority is the same, sort by highest weight to lowest (higher
+			// weighting means that server should get more of the requests)
+			if (_weight > srvOther._weight) return -1;
+			if (_weight < srvOther._weight) return 1;
+
+			return 0;
+		}
+
+		#endregion
+
+		public override string ToString()
+		{
 			return string.Format("\n   priority   = {0}\n   weight     = {1}\n   port       = {2}\n   target     = {3}",
-            _Priority,
-            _Weight,
-            _Port,
-            _Target);
-        }
-
-        /// <summary>
-        /// Implements the IComparable interface so that we can sort the SRV records by their
-        /// lowest priority
-        /// </summary>
-        /// <param name="other">the other SRVRecord to compare against</param>
-        /// <returns>1, 0, -1</returns>
-        public int CompareTo(object obj)
-        {
-            SRVRecord srvOther = (SRVRecord)obj;
-
-            // we want to be able to sort them by priority from lowest to highest.
-            if (_Priority < srvOther._Priority) return -1;
-            if (_Priority > srvOther._Priority) return 1;
-
-            // if the priority is the same, sort by highest weight to lowest (higher
-            // weighting means that server should get more of the requests)
-            if (_Weight > srvOther._Weight) return -1;
-            if (_Weight < srvOther._Weight) return 1;
-
-            return 0;
-        }
-    }
+			                     _priority,
+			                     _weight,
+			                     _port,
+			                     _target);
+		}
+	}
 }

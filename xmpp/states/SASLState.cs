@@ -16,8 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using ubiety.common;
-using ubiety.core.SASL;
-using ubiety.logging;
 
 namespace ubiety.states
 {

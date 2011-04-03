@@ -19,7 +19,6 @@ using System.Linq;
 using ubiety.common;
 using ubiety.common.SASL;
 using ubiety.core;
-using ubiety.logging;
 using ubiety.registries;
 
 namespace ubiety.states

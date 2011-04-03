@@ -18,7 +18,6 @@
 using ubiety.common;
 using ubiety.core;
 using ubiety.core.iq;
-using ubiety.logging;
 
 namespace ubiety.states
 {
