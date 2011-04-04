@@ -1,0 +1,163 @@
+2009-04-06  Dieter Lunn  <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: Added IPv6 socket type
+
+	* net/Address.cs: Added SRV lookups to address resolution
+
+2009-03-23  Dieter Lunn  <coder2000@gmail.com>
+
+	* XMPP.cs: Changed all tags to new creation format: public Tag(XmlDocument doc) : base ("prefix", XmlQualifiedName("tagname", "namespace"), doc)
+
+	* registries/TagRegistry.cs: Changed how tags are created.  All that is needed is now the document.  The tags should know their own prefix and namespaces.
+
+	* attributes/XmppTagAttribute.cs: Changed prefix to name because it is not the prefix
+
+	* ProtocolParser.cs: Added jabber:client as the default namespace so TagRegistry can find the correct tags
+
+	* states/StartTLSState.cs: Changed to using connected state for sending start tag.  More DRY that way.
+
+	* states/ConnectedState.cs: Removed unneeded code after protocol parser change
+
+	* ProtocolParser.cs: Added check for stream tag so it can change the the features state on restarts
+
+	* states/ConnectedState.cs: Changed XmlDocument to state based document
+
+	* states/ServerFeaturesState.cs: Changed XmlDocument to state based document
+
+	* states/ServerFeaturesState.cs: Changes to binding state as last item to do
+
+	* states/BindingState.cs: Added new state for binding resource after SASL authentication
+
+	* common/Tag.cs: Added Enum attribute method and GetNextID method
+
+	* core/iq/Iq.cs: Added Iq tag
+
+	* ProtocolParser.cs: Modified to use the XmlDocument from the state
+
+	* states/ProtocolState.cs: Added XmlDocument for overall tag creation
+
+	* states/ConnectedState.cs: Defaulted xml:lang to 'en' until code is added to validate the language code
+
+	* core/Stream.cs: Added xml:lang to stream:stream for language support
+
+	* common/Namespaces.cs: Added XML namespaces and jabber:client namespace
+
+2009-03-22  Dieter Lunn  <coder2000@gmail.com>
+
+	* states/ServerFeaturesState.cs: Removed unncessary code due to changes in Tag
+
+	* common/Tag.cs: Added method to add children from other documents.
+
+	* states/ServerFeaturesState.cs: Moved compression before authentication for better compliance with standards.
+
+	* common/SASL/MD5Processor.cs: Added additional step that sends a blank response for the rspauth challenge according to RFC 3920
+
+	* common/SASL/MD5Processor.cs: Changed the SASL realm check to just the digest-uri.  This may help with connecting to ejabberd.
+
+	* registries/TagRegistry.cs: Added check for null on returned type from registry.  Should be better than letting CreateInstance throw an exception.
+
+	* common/SASL/MD5Processor.cs: Added check for SASL realm.  Still have to decide whether to throw an exception or not.
+
+	* core/SASL/Failure.cs: Added bad protocl failure tag
+
+2009-03-21  Dieter Lunn  <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: removed an unncessary logging command
+
+2009-03-20  Dieter Lunn  <coder2000@gmail.com>
+
+	* common/SASL/MD5Processor.cs: Fixed a bug from the name change.  It had changed required xmpp names to ubiety.
+	* In general there are alot of fixes and minor changes.
+
+2009-01-07  Dieter Lunn <coder2000@gmail.com>
+
+	* common/XID.cs: Added XEP-0106 JID Escaping and NUnit testing.
+
+2008-11-09  Dieter Lunn <coder2000@gmail.com> 
+
+	* ChangeLog: All changes should be in here including refactoring
+	  ProtocolState to singleton and ProtocolParser.Parse to static.  Visual
+	  Studio solution may not be up to date on current file arrangment.
+
+2008-10-27  Dieter Lunn <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: Added compression.  Still not working but close.  It negotiates properly but as MonoDevelop doesn't trap all uncaught exceptions its hard to tell where the error is occuring.
+
+2008-10-26  Dieter Lunn <coder2000@gmail.com>
+
+	* registries/CompressionRegistry.cs: Working on adding compression streams.
+
+	* Errors.cs: Added a new singleton class to handle bringing errors to the top.
+
+	* ProtocolParser.cs: Changed the parse method to static removing the need to create an instance.
+
+	* XMPP.cs: Removed unnecessary events for sockets and protocol parser.
+
+	* states/ProtocolState.cs: Changed to a singleton and added compression features.
+
+2008-10-23  Dieter Lunn <coder2000@gmail.com>
+
+	* ProtocolParser.cs: Removed unnessary #if statements.
+
+	* registries/TagRegistry.cs: Removed the need for the add tag methods.  AddAssembly adds to the hashtable on its own.
+
+2008-06-16  Dieter Lunn <coder2000@gmail.com> 
+
+	* Moved XmppTagAttribute to xmpp.attributes namespace allowing for further attributes to be added.
+	* Started work on XEP-0138 Stream Compression
+
+2008-06-05  Dieter Lunn <coder2000@gmail.com> 
+
+	* net/AsyncSocket.cs: Updated the file for Mono 2.0 which supports SslStream
+	  rather than SslClientStream.  No more conditional compiling needed.
+
+2008-01-11  Dieter Lunn <coder2000@gmail.com>
+
+	* net/AsyncSocket.cs: Changed the stream naming in an attempt to get SSL working.
+
+2008-01-08  Dieter Lunn <coder2000@gmail.com>
+	
+	* common/Tag.cs: Fixed issue 3.  Removed the comparison operators.
+
+2007-12-09  Dieter Lunn <coder2000@gmail.com> 
+
+	Changed the states to use tags rather than generic objects.  any other data they need is part of ProtocolState.
+
+2007-12-09  Dieter Lunn <coder2000@gmail.com>
+
+	* common/SASL/SASLProcessor.cs: Fixed MD5 Processor creation.  Regex had a format error.  Mono wasn't throwing the exception.
+
+	* XMPP.cs: Removed unneeded state enumeration.  Moved completely to objects.
+
+2007-12-06  Dieter Lunn <coder2000@gmail.com> 
+
+	* Added MD5 processor.  Currently not being created for some reason.
+
+2007-12-04  Dieter Lunn <coder2000@gmail.com> 
+
+	* Continued work on SASL
+
+2007-11-26  Dieter Lunn <coder2000@gmail.com> 
+
+	* Added a lot of missing comments.  Still have to fill in the text but at least the compiler won't complain as much.
+
+2007-11-10  Dieter Lunn <coder2000@gmail.com> 
+
+	* Moved logging to static class in Logger.cs
+
+2007-11-07  Dieter Lunn <coder2000@gmail.com> 
+* removed incompatible stringprep dll from library and replaced it with libidn.
+	
+
+2007-11-01  Dieter Lunn <coder2000@gmail.com> 
+* Working on getting SSL working with the new state model.
+	
+
+2007-11-01  Dieter Lunn <coder2000@gmail.com> 
+
+	
+
+2007-11-01  Dieter Lunn <coder2000@gmail.com> 
+
+	
+

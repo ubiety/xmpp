@@ -1,4 +1,0 @@
-2009-03-21  Dieter Lunn  <coder2000@gmail.com>
-
-	* ZlibStream.cs: Added a new library to try getting zlib working.  Still no dice on the unknown format front.
-
