@@ -25,14 +25,13 @@ using ubiety.net.dns;
 
 namespace ubiety.net
 {
-	/// <remarks>
-	/// Implements a method of resolving urls to an <see cref="IPEndPoint"/>.
-	/// </remarks>
+	/// <summary>
+	/// Resolves the IM server address from the hostname provided by the XID.
+	/// </summary>
 	internal class Address
 	{
 		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>(10);
 		private static readonly List<IPAddress> DnsAddresses = new List<IPAddress>();
-		private readonly string _hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
 		private bool _srvFailed;
 		private SRVRecord[] _srvRecords;
 		private int _dnsAttempts;
@@ -58,8 +57,16 @@ namespace ubiety.net
 
 		public IPAddress NextIPAddress()
 		{
+			Hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
 			if(_srvRecords == null && !_srvFailed)
 				_srvRecords = ResolveSRV();
+
+			if (_srvRecords != null)
+			{
+				Settings.Port = _srvRecords[0].Port;
+				Settings.Hostname = _srvRecords[0].Target;
+				return ResolveSystem(Settings.Hostname);
+			}
 			return null;
 		}
 
@@ -67,9 +74,10 @@ namespace ubiety.net
 		{
 			while (_dnsAttempts < DnsAddresses.Count)
 			{
+				Logger.DebugFormat(this, "Using DNS {0}", DnsAddresses[_dnsAttempts].ToString());
 				try
 				{
-					var records = Resolver.SRVLookup("_xmpp-client._tcp." + _hostname, DnsAddresses[_dnsAttempts]);
+					var records = Resolver.SRVLookup("_xmpp-client._tcp." + Hostname, DnsAddresses[_dnsAttempts]);
 					if (records.Length == 0)
 					{
 						_srvFailed = true;
@@ -92,13 +100,10 @@ namespace ubiety.net
 		/// </summary>
 		public bool IPv6
 		{
-			get { return Socket.OSSupportsIPv6; }
+			get { return false; }
 		}
 
-		public string Hostname
-		{
-			get { return _hostname; }
-		}
+		public string Hostname { get; private set; }
 
 		private static Address ResolveDNS(string hostname, int port)
 		{
@@ -157,13 +162,13 @@ namespace ubiety.net
 			return null;
 		}
 
-		private static Address ResolveSystem(string hostname, int port)
+		private static IPAddress ResolveSystem(string hostname)
 		{
 			//var temp = new Address(hostname, port);
 
 			try
 			{
-				var addr = Dns.GetHostEntry(hostname).AddressList[0];
+				return Dns.GetHostEntry(hostname).AddressList[0];
 				//temp.Ip = addr;
 				//temp.EndPoint = new IPEndPoint(addr, _port);
 			}

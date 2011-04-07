@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
@@ -34,13 +35,15 @@ namespace ubiety.net
 	/// </remarks>
 	internal class AsyncSocket
 	{
+		// Timeout after 5 seconds by default
+		private const int Timeout = 5000;
 		private readonly byte[] _buff = new byte[4096];
+		private readonly Address _dest;
 		private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
 		private readonly ProtocolState _states = ProtocolState.Instance;
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private bool _compressed;
 		private Deflater _deflate;
-		private readonly Address _dest;
 
 		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
 		private bool _encrypting;
@@ -49,9 +52,6 @@ namespace ubiety.net
 		private Socket _socket;
 		private SslStream _sslstream;
 		private Stream _stream;
-
-		// Timeout after 15 seconds by default
-		private const int Timeout = 15000;
 
 		public AsyncSocket()
 		{
@@ -82,7 +82,10 @@ namespace ubiety.net
 		/// <returns>True if we connected, false if we didn't</returns>
 		public void Connect()
 		{
-			Logger.InfoFormat(this, "Connecting to: {0} on port {1}", _dest.Ip.ToString(), Settings.Port.ToString());
+			var end = new IPEndPoint(_dest.NextIPAddress(), Settings.Port);
+
+			Logger.InfoFormat(this, "Trying to connect to: {2}({0}:{1})", end.Address, Settings.Port.ToString(),
+			                  Settings.Hostname);
 			if (!_dest.IPv6)
 			{
 				Logger.Debug(this, "Connecting using IPv4");
@@ -96,8 +99,7 @@ namespace ubiety.net
 
 			try
 			{
-				//_socket.Connect(_dest.EndPoint);
-				_socket.BeginConnect(_dest.EndPoint, FinishConnect, null);
+				_socket.BeginConnect(end, FinishConnect, null);
 				if (_resetEvent.WaitOne(Timeout, false))
 				{
 					if (Connected)
@@ -213,7 +215,6 @@ namespace ubiety.net
 				{
 					return;
 				}
-				//Logger.Debug(this, ar.GetType().FullName);
 				var rx = _stream.EndRead(ar);
 
 				var t = TrimNull(_buff);

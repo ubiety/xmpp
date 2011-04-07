@@ -160,7 +160,7 @@ namespace ubiety
 				_reader.MoveToElement();
 			}
 
-			string ns = _ns.LookupNamespace(_reader.Prefix);
+			var ns = _ns.LookupNamespace(_reader.Prefix);
 			var q = new XmlQualifiedName(_reader.LocalName, ns);
 			XmlElement elem = Reg.GetTag(q, States.Document);
 
@@ -168,20 +168,20 @@ namespace ubiety
 
 			foreach (string attrname in ht.Keys)
 			{
-				int colon = attrname.IndexOf(':');
+				var colon = attrname.IndexOf(':');
 				if (colon > 0)
 				{
-					string prefix = attrname.Substring(0, colon);
-					string name = attrname.Substring(colon + 1);
+					var prefix = attrname.Substring(0, colon);
+					var name = attrname.Substring(colon + 1);
 
-					XmlAttribute attr = States.Document.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
+					var attr = States.Document.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
 					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);
 				}
 				else
 				{
-					XmlAttribute attr = States.Document.CreateAttribute(attrname);
+					var attr = States.Document.CreateAttribute(attrname);
 					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);

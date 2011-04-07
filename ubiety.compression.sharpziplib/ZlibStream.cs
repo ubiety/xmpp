@@ -17,19 +17,20 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ubiety.attributes;
 using ubiety.common;
 
 namespace ubiety.compression.sharpziplib
 {
-	[Compression("zlib", typeof(ZlibStream))]
+	[Compression("zlib", typeof (ZlibStream))]
 	public class ZlibStream : Stream
 	{
-		private Stream _innerStream;
-		private Inflater _in;
-		private Deflater _out;
-		private byte[] _inBuff;
+		private readonly Inflater _in;
+		private readonly byte[] _inBuff;
+		private readonly Stream _innerStream;
+		private readonly Deflater _out;
 		private byte[] _outBuff;
 
 		public ZlibStream(Stream inner, Inflater inflater, int buffSize)
@@ -40,56 +41,61 @@ namespace ubiety.compression.sharpziplib
 			_outBuff = _inBuff;
 			_out = new Deflater();
 		}
-		
+
 		public ZlibStream(Stream inner, Inflater inflater) : this(inner, inflater, 4096)
 		{
 		}
-		
+
 		public ZlibStream(Stream inner) : this(inner, new Inflater())
 		{
 		}
-		
-		public override bool CanRead {
+
+		public override bool CanRead
+		{
 			get { return _innerStream.CanRead; }
 		}
 
-		public override bool CanWrite {
+		public override bool CanWrite
+		{
 			get { return _innerStream.CanWrite; }
 		}
-		
-		public override bool CanSeek {
+
+		public override bool CanSeek
+		{
 			get { return false; }
 		}
-		
-		public override long Length {
+
+		public override long Length
+		{
 			get { return _inBuff.Length; }
 		}
-		
-		public override long Position {
+
+		public override long Position
+		{
 			get { return _innerStream.Position; }
 			set { throw new NotSupportedException(); }
 		}
-		
-		public override void Flush ()
+
+		public override void Flush()
 		{
 			_innerStream.Flush();
 		}
-		
-		public override long Seek (long offset, SeekOrigin origin)
+
+		public override long Seek(long offset, SeekOrigin origin)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public override void SetLength (long value)
+		public override void SetLength(long value)
 		{
-			throw new NotImplementedException ();
+			throw new NotImplementedException();
 		}
 
-		public override void Write (byte[] buffer, int offset, int count)
+		public override void Write(byte[] buffer, int offset, int count)
 		{
 			_out.SetInput(buffer, offset, count);
 			_out.Flush();
-			
+
 			while (!_out.IsNeedingInput)
 			{
 				int avail = _out.Deflate(_outBuff, 0, _outBuff.Length);
@@ -97,22 +103,17 @@ namespace ubiety.compression.sharpziplib
 			}
 		}
 
-		public override void WriteByte (byte value)
+		public override void WriteByte(byte value)
 		{
 			throw new NotSupportedException();
 		}
 
-		public override IAsyncResult BeginWrite (byte[] buffer, int offset, int count, AsyncCallback cback, object state)
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback cback, object state)
 		{
 			throw new NotSupportedException();
 		}
 
-		public override void Close ()
-		{
-			base.Close ();
-		}
-		
-		public override int Read (byte[] buffer, int offset, int count)
+		public override int Read(byte[] buffer, int offset, int count)
 		{
 			if (count <= 0)
 				return 0;
@@ -130,28 +131,28 @@ namespace ubiety.compression.sharpziplib
 			return r;
 		}
 
-		public override IAsyncResult BeginRead (byte[] buffer, int offset, int count, AsyncCallback cback, object state)
+		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback cback, object state)
 		{
 			_outBuff = buffer;
-			if ( _in.IsNeedingInput )
+			if (_in.IsNeedingInput)
 				return _innerStream.BeginRead(_inBuff, 0, _inBuff.Length, cback, state);
-				
-			ZlibStreamAsyncResult ar = new ZlibStreamAsyncResult(state);
+
+			var ar = new ZlibStreamAsyncResult(state);
 			cback(ar);
 			return ar;
 		}
 
-		public override int EndRead (IAsyncResult async_result)
+		public override int EndRead(IAsyncResult async_result)
 		{
 			int avail = 0;
-			
-			if ( !(async_result is ZlibStreamAsyncResult) )
+
+			if (!(async_result is ZlibStreamAsyncResult))
 			{
 				avail = _innerStream.EndRead(async_result);
 			}
-			
+
 			//Logger.Debug(this, _inBuff);
-			
+
 			try
 			{
 				_outBuff = Inflate(_inBuff, avail);
@@ -160,9 +161,9 @@ namespace ubiety.compression.sharpziplib
 			{
 				Errors.Instance.SendError(this, ErrorType.CompressionFailed, e.Message);
 			}
-			
+
 			//Logger.Debug(this, _outBuff);
-			
+
 			return avail;
 		}
 
@@ -172,10 +173,10 @@ namespace ubiety.compression.sharpziplib
 
 			_in.SetInput(data, 0, length);
 
-			MemoryStream ms = new MemoryStream();
+			var ms = new MemoryStream();
 			do
 			{
-				byte[] buffer = new byte[_outBuff.Length];
+				var buffer = new byte[_outBuff.Length];
 				ret = _in.Inflate(buffer);
 				if (ret > 0)
 					ms.Write(buffer, 0, ret);
@@ -184,46 +185,54 @@ namespace ubiety.compression.sharpziplib
 			return ms.ToArray();
 		}
 
+		#region Nested type: ZlibStreamAsyncResult
+
 		private class ZlibStreamAsyncResult : IAsyncResult
 		{
-			private object _state = null;
-			private Exception _exception;
-			
+			private readonly Exception _exception;
+			private readonly object _state;
+
 			public ZlibStreamAsyncResult(object state)
 			{
 				_state = state;
 			}
-			
+
 			public ZlibStreamAsyncResult(object state, Exception ex)
 			{
 				_state = state;
 				_exception = ex;
 			}
-			
+
 			public Exception Exception
 			{
 				get { return _exception; }
 			}
-			
+
+			#region IAsyncResult Members
+
 			public object AsyncState
 			{
 				get { return _state; }
 			}
-			
-			public System.Threading.WaitHandle AsyncWaitHandle
+
+			public WaitHandle AsyncWaitHandle
 			{
 				get { throw new NotImplementedException(); }
 			}
-			
+
 			public bool CompletedSynchronously
 			{
 				get { return true; }
 			}
-			
+
 			public bool IsCompleted
 			{
 				get { return true; }
 			}
+
+			#endregion
 		}
+
+		#endregion
 	}
 }

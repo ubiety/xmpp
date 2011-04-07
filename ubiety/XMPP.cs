@@ -99,7 +99,7 @@ namespace ubiety
 				return;
 			}
 
-			Logger.InfoFormat(typeof (XMPP), "Connecting to {0}", States.Socket.Hostname);
+			//Logger.InfoFormat(typeof (XMPP), "Connecting to {0}", States.Socket.Hostname);
 
 			// Set the current state to connecting and start the process.
 			States.State = new ConnectingState();
