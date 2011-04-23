@@ -6,7 +6,7 @@ Ubiety is an extensible XMPP library written in C# to be easy and powerful.
 Example
 -------
 
-'''
+```
 using ubiety;
 
 public class Test {
@@ -18,7 +18,7 @@ public class Test {
         ubiety.Connect();
     }
 }
-'''
+```
 
 Support
 -------
