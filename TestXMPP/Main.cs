@@ -30,7 +30,7 @@ namespace TestXMPP
 		private void Button1Click(object sender, EventArgs e)
 		{
 			_xmpp = new XMPP();
-			Settings.AuthenticationTypes = ubiety.core.MechanismType.DigestMD5;
+			Settings.AuthenticationTypes = ubiety.core.MechanismType.Default;
 			Settings.Id = new XID(txtUsername.Text);
 			Settings.Password = txtPassword.Text;
 			Settings.SSL = btnSSL.Checked;

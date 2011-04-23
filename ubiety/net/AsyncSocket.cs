@@ -140,7 +140,6 @@ namespace ubiety.net
 		/// </summary>
 		public void StartSecure()
 		{
-			//_encrypting = true;
 			Logger.Debug(this, "Starting .NET Secure Mode");
 			_sslstream = new SslStream(_stream, true, RemoteValidation, null);
 			Logger.Debug(this, "Authenticating as Client");
@@ -150,28 +149,14 @@ namespace ubiety.net
 				if (_sslstream.IsAuthenticated)
 				{
 					_stream = _sslstream;
-					//_resetEvent.Set();
 				}
-				//_resetEvent.WaitOne();
 			}
 			catch (Exception e)
 			{
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
 				Errors.Instance.SendError(this, ErrorType.XMLError, "SSL connection error", true);
 			}
-			//_encrypting = false;
 		}
-
-		/*
-		private void EndAuthenticate(IAsyncResult result)
-		{
-			_sslstream.EndAuthenticateAsClient(result);
-			if (_sslstream.IsAuthenticated)
-			{
-				_stream = _sslstream;
-				_resetEvent.Set();
-			}
-		} */
 
 		private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
 		{
@@ -180,6 +165,7 @@ namespace ubiety.net
 				return true;
 			}
 
+			Logger.DebugFormat(typeof(AsyncSocket), "X509Chain {0}", chain.ChainStatus[0].Status);
 			Logger.DebugFormat(typeof (AsyncSocket), "Policy Errors: {0}", errors);
 			return false;
 		}

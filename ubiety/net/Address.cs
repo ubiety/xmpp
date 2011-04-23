@@ -105,6 +105,7 @@ namespace ubiety.net
 
 		public string Hostname { get; private set; }
 
+/*
 		private static Address ResolveDNS(string hostname, int port)
 		{
 			if (hostname == "localhost" || hostname == "ubiety")
@@ -161,6 +162,7 @@ namespace ubiety.net
 			//return temp;
 			return null;
 		}
+*/
 
 		private static IPAddress ResolveSystem(string hostname)
 		{
