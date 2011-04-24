@@ -39,25 +39,25 @@ namespace ubiety.common.SASL
         ///<exception cref="NotSupportedException"></exception>
         public static SASLProcessor CreateProcessor(MechanismType type)
         {
-            if ((type & MechanismType.External & Settings.AuthenticationTypes) == MechanismType.External)
+            if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
 			{
 				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
                 throw new NotSupportedException();
             }
 
-            if ((type & MechanismType.SCRAM & Settings.AuthenticationTypes) == MechanismType.SCRAM)
+            if ((type & MechanismType.SCRAM & UbietySettings.AuthenticationTypes) == MechanismType.SCRAM)
             {
                 Logger.Debug(typeof(SASLProcessor), "Creating SCRAM-SHA-1 Processor");
                 return new SCRAMProcessor();
             }
 
-            if ((type & MechanismType.DigestMD5 & Settings.AuthenticationTypes) == MechanismType.DigestMD5)
+            if ((type & MechanismType.DigestMD5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMD5)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
 				return new MD5Processor();
             }
 
-            if ((type & MechanismType.Plain & Settings.AuthenticationTypes) == MechanismType.Plain)
+            if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
 			{
 				Logger.Debug(typeof(SASLProcessor), "Creating PLAIN SASL processor");
             	return new PlainProcessor();
@@ -76,8 +76,8 @@ namespace ubiety.common.SASL
 		{
 			Logger.Debug(this, "Initializing Base Processor");
 			
-			Id = Settings.Id;
-			Password = Settings.Password;
+			Id = UbietySettings.Id;
+			Password = UbietySettings.Password;
 
 			return null;
 		}

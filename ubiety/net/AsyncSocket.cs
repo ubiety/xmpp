@@ -79,10 +79,10 @@ namespace ubiety.net
 		/// <returns>True if we connected, false if we didn't</returns>
 		public void Connect()
 		{
-			var end = new IPEndPoint(_dest.NextIPAddress(), Settings.Port);
+			var end = new IPEndPoint(_dest.NextIPAddress(), UbietySettings.Port);
 
-			Logger.InfoFormat(this, "Trying to connect to: {2}({0}:{1})", end.Address, Settings.Port.ToString(),
-			                  Settings.Hostname);
+			Logger.InfoFormat(this, "Trying to connect to: {2}({0}:{1})", end.Address, UbietySettings.Port.ToString(),
+			                  UbietySettings.Hostname);
 			if (!_dest.IPv6)
 			{
 				Logger.Debug(this, "Connecting using IPv4");

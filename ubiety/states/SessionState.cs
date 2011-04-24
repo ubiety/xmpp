@@ -33,8 +33,8 @@ namespace ubiety.states
 				var iq = (Iq)Reg.GetTag("iq", Namespaces.Client, Current.Document);
 				var sess = Reg.GetTag("session", Namespaces.Session, Current.Document);
 
-				iq.From = Settings.Id;
-				iq.To = Settings.Id.Server;
+				iq.From = UbietySettings.Id;
+				iq.To = UbietySettings.Id.Server;
 				iq.IqType = IqType.Set;
 				iq.Payload = sess;
 

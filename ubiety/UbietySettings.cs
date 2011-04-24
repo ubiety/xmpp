@@ -22,7 +22,7 @@ namespace ubiety
 {
 	///<summary>
 	///</summary>
-	public static class Settings
+	public static class UbietySettings
 	{
 		private static int _port = 5222;
 

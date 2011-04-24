@@ -30,10 +30,10 @@ namespace TestXMPP
 		private void Button1Click(object sender, EventArgs e)
 		{
 			_xmpp = new XMPP();
-			Settings.AuthenticationTypes = ubiety.core.MechanismType.Default;
-			Settings.Id = new XID(txtUsername.Text);
-			Settings.Password = txtPassword.Text;
-			Settings.SSL = btnSSL.Checked;
+			UbietySettings.AuthenticationTypes = ubiety.core.MechanismType.Default;
+			UbietySettings.Id = new XID(txtUsername.Text);
+			UbietySettings.Password = txtPassword.Text;
+			UbietySettings.SSL = btnSSL.Checked;
 			_xmpp.Connect();
 		}
 

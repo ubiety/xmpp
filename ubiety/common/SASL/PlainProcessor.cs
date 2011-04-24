@@ -45,15 +45,15 @@ namespace ubiety.common.SASL
 			//base.Initialize(id, password);
 
 			Logger.Debug(this, "Initializing Plain Processor");
-			Logger.DebugFormat(this, "ID User: {0}", Settings.Id.User);
-			Logger.DebugFormat(this, "Password: {0}", Settings.Password);
+			Logger.DebugFormat(this, "ID User: {0}", UbietySettings.Id.User);
+			Logger.DebugFormat(this, "Password: {0}", UbietySettings.Password);
 
 			var sb = new StringBuilder();
 
 			sb.Append((char) 0);
-			sb.Append(Settings.Id.User);
+			sb.Append(UbietySettings.Id.User);
 			sb.Append((char) 0);
-			sb.Append(Settings.Password);
+			sb.Append(UbietySettings.Password);
 
 			var auth = (Auth) TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 

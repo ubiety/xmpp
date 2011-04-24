@@ -58,7 +58,7 @@ namespace ubiety.net
 
 		public IPAddress NextIPAddress()
 		{
-			Hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
+			Hostname = !String.IsNullOrEmpty(UbietySettings.Hostname) ? UbietySettings.Hostname : UbietySettings.Id.Server;
 			if(_srvRecords == null && !_srvFailed)
 				_srvRecords = FindSRV();
 
@@ -66,11 +66,11 @@ namespace ubiety.net
 			{
                 if (_srvAttempts < _srvRecords.Length)
                 {
-                    Settings.Port = _srvRecords[_srvAttempts].Port;
-                    Settings.Hostname = _srvRecords[_srvAttempts].Target;
+                    UbietySettings.Port = _srvRecords[_srvAttempts].Port;
+                    UbietySettings.Hostname = _srvRecords[_srvAttempts].Target;
                     _srvAttempts++;
                 }
-				return ResolveSystem(Settings.Hostname);
+				return ResolveSystem(UbietySettings.Hostname);
 			}
 			return null;
 		}
@@ -104,13 +104,13 @@ namespace ubiety.net
         {
             // Try and find IPv6 address
             var req = new Request();
-            req.AddQuestion(new Question(Settings.Hostname, DnsType.AAAA, DnsClass.IN));
+            req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.AAAA, DnsClass.IN));
             var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
             if (res.Answers.Length == 0)
             {
                 // No IPv6 finding IPv4 address
                 req = new Request();
-                req.AddQuestion(new Question(Settings.Hostname, DnsType.ANAME, DnsClass.IN));
+                req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
                 res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
             }
 
