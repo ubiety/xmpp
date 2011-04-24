@@ -56,12 +56,8 @@
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.VCProjectEngine, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="log4net">
+      <HintPath>..\references\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -120,7 +116,10 @@
     <Compile Include="net\compression\Zip\Compression\PendingBuffer.cs" />
     <Compile Include="net\compression\Zip\Compression\Streams\OutputWindow.cs" />
     <Compile Include="net\compression\Zip\Compression\Streams\StreamManipulator.cs" />
-    <Compile Include="net\dns\ANameRecord.cs" />
+    <Compile Include="net\dns\AAAARecord.cs" />
+    <Compile Include="net\dns\ANameRecord.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="net\dns\Enums.cs" />
     <Compile Include="net\dns\InvalidResponseException.cs" />
     <Compile Include="net\dns\NoResponseException.cs" />
@@ -185,7 +184,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

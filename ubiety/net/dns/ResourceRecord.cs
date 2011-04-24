@@ -87,6 +87,9 @@ namespace ubiety.net.dns
                 case DnsType.ANAME:
                 	_record = new ANameRecord(pointer);
                 	break;
+                case DnsType.AAAA:
+                    _record = new AAAARecord(pointer);
+                    break;
 				
                 default:
 				{

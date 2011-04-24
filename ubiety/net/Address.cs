@@ -35,6 +35,7 @@ namespace ubiety.net
 		private bool _srvFailed;
 		private SRVRecord[] _srvRecords;
 		private int _dnsAttempts;
+        private int _srvAttempts;
 
 		public Address()
 		{
@@ -59,18 +60,22 @@ namespace ubiety.net
 		{
 			Hostname = !String.IsNullOrEmpty(Settings.Hostname) ? Settings.Hostname : Settings.Id.Server;
 			if(_srvRecords == null && !_srvFailed)
-				_srvRecords = ResolveSRV();
+				_srvRecords = FindSRV();
 
 			if (_srvRecords != null)
 			{
-				Settings.Port = _srvRecords[0].Port;
-				Settings.Hostname = _srvRecords[0].Target;
+                if (_srvAttempts < _srvRecords.Length)
+                {
+                    Settings.Port = _srvRecords[_srvAttempts].Port;
+                    Settings.Hostname = _srvRecords[_srvAttempts].Target;
+                    _srvAttempts++;
+                }
 				return ResolveSystem(Settings.Hostname);
 			}
 			return null;
 		}
 
-		private SRVRecord[] ResolveSRV()
+		private SRVRecord[] FindSRV()
 		{
 			while (_dnsAttempts < DnsAddresses.Count)
 			{
@@ -94,6 +99,11 @@ namespace ubiety.net
 
 			throw new NoResponseException();
 		}
+
+        private IPAddress Resolve()
+        {
+            return null;
+        }
 
 		/// <summary>
 		/// Is the address IPV6?
