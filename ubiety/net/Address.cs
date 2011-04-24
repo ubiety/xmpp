@@ -102,6 +102,19 @@ namespace ubiety.net
 
         private IPAddress Resolve()
         {
+            // Try and find IPv6 address
+            var req = new Request();
+            req.AddQuestion(new Question(Settings.Hostname, DnsType.AAAA, DnsClass.IN));
+            var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
+            if (res.Answers.Length == 0)
+            {
+                // No IPv6 finding IPv4 address
+                req = new Request();
+                req.AddQuestion(new Question(Settings.Hostname, DnsType.ANAME, DnsClass.IN));
+                res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
+            }
+
+
             return null;
         }
 
