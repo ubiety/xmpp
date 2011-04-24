@@ -44,9 +44,6 @@ namespace ubiety.net
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private bool _compressed;
 		private Deflater _deflate;
-
-		// Used to determine if we are encrypting the socket to turn off returning the message to the parser
-		private bool _encrypting;
 		private Inflater _inflate;
 		private NetworkStream _netstream;
 		private Socket _socket;

@@ -166,22 +166,15 @@ namespace ubiety.net
 
 		private static IPAddress ResolveSystem(string hostname)
 		{
-			//var temp = new Address(hostname, port);
-
 			try
 			{
 				return Dns.GetHostEntry(hostname).AddressList[0];
-				//temp.Ip = addr;
-				//temp.EndPoint = new IPEndPoint(addr, _port);
 			}
 			catch (Exception e)
 			{
 				Logger.ErrorFormat(typeof (Address), "Error resolving address: {0}", e);
 				return null;
 			}
-
-			//return temp;
-			return null;
 		}
 	}
 }
