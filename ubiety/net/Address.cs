@@ -1,6 +1,6 @@
 // Address.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2010 Dieter Lunn, 2010 nickwhaley
+//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn, 2010 nickwhaley
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -30,7 +30,6 @@ namespace ubiety.net
 	/// </summary>
 	internal class Address
 	{
-		private static Dictionary<string, Address> _cache = new Dictionary<string, Address>(10);
 		private static readonly List<IPAddress> DnsAddresses = new List<IPAddress>();
 		private bool _srvFailed;
 		private SRVRecord[] _srvRecords;
@@ -70,7 +69,7 @@ namespace ubiety.net
                     UbietySettings.Hostname = _srvRecords[_srvAttempts].Target;
                     _srvAttempts++;
                 }
-				return ResolveSystem(UbietySettings.Hostname);
+				return Resolve();
 			}
 			return null;
 		}
@@ -102,102 +101,46 @@ namespace ubiety.net
 
         private IPAddress Resolve()
         {
-            // Try and find IPv6 address
-            var req = new Request();
-            req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.AAAA, DnsClass.IN));
-            var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
-            if (res.Answers.Length == 0)
-            {
-                // No IPv6 finding IPv4 address
-                req = new Request();
-                req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
-                res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
-            }
+        	var resolved = false;
 
+			while (!resolved)
+			{
+				var req = new Request();
 
-            return null;
+				//req.AddQuestion(Socket.OSSupportsIPv6
+				//                    ? new Question(UbietySettings.Hostname, DnsType.AAAA, DnsClass.IN)
+				//                    : new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
+
+				req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
+
+				var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
+
+				if (res.Answers.Length > 0)
+				{
+					resolved = true;
+					if (res.Answers[0].Type == DnsType.AAAA)
+					{
+						IPv6 = true;
+						var aa = (AAAARecord)res.Answers[0].Record;
+						return aa.IPAddress;
+					}
+					else
+					{
+						IPv6 = false;
+						var a = (ANameRecord)res.Answers[0].Record;
+						return a.IPAddress;
+					}
+				}
+			}
+
+        	return null;
         }
 
 		/// <summary>
 		/// Is the address IPV6?
 		/// </summary>
-		public bool IPv6
-		{
-			get { return false; }
-		}
+		public bool IPv6 { get; private set; }
 
 		public string Hostname { get; private set; }
-
-/*
-		private static Address ResolveDNS(string hostname, int port)
-		{
-			if (hostname == "localhost" || hostname == "ubiety")
-				return null;
-
-			//var temp = new Address(hostname, port);
-
-			try
-			{
-				string lookup;
-
-				var srv = Resolver.SRVLookup("_xmpp-client._tcp." + hostname, DnsAddresses[0]);
-				if (srv.Length > 0)
-				{
-					Logger.DebugFormat(typeof (Address), "SRV Address: {0}", srv[0].Target);
-					lookup = srv[0].Target;
-					//_port = srv[0].Port;
-				}
-				else
-					lookup = hostname;
-
-				var req = new Request();
-				req.AddQuestion(new Question(lookup, DnsType.ANAME, DnsClass.IN));
-				var resp = Resolver.Lookup(req, DnsAddresses[0]);
-				if (resp.Answers.Length > 0)
-				{
-					foreach (var ans in resp.Answers)
-					{
-						if (ans.Type == DnsType.ANAME)
-						{
-							var rec = (ANameRecord) ans.Record;
-							//temp.Ip = rec.IPAddress;
-						}
-						else
-						{
-							Logger.Debug(typeof (Address), "DNS Type: " + ans.Type);
-						}
-					}
-				}
-				else
-				{
-					Logger.Error(typeof (Address), "Error resolving DNS address.");
-					return null;
-				}
-
-				//temp.EndPoint = new IPEndPoint(temp.Ip, _port);
-			}
-			catch (Exception e)
-			{
-				Logger.ErrorFormat(typeof (Address), "Error resolving DNS address: {0}", e);
-				return null;
-			}
-
-			//return temp;
-			return null;
-		}
-*/
-
-		private static IPAddress ResolveSystem(string hostname)
-		{
-			try
-			{
-				return Dns.GetHostEntry(hostname).AddressList[0];
-			}
-			catch (Exception e)
-			{
-				Logger.ErrorFormat(typeof (Address), "Error resolving address: {0}", e);
-				return null;
-			}
-		}
 	}
 }

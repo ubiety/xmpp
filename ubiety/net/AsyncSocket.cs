@@ -205,8 +205,7 @@ namespace ubiety.net
 				var m = _utf.GetString(_compressed ? Inflate(t, t.Length) : t);
 
 				Logger.DebugFormat(this, "Incoming Message: {0}", m);
-				if (!_encrypting)
-					ProtocolParser.Parse(m, rx);
+				ProtocolParser.Parse(m, rx);
 
 				// Clear the buffer
 				Array.Clear(_buff, 0, _buff.Length);
