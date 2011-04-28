@@ -27,7 +27,7 @@ namespace ubiety.common.SASL
     ///</summary>
     public abstract class SASLProcessor
 	{
-		protected XID Id;
+		protected JID Id;
 		protected string Password;
 		
 		private readonly Hashtable _directives = new Hashtable();

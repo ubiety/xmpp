@@ -28,7 +28,7 @@ namespace ubietynunit
 		[Test]
 		public void EscapeUsernameFromString()
 		{
-			XID id = new XID("d'artangan@garcon.fr/testing");
+			JID id = new JID("d'artangan@garcon.fr/testing");
 			
 			Assert.That(id.ToString(), Is.EqualTo(@"d\27artangan@garcon.fr/testing"));
 		}
@@ -36,7 +36,7 @@ namespace ubietynunit
 		[Test]
 		public void EscapeUsernameFromParts()
 		{
-			XID id = new XID("d'artangan", "garcon.fr", "testing");
+			JID id = new JID("d'artangan", "garcon.fr", "testing");
 			
 			Assert.That(id.ToString(), Is.EqualTo(@"d\27artangan@garcon.fr/testing"));
 		}
@@ -44,7 +44,7 @@ namespace ubietynunit
 		[Test]
 		public void NewXIDFromString()
 		{
-			XID id = new XID("testing@jabber.org/home");
+			JID id = new JID("testing@jabber.org/home");
 			
 			Assert.That(id.User, Is.EqualTo("testing"));
 			Assert.That(id.Server, Is.EqualTo("jabber.org"));

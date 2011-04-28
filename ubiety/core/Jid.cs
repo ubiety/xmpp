@@ -35,9 +35,9 @@ namespace ubiety.core
 
 		///<summary>
 		///</summary>
-		public XID XID
+		public JID XID
 		{
-			get { return new XID(InnerText); }
+			get { return new JID(InnerText); }
 		}
 	}
 }

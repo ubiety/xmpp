@@ -44,7 +44,7 @@ namespace ubiety
 		/// <value>
 		/// The ID.
 		/// </value>
-		public static XID Id
+		public static JID Id
 		{
 			get;
 			set;

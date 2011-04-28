@@ -31,7 +31,7 @@ namespace TestXMPP
 		{
 			_xmpp = new XMPP();
 			UbietySettings.AuthenticationTypes = ubiety.core.MechanismType.Default;
-			UbietySettings.Id = new XID(txtUsername.Text);
+			UbietySettings.Id = new JID(txtUsername.Text);
 			UbietySettings.Password = txtPassword.Text;
 			UbietySettings.SSL = btnSSL.Checked;
 			_xmpp.Connect();
