@@ -131,12 +131,11 @@ namespace ubiety.common.SASL
             SHA1 hash = new SHA1CryptoServiceProvider();
 
             var saltedPassword = Hi();
-            
-            hmac.Key = _utf.GetBytes("Client Key");
-            var clientKey = hmac.ComputeHash(saltedPassword);
 
-            hmac.Key = _utf.GetBytes("Server Key");
-            var serverKey = hmac.ComputeHash(saltedPassword);
+			hmac.Key = saltedPassword;
+			var clientKey = hmac.ComputeHash(_utf.GetBytes("Client Key"));
+
+			var serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
 
             var storedKey = hash.ComputeHash(clientKey);
 
@@ -149,9 +148,10 @@ namespace ubiety.common.SASL
 
             var auth = _utf.GetBytes(a.ToString());
 
-            hmac.Key = auth;
-            var signature = hmac.ComputeHash(storedKey);
-            var server = hmac.ComputeHash(serverKey);
+            hmac.Key = storedKey;
+            var signature = hmac.ComputeHash(auth);
+			hmac.Key = serverKey;
+            var server = hmac.ComputeHash(auth);
 
             _serverSignature = _utf.GetString(server);
 
@@ -161,7 +161,7 @@ namespace ubiety.common.SASL
                 proof[i] = (byte)(clientKey[i] ^ signature[i]);
             }
 
-            _clientProof = _utf.GetString(proof);
+            _clientProof = Convert.ToBase64String(proof);
         }
 
         private byte[] Hi()
@@ -178,14 +178,13 @@ namespace ubiety.common.SASL
             Array.Copy(g, 0, key, _salt.Length, 4);
 
             // Compute initial hash
-            var hmac = new HMACSHA1(key);
-            var result = hmac.ComputeHash(password);
+            var hmac = new HMACSHA1(password);
+            var result = hmac.ComputeHash(key);
             Array.Copy(result, prev, result.Length);
 
             for (var i = 1; i < _i; ++i)
             {
-                hmac.Key = prev;
-                temp = hmac.ComputeHash(password);
+                temp = hmac.ComputeHash(prev);
                 for (var j = 1; j < temp.Length; ++j)
                 {
                     result[j] ^= temp[j];
