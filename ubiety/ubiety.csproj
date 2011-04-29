@@ -73,7 +73,7 @@
     <Compile Include="common\SASL\SCRAMProcessor.cs" />
     <Compile Include="common\Stanza.cs" />
     <Compile Include="common\Tag.cs" />
-    <Compile Include="common\XID.cs" />
+    <Compile Include="common\JID.cs" />
     <Compile Include="core\Bind.cs" />
     <Compile Include="core\Compression\Compression.cs" />
     <Compile Include="core\Features.cs" />
@@ -184,7 +184,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

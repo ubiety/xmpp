@@ -45,3 +45,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 
 ubiety.shfbproj_Dieter
+ubiety-xmpp-cert.crt
+ubiety-xmpp-priv.key
+ubiety-xmpp.key
