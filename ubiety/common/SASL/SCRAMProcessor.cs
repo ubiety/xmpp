@@ -37,11 +37,11 @@ namespace ubiety.common.SASL
         private string _snonce;
         private byte[] _salt;
         private int _i;
-        private byte[] _clientFirst;
+        private string _clientFirst;
         private byte[] _serverFirst;
-        private byte[] _clientFinal;
+        private string _clientFinal;
 
-        private string _serverSignature;
+        private byte[] _serverSignature;
         private string _clientProof;
 
     	/// <summary>
@@ -64,9 +64,11 @@ namespace ubiety.common.SASL
             msg.Append(_nonce);
             Logger.DebugFormat(this, "Message: {0}", msg.ToString());
 
+			_clientFirst = msg.ToString().Substring(3);
+
             var tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
             tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
-            tag.Bytes = _clientFirst = _utf.GetBytes(msg.ToString());
+            tag.Bytes = _utf.GetBytes(msg.ToString());
             return tag;
         }
 
@@ -77,52 +79,65 @@ namespace ubiety.common.SASL
         /// <returns></returns>
         public override Tag Step(Tag tag)
         {
-            var c = tag;
-            _serverFirst = c.Bytes;
-            var response = _utf.GetString(c.Bytes);
-            Logger.DebugFormat(this, "Challenge: {0}", response);
+			if (tag.Name == "challenge")
+			{
+				_serverFirst = tag.Bytes;
+				var response = _utf.GetString(tag.Bytes);
+				Logger.DebugFormat(this, "Challenge: {0}", response);
 
-            // Split challenge into pieces
-            var tokens = response.Split(',');
+				// Split challenge into pieces
+				var tokens = response.Split(',');
 
-            _snonce = tokens[0].Substring(2);
-            // Ensure that the first length of nonce is the same nonce we sent.
-            var r = tokens[0].Substring(2, _nonce.Length);
-            if (0 != String.Compare(r, _nonce))
-            {
-                Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
-            }
+				_snonce = tokens[0].Substring(2);
+				// Ensure that the first length of nonce is the same nonce we sent.
+				var r = _snonce.Substring(0, _nonce.Length);
+				if (0 != String.Compare(r, _nonce))
+				{
+					Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
+				}
 
-            Logger.Debug(this, "Getting Salt");
-            var a = tokens[1].Substring(2);
-            _salt = Convert.FromBase64String(a);
-            //string b = _utf.GetString(_salt);
-            //b += "1";
-            //_salt = _utf.GetBytes(b);
-            Logger.DebugFormat(this, "Salt: {0}", _salt);
+				Logger.Debug(this, "Getting Salt");
+				var a = tokens[1].Substring(2);
+				_salt = Convert.FromBase64String(a);
+				Logger.DebugFormat(this, "Salt: {0}", _salt);
 
-            Logger.Debug(this, "Getting Iterations");
-            var i = tokens[2].Substring(2);
-            _i = int.Parse(i);
-            Logger.DebugFormat(this, "Iterations: {0}", _i);
+				Logger.Debug(this, "Getting Iterations");
+				var i = tokens[2].Substring(2);
+				_i = int.Parse(i);
+				Logger.DebugFormat(this, "Iterations: {0}", _i);
 
-            var final = new StringBuilder();
-            final.Append("c=biws,r=");
-            final.Append(_snonce);
+				var final = new StringBuilder();
+				final.Append("c=biws,r=");
+				final.Append(_snonce);
 
-            _clientFinal = _utf.GetBytes(final.ToString());
+				_clientFinal = final.ToString();
 
-            CalculateProofs();
+				CalculateProofs();
 
-            final.Append(",p=");
-            final.Append(_clientProof);
+				final.Append(",p=");
+				final.Append(_clientProof);
 
-            Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
+				Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
 
-            var resp = TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
-            resp.Bytes = _utf.GetBytes(final.ToString());
+				var resp = TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
+				resp.Bytes = _utf.GetBytes(final.ToString());
 
-            return resp;
+				return resp;
+			}
+
+			if (tag.Name == "success")
+			{
+				var response = _utf.GetString(tag.Bytes);
+				var signature = Convert.FromBase64String(response.Substring(2));
+				if (_utf.GetString(signature) == _utf.GetString(_serverSignature))
+				{
+					return tag;
+				}
+
+				return null;
+			}
+
+			return null;
         }
 
         private void CalculateProofs()
@@ -132,29 +147,38 @@ namespace ubiety.common.SASL
 
             var saltedPassword = Hi();
 
+			// Calculate Client Key
 			hmac.Key = saltedPassword;
 			var clientKey = hmac.ComputeHash(_utf.GetBytes("Client Key"));
 
+			// Calculate Server Key
 			var serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
 
+			// Calculate Stored Key
             var storedKey = hash.ComputeHash(clientKey);
 
             var a = new StringBuilder();
-            a.Append(_utf.GetString(_clientFirst));
+            a.Append(_clientFirst);
             a.Append(",");
             a.Append(_utf.GetString(_serverFirst));
             a.Append(",");
-            a.Append(_utf.GetString(_clientFinal));
+            a.Append(_clientFinal);
+
+			Logger.DebugFormat(this, "Auth Message: {0}", a.ToString());
 
             var auth = _utf.GetBytes(a.ToString());
 
+			// Calculate Client Signature
             hmac.Key = storedKey;
             var signature = hmac.ComputeHash(auth);
+
+			// Calculate Server Signature
 			hmac.Key = serverKey;
-            var server = hmac.ComputeHash(auth);
+            _serverSignature = hmac.ComputeHash(auth);
 
-            _serverSignature = _utf.GetString(server);
+            //_serverSignature = _utf.GetString(server);
 
+			// Calculate Client Proof
             var proof = new byte[20];
             for (var i = 0; i < signature.Length; ++i)
             {
@@ -167,7 +191,6 @@ namespace ubiety.common.SASL
         private byte[] Hi()
         {
         	var prev = new byte[20];
-            byte[] temp;
         	var password = _utf.GetBytes(Stringprep.SASLPrep(Password));
 
             // Add 1 to the end of salt with most significat octet first
@@ -184,8 +207,8 @@ namespace ubiety.common.SASL
 
             for (var i = 1; i < _i; ++i)
             {
-                temp = hmac.ComputeHash(prev);
-                for (var j = 1; j < temp.Length; ++j)
+                var temp = hmac.ComputeHash(prev);
+                for (var j = 0; j < temp.Length; ++j)
                 {
                     result[j] ^= temp[j];
                 }
