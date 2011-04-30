@@ -78,5 +78,10 @@ namespace ubiety.common
         ///<summary>
         ///</summary>
         public const string Rostver = "urn:xmpp:features:rosterver";
+
+		/// <summary>
+		/// Namespace for Entity Capabilities XEP-0115
+		/// </summary>
+		public const string Entity = "http://jabber.org/protocol/caps";
 	}
 }

@@ -76,6 +76,7 @@
     <Compile Include="common\JID.cs" />
     <Compile Include="core\Bind.cs" />
     <Compile Include="core\Compression\Compression.cs" />
+    <Compile Include="core\entity\C.cs" />
     <Compile Include="core\Features.cs" />
     <Compile Include="core\GenericTag.cs" />
     <Compile Include="core\iq\Iq.cs" />
