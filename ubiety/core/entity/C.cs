@@ -17,6 +17,7 @@
 
 using ubiety.attributes;
 using ubiety.common;
+using System.Xml;
 
 namespace ubiety.core.entity
 {
@@ -26,5 +27,10 @@ namespace ubiety.core.entity
 	[XmppTag("c", Namespaces.Entity, typeof(C))]
 	public class C : Tag
 	{
+		public C(XmlDocument doc)
+			: base("", new XmlQualifiedName("c", Namespaces.Entity), doc)
+		{
+
+		}
 	}
 }

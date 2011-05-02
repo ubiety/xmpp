@@ -12,7 +12,7 @@ using ubiety.common;
 
 public class Test {
     public static void Main() {
-        Settings.ID = new XID("test@ubiety.ca");
+        Settings.ID = new JID("test@ubiety.ca");
         Settings.Password = "test";
 
         XMPP ubiety = new XMPP();
@@ -25,4 +25,4 @@ Support
 -------
 
 * Mailing List: <xmppnet-devel@googlegroups.com>
-* Issues: <http://github.com/coder2000/ubiety/issues>
+* Issues: <http://jira.ubiety.ca/jira/>

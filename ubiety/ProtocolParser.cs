@@ -49,7 +49,7 @@ namespace ubiety
 		/// </summary>
 		public static void Parse(string message, int length)
 		{
-			if (States.State.GetType() == typeof (ClosedState))
+			if (States.State is ClosedState)
 			{
 				Logger.Debug(typeof (ProtocolParser), "Closed.  Nothing to do");
 				return;
@@ -76,7 +76,7 @@ namespace ubiety
 				Logger.Info(typeof (ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
 				States.State = new ClosedState();
-				States.Execute(null);
+				States.Execute();
 				return;
 			}
 

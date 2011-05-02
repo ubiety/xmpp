@@ -36,7 +36,6 @@ namespace ubiety.states
 			{
 				Current.Socket.Write("</stream:stream>");
 			}
-			Current.State = new ClosedState();
 		}
 	}
 }
