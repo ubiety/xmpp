@@ -18,9 +18,9 @@
 using System;
 using System.IO;
 using System.Threading;
-using ICSharpCode.SharpZipLib.Zip.Compression;
 using ubiety.attributes;
 using ubiety.common;
+using ubiety.compression.sharpziplib.Zip.Compression;
 
 namespace ubiety.compression.sharpziplib
 {
@@ -118,10 +118,10 @@ namespace ubiety.compression.sharpziplib
 			if (count <= 0)
 				return 0;
 
-			int r = _innerStream.Read(_inBuff, 0, _inBuff.Length);
+			var r = _innerStream.Read(_inBuff, 0, _inBuff.Length);
 			try
 			{
-				buffer = Inflate(_inBuff, r);
+				Inflate(_inBuff, r);
 			}
 			catch (Exception e)
 			{

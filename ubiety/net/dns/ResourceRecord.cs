@@ -21,8 +21,6 @@
 // distributed and edited without restriction.
 // 
 
-using System;
-
 namespace ubiety.net.dns
 {
 	/// <summary>
@@ -34,30 +32,40 @@ namespace ubiety.net.dns
 		private readonly string		_domain;
 		private readonly DnsType	_dnsType;
 		private readonly DnsClass	_dnsClass;
-		private readonly int		_Ttl;
+		private readonly int		_ttl;
 		private readonly RecordBase	_record;
 
 		// read only properties applicable for all records
+		///<summary>
+		///</summary>
 		public string Domain
         { 
             get { return _domain; }
         }
 		
+        ///<summary>
+        ///</summary>
         public DnsType Type
         {
             get { return _dnsType; }
         }
 
+		///<summary>
+		///</summary>
 		public DnsClass	Class		   
         { 
             get { return _dnsClass;	}
         }
 		
+        ///<summary>
+        ///</summary>
         public int Ttl
         { 
-            get { return _Ttl; }
+            get { return _ttl; }
         }
 
+		///<summary>
+		///</summary>
 		public RecordBase Record
         { 
             get { return _record; }
@@ -73,7 +81,7 @@ namespace ubiety.net.dns
 			_domain     = pointer.ReadDomain();
 			_dnsType    = (DnsType) pointer.ReadShort();
 			_dnsClass   = (DnsClass) pointer.ReadShort();
-			_Ttl        = pointer.ReadInt();
+			_ttl        = pointer.ReadInt();
 
 			// the next short is the record length, we only use it for unrecognised record types
 			int recordLength = pointer.ReadShort();
@@ -102,16 +110,22 @@ namespace ubiety.net.dns
 	}
 
 	// Answers, Name Servers and Additional Records all share the same RR format	
+	///<summary>
+	///</summary>
 	public class Answer : ResourceRecord
 	{
 		internal Answer(Pointer pointer) : base(pointer) {}
 	}
     	
+	///<summary>
+	///</summary>
 	public class NameServer : ResourceRecord
 	{
 		internal NameServer(Pointer pointer) : base(pointer) {}
 	}
     	
+	///<summary>
+	///</summary>
 	public class AdditionalRecord : ResourceRecord
 	{
 		internal AdditionalRecord(Pointer pointer) : base(pointer) {}

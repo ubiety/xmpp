@@ -34,9 +34,9 @@ namespace ubiety.net.dns
 	/// </summary>
 	public static class Resolver
 	{
-		private const int _dnsPort = 53;
-		private const int _udpRetryAttempts = 2;
-		private const int _udpTimeout = 1000;
+		private const int DNSPort = 53;
+		private const int UdpRetryAttempts = 2;
+		private const int UdpTimeout = 1000;
 		private static int _uniqueId;
 
 		/// <summary>
@@ -104,7 +104,7 @@ namespace ubiety.net.dns
 			// We will not catch exceptions here, rather just refer them to the caller
 
 			// create an end point to communicate with
-			var server = new IPEndPoint(dnsServer, _dnsPort);
+			var server = new IPEndPoint(dnsServer, DNSPort);
 
 			// get the message
 			var requestMessage = request.GetMessage();
@@ -116,13 +116,13 @@ namespace ubiety.net.dns
 			return new Response(responseMessage);
 		}
 
-		private static byte[] UdpTransfer(IPEndPoint server, byte[] requestMessage)
+		private static byte[] UdpTransfer(EndPoint server, byte[] requestMessage)
 		{
 			// UDP can fail - if it does try again keeping track of how many attempts we've made
 			var attempts = 0;
 
 			// try repeatedly in case of failure
-			while (attempts <= _udpRetryAttempts)
+			while (attempts <= UdpRetryAttempts)
 			{
 				// firstly, uniquely mark this request with an id
 				unchecked
@@ -136,7 +136,7 @@ namespace ubiety.net.dns
 				var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
 				// we will wait at most 1 second for a dns reply
-				socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _udpTimeout);
+				socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, UdpTimeout);
 
 				// send it off to the server
 				socket.SendTo(requestMessage, requestMessage.Length, SocketFlags.None, server);

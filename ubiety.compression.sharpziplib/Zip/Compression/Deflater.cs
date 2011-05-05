@@ -38,8 +38,9 @@
 // exception statement from your version.
 
 using System;
+using ICSharpCode.SharpZipLib.Zip.Compression;
 
-namespace ICSharpCode.SharpZipLib.Zip.Compression
+namespace ubiety.compression.sharpziplib.Zip.Compression
 {
 	
 	/// <summary>
@@ -193,7 +194,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 		public void Reset()
 		{
 			state = (noZlibHeaderOrFooter ? BUSY_STATE : INIT_STATE);
-			totalOut = 0;
+			TotalOut = 0;
 			pending.Reset();
 			engine.Reset();
 		}
@@ -215,16 +216,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				return engine.TotalIn;
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the number of output bytes so far.
 		/// </summary>
-		public long TotalOut {
-			get {
-				return totalOut;
-			}
-		}
-		
+		public long TotalOut { get; private set; }
+
 		/// <summary>
 		/// Flushes the current input block.  Further calls to deflate() will
 		/// produce enough output to inflate everything in the current input
@@ -434,7 +431,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 			for (;;) {
 				int count = pending.Flush(output, offset, length);
 				offset   += count;
-				totalOut += count;
+				TotalOut += count;
 				length   -= count;
 				
 				if (length == 0 || state == FINISHED_STATE) {
@@ -537,12 +534,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 		/// The current state.
 		/// </summary>
 		int state;
-		
-		/// <summary>
-		/// The total bytes of output written.
-		/// </summary>
-		long totalOut;
-		
+
 		/// <summary>
 		/// The pending output.
 		/// </summary>

@@ -22,7 +22,7 @@
 // 
 
 using System;
-using System.Net;
+using System.Collections.Generic;
 
 namespace ubiety.net.dns
 {
@@ -42,13 +42,29 @@ namespace ubiety.net.dns
 		private readonly AdditionalRecord[]	_additionalRecords;
 
 		// these fields are readonly outside the assembly - use r/o properties
+		///<summary>
+		///</summary>
 		public ReturnCode ReturnCode				{ get { return _returnCode;					}}
+		///<summary>
+		///</summary>
 		public bool AuthoritativeAnswer				{ get { return _authoritativeAnswer;		}}
+		///<summary>
+		///</summary>
 		public bool RecursionAvailable				{ get { return _recursionAvailable;			}}
+		///<summary>
+		///</summary>
 		public bool MessageTruncated				{ get { return _truncated;					}}
+		///<summary>
+		///</summary>
 		public Question[] Questions					{ get { return _questions;					}}
+		///<summary>
+		///</summary>
 		public Answer[] Answers						{ get { return _answers;					}}
+		///<summary>
+		///</summary>
 		public NameServer[] NameServers				{ get { return _nameServers;				}}
+		///<summary>
+		///</summary>
 		public AdditionalRecord[] AdditionalRecords	{ get { return _additionalRecords;			}}
 
 		/// <summary>
@@ -58,11 +74,11 @@ namespace ubiety.net.dns
 		internal Response(byte[] message)
 		{
 			// the bit flags are in bytes 2 and 3
-			byte flags1 = message[2];
-			byte flags2 = message[3];
+			var flags1 = message[2];
+			var flags2 = message[3];
 
 			// get return code from lowest 4 bits of byte 3
-			int returnCode = flags2 & 15;
+			var returnCode = flags2 & 15;
 				
 			// if its in the reserved section, set to other
 			if (returnCode > 6) returnCode = 6;
@@ -80,10 +96,10 @@ namespace ubiety.net.dns
 			_additionalRecords = new AdditionalRecord[GetShort(message, 10)];
 
 			// need a pointer to do this, position just after the header
-			Pointer pointer = new Pointer(message, 12);
+			var pointer = new Pointer(message, 12);
 
 			// and now populate them, they always follow this order
-			for (int index = 0; index < _questions.Length; index++)
+			for (var index = 0; index < _questions.Length; index++)
 			{
 				try
 				{
@@ -96,15 +112,15 @@ namespace ubiety.net.dns
 					throw new InvalidResponseException(ex);
 				}
 			}
-			for (int index = 0; index < _answers.Length; index++)
+			for (var index = 0; index < _answers.Length; index++)
 			{
 				_answers[index] = new Answer(pointer);
 			}
-			for (int index = 0; index < _nameServers.Length; index++)
+			for (var index = 0; index < _nameServers.Length; index++)
 			{
 				_nameServers[index] = new NameServer(pointer);
 			}
-			for (int index = 0; index < _additionalRecords.Length; index++)
+			for (var index = 0; index < _additionalRecords.Length; index++)
 			{
 				_additionalRecords[index] = new AdditionalRecord(pointer);
 			}
@@ -117,7 +133,7 @@ namespace ubiety.net.dns
 		/// <param name="message">byte array to look in</param>
 		/// <param name="position">position to look at</param>
 		/// <returns>short representation of the two bytes</returns>
-		private static short GetShort(byte[] message, int position)
+		private static short GetShort(IList<byte> message, int position)
 		{
 			return (short)(message[position]<<8 | message[position+1]);
 		}

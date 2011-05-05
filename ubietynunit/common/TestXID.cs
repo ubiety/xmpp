@@ -15,12 +15,10 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
-using NUnit.Core;
 using NUnit.Framework;
 using ubiety.common;
 
-namespace ubietynunit
+namespace ubietynunit.common
 {
 	[TestFixture]
 	public class TestXID
@@ -28,7 +26,7 @@ namespace ubietynunit
 		[Test]
 		public void EscapeUsernameFromString()
 		{
-			JID id = new JID("d'artangan@garcon.fr/testing");
+			var id = new JID("d'artangan@garcon.fr/testing");
 			
 			Assert.That(id.ToString(), Is.EqualTo(@"d\27artangan@garcon.fr/testing"));
 		}
@@ -36,7 +34,7 @@ namespace ubietynunit
 		[Test]
 		public void EscapeUsernameFromParts()
 		{
-			JID id = new JID("d'artangan", "garcon.fr", "testing");
+			var id = new JID("d'artangan", "garcon.fr", "testing");
 			
 			Assert.That(id.ToString(), Is.EqualTo(@"d\27artangan@garcon.fr/testing"));
 		}
@@ -44,7 +42,7 @@ namespace ubietynunit
 		[Test]
 		public void NewXIDFromString()
 		{
-			JID id = new JID("testing@jabber.org/home");
+			var id = new JID("testing@jabber.org/home");
 			
 			Assert.That(id.User, Is.EqualTo("testing"));
 			Assert.That(id.Server, Is.EqualTo("jabber.org"));

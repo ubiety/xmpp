@@ -16,6 +16,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -236,11 +237,11 @@ namespace ubiety.net
 			_compressed = true;
 		}
 
-		private static byte[] TrimNull(byte[] message)
+		private static byte[] TrimNull(IList<byte> message)
 		{
-			if (message.Length > 1)
+			if (message.Count > 1)
 			{
-				var c = message.Length - 1;
+				var c = message.Count - 1;
 				while (message[c] == 0x00)
 				{
 					c--;

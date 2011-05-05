@@ -1,14 +1,16 @@
 // Do not edit !!!
 // this file is generated automatically
 
-using System;
+namespace Gnu.Inet.Encoding {
 
-namespace Gnu.Inet.Encoding{
-
+///<summary>
+///</summary>
 public class RFC3454
 {
-  public static char[][] A1 = new char[][] {
-    new char[] { '\u0221' },	/* 0221 */
+  ///<summary>
+  ///</summary>
+  public static char[][] A1 = new[] {
+    new[] { '\u0221' },	/* 0221 */
     new char[] { '\u0234', '\u024F' },	/* 0234-024F */
     new char[] { '\u02AE', '\u02AF' },	/* 02AE-02AF */
     new char[] { '\u02EF', '\u02FF' },	/* 02EF-02FF */

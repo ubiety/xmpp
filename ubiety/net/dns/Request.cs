@@ -22,8 +22,6 @@
 // 
 
 using System;
-using System.Net;
-using System.Net.Sockets;
 using System.Collections;
 
 namespace ubiety.net.dns
@@ -39,16 +37,20 @@ namespace ubiety.net.dns
 	{
 		// A request is a series of questions, an 'opcode' (RFC1035 4.1.1) and a flag to denote
 		// whether recursion is required (don't ask..., just assume it is)
-		private ArrayList	_questions;
+		private readonly ArrayList	_questions;
 		private bool		_recursionDesired;
 		private Opcode		_opCode;
 
+		///<summary>
+		///</summary>
 		public bool RecursionDesired
 		{
 			get { return _recursionDesired;		}
 			set { _recursionDesired = value;	}
 		}
 
+		///<summary>
+		///</summary>
 		public Opcode Opcode
 		{
 			get { return _opCode;				}
@@ -91,15 +93,12 @@ namespace ubiety.net.dns
 		{
 			// construct a message for this request. This will be a byte array but we're using
 			// an arraylist as we don't know how big it will be
-			ArrayList data = new ArrayList();
+			var data = new ArrayList
+			           	{(byte) 0, (byte) 0, (byte) (((byte) _opCode << 3) | (_recursionDesired ? 0x01 : 0)), (byte) 0};
 			
 			// the id of this message - this will be filled in by the resolver
-			data.Add((byte)0);
-			data.Add((byte)0);
-			
+
 			// write the bitfields
-			data.Add((byte)(((byte)_opCode<<3)  | (_recursionDesired?0x01:0)));
-			data.Add((byte)0);
 
 			// tell it how many questions
 			unchecked
@@ -127,7 +126,7 @@ namespace ubiety.net.dns
 			}
 
 			// and convert that to an array
-			byte[] message = new byte[data.Count];
+			var message = new byte[data.Count];
 			data.CopyTo(message);
 			return message;
 		}
@@ -138,16 +137,15 @@ namespace ubiety.net.dns
 		/// </summary>
 		/// <param name="data">The ArrayList representing the byte array message</param>
 		/// <param name="domainName">the domain name to encode and add to the array</param>
-		private static void AddDomain(ArrayList data, string domainName)
+		private static void AddDomain(IList data, string domainName)
 		{
-			int position = 0;
-			int length = 0;
+			var position = 0;
 
 			// start from the beginning and go to the end
 			while (position < domainName.Length)
 			{
 				// look for a period, after where we are
-				length = domainName.IndexOf('.', position) - position;
+				var length = domainName.IndexOf('.', position) - position;
 				
 				// if there isn't one then this labels length is to the end of the string
 				if (length < 0) length = domainName.Length - position;

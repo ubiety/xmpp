@@ -38,11 +38,12 @@
 // exception statement from your version.
 
 using System;
-
+using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Checksums;
+using ICSharpCode.SharpZipLib.Zip.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
-namespace ICSharpCode.SharpZipLib.Zip.Compression 
+namespace ubiety.compression.sharpziplib.Zip.Compression 
 {
 	/// <summary>
 	/// Inflater is used to decompress data that has been compressed according
@@ -253,7 +254,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				throw new SharpZipBaseException("Header checksum illegal");
 			}
 			
-			if ((header & 0x0f00) != (Deflater.DEFLATED << 8)) {
+			if ((header & 0x0f00) != (ubiety.compression.sharpziplib.Zip.Compression.Deflater.DEFLATED << 8)) {
 				throw new SharpZipBaseException("Compression Method unknown");
 			}
 			

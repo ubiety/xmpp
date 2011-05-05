@@ -21,7 +21,6 @@
 // distributed and edited without restriction.
 // 
 
-using System;
 using System.Text;
 
 namespace ubiety.net.dns
@@ -35,7 +34,7 @@ namespace ubiety.net.dns
 	internal class Pointer
 	{
 		// a pointer is a reference to the message and an index
-		private byte[]		_message;
+		private readonly byte[]		_message;
         private int         _position;
               
 

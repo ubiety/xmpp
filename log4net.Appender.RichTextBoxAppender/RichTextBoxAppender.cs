@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
-using log4net;
 using log4net.Core;
-using log4net.Appender;
 using log4net.Util;
 
-namespace log4net.Appender 
+namespace log4net.Appender.RichTextBoxAppender 
 { 
 	
 	/// <summary> 
@@ -69,20 +67,6 @@ namespace log4net.Appender
 	/// <author>Stephanie Giovannini</author> 
 	
 	public class RichTextBoxAppender : AppenderSkeleton { 
-		#region Public Instance Constructor
-
-		/// <summary> 
-		/// Initializes a new instance of the <see cref="RichTextBoxAppender" /> class. 
-		/// </summary> 
-		/// <remarks> 
-		/// The instance of the <see cref="RichTextBoxAppender" /> class can be assigned 
-		/// a <see cref="System.Windows.Forms.RichTextBox" /> to write to. 
-		/// </remarks> 
-		
-		public RichTextBoxAppender() : base() { }
-
-		#endregion
-
 		#region Public Instance Properties and Methods
 
 		/// <summary> 
@@ -100,11 +84,11 @@ namespace log4net.Appender
 		public RichTextBox RichTextBox { 
 			set 
 			{ 
-				if (!object.ReferenceEquals(value, _richtextBox)) 
+				if (!ReferenceEquals(value, _richtextBox)) 
 				{ 
 					if (_containerForm != null) 
 					{ 
-						_containerForm.FormClosed -= new FormClosedEventHandler(containerForm_FormClosed); 
+						_containerForm.FormClosed -= ContainerFormFormClosed; 
 						_containerForm = null; 
 					}
 
@@ -113,7 +97,7 @@ namespace log4net.Appender
 						value.ReadOnly = true; value.HideSelection = false;
 
 						_containerForm = value.FindForm(); 
-						_containerForm.FormClosed += new FormClosedEventHandler(containerForm_FormClosed);
+						_containerForm.FormClosed += ContainerFormFormClosed;
 					}
 
 					_richtextBox = value; 
@@ -180,17 +164,17 @@ namespace log4net.Appender
 		/// This method can be called from any thread. 
 		/// </para> 
 		/// </remarks>
-		protected override void Append(LoggingEvent LoggingEvent) 
+		protected override void Append(LoggingEvent loggingEvent) 
 		{ 
 			if (_richtextBox != null) 
 			{ 
 				if (_richtextBox.InvokeRequired) 
 				{ 
-					_richtextBox.Invoke( new UpdateControlDelegate(UpdateControl), new object[] { LoggingEvent }); 
+					_richtextBox.Invoke( new UpdateControlDelegate(UpdateControl), new object[] { loggingEvent }); 
 				} 
 				else 
 				{ 
-					UpdateControl(LoggingEvent); 
+					UpdateControl(loggingEvent); 
 				} 
 			} 
 		}
@@ -219,7 +203,7 @@ namespace log4net.Appender
 			}
 
 			// look for a style mapping 
-			LevelTextStyle selectedStyle = _levelMapping.Lookup(loggingEvent.Level) as LevelTextStyle; 
+			var selectedStyle = _levelMapping.Lookup(loggingEvent.Level) as LevelTextStyle; 
 			if (selectedStyle != null) 
 			{ 
 				// set the colors of the text about to be appended 
@@ -236,7 +220,7 @@ namespace log4net.Appender
 				else if (selectedStyle.PointSize > 0 && _richtextBox.Font.SizeInPoints != selectedStyle.PointSize) 
 				{ 
 					// use control's font family, set size and styles 
-					float size = selectedStyle.PointSize > 0.0f ? selectedStyle.PointSize : _richtextBox.Font.SizeInPoints; 
+					var size = selectedStyle.PointSize > 0.0f ? selectedStyle.PointSize : _richtextBox.Font.SizeInPoints; 
 					_richtextBox.SelectionFont = new Font(_richtextBox.Font.FontFamily.Name, size, selectedStyle.FontStyle); 
 				} 
 				else if (_richtextBox.Font.Style != selectedStyle.FontStyle) 
@@ -254,7 +238,7 @@ namespace log4net.Appender
 		/// </summary> 
 		/// <param name="sender"></param> 
 		/// <param name="e"></param> 
-		private void containerForm_FormClosed(object sender, FormClosedEventArgs e) 
+		private void ContainerFormFormClosed(object sender, FormClosedEventArgs e) 
 		{ 
 			RichTextBox = null; 
 		}
@@ -267,7 +251,7 @@ namespace log4net.Appender
 			base.OnClose(); 
 			if (_containerForm != null) 
 			{ 
-				_containerForm.FormClosed -= new FormClosedEventHandler(containerForm_FormClosed); 
+				_containerForm.FormClosed -= ContainerFormFormClosed; 
 				_containerForm = null; 
 			} 
 		}
@@ -312,8 +296,8 @@ namespace log4net.Appender
 		{ 
 			if (appenderName == null) return false;
 
-			IAppender[] appenders = LogManager.GetRepository().GetAppenders(); 
-			foreach (IAppender appender in appenders) 
+			var appenders = LogManager.GetRepository().GetAppenders(); 
+			foreach (var appender in appenders) 
 			{ 
 				if (appender.Name == appenderName) 
 				{ 
@@ -335,17 +319,17 @@ namespace log4net.Appender
 		/// <summary> 
 		/// Reference to RichTextBox control that will display log events 
 		/// </summary>
-		private RichTextBox _richtextBox = null;
+		private RichTextBox _richtextBox;
 
 		/// <summary> 
 		/// Reference to Form that contains <code>_richtextBox</code> 
 		/// </summary> 
-		private Form _containerForm = null;
+		private Form _containerForm;
 
 		/// <summary> 
 		/// Mapping from level object to text style 
 		/// </summary> 
-		private LevelMapping _levelMapping = new LevelMapping();
+		private readonly LevelMapping _levelMapping = new LevelMapping();
 
 		/// <summary> 
 		/// Maximum length of RichTextBox buffer 
@@ -368,14 +352,12 @@ namespace log4net.Appender
 		public class LevelTextStyle : LevelMappingEntry 
 		{ 
 			private string _textColorName = "ControlText"; 
-			private string _backColorName = "ControlLight"; 
-			private Color _textColor; private Color _backColor; 
+			private string _backColorName = "ControlLight";
 			private FontStyle _fontStyle = FontStyle.Regular; 
 			private float _pointSize = 0.0f; 
-			private bool _bold = false; 
-			private bool _italic = false; 
-			private string _fontFamilyName = null; 
-			private Font _font = null;
+			private bool _bold; 
+			private bool _italic; 
+			private string _fontFamilyName;
 
 			/// <summary> 
 			/// Name of a KnownColor used for text 
@@ -438,8 +420,8 @@ namespace log4net.Appender
 			public override void ActivateOptions() 
 			{ 
 				base.ActivateOptions(); 
-				_textColor = Color.FromName(_textColorName); 
-				_backColor = Color.FromName(_backColorName); 
+				TextColor = Color.FromName(_textColorName); 
+				BackColor = Color.FromName(_backColorName); 
 				if (_bold) _fontStyle |= FontStyle.Bold; 
 				if (_italic) _fontStyle |= FontStyle.Italic;
 
@@ -448,34 +430,25 @@ namespace log4net.Appender
 					float size = _pointSize > 0.0f ? _pointSize : 8.25f; 
 					try 
 					{ 
-						_font = new Font(_fontFamilyName, size, _fontStyle); 
+						Font = new Font(_fontFamilyName, size, _fontStyle); 
 					} 
 					catch (Exception) 
 					{ 
-						_font = null; 
+						Font = null; 
 					} 
 				} 
 			}
 
-			internal Color TextColor 
-			{ 
-				get { return _textColor; } 
-			}
+			internal Color TextColor { get; private set; }
 
-			internal Color BackColor 
-			{ 
-				get { return _backColor; } 
-			}
+			internal Color BackColor { get; private set; }
 
 			internal FontStyle FontStyle 
 			{ 
 				get { return _fontStyle; } 
 			}
 
-			internal Font Font 
-			{ 
-				get { return _font; } 
-			} 
+			internal Font Font { get; private set; }
 		}
 
 		#endregion

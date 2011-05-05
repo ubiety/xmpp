@@ -1,11 +1,11 @@
 using System;
 using System.Windows.Forms;
+using log4net.Appender.RichTextBoxAppender;
 using ubiety;
 using ubiety.common;
 using ubiety.registries;
 using System.Reflection;
 using log4net.Config;
-using log4net.Appender;
 
 namespace TestXMPP
 {

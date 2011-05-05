@@ -24,7 +24,6 @@
 
 #endregion
 
-using System;
 using System.Net;
 
 namespace ubiety.net.dns

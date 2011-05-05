@@ -15,22 +15,40 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System.Xml;
 using ubiety.attributes;
 using ubiety.common;
-using System.Xml;
 
 namespace ubiety.core.entity
 {
 	/// <summary>
 	/// &lt;c/&gt; element as described in XEP-0115
 	/// </summary>
-	[XmppTag("c", Namespaces.Entity, typeof(C))]
+	[XmppTag("c", Namespaces.Entity, typeof (C))]
 	public class C : Tag
 	{
+		///<summary>
+		///</summary>
+		///<param name="doc"></param>
 		public C(XmlDocument doc)
 			: base("", new XmlQualifiedName("c", Namespaces.Entity), doc)
 		{
+		}
 
+		///<summary>
+		/// A URI that uniquely identifies a software application, typically a URL at the website of the project or company that produces the software.
+		///</summary>
+		public string Node
+		{
+			get { return GetAttribute("node"); }
+		}
+
+		///<summary>
+		/// A string that is used to verify the identity and supported features of the entity.
+		///</summary>
+		public string Ver
+		{
+			get { return GetAttribute("ver"); }
 		}
 	}
 }

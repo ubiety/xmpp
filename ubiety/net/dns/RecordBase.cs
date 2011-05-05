@@ -21,8 +21,6 @@
 // distributed and edited without restriction.
 // 
 
-using System;
-
 namespace ubiety.net.dns
 {
 	/// <summary>
