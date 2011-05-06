@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="attributes\CompressionAttribute.cs" />
     <Compile Include="attributes\XmppTagAttribute.cs" />
+    <Compile Include="common\disco\IDiscoManager.cs" />
+    <Compile Include="common\disco\RegistryDiscoManager.cs" />
     <Compile Include="common\ErrorType.cs" />
     <Compile Include="common\Namespaces.cs" />
     <Compile Include="common\SASL\MD5Processor.cs" />
@@ -185,7 +187,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

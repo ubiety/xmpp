@@ -99,7 +99,6 @@ namespace ubiety.common.SASL
 				Logger.Debug(this, "Getting Salt");
 				var a = tokens[1].Substring(2);
 				_salt = Convert.FromBase64String(a);
-				Logger.DebugFormat(this, "Salt: {0}", _salt);
 
 				Logger.Debug(this, "Getting Iterations");
 				var i = tokens[2].Substring(2);
@@ -163,8 +162,6 @@ namespace ubiety.common.SASL
             a.Append(_utf.GetString(_serverFirst));
             a.Append(",");
             a.Append(_clientFinal);
-
-			Logger.DebugFormat(this, "Auth Message: {0}", a.ToString());
 
             var auth = _utf.GetBytes(a.ToString());
 

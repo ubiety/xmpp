@@ -17,6 +17,7 @@
 
 using ubiety.core;
 using ubiety.common;
+using ubiety.common.disco;
 
 namespace ubiety
 {
@@ -93,5 +94,13 @@ namespace ubiety
 		///   <c>true</c> if SSL is to be used; otherwise, <c>false</c>.
 		/// </value>
 		public static bool SSL { get; set; }
+
+		/// <summary>
+		/// Gets or sets the disco manager.
+		/// </summary>
+		/// <value>
+		/// The disco manager.
+		/// </value>
+		public static IDiscoManager DiscoManager { get; set; }
 	}
 }

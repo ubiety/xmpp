@@ -19,7 +19,7 @@ using System.Xml;
 using ubiety.attributes;
 using ubiety.common;
 
-namespace ubiety.core.entity
+namespace ubiety.core.disco
 {
 	/// <summary>
 	/// &lt;c/&gt; element as described in XEP-0115
