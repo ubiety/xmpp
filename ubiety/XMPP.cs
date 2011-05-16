@@ -20,6 +20,7 @@
 using System;
 using System.Reflection;
 using ubiety.common;
+using ubiety.logging;
 using ubiety.net;
 using ubiety.registries;
 using ubiety.states;

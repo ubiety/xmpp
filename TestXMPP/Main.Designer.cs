@@ -38,7 +38,6 @@ namespace TestXMPP
 			this.txtUsername = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtPassword = new System.Windows.Forms.TextBox();
-			this.rtbDebug = new System.Windows.Forms.RichTextBox();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -89,7 +88,7 @@ namespace TestXMPP
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.slVersion});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 318);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 72);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(404, 22);
 			this.statusStrip1.TabIndex = 1;
@@ -139,24 +138,11 @@ namespace TestXMPP
 			this.txtPassword.Size = new System.Drawing.Size(316, 20);
 			this.txtPassword.TabIndex = 5;
 			// 
-			// rtbDebug
-			// 
-			this.rtbDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.rtbDebug.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rtbDebug.Location = new System.Drawing.Point(0, 71);
-			this.rtbDebug.Name = "rtbDebug";
-			this.rtbDebug.Size = new System.Drawing.Size(404, 244);
-			this.rtbDebug.TabIndex = 6;
-			this.rtbDebug.Text = "";
-			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(404, 340);
-			this.Controls.Add(this.rtbDebug);
+			this.ClientSize = new System.Drawing.Size(404, 94);
 			this.Controls.Add(this.txtPassword);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.txtUsername);
@@ -165,7 +151,6 @@ namespace TestXMPP
 			this.Controls.Add(this.toolStrip1);
 			this.Name = "Main";
 			this.Text = "TestXMPP";
-			this.Load += new System.EventHandler(this.MainLoad);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.statusStrip1.ResumeLayout(false);
@@ -186,8 +171,7 @@ namespace TestXMPP
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtPassword;
-		private System.Windows.Forms.RichTextBox rtbDebug;
+		private System.Windows.Forms.TextBox txtPassword;
 
 
 

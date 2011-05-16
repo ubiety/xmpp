@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ubiety.common;
+using ubiety.logging;
 using ubiety.states;
 
 namespace ubiety.net

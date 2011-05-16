@@ -20,6 +20,7 @@ using System.Collections;
 using ubiety.core;
 using System.Text;
 using System.Security.Cryptography;
+using ubiety.logging;
 
 namespace ubiety.common.SASL
 {

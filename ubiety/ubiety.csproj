@@ -56,8 +56,8 @@
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\references\log4net.dll</HintPath>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\NLog\.NET Framework 3.5\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -78,7 +78,7 @@
     <Compile Include="common\JID.cs" />
     <Compile Include="core\Bind.cs" />
     <Compile Include="core\Compression\Compression.cs" />
-    <Compile Include="core\entity\C.cs" />
+    <Compile Include="core\disco\C.cs" />
     <Compile Include="core\Features.cs" />
     <Compile Include="core\GenericTag.cs" />
     <Compile Include="core\iq\Iq.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="idn\RFC3454.cs" />
     <Compile Include="idn\Stringprep.cs" />
     <Compile Include="idn\StringprepException.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="logging\Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
     <Compile Include="net\compression\Checksums\Adler32.cs" />
@@ -187,7 +187,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

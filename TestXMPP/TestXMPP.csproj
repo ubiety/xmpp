@@ -38,9 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\references\log4net.dll</HintPath>
-    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -77,6 +75,9 @@
     <None Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,10 +89,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\log4net.Appender.RichTextBoxAppender\log4net.Appender.RichTextBoxAppender.csproj">
-      <Project>{E66CB0F8-4300-4FA7-B416-E5387AAB3655}</Project>
-      <Name>log4net.Appender.RichTextBoxAppender</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ubiety.compression.sharpziplib\ubiety.compression.sharpziplib.csproj">
       <Project>{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}</Project>
       <Name>ubiety.compression.sharpziplib</Name>

@@ -21,6 +21,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using ubiety.logging;
 using ubiety.net.dns;
 
 namespace ubiety.net
