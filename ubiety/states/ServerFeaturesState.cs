@@ -33,7 +33,7 @@ namespace ubiety.states
 		/// 
 		/// </summary>
 		/// <param name="data">
-		/// A <see cref="System.Object"/>
+		/// A <see cref="Tag"/>
 		/// </param>
 		public override void Execute(Tag data)
 		{

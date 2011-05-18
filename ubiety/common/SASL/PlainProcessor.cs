@@ -43,11 +43,8 @@ namespace ubiety.common.SASL
 		///<exception cref="NotImplementedException"></exception>
 		public override Tag Initialize()
 		{
-			//base.Initialize(id, password);
-
 			Logger.Debug(this, "Initializing Plain Processor");
 			Logger.DebugFormat(this, "ID User: {0}", UbietySettings.Id.User);
-			Logger.DebugFormat(this, "Password: {0}", UbietySettings.Password);
 
 			var sb = new StringBuilder();
 
@@ -58,7 +55,7 @@ namespace ubiety.common.SASL
 
 			var auth = (Auth) TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
 
-			auth.Text = sb.ToString();
+			auth.Text = Convert.ToBase64String(Encoding.UTF8.GetBytes(sb.ToString()));
 			auth.Mechanism = Mechanism.GetMechanism(MechanismType.Plain);
 
 			return auth;

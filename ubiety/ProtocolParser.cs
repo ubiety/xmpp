@@ -22,6 +22,7 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 using ubiety.common;
+using ubiety.core;
 using ubiety.logging;
 using ubiety.registries;
 using ubiety.states;
@@ -36,14 +37,24 @@ namespace ubiety
 	/// </remarks>
 	internal class ProtocolParser
 	{
-		private static XmlNamespaceManager _ns;
+		private static readonly XmlNamespaceManager Ns;
 		private static readonly TagRegistry Reg = TagRegistry.Instance;
 		private static readonly ProtocolState States = ProtocolState.Instance;
 		private static XmlElement _elem;
 		private static XmlElement _root;
 
 		private static XmlReader _reader;
-		private static XmlReaderSettings _settings;
+		private static readonly XmlReaderSettings Settings;
+
+		static ProtocolParser()
+		{
+			Logger.Info(typeof (ProtocolParser), "Setting up environment");
+			Settings = new XmlReaderSettings {ConformanceLevel = ConformanceLevel.Fragment};
+			Ns = new XmlNamespaceManager(States.Document.NameTable);
+
+			Ns.AddNamespace("", Namespaces.Client);
+			Ns.AddNamespace("stream", Namespaces.Stream);
+		}
 
 		/// <summary>
 		/// Parses the message into its appropriate <seealso cref="Tag"/>
@@ -55,17 +66,6 @@ namespace ubiety
 				Logger.Debug(typeof (ProtocolParser), "Closed.  Nothing to do");
 				return;
 			}
-
-			//Logger.DebugFormat(typeof(ProtocolParser), "Incoming Message: {0}", message);
-
-			// Moved the initialization into the parse method because it has become static.  Don't really need an instance to parse the string.
-			Logger.Info(typeof (ProtocolParser), "Setting up environment");
-			_settings = new XmlReaderSettings();
-			_settings.ConformanceLevel = ConformanceLevel.Fragment;
-			_ns = new XmlNamespaceManager(States.Document.NameTable);
-
-			_ns.AddNamespace("", Namespaces.Client);
-			_ns.AddNamespace("stream", Namespaces.Stream);
 
 			Logger.Info(typeof (ProtocolParser), "Starting message parsing...");
 
@@ -88,8 +88,8 @@ namespace ubiety
 				message += "</stream:stream>";
 			}
 
-			var context = new XmlParserContext(null, _ns, null, XmlSpace.None);
-			_reader = XmlReader.Create(new StringReader(message), _settings, context);
+			var context = new XmlParserContext(null, Ns, null, XmlSpace.None);
+			_reader = XmlReader.Create(new StringReader(message), Settings, context);
 			try
 			{
 				while (_reader.Read())
@@ -147,11 +147,11 @@ namespace ubiety
 				{
 					if (_reader.Prefix.Equals("xmlns"))
 					{
-						_ns.AddNamespace(_reader.LocalName, _reader.Value);
+						Ns.AddNamespace(_reader.LocalName, _reader.Value);
 					}
 					else if (_reader.Name.Equals("xmlns"))
 					{
-						_ns.AddNamespace(string.Empty, _reader.Value);
+						Ns.AddNamespace(string.Empty, _reader.Value);
 					}
 					else
 					{
@@ -161,11 +161,9 @@ namespace ubiety
 				_reader.MoveToElement();
 			}
 
-			var ns = _ns.LookupNamespace(_reader.Prefix);
+			var ns = Ns.LookupNamespace(_reader.Prefix);
 			var q = new XmlQualifiedName(_reader.LocalName, ns);
 			XmlElement elem = Reg.GetTag(q, States.Document);
-
-			//Logger.DebugFormat(typeof(ProtocolParser), "<{0}>", elem.Name);
 
 			foreach (string attrname in ht.Keys)
 			{
@@ -175,7 +173,7 @@ namespace ubiety
 					var prefix = attrname.Substring(0, colon);
 					var name = attrname.Substring(colon + 1);
 
-					var attr = States.Document.CreateAttribute(prefix, name, _ns.LookupNamespace(prefix));
+					var attr = States.Document.CreateAttribute(prefix, name, Ns.LookupNamespace(prefix));
 					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);
@@ -223,14 +221,11 @@ namespace ubiety
 				return;
 			}
 
-			//Logger.DebugFormat(typeof(ProtocolParser), "</{0}>", _elem.Name);
-
 			var parent = (XmlElement) _elem.ParentNode;
 			if (parent == null)
 			{
-				//Logger.Debug(typeof(ProtocolParser), "Top of tree. Executing current state.");
 				var tag = (Tag) _elem;
-				if (tag is Stream)
+				if (tag is Features || tag is Stream)
 					States.State = new ServerFeaturesState();
 				Logger.DebugFormat(typeof (ProtocolParser), "Current State: {0}", States.State.ToString());
 				if (tag.Name == "error")
@@ -242,8 +237,6 @@ namespace ubiety
 					States.Execute(tag);
 				}
 			}
-
-			//Logger.Debug(typeof(ProtocolParser), "Not at top yet. Continuing the parser.");
 			_elem = parent;
 		}
 

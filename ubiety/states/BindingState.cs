@@ -40,8 +40,6 @@ namespace ubiety.states
 					a.AddChildTag(res);
 				}
 
-				//b.From = _current.ID;
-				//b.To = _current.ID.Server;
 				b.IqType = IqType.Set;
 				b.Payload = a;
 

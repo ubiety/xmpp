@@ -83,5 +83,10 @@ namespace ubiety.common
 		/// Namespace for Entity Capabilities XEP-0115
 		/// </summary>
 		public const string Entity = "http://jabber.org/protocol/caps";
+
+		/// <summary>
+		/// Service discovery namespace
+		/// </summary>
+    	public const string DiscoInfo = "http://jabber.org/protocol/disco#info";
 	}
 }

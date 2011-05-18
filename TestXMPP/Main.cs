@@ -28,7 +28,7 @@ namespace TestXMPP
 		private void Button1Click(object sender, EventArgs e)
 		{
 			_xmpp = new XMPP();
-			UbietySettings.AuthenticationTypes = MechanismType.Default;
+			UbietySettings.AuthenticationTypes = MechanismType.Default | MechanismType.Plain;
 			UbietySettings.Id = new JID(txtUsername.Text);
 			UbietySettings.Password = txtPassword.Text;
 			UbietySettings.SSL = btnSSL.Checked;

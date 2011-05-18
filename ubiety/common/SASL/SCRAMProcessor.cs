@@ -27,59 +27,59 @@ using Gnu.Inet.Encoding;
 
 namespace ubiety.common.SASL
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class SCRAMProcessor : SASLProcessor
-    {
-    	private readonly Encoding _utf = Encoding.UTF8;
+	/// <summary>
+	/// 
+	/// </summary>
+	public class SCRAMProcessor : SASLProcessor
+	{
+		private readonly Encoding _utf = Encoding.UTF8;
 
-        private string _nonce;
-        private string _snonce;
-        private byte[] _salt;
-        private int _i;
-        private string _clientFirst;
-        private byte[] _serverFirst;
-        private string _clientFinal;
+		private string _nonce;
+		private string _snonce;
+		private byte[] _salt;
+		private int _i;
+		private string _clientFirst;
+		private byte[] _serverFirst;
+		private string _clientFinal;
 
-        private byte[] _serverSignature;
-        private string _clientProof;
+		private byte[] _serverSignature;
+		private string _clientProof;
 
-    	/// <summary>
-    	/// 
-    	/// </summary>
-    	/// <returns></returns>
-    	public override Tag Initialize()
-        {
-            base.Initialize();
-            Logger.Debug(this, "Initializing SCRAM Processor");
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public override Tag Initialize()
+		{
+			base.Initialize();
+			Logger.Debug(this, "Initializing SCRAM Processor");
 
-            Logger.Debug(this, "Generating nonce");
-            _nonce = NextInt64().ToString();
-            Logger.DebugFormat(this, "Nonce: {0}", _nonce);
-            Logger.Debug(this, "Building Initial Message");
-            var msg = new StringBuilder();
-            msg.Append("n,,n=");
-            msg.Append(Id.User);
-            msg.Append(",r=");
-            msg.Append(_nonce);
-            Logger.DebugFormat(this, "Message: {0}", msg.ToString());
+			Logger.Debug(this, "Generating nonce");
+			_nonce = NextInt64().ToString();
+			Logger.DebugFormat(this, "Nonce: {0}", _nonce);
+			Logger.Debug(this, "Building Initial Message");
+			var msg = new StringBuilder();
+			msg.Append("n,,n=");
+			msg.Append(Id.User);
+			msg.Append(",r=");
+			msg.Append(_nonce);
+			Logger.DebugFormat(this, "Message: {0}", msg.ToString());
 
 			_clientFirst = msg.ToString().Substring(3);
 
-            var tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
-            tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
-            tag.Bytes = _utf.GetBytes(msg.ToString());
-            return tag;
-        }
+			var tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL, new XmlDocument());
+			tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
+			tag.Bytes = _utf.GetBytes(msg.ToString());
+			return tag;
+		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tag"></param>
-        /// <returns></returns>
-        public override Tag Step(Tag tag)
-        {
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="tag"></param>
+		/// <returns></returns>
+		public override Tag Step(Tag tag)
+		{
 			if (tag.Name == "challenge")
 			{
 				_serverFirst = tag.Bytes;
@@ -138,14 +138,14 @@ namespace ubiety.common.SASL
 			}
 
 			return null;
-        }
+		}
 
-        private void CalculateProofs()
-        {
-            var hmac = new HMACSHA1();
-            SHA1 hash = new SHA1CryptoServiceProvider();
+		private void CalculateProofs()
+		{
+			var hmac = new HMACSHA1();
+			SHA1 hash = new SHA1CryptoServiceProvider();
 
-            var saltedPassword = Hi();
+			var saltedPassword = Hi();
 
 			// Calculate Client Key
 			hmac.Key = saltedPassword;
@@ -155,66 +155,66 @@ namespace ubiety.common.SASL
 			var serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
 
 			// Calculate Stored Key
-            var storedKey = hash.ComputeHash(clientKey);
+			var storedKey = hash.ComputeHash(clientKey);
 
-            var a = new StringBuilder();
-            a.Append(_clientFirst);
-            a.Append(",");
-            a.Append(_utf.GetString(_serverFirst));
-            a.Append(",");
-            a.Append(_clientFinal);
+			var a = new StringBuilder();
+			a.Append(_clientFirst);
+			a.Append(",");
+			a.Append(_utf.GetString(_serverFirst));
+			a.Append(",");
+			a.Append(_clientFinal);
 
-            var auth = _utf.GetBytes(a.ToString());
+			var auth = _utf.GetBytes(a.ToString());
 
 			// Calculate Client Signature
-            hmac.Key = storedKey;
-            var signature = hmac.ComputeHash(auth);
+			hmac.Key = storedKey;
+			var signature = hmac.ComputeHash(auth);
 
 			// Calculate Server Signature
 			hmac.Key = serverKey;
-            _serverSignature = hmac.ComputeHash(auth);
+			_serverSignature = hmac.ComputeHash(auth);
 
-            //_serverSignature = _utf.GetString(server);
+			//_serverSignature = _utf.GetString(server);
 
 			// Calculate Client Proof
-            var proof = new byte[20];
-            for (var i = 0; i < signature.Length; ++i)
-            {
-                proof[i] = (byte)(clientKey[i] ^ signature[i]);
-            }
+			var proof = new byte[20];
+			for (var i = 0; i < signature.Length; ++i)
+			{
+				proof[i] = (byte)(clientKey[i] ^ signature[i]);
+			}
 
-            _clientProof = Convert.ToBase64String(proof);
-        }
+			_clientProof = Convert.ToBase64String(proof);
+		}
 
-        private byte[] Hi()
-        {
-        	var prev = new byte[20];
-        	var password = _utf.GetBytes(Stringprep.SASLPrep(Password));
+		private byte[] Hi()
+		{
+			var prev = new byte[20];
+			var password = _utf.GetBytes(Stringprep.SASLPrep(Password));
 
-            // Add 1 to the end of salt with most significat octet first
-            var key = new byte[_salt.Length + 4];
+			// Add 1 to the end of salt with most significat octet first
+			var key = new byte[_salt.Length + 4];
 
-            Array.Copy(_salt, key, _salt.Length);
-            byte[] g = { 0, 0, 0, 1 };
-            Array.Copy(g, 0, key, _salt.Length, 4);
+			Array.Copy(_salt, key, _salt.Length);
+			byte[] g = { 0, 0, 0, 1 };
+			Array.Copy(g, 0, key, _salt.Length, 4);
 
-            // Compute initial hash
-            var hmac = new HMACSHA1(password);
-            var result = hmac.ComputeHash(key);
-            Array.Copy(result, prev, result.Length);
+			// Compute initial hash
+			var hmac = new HMACSHA1(password);
+			var result = hmac.ComputeHash(key);
+			Array.Copy(result, prev, result.Length);
 
-            for (var i = 1; i < _i; ++i)
-            {
-                var temp = hmac.ComputeHash(prev);
-                for (var j = 0; j < temp.Length; ++j)
-                {
-                    result[j] ^= temp[j];
-                }
+			for (var i = 1; i < _i; ++i)
+			{
+				var temp = hmac.ComputeHash(prev);
+				for (var j = 0; j < temp.Length; ++j)
+				{
+					result[j] ^= temp[j];
+				}
 
-                Array.Copy(temp, prev, temp.Length);
-            }
+				Array.Copy(temp, prev, temp.Length);
+			}
 
-            return result;
-        }
-    }
+			return result;
+		}
+	}
 }
