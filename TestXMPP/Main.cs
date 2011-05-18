@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using TestXMPP.Properties;
 using ubiety;
 using ubiety.common;
 using ubiety.core;
@@ -17,12 +18,12 @@ namespace TestXMPP
 			InitializeComponent();
 			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
 			Errors.Instance.OnError += Errors_OnError;
-			slVersion.Text = "Ubiety Version: " + XMPP.Version;
+			slVersion.Text = Resources.Version_Label + XMPP.Version;
 		}
 
 		private static void Errors_OnError(object sender, ErrorEventArgs e)
 		{
-			MessageBox.Show(e.Message, "Protocol Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show(e.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		private void Button1Click(object sender, EventArgs e)
