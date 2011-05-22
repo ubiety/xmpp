@@ -73,7 +73,7 @@
     <Compile Include="Zip\Compression\PendingBuffer.cs" />
     <Compile Include="Zip\Compression\Streams\OutputWindow.cs" />
     <Compile Include="Zip\Compression\Streams\StreamManipulator.cs" />
-    <Compile Include="ZLibStream.cs" />
+    <Compile Include="Zlib.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ubiety\ubiety.csproj">
@@ -106,7 +106,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ConfigurationName="Any" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_ConfigurationName="Any" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

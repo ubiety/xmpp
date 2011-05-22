@@ -40,14 +40,14 @@ namespace ubiety.registries
 		/// </param>
 		public void AddCompression(Assembly a)
 		{
-            Logger.DebugFormat(this, "Adding assembly {0}", a.FullName);
-            
-            var tags = GetAttributes<CompressionAttribute>(a);
-            foreach (var tag in tags)
-            {
-            	Logger.DebugFormat(this, "Adding {0}", tag.Algorithm);
-            	RegisteredItems.Add(tag.Algorithm, tag.ClassType);
-            }			
+			Logger.DebugFormat(this, "Adding assembly {0}", a.FullName);
+			
+			var tags = GetAttributes<CompressionAttribute>(a);
+			foreach (var tag in tags)
+			{
+				Logger.DebugFormat(this, "Adding {0}", tag.Algorithm);
+				RegisteredItems.Add(tag.Algorithm, tag.ClassType);
+			}			
 		}
 
 		/// <summary>
@@ -56,23 +56,19 @@ namespace ubiety.registries
 		/// <param name="algorithm">
 		/// The algorithm we want to create the stream for.
 		/// </param>
-		/// <param name="inner">
-		/// The stream we want to wrap in our compression algorithm.
-		/// </param>
 		/// <returns>
 		/// The wrapped stream ready for compression.
 		/// </returns>
-		public Stream GetCompression(string algorithm, Stream inner)
+		public ICompression GetCompression(string algorithm)
 		{
 			Logger.InfoFormat(this, "Finding algorithm {0}.", algorithm);
-			Stream stream = null;
+			ICompression stream = null;
 			try
 			{
-				//t = (Type)_registeredItems[algorithm];
 				Type t;
 				if (RegisteredItems.TryGetValue(algorithm, out t))
 				{				
-					stream = (Stream)Activator.CreateInstance(t, new object[] { inner });
+					stream = (ICompression)Activator.CreateInstance(t);
 				}
 				else
 				{

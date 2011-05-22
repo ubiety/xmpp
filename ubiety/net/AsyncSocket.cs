@@ -25,9 +25,9 @@ using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using ICSharpCode.SharpZipLib.Zip.Compression;
 using ubiety.common;
 using ubiety.logging;
+using ubiety.registries;
 using ubiety.states;
 
 namespace ubiety.net
@@ -45,12 +45,11 @@ namespace ubiety.net
 		private readonly ProtocolState _states = ProtocolState.Instance;
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private bool _compressed;
-		private Deflater _deflate;
-		private Inflater _inflate;
 		private NetworkStream _netstream;
 		private Socket _socket;
 		private SslStream _sslstream;
 		private Stream _stream;
+		private ICompression _comp;
 
 		public AsyncSocket()
 		{
@@ -188,7 +187,7 @@ namespace ubiety.net
 			if (!Connected) return;
 			Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
 			var mesg = _utf.GetBytes(msg);
-			mesg = _compressed ? Deflate(mesg) : mesg;
+			mesg = _compressed ? _comp.Deflate(mesg) : mesg;
 			_stream.Write(mesg, 0, mesg.Length);
 		}
 
@@ -204,12 +203,12 @@ namespace ubiety.net
 
 				var t = TrimNull(_buff);
 
-				var m = _utf.GetString(_compressed ? Inflate(t, t.Length) : t);
+				var m = _utf.GetString(_compressed ? _comp.Inflate(t, t.Length) : t);
 
 				Logger.DebugFormat(this, "Incoming Message: {0}", m);
 				ProtocolParser.Parse(m, rx);
 
-				// Clear the buffer
+				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
 				Array.Clear(_buff, 0, _buff.Length);
 
 				_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
@@ -230,11 +229,7 @@ namespace ubiety.net
 		/// <param name="algorithm"></param>
 		public void StartCompression(string algorithm)
 		{
-			//Logger.DebugFormat(this, "Replacing stream with {0} compressed version.", algorithm);
-			//_stream = CompressionRegistry.Instance.GetCompression(algorithm, _stream);
-			Logger.Debug(this, "Starting compression with SharpZipLib");
-			_inflate = new Inflater();
-			_deflate = new Deflater();
+			_comp = CompressionRegistry.Instance.GetCompression(algorithm);
 			_compressed = true;
 		}
 
@@ -259,46 +254,5 @@ namespace ubiety.net
 
 			return null;
 		}
-
-		#region << Compression >>
-
-		private byte[] Deflate(byte[] data)
-		{
-			int ret;
-
-			_deflate.SetInput(data);
-			_deflate.Flush();
-
-			var ms = new MemoryStream();
-			do
-			{
-				var buf = new byte[4096];
-				ret = _deflate.Deflate(buf);
-				if (ret > 0)
-					ms.Write(buf, 0, ret);
-			} while (ret > 0);
-
-			return ms.ToArray();
-		}
-
-		private byte[] Inflate(byte[] data, int length)
-		{
-			int ret;
-
-			_inflate.SetInput(data, 0, length);
-
-			var ms = new MemoryStream();
-			do
-			{
-				var buffer = new byte[4096];
-				ret = _inflate.Inflate(buffer);
-				if (ret > 0)
-					ms.Write(buffer, 0, ret);
-			} while (ret > 0);
-
-			return ms.ToArray();
-		}
-
-		#endregion
 	}
 }
