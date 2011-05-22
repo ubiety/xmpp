@@ -1,9 +1,0 @@
-<CombineEntry name="ubietynunit" fileversion="2.0" ctype="NUnitAssemblyGroupProject">
-  <Configurations active="Debug">
-    <Configuration name="Default" ctype="NUnitAssemblyGroupProjectConfiguration">
-      <Assemblies>
-        <Assembly Path="/home/dieter/projects/xmppnet/testmono/bin/Debug/ubiety.dll" />
-      </Assemblies>
-    </Configuration>
-  </Configurations>
-</CombineEntry>
