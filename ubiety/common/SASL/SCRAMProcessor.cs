@@ -80,61 +80,61 @@ namespace ubiety.common.SASL
 		/// <returns></returns>
 		public override Tag Step(Tag tag)
 		{
-			if (tag.Name == "challenge")
+			switch (tag.Name)
 			{
-				_serverFirst = tag.Bytes;
-				var response = _utf.GetString(tag.Bytes);
-				Logger.DebugFormat(this, "Challenge: {0}", response);
+				case "challenge":
+					{
+						_serverFirst = tag.Bytes;
+						var response = _utf.GetString(tag.Bytes);
+						Logger.DebugFormat(this, "Challenge: {0}", response);
 
-				// Split challenge into pieces
-				var tokens = response.Split(',');
+						// Split challenge into pieces
+						var tokens = response.Split(',');
 
-				_snonce = tokens[0].Substring(2);
-				// Ensure that the first length of nonce is the same nonce we sent.
-				var r = _snonce.Substring(0, _nonce.Length);
-				if (0 != String.Compare(r, _nonce))
-				{
-					Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
-				}
+						_snonce = tokens[0].Substring(2);
+						// Ensure that the first length of nonce is the same nonce we sent.
+						var r = _snonce.Substring(0, _nonce.Length);
+						if (0 != String.Compare(r, _nonce))
+						{
+							Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
+						}
 
-				Logger.Debug(this, "Getting Salt");
-				var a = tokens[1].Substring(2);
-				_salt = Convert.FromBase64String(a);
+						Logger.Debug(this, "Getting Salt");
+						var a = tokens[1].Substring(2);
+						_salt = Convert.FromBase64String(a);
 
-				Logger.Debug(this, "Getting Iterations");
-				var i = tokens[2].Substring(2);
-				_i = int.Parse(i);
-				Logger.DebugFormat(this, "Iterations: {0}", _i);
+						Logger.Debug(this, "Getting Iterations");
+						var i = tokens[2].Substring(2);
+						_i = int.Parse(i);
+						Logger.DebugFormat(this, "Iterations: {0}", _i);
 
-				var final = new StringBuilder();
-				final.Append("c=biws,r=");
-				final.Append(_snonce);
+						var final = new StringBuilder();
+						final.Append("c=biws,r=");
+						final.Append(_snonce);
 
-				_clientFinal = final.ToString();
+						_clientFinal = final.ToString();
 
-				CalculateProofs();
+						CalculateProofs();
 
-				final.Append(",p=");
-				final.Append(_clientProof);
+						final.Append(",p=");
+						final.Append(_clientProof);
 
-				Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
+						Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
 
-				var resp = TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
-				resp.Bytes = _utf.GetBytes(final.ToString());
+						var resp = TagRegistry.Instance.GetTag("response", Namespaces.SASL, new XmlDocument());
+						resp.Bytes = _utf.GetBytes(final.ToString());
 
-				return resp;
-			}
+						return resp;
+					}
 
-			if (tag.Name == "success")
-			{
-				var response = _utf.GetString(tag.Bytes);
-				var signature = Convert.FromBase64String(response.Substring(2));
-				if (_utf.GetString(signature) == _utf.GetString(_serverSignature))
-				{
+				case "success":
+					{
+						var response = _utf.GetString(tag.Bytes);
+						var signature = Convert.FromBase64String(response.Substring(2));
+						return _utf.GetString(signature) == _utf.GetString(_serverSignature) ? tag : null;
+					}
+				case "failure":
 					return tag;
-				}
-
-				return null;
 			}
 
 			return null;

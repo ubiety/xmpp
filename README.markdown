@@ -12,8 +12,8 @@ using ubiety.common;
 
 public class Test {
     public static void Main() {
-        Settings.ID = new JID("test@ubiety.ca");
-        Settings.Password = "test";
+        UbietySettings.ID = new JID("test@ubiety.ca");
+        UbietySettings.Password = "test";
 
         XMPP ubiety = new XMPP();
         ubiety.Connect();

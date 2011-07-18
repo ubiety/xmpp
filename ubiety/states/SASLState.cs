@@ -35,24 +35,23 @@ namespace ubiety.states
 		{
 			Logger.Debug(this, "Processing next SASL step");
 			var res = Current.Processor.Step(data);
-			if (res.Name == "success")
+			switch (res.Name)
 			{
-				// We have been successfully authenticated and we need to restart the stream.
-				Logger.Debug(this, "Sending start stream again");
-				Current.Authenticated = true;
-				// Return to the connected state to resend the start tag.
-				Current.State = new ConnectedState();
-				Current.Execute();
-			}
-			else if (res.Name == "failure")
-			{
-				// We have failed in our quest.  Error returned inside we just need to wrap this up.
-				return;
-			}
-			else
-			{
-				// Neither success or failure so we send the result to the socket.
-				Current.Socket.Write(res);
+				case "success":
+					Logger.Debug(this, "Sending start stream again");
+					Current.Authenticated = true;
+					Current.State = new ConnectedState();
+					Current.Execute();
+					break;
+				case "failure":
+					// Failed to authenticate. Send a message to the user.
+					Errors.Instance.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
+					Current.State = new DisconnectState();
+					Current.Execute();
+					return;
+				default:
+					Current.Socket.Write(res);
+					break;
 			}
 		}
 	}

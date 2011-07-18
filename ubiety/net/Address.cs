@@ -35,7 +35,7 @@ namespace ubiety.net
 		private bool _srvFailed;
 		private SRVRecord[] _srvRecords;
 		private int _dnsAttempts;
-        private int _srvAttempts;
+		private int _srvAttempts;
 
 		public Address()
 		{
@@ -64,12 +64,12 @@ namespace ubiety.net
 
 			if (_srvRecords != null)
 			{
-                if (_srvAttempts < _srvRecords.Length)
-                {
-                    UbietySettings.Port = _srvRecords[_srvAttempts].Port;
-                    UbietySettings.Hostname = _srvRecords[_srvAttempts].Target;
-                    _srvAttempts++;
-                }
+				if (_srvAttempts < _srvRecords.Length)
+				{
+					UbietySettings.Port = _srvRecords[_srvAttempts].Port;
+					UbietySettings.Hostname = _srvRecords[_srvAttempts].Target;
+					_srvAttempts++;
+				}
 				return Resolve();
 			}
 			return null;
@@ -100,11 +100,9 @@ namespace ubiety.net
 			throw new NoResponseException();
 		}
 
-        private IPAddress Resolve()
-        {
-        	var resolved = false;
-
-			while (!resolved)
+		private IPAddress Resolve()
+		{
+			while (true)
 			{
 				var req = new Request();
 
@@ -116,26 +114,20 @@ namespace ubiety.net
 
 				var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
 
-				if (res.Answers.Length > 0)
-				{
-					resolved = true;
-					if (res.Answers[0].Type == DnsType.AAAA)
-					{
-						IPv6 = true;
-						var aa = (AAAARecord)res.Answers[0].Record;
-						return aa.IPAddress;
-					}
-					else
-					{
-						IPv6 = false;
-						var a = (ANameRecord)res.Answers[0].Record;
-						return a.IPAddress;
-					}
-				}
-			}
+				if (res.Answers.Length <= 0) continue;
 
-        	return null;
-        }
+				if (res.Answers[0].Type == DnsType.AAAA)
+				{
+					IPv6 = true;
+					var aa = (AAAARecord)res.Answers[0].Record;
+					return aa.IPAddress;
+				}
+
+				IPv6 = false;
+				var a = (ANameRecord)res.Answers[0].Record;
+				return a.IPAddress;
+			}
+		}
 
 		/// <summary>
 		/// Is the address IPV6?

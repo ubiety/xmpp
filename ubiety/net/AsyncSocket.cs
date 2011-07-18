@@ -45,9 +45,7 @@ namespace ubiety.net
 		private readonly ProtocolState _states = ProtocolState.Instance;
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private bool _compressed;
-		private NetworkStream _netstream;
 		private Socket _socket;
-		private SslStream _sslstream;
 		private Stream _stream;
 		private ICompression _comp;
 
@@ -102,8 +100,8 @@ namespace ubiety.net
 				{
 					if (Connected)
 					{
-						_netstream = new NetworkStream(_socket, true);
-						_stream = _netstream;
+						var netstream = new NetworkStream(_socket, true);
+						_stream = netstream;
 						_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 						_states.State = new ConnectedState();
 						_states.Execute();
@@ -139,14 +137,14 @@ namespace ubiety.net
 		public void StartSecure()
 		{
 			Logger.Debug(this, "Starting .NET Secure Mode");
-			_sslstream = new SslStream(_stream, true, RemoteValidation, null);
+			var sslstream = new SslStream(_stream, true, RemoteValidation);
 			Logger.Debug(this, "Authenticating as Client");
 			try
 			{
-				_sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
-				if (_sslstream.IsAuthenticated)
+				sslstream.AuthenticateAsClient(_dest.Hostname, null, SslProtocols.Tls, false);
+				if (sslstream.IsAuthenticated)
 				{
-					_stream = _sslstream;
+					_stream = sslstream;
 				}
 			}
 			catch (Exception e)

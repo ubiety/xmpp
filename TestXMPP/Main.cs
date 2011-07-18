@@ -18,6 +18,7 @@ namespace TestXMPP
 			InitializeComponent();
 			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
 			Errors.Instance.OnError += Errors_OnError;
+			_xmpp = new XMPP(); 
 			slVersion.Text = Resources.Version_Label + XMPP.Version;
 		}
 
@@ -28,7 +29,6 @@ namespace TestXMPP
 
 		private void Button1Click(object sender, EventArgs e)
 		{
-			_xmpp = new XMPP();
 			UbietySettings.AuthenticationTypes = MechanismType.Default | MechanismType.Plain;
 			UbietySettings.Id = new JID(txtUsername.Text);
 			UbietySettings.Password = txtPassword.Text;
