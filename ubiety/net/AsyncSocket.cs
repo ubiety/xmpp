@@ -39,9 +39,10 @@ namespace ubiety.net
 	{
 		// Timeout after 5 seconds by default
 		private const int Timeout = 5000;
-		private readonly byte[] _buff = new byte[4096];
 		private readonly Address _dest;
-		private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
+		private const int BufferSize = 4096;
+		private readonly byte[] _buff = new byte[BufferSize];
+		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
 		private readonly ProtocolState _states = ProtocolState.Instance;
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private bool _compressed;
@@ -49,6 +50,8 @@ namespace ubiety.net
 		private Stream _stream;
 		private ICompression _comp;
 
+		#region Properties
+		
 		public AsyncSocket()
 		{
 			_dest = new Address();
@@ -72,6 +75,8 @@ namespace ubiety.net
 		/// </summary>
 		public bool Secure { get; set; }
 
+		#endregion
+
 		/// <summary>
 		/// Establishes a connection to the specified remote host.
 		/// </summary>
@@ -82,6 +87,7 @@ namespace ubiety.net
 
 			Logger.InfoFormat(this, "Trying to connect to: {2}({0}:{1})", end.Address, UbietySettings.Port.ToString(),
 			                  UbietySettings.Hostname);
+
 			if (!_dest.IPv6)
 			{
 				Logger.Debug(this, "Connecting using IPv4");
@@ -95,21 +101,11 @@ namespace ubiety.net
 
 			try
 			{
-				_socket.BeginConnect(end, FinishConnect, null);
-				if (_resetEvent.WaitOne(Timeout, false))
+				_socket.BeginConnect(end, FinishConnect, _socket);
+				if (!_timeoutEvent.WaitOne(Timeout))
 				{
-					if (Connected)
-					{
-						var netstream = new NetworkStream(_socket, true);
-						_stream = netstream;
-						_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
-						_states.State = new ConnectedState();
-						_states.Execute();
-					}
-				}
-				else
-				{
-					Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out while connecting to server.");
+					Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out connecting to server.");
+					return;
 				}
 			}
 			catch (SocketException e)
@@ -122,13 +118,35 @@ namespace ubiety.net
 		{
 			try
 			{
-				_socket.EndConnect(ar);
+				var socket = (Socket) ar.AsyncState;
+				socket.EndConnect(ar);
+				
 				Connected = true;
+
+				var netstream = new NetworkStream(socket);
+				_stream = netstream;
+
+				_stream.BeginRead(_buff, 0, BufferSize, Receive, null);
+
+				_states.State = new ConnectedState();
+				_states.Execute();
 			}
 			finally
 			{
-				_resetEvent.Set();
+				_timeoutEvent.Set();
 			}
+		}
+
+		/// <summary>
+		/// Closes the current socket.
+		/// </summary>
+		public void Close()
+		{
+			Logger.Debug(this, "Closing socket (Graceful Shutdown)");
+			Connected = false;
+			_stream.Close();
+			_socket.Shutdown(SocketShutdown.Both);
+			_socket.Disconnect(true);
 		}
 
 		/// <summary>
@@ -167,16 +185,6 @@ namespace ubiety.net
 		}
 
 		/// <summary>
-		/// Closes the current socket.
-		/// </summary>
-		public void Close()
-		{
-			Logger.Debug(this, "Closing socket (Graceful Shutdown)");
-			_stream.Close();
-			_socket.Close();
-		}
-
-		/// <summary>
 		/// Writes data to the current connection.
 		/// </summary>
 		/// <param name="msg">Message to send</param>
@@ -193,10 +201,6 @@ namespace ubiety.net
 		{
 			try
 			{
-				if (!Connected || _states.State is ClosedState)
-				{
-					return;
-				}
 				var rx = _stream.EndRead(ar);
 
 				var t = TrimNull(_buff);
@@ -208,6 +212,8 @@ namespace ubiety.net
 
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
 				Array.Clear(_buff, 0, _buff.Length);
+
+				if (!Connected || _states.State is ClosedState) return;
 
 				_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 			}
