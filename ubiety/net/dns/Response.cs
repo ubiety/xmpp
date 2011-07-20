@@ -1,141 +1,270 @@
-// Response.cs
-//
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
-// 
-// This library is free software; you can redistribute it and/or modify it under
-// the terms of the GNU Lesser General Public License as published by the Free
-// Software Foundation; either version 3 of the License, or (at your option)
-// any later version.
-// 
-// This library is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-// 
-// You should have received a copy of the GNU Lesser General Public License along
-// with this library; if not, write to the Free Software Foundation, Inc., 59
-// Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
-//
-// Bdev.Net.Dns by Rob Philpott, Big Developments Ltd. Please send all bugs/enhancements to
-// rob@bigdevelopments.co.uk  This file and the code contained within is freeware and may be
-// distributed and edited without restriction.
-// 
-
 using System;
+using System.IO;
+using System.Net;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
-namespace ubiety.net.dns
+namespace Heijden.DNS
 {
-	/// <summary>
-	/// A Response is a logical representation of the byte data returned from a DNS query
-	/// </summary>
 	public class Response
 	{
-		// these are fields we're interested in from the message
-		private readonly ReturnCode			_returnCode;
-		private readonly bool				_authoritativeAnswer;
-		private readonly bool				_recursionAvailable;
-		private readonly bool				_truncated;
-		private readonly Question[]			_questions;
-		private readonly Answer[]			_answers;
-		private readonly NameServer[]		_nameServers;
-		private readonly AdditionalRecord[]	_additionalRecords;
+		/// <summary>
+		/// List of Question records
+		/// </summary>
+		public List<Question> Questions;
+		/// <summary>
+		/// List of AnswerRR records
+		/// </summary>
+		public List<AnswerRR> Answers;
+		/// <summary>
+		/// List of AuthorityRR records
+		/// </summary>
+		public List<AuthorityRR> Authorities;
+		/// <summary>
+		/// List of AdditionalRR records
+		/// </summary>
+		public List<AdditionalRR> Additionals;
 
-		// these fields are readonly outside the assembly - use r/o properties
-		///<summary>
-		///</summary>
-		public ReturnCode ReturnCode				{ get { return _returnCode;					}}
-		///<summary>
-		///</summary>
-		public bool AuthoritativeAnswer				{ get { return _authoritativeAnswer;		}}
-		///<summary>
-		///</summary>
-		public bool RecursionAvailable				{ get { return _recursionAvailable;			}}
-		///<summary>
-		///</summary>
-		public bool MessageTruncated				{ get { return _truncated;					}}
-		///<summary>
-		///</summary>
-		public Question[] Questions					{ get { return _questions;					}}
-		///<summary>
-		///</summary>
-		public Answer[] Answers						{ get { return _answers;					}}
-		///<summary>
-		///</summary>
-		public NameServer[] NameServers				{ get { return _nameServers;				}}
-		///<summary>
-		///</summary>
-		public AdditionalRecord[] AdditionalRecords	{ get { return _additionalRecords;			}}
+		public Header header;
 
 		/// <summary>
-		/// Construct a Response object from the supplied byte array
+		/// Error message, empty when no error
 		/// </summary>
-		/// <param name="message">a byte array returned from a DNS server query</param>
-		internal Response(byte[] message)
+		public string Error;
+
+		/// <summary>
+		/// The Size of the message
+		/// </summary>
+		public int MessageSize;
+
+		/// <summary>
+		/// TimeStamp when cached
+		/// </summary>
+		public DateTime TimeStamp;
+
+		/// <summary>
+		/// Server which delivered this response
+		/// </summary>
+		public IPEndPoint Server;
+
+		public Response()
 		{
-			// the bit flags are in bytes 2 and 3
-			var flags1 = message[2];
-			var flags2 = message[3];
+			Questions = new List<Question>();
+			Answers = new List<AnswerRR>();
+			Authorities = new List<AuthorityRR>();
+			Additionals = new List<AdditionalRR>();
 
-			// get return code from lowest 4 bits of byte 3
-			var returnCode = flags2 & 15;
-				
-			// if its in the reserved section, set to other
-			if (returnCode > 6) returnCode = 6;
-			_returnCode = (ReturnCode)returnCode;
+			Server = new IPEndPoint(0,0);
+			Error = "";
+			MessageSize = 0;
+			TimeStamp = DateTime.Now;
+			header = new Header();
+		}
 
-			// other bit flags
-			_authoritativeAnswer = ((flags1 & 4) != 0);
-			_recursionAvailable = ((flags2 & 128) != 0);
-			_truncated = ((flags1 & 2) != 0);
+		public Response(IPEndPoint iPEndPoint, byte[] data)
+		{
+			Error = "";
+			Server = iPEndPoint;
+			TimeStamp = DateTime.Now;
+			MessageSize = data.Length;
+			RecordReader rr = new RecordReader(data);
 
-			// create the arrays of response objects
-			_questions = new Question[GetShort(message, 4)];
-			_answers = new Answer[GetShort(message, 6)];
-			_nameServers = new NameServer[GetShort(message, 8)];
-			_additionalRecords = new AdditionalRecord[GetShort(message, 10)];
+			Questions = new List<Question>();
+			Answers = new List<AnswerRR>();
+			Authorities = new List<AuthorityRR>();
+			Additionals = new List<AdditionalRR>();
 
-			// need a pointer to do this, position just after the header
-			var pointer = new Pointer(message, 12);
+			header = new Header(rr);
 
-			// and now populate them, they always follow this order
-			for (var index = 0; index < _questions.Length; index++)
+			for (int intI = 0; intI < header.QDCOUNT; intI++)
 			{
-				try
-				{
-					// try to build a quesion from the response
-					_questions[index] = new Question(pointer);
-				}
-				catch (Exception ex)
-				{
-					// something grim has happened, we can't continue
-					throw new InvalidResponseException(ex);
-				}
+				Questions.Add(new Question(rr));
 			}
-			for (var index = 0; index < _answers.Length; index++)
+
+			for (int intI = 0; intI < header.ANCOUNT; intI++)
 			{
-				_answers[index] = new Answer(pointer);
+				Answers.Add(new AnswerRR(rr));
 			}
-			for (var index = 0; index < _nameServers.Length; index++)
+
+			for (int intI = 0; intI < header.NSCOUNT; intI++)
 			{
-				_nameServers[index] = new NameServer(pointer);
+				Authorities.Add(new AuthorityRR(rr));
 			}
-			for (var index = 0; index < _additionalRecords.Length; index++)
+			for (int intI = 0; intI < header.ARCOUNT; intI++)
 			{
-				_additionalRecords[index] = new AdditionalRecord(pointer);
+				Additionals.Add(new AdditionalRR(rr));
 			}
 		}
-	
+
 		/// <summary>
-		/// Convert 2 bytes to a short. It would have been nice to use BitConverter for this,
-		/// it however reads the bytes in the wrong order (at least on Windows)
+		/// List of RecordMX in Response.Answers
 		/// </summary>
-		/// <param name="message">byte array to look in</param>
-		/// <param name="position">position to look at</param>
-		/// <returns>short representation of the two bytes</returns>
-		private static short GetShort(IList<byte> message, int position)
+		public RecordMX[] RecordsMX
 		{
-			return (short)(message[position]<<8 | message[position+1]);
+			get
+			{
+				List<RecordMX> list = new List<RecordMX>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordMX record = answerRR.RECORD as RecordMX;
+					if(record!=null)
+						list.Add(record);
+				}
+				list.Sort();
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordTXT in Response.Answers
+		/// </summary>
+		public RecordTXT[] RecordsTXT
+		{
+			get
+			{
+				List<RecordTXT> list = new List<RecordTXT>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordTXT record = answerRR.RECORD as RecordTXT;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordA in Response.Answers
+		/// </summary>
+		public RecordA[] RecordsA
+		{
+			get
+			{
+				List<RecordA> list = new List<RecordA>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordA record = answerRR.RECORD as RecordA;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordPTR in Response.Answers
+		/// </summary>
+		public RecordPTR[] RecordsPTR
+		{
+			get
+			{
+				List<RecordPTR> list = new List<RecordPTR>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordPTR record = answerRR.RECORD as RecordPTR;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordCNAME in Response.Answers
+		/// </summary>
+		public RecordCNAME[] RecordsCNAME
+		{
+			get
+			{
+				List<RecordCNAME> list = new List<RecordCNAME>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordCNAME record = answerRR.RECORD as RecordCNAME;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordAAAA in Response.Answers
+		/// </summary>
+		public RecordAAAA[] RecordsAAAA
+		{
+			get
+			{
+				List<RecordAAAA> list = new List<RecordAAAA>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordAAAA record = answerRR.RECORD as RecordAAAA;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordNS in Response.Answers
+		/// </summary>
+		public RecordNS[] RecordsNS
+		{
+			get
+			{
+				List<RecordNS> list = new List<RecordNS>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordNS record = answerRR.RECORD as RecordNS;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// List of RecordSOA in Response.Answers
+		/// </summary>
+		public RecordSOA[] RecordsSOA
+		{
+			get
+			{
+				List<RecordSOA> list = new List<RecordSOA>();
+				foreach (AnswerRR answerRR in this.Answers)
+				{
+					RecordSOA record = answerRR.RECORD as RecordSOA;
+					if (record != null)
+						list.Add(record);
+				}
+				return list.ToArray();
+			}
+		}
+
+		public RR[] RecordsRR
+		{
+			get
+			{
+				List<RR> list = new List<RR>();
+				foreach (RR rr in this.Answers)
+				{
+					list.Add(rr);
+				}
+				foreach (RR rr in this.Answers)
+				{
+					list.Add(rr);
+				}
+				foreach (RR rr in this.Authorities)
+				{
+					list.Add(rr);
+				}
+				foreach (RR rr in this.Additionals)
+				{
+					list.Add(rr);
+				}
+				return list.ToArray();
+			}
 		}
 	}
 }

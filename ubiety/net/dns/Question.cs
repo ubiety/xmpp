@@ -1,96 +1,129 @@
-// Question.cs
-//
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
-// 
-// This library is free software; you can redistribute it and/or modify it under
-// the terms of the GNU Lesser General Public License as published by the Free
-// Software Foundation; either version 3 of the License, or (at your option)
-// any later version.
-// 
-// This library is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-// 
-// You should have received a copy of the GNU Lesser General Public License along
-// with this library; if not, write to the Free Software Foundation, Inc., 59
-// Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
-//
-// Bdev.Net.Dns by Rob Philpott, Big Developments Ltd. Please send all bugs/enhancements to
-// rob@bigdevelopments.co.uk  This file and the code contained within is freeware and may be
-// distributed and edited without restriction.
-// 
-
 using System;
-using System.Text.RegularExpressions;
+using System.IO;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
 
-namespace ubiety.net.dns
+namespace Heijden.DNS
 {
-	/// <summary>
-	/// Represents a DNS Question, comprising of a domain to query, the type of query (QTYPE) and the class
-	/// of query (QCLASS). This class is an encapsulation of these three things, and extensive argument checking
-	/// in the constructor as this may well be created outside the assembly (public protection)
-	/// </summary>	
+	#region Rfc 1034/1035
+	/*
+	4.1.2. Question section format
+
+	The question section is used to carry the "question" in most queries,
+	i.e., the parameters that define what is being asked.  The section
+	contains QDCOUNT (usually 1) entries, each of the following format:
+
+										1  1  1  1  1  1
+		  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+		+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		|                                               |
+		/                     QNAME                     /
+		/                                               /
+		+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		|                     QTYPE                     |
+		+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		|                     QCLASS                    |
+		+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+	where:
+
+	QNAME           a domain name represented as a sequence of labels, where
+					each label consists of a length octet followed by that
+					number of octets.  The domain name terminates with the
+					zero length octet for the null label of the root.  Note
+					that this field may be an odd number of octets; no
+					padding is used.
+
+	QTYPE           a two octet code which specifies the type of the query.
+					The values for this field include all codes valid for a
+					TYPE field, together with some more general codes which
+					can match more than one type of RR.
+
+
+	QCLASS          a two octet code that specifies the class of the query.
+					For example, the QCLASS field is IN for the Internet.
+	*/
+	#endregion
+
 	public class Question
 	{
-		// A question is these three things combined
-		private readonly string		_domain;
-		private readonly DnsType	_dnsType;
-		private readonly DnsClass	_dnsClass;
-
-		// expose them read/only to the world
-		public string	Domain		{ get { return _domain;		}}
-		public DnsType	Type		{ get { return _dnsType;	}}
-		public DnsClass	Class		{ get { return _dnsClass;	}}
-
-		/// <summary>
-		/// Construct the question from parameters, checking for safety
-		/// </summary>
-		/// <param name="domain">the domain name to query eg. bigdevelopments.co.uk</param>
-		/// <param name="dnsType">the QTYPE of query eg. DnsType.MX</param>
-		/// <param name="dnsClass">the CLASS of query, invariably DnsClass.IN</param>
-		public Question(string domain, DnsType dnsType, DnsClass dnsClass)
+		private string m_QName;
+		public string QName
 		{
-			// check the input parameters
-			if (domain == null) 
-                throw new ArgumentNullException("domain");
-
-			// do a sanity check on the domain name to make sure its legal
-			if (domain.Length ==0 || domain.Length>255 || !Regex.IsMatch(domain, @"^[a-z|A-Z|0-9|\-|_]{1,63}(\.[a-z|A-Z|0-9|\-|_]{1,63})+$"))
+			get
 			{
-				// domain names can't be bigger tan 255 chars, and individal labels can't be bigger than 63 chars
-				throw new ArgumentException("The supplied domain name was not in the correct form", "domain");
+				return m_QName;
 			}
-
-			// sanity check the DnsType parameter
-			if (!Enum.IsDefined(typeof(DnsType), dnsType) || dnsType == DnsType.None)
+			set
 			{
-				throw new ArgumentOutOfRangeException("dnsType");
+				m_QName = value;
+				if (!m_QName.EndsWith("."))
+					m_QName += ".";
 			}
+		}
+		public QType QType;
+		public QClass QClass;
 
-			// sanity check the DnsClass parameter
-			if (!Enum.IsDefined(typeof(DnsClass), dnsClass) || dnsClass == DnsClass.None)
-			{                
-				throw new ArgumentOutOfRangeException("dnsClass");
-			}
-
-			// just remember the values
-			_domain = domain;
-			_dnsType = dnsType;
-			_dnsClass = dnsClass;
+		public Question(string QName,QType QType,QClass QClass)
+		{
+			this.QName = QName;
+			this.QType = QType;
+			this.QClass = QClass;
 		}
 
-		/// <summary>
-		/// Construct the question reading from a DNS Server response. Consult RFC1035 4.1.2
-		/// for byte-wise details of this structure in byte array form
-		/// </summary>
-		/// <param name="pointer">a logical pointer to the Question in byte array form</param>
-		internal Question(Pointer pointer)
+		public Question(RecordReader rr)
 		{
-			// extract from the message
-			_domain = pointer.ReadDomain();
-			_dnsType = (DnsType)pointer.ReadShort();
-			_dnsClass = (DnsClass)pointer.ReadShort();
+			QName = rr.ReadDomainName();
+			QType = (QType)rr.ReadUInt16();
+			QClass = (QClass)rr.ReadUInt16();
+		}
+
+		private byte[] WriteName(string src)
+		{
+			if (!src.EndsWith("."))
+				src += ".";
+
+			if (src == ".")
+				return new byte[1];
+
+			StringBuilder sb = new StringBuilder();
+			int intI, intJ, intLen = src.Length;
+			sb.Append('\0');
+			for (intI = 0, intJ = 0; intI < intLen; intI++, intJ++)
+			{
+				sb.Append(src[intI]);
+				if (src[intI] == '.')
+				{
+					sb[intI - intJ] = (char)(intJ & 0xff);
+					intJ = -1;
+				}
+			}
+			sb[sb.Length - 1] = '\0';
+			return System.Text.Encoding.ASCII.GetBytes(sb.ToString());
+		}
+
+		public byte[] Data
+		{
+			get
+			{
+				List<byte> data = new List<byte>();
+				data.AddRange(WriteName(QName));
+				data.AddRange(WriteShort((ushort)QType));
+				data.AddRange(WriteShort((ushort)QClass));
+				return data.ToArray();
+			}
+		}
+
+		private byte[] WriteShort(ushort sValue)
+		{
+			return BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)sValue));
+		}
+
+
+		public override string ToString()
+		{
+			return string.Format("{0,-32}\t{1}\t{2}", QName, QClass, QType);
 		}
 	}
 }
