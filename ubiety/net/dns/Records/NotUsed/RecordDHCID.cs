@@ -1,9 +1,8 @@
-using System;
 /*
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records.NotUsed
 {
 	public class RecordDHCID : Record
 	{

@@ -19,10 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using ubiety.logging;
 using ubiety.net.dns;
+using ubiety.net.dns.Records;
+using TransportType = ubiety.net.dns.TransportType;
 
 namespace ubiety.net
 {
@@ -31,29 +30,14 @@ namespace ubiety.net
 	/// </summary>
 	internal class Address
 	{
-		private static readonly List<IPAddress> DnsAddresses = new List<IPAddress>();
 		private bool _srvFailed;
-		private SRVRecord[] _srvRecords;
-		private int _dnsAttempts;
+		private List<RecordSRV> _srvRecords;
 		private int _srvAttempts;
+		private readonly Resolver _resolver;
 
 		public Address()
 		{
-			Logger.Debug(this, "Getting DNS addresses");
-			var net = NetworkInterface.GetAllNetworkInterfaces();
-			foreach (var dns in from n in net
-									  where
-										n.OperationalStatus == OperationalStatus.Up &&
-										n.NetworkInterfaceType != NetworkInterfaceType.Loopback
-									  select n.GetIPProperties()
-										  into i
-										  from dns in i.DnsAddresses
-										  where dns.AddressFamily == AddressFamily.InterNetwork
-										  select dns)
-			{
-				DnsAddresses.Add(dns);
-				Logger.DebugFormat(this, "Dns Address: {0}", dns.ToString());
-			}
+			_resolver = new Resolver {UseCache = true, TimeOut = 5000, TransportType = TransportType.Tcp};
 		}
 
 		public IPAddress NextIPAddress()
@@ -62,71 +46,67 @@ namespace ubiety.net
 			if(_srvRecords == null && !_srvFailed)
 				_srvRecords = FindSRV();
 
-			if (_srvRecords != null)
+			if (!_srvFailed && _srvRecords != null)
 			{
-				if (_srvAttempts < _srvRecords.Length)
+				if (_srvAttempts < _srvRecords.Count)
 				{
 					UbietySettings.Port = _srvRecords[_srvAttempts].Port;
-					UbietySettings.Hostname = _srvRecords[_srvAttempts].Target;
-					_srvAttempts++;
+					var ip = Resolve(_srvRecords[_srvAttempts].Target);
+					if (ip == null)
+						_srvAttempts++;
+					else
+						return ip;
 				}
-				return Resolve();
 			}
 			return null;
 		}
 
-		private SRVRecord[] FindSRV()
+		private List<RecordSRV> FindSRV()
 		{
-			while (_dnsAttempts < DnsAddresses.Count)
-			{
-				Logger.DebugFormat(this, "Using DNS {0}", DnsAddresses[_dnsAttempts].ToString());
-				try
-				{
-					var records = Resolver.SRVLookup("_xmpp-client._tcp." + Hostname, DnsAddresses[_dnsAttempts]);
-					if (records.Length == 0)
-					{
-						_srvFailed = true;
-						return null;
-					}
+			var resp = _resolver.Query("_xmpp-client._tcp." + Hostname, QType.SRV, QClass.IN);
 
-					return records;
-				}
-				catch (NoResponseException)
-				{
-					_dnsAttempts++;
-				}
+			if (resp.Header.ANCOUNT > 0)
+			{
+				_srvFailed = false;
+				return resp.Answers.Select(record => record.Record as RecordSRV).ToList();
 			}
 
-			throw new NoResponseException();
+			_srvFailed = true;
+			return null;
 		}
 
-		private IPAddress Resolve()
+		private IPAddress Resolve(string hostname)
 		{
-			while (true)
-			{
-				var req = new Request();
+			var resp = _resolver.Query(hostname, QType.A, QClass.IN);
 
-				//req.AddQuestion(Socket.OSSupportsIPv6
-				//                    ? new Question(UbietySettings.Hostname, DnsType.AAAA, DnsClass.IN)
-				//                    : new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
+			IPv6 = false;
+			return ((RecordA) resp.Answers[0].Record).Address;
 
-				req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
+			//while (true)
+			//{
+			//    var req = new Request();
 
-				var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
+			//    //req.AddQuestion(Socket.OSSupportsIPv6
+			//    //                    ? new Question(UbietySettings.Hostname, DnsType.AAAA, DnsClass.IN)
+			//    //                    : new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
 
-				if (res.Answers.Length <= 0) continue;
+			//    req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
 
-				if (res.Answers[0].Type == DnsType.AAAA)
-				{
-					IPv6 = true;
-					var aa = (AAAARecord)res.Answers[0].Record;
-					return aa.IPAddress;
-				}
+			//    var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
 
-				IPv6 = false;
-				var a = (ANameRecord)res.Answers[0].Record;
-				return a.IPAddress;
-			}
+			//    if (res.Answers.Length <= 0) continue;
+
+			//    if (res.Answers[0].Type == DnsType.AAAA)
+			//    {
+			//        IPv6 = true;
+			//        var aa = (AAAARecord)res.Answers[0].Record;
+			//        return aa.IPAddress;
+			//    }
+
+			//    IPv6 = false;
+			//    var a = (ANameRecord)res.Answers[0].Record;
+			//    return a.IPAddress;
+			//}
 		}
 
 		/// <summary>

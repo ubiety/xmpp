@@ -1,4 +1,3 @@
-using System;
 /* http://tools.ietf.org/rfc/rfc1183.txt
 
 3.1. The X25 RR
@@ -30,7 +29,7 @@ using System;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordX25 : Record
 	{

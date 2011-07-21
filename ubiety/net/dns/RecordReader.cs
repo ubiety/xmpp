@@ -1,71 +1,96 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ubiety.net.dns.Records;
+using ubiety.net.dns.Records.NotUsed;
+using ubiety.net.dns.Records.Obsolete;
 
-namespace Heijden.DNS
+namespace ubiety.net.dns
 {
+	///<summary>
+	///</summary>
 	public class RecordReader
 	{
-		private byte[] m_Data;
-		private int m_Position;
+		private readonly byte[] _mData;
+		private int _mPosition;
+
+		///<summary>
+		///</summary>
+		///<param name="data"></param>
 		public RecordReader(byte[] data)
 		{
-			m_Data = data;
-			m_Position = 0;
+			_mData = data;
+			_mPosition = 0;
 		}
 
+		///<summary>
+		///</summary>
+		///<param name="data"></param>
+		///<param name="position"></param>
+		public RecordReader(byte[] data, int position)
+		{
+			_mData = data;
+			_mPosition = position;
+		}
+
+		///<summary>
+		///</summary>
 		public int Position
 		{
-			get
-			{
-				return m_Position;
-			}
-			set
-			{
-				m_Position = value;
-			}
-		}
-
-		public RecordReader(byte[] data, int Position)
-		{
-			m_Data = data;
-			m_Position = Position;
+			get { return _mPosition; }
+			set { _mPosition = value; }
 		}
 
 
+		///<summary>
+		///</summary>
+		///<returns></returns>
 		public byte ReadByte()
 		{
-			if (m_Position >= m_Data.Length)
-				return 0;
-			else
-				return m_Data[m_Position++];
+			return (byte) (_mPosition >= _mData.Length ? 0 : _mData[_mPosition++]);
 		}
 
+		///<summary>
+		///</summary>
+		///<returns></returns>
 		public char ReadChar()
 		{
-			return (char)ReadByte();
+			return (char) ReadByte();
 		}
 
+		///<summary>
+		///</summary>
+		///<returns></returns>
 		public UInt16 ReadUInt16()
 		{
-			return (UInt16)(ReadByte() << 8 | ReadByte());
+			return (UInt16) (ReadByte() << 8 | ReadByte());
 		}
 
+		///<summary>
+		///</summary>
+		///<param name="offset"></param>
+		///<returns></returns>
 		public UInt16 ReadUInt16(int offset)
 		{
-			m_Position += offset;
+			_mPosition += offset;
 			return ReadUInt16();
 		}
 
+		///<summary>
+		///</summary>
+		///<returns></returns>
 		public UInt32 ReadUInt32()
 		{
-			return (UInt32)(ReadUInt16() << 16 | ReadUInt16());
+			return (UInt32) (ReadUInt16() << 16 | ReadUInt16());
 		}
 
+		///<summary>
+		///</summary>
+		///<returns></returns>
 		public string ReadDomainName()
 		{
-			StringBuilder name = new StringBuilder();
-			int length = 0;
+			var name = new StringBuilder();
+			int length;
 
 			// get  the length of the first label
 			while ((length = ReadByte()) != 0)
@@ -74,7 +99,7 @@ namespace Heijden.DNS
 				if ((length & 0xc0) == 0xc0)
 				{
 					// work out the existing domain name, copy this pointer
-					RecordReader newRecordReader = new RecordReader(m_Data, (length & 0x3f) << 8 | ReadByte());
+					var newRecordReader = new RecordReader(_mData, (length & 0x3f) << 8 | ReadByte());
 
 					name.Append(newRecordReader.ReadDomainName());
 					return name.ToString();
@@ -88,30 +113,38 @@ namespace Heijden.DNS
 				}
 				name.Append('.');
 			}
-			if (name.Length == 0)
-				return ".";
-			else
-				return name.ToString();
+			return name.Length == 0 ? "." : name.ToString();
 		}
 
+		///<summary>
+		///</summary>
+		///<returns></returns>
 		public string ReadString()
 		{
-			short length = this.ReadByte();
+			short length = ReadByte();
 
-			StringBuilder name = new StringBuilder();
-			for(int intI=0;intI<length;intI++)
+			var name = new StringBuilder();
+			for (var intI = 0; intI < length; intI++)
 				name.Append(ReadChar());
 			return name.ToString();
 		}
 
+		///<summary>
+		///</summary>
+		///<param name="intLength"></param>
+		///<returns></returns>
 		public byte[] ReadBytes(int intLength)
 		{
-			List<byte> list = new List<byte>();
-			for(int intI=0;intI<intLength;intI++)
+			var list = new List<byte>();
+			for (var intI = 0; intI < intLength; intI++)
 				list.Add(ReadByte());
 			return list.ToArray();
 		}
 
+		///<summary>
+		///</summary>
+		///<param name="type"></param>
+		///<returns></returns>
 		public Record ReadRecord(Type type)
 		{
 			switch (type)
@@ -238,6 +271,5 @@ namespace Heijden.DNS
 					return new RecordUnknown(this);
 			}
 		}
-
 	}
 }

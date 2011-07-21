@@ -135,7 +135,7 @@ namespace ubiety
 		/// </value>
 		public bool Connected
 		{
-			get { return States.State.GetType() != typeof (ClosedState); }
+			get { return States.State.GetType() != typeof (DisconnectedState); }
 		}
 
 		#endregion

@@ -1,20 +1,18 @@
-using System;
-
 /*
  3.3.2. HINFO RDATA format
 
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    /                      CPU                      /
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    /                       OS                      /
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	/                      CPU                      /
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	/                       OS                      /
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
 where:
 
 CPU             A <character-string> which specifies the CPU type.
 
 OS              A <character-string> which specifies the operating
-                system type.
+				system type.
 
 Standard values for CPU and OS can be found in [RFC-1010].
 
@@ -23,7 +21,7 @@ main use is for protocols such as FTP that can use special procedures
 when talking between machines or operating systems of the same type.
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordHINFO : Record
 	{

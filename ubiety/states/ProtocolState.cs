@@ -33,7 +33,7 @@ namespace ubiety.states
 
 		private ProtocolState()
 		{
-			_state = new ClosedState();
+			_state = new DisconnectedState();
 		}
 
 		/// <value>

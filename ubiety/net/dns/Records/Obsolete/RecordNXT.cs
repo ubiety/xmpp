@@ -1,5 +1,5 @@
-using System;
 using System.Text;
+
 /*
  * http://tools.ietf.org/rfc/rfc2065.txt
  * 
@@ -10,13 +10,13 @@ using System.Text;
 
    The type number for the NXT RR is 30.
 
-                           1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
-       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |         next domain name                                      /
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |                    type bit map                               /
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+						   1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
+	   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+	  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	  |         next domain name                                      /
+	  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	  |                    type bit map                               /
+	  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The NXT RR type bit map is one bit per RR type present for the owner
    name similar to the WKS socket bit map.  The first bit represents RR
@@ -36,7 +36,7 @@ using System.Text;
 
 
  */
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records.Obsolete
 {
 	public class RecordNXT : Record
 	{
@@ -54,26 +54,23 @@ namespace Heijden.DNS
 
 		private bool IsSet(int bitNr)
 		{
-			int intByte = (int)(bitNr / 8);
-			int intOffset = (bitNr % 8);
-			byte b = BITMAP[intByte];
-			int intTest = 1 << intOffset;
-			if ((b & intTest) == 0)
-				return false;
-			else
-				return true;
+			var intByte = bitNr / 8;
+			var intOffset = (bitNr % 8);
+			var b = BITMAP[intByte];
+			var intTest = 1 << intOffset;
+			return (b & intTest) != 0;
 		}
 
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
-			for (int bitNr = 1; bitNr < (BITMAP.Length * 8); bitNr++)
+			var sb = new StringBuilder();
+			for (var bitNr = 1; bitNr < (BITMAP.Length * 8); bitNr++)
 			{
 				if (IsSet(bitNr))
 					sb.Append(" " + (Type)bitNr);
 			}
-			return string.Format("{0}{1}", NEXTDOMAINNAME, sb.ToString());
+			return string.Format("{0}{1}", NEXTDOMAINNAME, sb);
 		}
 
 	}

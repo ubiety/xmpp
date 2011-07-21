@@ -1,6 +1,7 @@
 using System;
 
 #region Rfc info
+
 /* http://www.ietf.org/rfc/rfc2535.txt
  * 
 3.1 KEY RDATA format
@@ -8,8 +9,8 @@ using System;
    The RDATA for a KEY RR consists of flags, a protocol octet, the
    algorithm number octet, and the public key itself.  The format is as
    follows:
-                        1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+						1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |             flags             |    protocol   |   algorithm   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -33,15 +34,16 @@ using System;
    SIG RR(s) do as described in Section 4 below.
 
 */
+
 #endregion
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordKEY : Record
 	{
+		public byte ALGORITHM;
 		public UInt16 FLAGS;
 		public byte PROTOCOL;
-		public byte ALGORITHM;
 		public string PUBLICKEY;
 
 		public RecordKEY(RecordReader rr)
@@ -55,11 +57,10 @@ namespace Heijden.DNS
 		public override string ToString()
 		{
 			return string.Format("{0} {1} {2} \"{3}\"",
-				FLAGS,
-				PROTOCOL,
-				ALGORITHM,
-				PUBLICKEY);
+			                     FLAGS,
+			                     PROTOCOL,
+			                     ALGORITHM,
+			                     PUBLICKEY);
 		}
-
 	}
 }

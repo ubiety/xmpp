@@ -138,9 +138,9 @@ namespace ubiety.net
 		}
 
 		/// <summary>
-		/// Closes the current socket.
+		/// Disconnects the socket from the server.
 		/// </summary>
-		public void Close()
+		public void Disconnect()
 		{
 			Logger.Debug(this, "Closing socket (Graceful Shutdown)");
 			Connected = false;
@@ -213,7 +213,7 @@ namespace ubiety.net
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
 				Array.Clear(_buff, 0, _buff.Length);
 
-				if (!Connected || _states.State is ClosedState) return;
+				if (!Connected || _states.State is DisconnectedState) return;
 
 				_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 			}

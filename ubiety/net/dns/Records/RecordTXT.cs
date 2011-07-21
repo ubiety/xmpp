@@ -1,12 +1,12 @@
-using System;
+
 
 #region Rfc info
 /*
 3.3.14. TXT RDATA format
 
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    /                   TXT-DATA                    /
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	/                   TXT-DATA                    /
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
 where:
 
@@ -18,7 +18,7 @@ depends on the domain where it is found.
 */
 #endregion
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordTXT : Record
 	{

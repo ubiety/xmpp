@@ -1,21 +1,20 @@
-using System;
 /*
 3.3.3. MB RDATA format (EXPERIMENTAL)
 
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    /                   MADNAME                     /
-    /                                               /
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	/                   MADNAME                     /
+	/                                               /
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
 where:
 
 MADNAME         A <domain-name> which specifies a host which has the
-                specified mailbox.
+				specified mailbox.
 
 MB records cause additional section processing which looks up an A type
 RRs corresponding to MADNAME.
 */
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordMB : Record
 	{

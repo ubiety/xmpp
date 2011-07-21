@@ -1,5 +1,3 @@
-using System;
-
 /*
 3.3.13. SOA RDATA format
 
@@ -67,17 +65,17 @@ reason for this provison is to allow future dynamic update facilities to
 change the SOA RR with known semantics.
 */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordSOA : Record
 	{
-		public string MNAME;
-		public string RNAME;
-		public uint SERIAL;
-		public uint REFRESH;
-		public uint RETRY;
 		public uint EXPIRE;
 		public uint MINIMUM;
+		public string MNAME;
+		public uint REFRESH;
+		public uint RETRY;
+		public string RNAME;
+		public uint SERIAL;
 
 		public RecordSOA(RecordReader rr)
 		{
@@ -93,13 +91,13 @@ namespace Heijden.DNS
 		public override string ToString()
 		{
 			return string.Format("{0} {1} {2} {3} {4} {5} {6}",
-				MNAME,
-				RNAME,
-				SERIAL,
-				REFRESH,
-				RETRY,
-				EXPIRE,
-				MINIMUM);
+			                     MNAME,
+			                     RNAME,
+			                     SERIAL,
+			                     REFRESH,
+			                     RETRY,
+			                     EXPIRE,
+			                     MINIMUM);
 		}
 	}
 }

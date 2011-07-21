@@ -1,4 +1,3 @@
-using System;
 /* http://tools.ietf.org/rfc/rfc1183.txt
 
 2.2. The Responsible Person RR
@@ -29,13 +28,22 @@ using System;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
+	///<summary>
+	///</summary>
 	public class RecordRP : Record
 	{
+		///<summary>
+		///</summary>
 		public string MBOXDNAME;
+		///<summary>
+		///</summary>
 		public string TXTDNAME;
 
+		///<summary>
+		///</summary>
+		///<param name="rr"></param>
 		public RecordRP(RecordReader rr)
 		{
 			//MBOXDNAME = rr.ReadString();
@@ -46,9 +54,8 @@ namespace Heijden.DNS
 		public override string ToString()
 		{
 			return string.Format("{0} {1}",
-				MBOXDNAME,
-				TXTDNAME);
+			                     MBOXDNAME,
+			                     TXTDNAME);
 		}
-
 	}
 }

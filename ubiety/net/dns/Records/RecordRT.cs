@@ -1,4 +1,3 @@
-using System;
 /* http://tools.ietf.org/rfc/rfc1183.txt
 
 3.3. The Route Through RR
@@ -32,7 +31,7 @@ using System;
    For example,
 
    sh.prime.com.      IN   RT   2    Relay.Prime.COM.
-                      IN   RT   10   NET.Prime.COM.
+					  IN   RT   10   NET.Prime.COM.
    *.prime.com.       IN   RT   90   Relay.Prime.COM.
 
    When a host is looking up DNS records to attempt to route a datagram,
@@ -52,24 +51,33 @@ using System;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
+	///<summary>
+	///</summary>
 	public class RecordRT : Record
 	{
-		public ushort PREFERENCE;
-		public string INTERMEDIATEHOST;
+		///<summary>
+		///</summary>
+		public ushort Preference;
+		///<summary>
+		///</summary>
+		public string IntermediateHost;
 
+		///<summary>
+		///</summary>
+		///<param name="rr"></param>
 		public RecordRT(RecordReader rr)
 		{
-			PREFERENCE = rr.ReadUInt16();
-			INTERMEDIATEHOST = rr.ReadDomainName();
+			Preference = rr.ReadUInt16();
+			IntermediateHost = rr.ReadDomainName();
 		}
 
 		public override string ToString()
 		{
 			return string.Format("{0} {1}",
-				PREFERENCE,
-				INTERMEDIATEHOST);
+				Preference,
+				IntermediateHost);
 		}
 
 	}

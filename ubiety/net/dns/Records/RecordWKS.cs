@@ -1,16 +1,15 @@
-using System;
 /*
  * 3.4.2. WKS RDATA format
 
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    |                    ADDRESS                    |
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    |       PROTOCOL        |                       |
-    +--+--+--+--+--+--+--+--+                       |
-    |                                               |
-    /                   <BIT MAP>                   /
-    /                                               /
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	|                    ADDRESS                    |
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	|       PROTOCOL        |                       |
+	+--+--+--+--+--+--+--+--+                       |
+	|                                               |
+	/                   <BIT MAP>                   /
+	/                                               /
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
 where:
 
@@ -19,7 +18,7 @@ ADDRESS         An 32 bit Internet address
 PROTOCOL        An 8 bit IP protocol number
 
 <BIT MAP>       A variable length bit map.  The bit map must be a
-                multiple of 8 bits long.
+				multiple of 8 bits long.
 
 The WKS record is used to describe the well known services supported by
 a particular protocol on a particular internet address.  The PROTOCOL
@@ -44,7 +43,7 @@ In master files, both ports and protocols are expressed using mnemonics
 or decimal numbers.
 
  */
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordWKS : Record
 	{

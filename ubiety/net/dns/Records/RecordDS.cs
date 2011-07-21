@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+
 /*
  * http://tools.ietf.org/rfc/rfc3658.txt
  * 
@@ -10,8 +11,8 @@ using System.Text;
    allowed and/or used to sign the child's apex KEY RRset.  Other keys
    MAY sign the child's apex KEY RRset.
 
-                        1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+						1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |           key tag             |  algorithm    |  Digest type  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -28,14 +29,14 @@ using System.Text;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordDS : Record
 	{
-		public UInt16 KEYTAG;
 		public byte ALGORITHM;
-		public byte DIGESTTYPE;
 		public byte[] DIGEST;
+		public byte DIGESTTYPE;
+		public UInt16 KEYTAG;
 
 		public RecordDS(RecordReader rr)
 		{
@@ -50,15 +51,14 @@ namespace Heijden.DNS
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
-			for (int intI = 0; intI < DIGEST.Length; intI++)
-				sb.AppendFormat("{0:x2}", DIGEST[intI]);
+			var sb = new StringBuilder();
+			foreach (var t in DIGEST)
+				sb.AppendFormat("{0:x2}", t);
 			return string.Format("{0} {1} {2} {3}",
-				KEYTAG,
-				ALGORITHM,
-				DIGESTTYPE,
-				sb.ToString());
+			                     KEYTAG,
+			                     ALGORITHM,
+			                     DIGESTTYPE,
+			                     sb);
 		}
-
 	}
 }

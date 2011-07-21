@@ -1,4 +1,3 @@
-using System;
 /*
  * http://tools.ietf.org/rfc/rfc1348.txt   
 
@@ -38,7 +37,7 @@ using System;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records.Obsolete
 {
 	public class RecordNSAPPTR : Record
 	{

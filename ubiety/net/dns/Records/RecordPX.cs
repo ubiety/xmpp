@@ -1,4 +1,5 @@
 using System;
+
 /* 
  * http://tools.ietf.org/rfc/rfc2163.txt
  * 
@@ -20,41 +21,41 @@ using System;
 
    The definition of the new 'PX' DNS resource record is:
 
-      class:        IN   (Internet)
+	  class:        IN   (Internet)
 
-      name:         PX   (pointer to X.400/RFC822 mapping information)
+	  name:         PX   (pointer to X.400/RFC822 mapping information)
 
-      value:        26
+	  value:        26
 
    The PX RDATA format is:
 
-          +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-          |                  PREFERENCE                   |
-          +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-          /                    MAP822                     /
-          /                                               /
-          +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-          /                    MAPX400                    /
-          /                                               /
-          +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		  |                  PREFERENCE                   |
+		  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		  /                    MAP822                     /
+		  /                                               /
+		  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+		  /                    MAPX400                    /
+		  /                                               /
+		  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
    where:
 
    PREFERENCE   A 16 bit integer which specifies the preference given to
-                this RR among others at the same owner.  Lower values
-                are preferred;
+				this RR among others at the same owner.  Lower values
+				are preferred;
 
    MAP822       A <domain-name> element containing <rfc822-domain>, the
-                RFC822 part of the MCGAM;
+				RFC822 part of the MCGAM;
 
    MAPX400      A <domain-name> element containing the value of
-                <x400-in-domain-syntax> derived from the X.400 part of
-                the MCGAM (see sect. 4.2);
+				<x400-in-domain-syntax> derived from the X.400 part of
+				the MCGAM (see sect. 4.2);
 
    PX records cause no additional section processing. The PX RR format
    is the usual one:
 
-             <name> [<class>] [<TTL>] <type> <RDATA>
+			 <name> [<class>] [<TTL>] <type> <RDATA>
 
    When we store in DNS a 'table1' or a 'gate1' entry, then <name> will
    be an X.400 mail domain name in DNS syntax (see sect. 4.2). When we
@@ -70,28 +71,35 @@ using System;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
+	///<summary>
+	///</summary>
 	public class RecordPX : Record
 	{
-		public UInt16 PREFERENCE;
-		public string MAP822;
-		public string MAPX400;
+		///<summary>
+		///</summary>
+		public string Map822;
+		///<summary>
+		///</summary>
+		public string Mapx400;
+		///<summary>
+		///</summary>
+		public UInt16 Preference;
 
 		public RecordPX(RecordReader rr)
 		{
-			PREFERENCE = rr.ReadUInt16();
-			MAP822 = rr.ReadDomainName();
-			MAPX400 = rr.ReadDomainName();
+			Preference = rr.ReadUInt16();
+			Map822 = rr.ReadDomainName();
+			Mapx400 = rr.ReadDomainName();
 		}
 
 		public override string ToString()
 		{
 			return string.Format("{0} {1} {2}",
-				PREFERENCE,
-				MAP822,
-				MAPX400);
+			                     Preference,
+			                     Map822,
+			                     Mapx400);
 		}
-
 	}
 }

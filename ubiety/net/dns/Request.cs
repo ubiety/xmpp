@@ -1,40 +1,46 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Heijden.DNS
+namespace ubiety.net.dns
 {
+	///<summary>
+	///</summary>
 	public class Request
 	{
-		public Header header;
+		private readonly List<Question> _questions;
+		///<summary>
+		///</summary>
+		public Header Header;
 
-		private List<Question> questions;
-
+		///<summary>
+		///</summary>
 		public Request()
 		{
-			header = new Header();
-			header.OPCODE = OPCode.Query;
-			header.QDCOUNT = 0;
+			Header = new Header {OPCODE = OPCode.Query, QDCOUNT = 0};
 
-			questions = new List<Question>();
+			_questions = new List<Question>();
 		}
 
-		public void AddQuestion(Question question)
-		{
-			questions.Add(question);
-		}
-
+		///<summary>
+		///</summary>
 		public byte[] Data
 		{
 			get
 			{
-				List<byte> data = new List<byte>();
-				header.QDCOUNT = (ushort)questions.Count;
-				data.AddRange(header.Data);
-				foreach (Question q in questions)
+				var data = new List<byte>();
+				Header.QDCOUNT = (ushort) _questions.Count;
+				data.AddRange(Header.Data);
+				foreach (var q in _questions)
 					data.AddRange(q.Data);
 				return data.ToArray();
 			}
+		}
+
+		///<summary>
+		///</summary>
+		///<param name="question"></param>
+		public void AddQuestion(Question question)
+		{
+			_questions.Add(question);
 		}
 	}
 }

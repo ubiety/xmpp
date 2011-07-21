@@ -1,6 +1,6 @@
 using System;
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	/*
 	3.3.9. MX RDATA format
@@ -26,34 +26,45 @@ namespace Heijden.DNS
 	[RFC-974].
 	*/
 
+	///<summary>
+	///</summary>
 	public class RecordMX : Record, IComparable
 	{
-		public ushort PREFERENCE;
-		public string EXCHANGE;
+		///<summary>
+		///</summary>
+		public string Exchange;
+		///<summary>
+		///</summary>
+		public ushort Preference;
 
+		///<summary>
+		///</summary>
+		///<param name="rr"></param>
 		public RecordMX(RecordReader rr)
 		{
-			PREFERENCE = rr.ReadUInt16();
-			EXCHANGE = rr.ReadDomainName();
+			Preference = rr.ReadUInt16();
+			Exchange = rr.ReadDomainName();
 		}
 
-		public override string ToString()
-		{
-			return string.Format("{0} {1}", PREFERENCE, EXCHANGE);
-		}
+		#region IComparable Members
 
 		public int CompareTo(object objA)
 		{
-			RecordMX recordMX = objA as RecordMX;
+			var recordMX = objA as RecordMX;
 			if (recordMX == null)
 				return -1;
-			else if (this.PREFERENCE > recordMX.PREFERENCE)
+			if (Preference > recordMX.Preference)
 				return 1;
-			else if (this.PREFERENCE < recordMX.PREFERENCE)
+			if (Preference < recordMX.Preference)
 				return -1;
-			else // they are the same, now compare case insensitive names
-				return string.Compare(this.EXCHANGE, recordMX.EXCHANGE, true);
+			return string.Compare(Exchange, recordMX.Exchange, true);
 		}
 
+		#endregion
+
+		public override string ToString()
+		{
+			return string.Format("{0} {1}", Preference, Exchange);
+		}
 	}
 }

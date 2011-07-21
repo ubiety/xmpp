@@ -1,12 +1,13 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace Heijden.DNS
+namespace ubiety.net.dns
 {
+
 	#region Rfc 1034/1035
+
 	/*
 	4.1.2. Question section format
 
@@ -44,42 +45,71 @@ namespace Heijden.DNS
 	QCLASS          a two octet code that specifies the class of the query.
 					For example, the QCLASS field is IN for the Internet.
 	*/
+
 	#endregion
 
+	///<summary>
+	///</summary>
 	public class Question
 	{
-		private string m_QName;
-		public string QName
-		{
-			get
-			{
-				return m_QName;
-			}
-			set
-			{
-				m_QName = value;
-				if (!m_QName.EndsWith("."))
-					m_QName += ".";
-			}
-		}
-		public QType QType;
+		///<summary>
+		///</summary>
 		public QClass QClass;
+		///<summary>
+		///</summary>
+		public QType QType;
+		private string _mQName;
 
-		public Question(string QName,QType QType,QClass QClass)
+		///<summary>
+		///</summary>
+		///<param name="qName"></param>
+		///<param name="qType"></param>
+		///<param name="qClass"></param>
+		public Question(string qName, QType qType, QClass qClass)
 		{
-			this.QName = QName;
-			this.QType = QType;
-			this.QClass = QClass;
+			QName = qName;
+			QType = qType;
+			QClass = qClass;
 		}
 
+		///<summary>
+		///</summary>
+		///<param name="rr"></param>
 		public Question(RecordReader rr)
 		{
 			QName = rr.ReadDomainName();
-			QType = (QType)rr.ReadUInt16();
-			QClass = (QClass)rr.ReadUInt16();
+			QType = (QType) rr.ReadUInt16();
+			QClass = (QClass) rr.ReadUInt16();
 		}
 
-		private byte[] WriteName(string src)
+		///<summary>
+		///</summary>
+		public string QName
+		{
+			get { return _mQName; }
+			set
+			{
+				_mQName = value;
+				if (!_mQName.EndsWith("."))
+					_mQName += ".";
+			}
+		}
+
+		///<summary>
+		///</summary>
+		public byte[] Data
+		{
+			get
+			{
+				var data = new List<byte>();
+				data.AddRange(WriteName(QName));
+				data.AddRange(WriteShort((ushort) QType));
+				data.AddRange(WriteShort((ushort) QClass));
+				return data.ToArray();
+			}
+		}
+
+		private static IEnumerable<byte> WriteName(string src)
 		{
 			if (!src.EndsWith("."))
 				src += ".";
@@ -87,37 +117,23 @@ namespace Heijden.DNS
 			if (src == ".")
 				return new byte[1];
 
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			int intI, intJ, intLen = src.Length;
 			sb.Append('\0');
 			for (intI = 0, intJ = 0; intI < intLen; intI++, intJ++)
 			{
 				sb.Append(src[intI]);
-				if (src[intI] == '.')
-				{
-					sb[intI - intJ] = (char)(intJ & 0xff);
-					intJ = -1;
-				}
+				if (src[intI] != '.') continue;
+				sb[intI - intJ] = (char) (intJ & 0xff);
+				intJ = -1;
 			}
 			sb[sb.Length - 1] = '\0';
-			return System.Text.Encoding.ASCII.GetBytes(sb.ToString());
+			return Encoding.ASCII.GetBytes(sb.ToString());
 		}
 
-		public byte[] Data
+		private static IEnumerable<byte> WriteShort(ushort sValue)
 		{
-			get
-			{
-				List<byte> data = new List<byte>();
-				data.AddRange(WriteName(QName));
-				data.AddRange(WriteShort((ushort)QType));
-				data.AddRange(WriteShort((ushort)QClass));
-				return data.ToArray();
-			}
-		}
-
-		private byte[] WriteShort(ushort sValue)
-		{
-			return BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)sValue));
+			return BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short) sValue));
 		}
 
 

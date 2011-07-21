@@ -1,4 +1,3 @@
-using System;
 /* http://tools.ietf.org/rfc/rfc1183.txt
 
  * 1. AFS Data Base location
@@ -27,7 +26,7 @@ using System;
 
  */
 
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordAFSDB : Record
 	{

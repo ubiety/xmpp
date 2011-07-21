@@ -1,8 +1,11 @@
 using System;
+using ubiety.net.dns.Records;
 
-namespace Heijden.DNS
+namespace ubiety.net.dns
 {
+
 	#region RFC info
+
 	/*
 	3.2. RR definitions
 
@@ -57,6 +60,7 @@ namespace Heijden.DNS
 					resource.  The format of this information varies
 					according to the TYPE and CLASS of the resource record.
 	*/
+
 	#endregion
 
 	/// <summary>
@@ -65,35 +69,14 @@ namespace Heijden.DNS
 	public class RR
 	{
 		/// <summary>
-		/// The name of the node to which this resource record pertains
-		/// </summary>
-		public string NAME;
-
-		/// <summary>
-		/// Specifies type of resource record
-		/// </summary>
-		public Type Type;
-
-		/// <summary>
 		/// Specifies type class of resource record, mostly IN but can be CS, CH or HS 
 		/// </summary>
 		public Class Class;
 
 		/// <summary>
-		/// Time to live, the time interval that the resource record may be cached
+		/// The name of the node to which this resource record pertains
 		/// </summary>
-		public uint TTL
-		{
-			get
-			{
-				return (uint)Math.Max(0, m_TTL - TimeLived);
-			}
-			set
-			{
-				m_TTL = value;
-			}
-		}
-		private uint m_TTL;
+		public string Name;
 
 		/// <summary>
 		/// 
@@ -103,51 +86,87 @@ namespace Heijden.DNS
 		/// <summary>
 		/// One of the Record* classes
 		/// </summary>
-		public Record RECORD;
+		public Record Record;
 
+		///<summary>
+		///</summary>
 		public int TimeLived;
 
+		/// <summary>
+		/// Specifies type of resource record
+		/// </summary>
+		public Type Type;
+
+		private uint _mTTL;
+
+		///<summary>
+		///</summary>
+		///<param name="rr"></param>
 		public RR(RecordReader rr)
 		{
 			TimeLived = 0;
-			NAME = rr.ReadDomainName();
-			Type = (Type)rr.ReadUInt16();
-			Class = (Class)rr.ReadUInt16();
+			Name = rr.ReadDomainName();
+			Type = (Type) rr.ReadUInt16();
+			Class = (Class) rr.ReadUInt16();
 			TTL = rr.ReadUInt32();
 			RDLENGTH = rr.ReadUInt16();
-			RECORD = rr.ReadRecord(Type);
-			RECORD.RR = this;
+			Record = rr.ReadRecord(Type);
+			Record.RR = this;
+		}
+
+		/// <summary>
+		/// Time to live, the time interval that the resource record may be cached
+		/// </summary>
+		public uint TTL
+		{
+			get { return (uint) Math.Max(0, _mTTL - TimeLived); }
+			set { _mTTL = value; }
 		}
 
 		public override string ToString()
 		{
 			return string.Format("{0,-32} {1}\t{2}\t{3}\t{4}",
-				NAME,
-				TTL,
-				Class,
-				Type,
-				RECORD);
+			                     Name,
+			                     TTL,
+			                     Class,
+			                     Type,
+			                     Record);
 		}
 	}
 
+	///<summary>
+	///</summary>
 	public class AnswerRR : RR
 	{
+		///<summary>
+		///</summary>
+		///<param name="br"></param>
 		public AnswerRR(RecordReader br)
 			: base(br)
 		{
 		}
 	}
 
+	///<summary>
+	///</summary>
 	public class AuthorityRR : RR
 	{
+		///<summary>
+		///</summary>
+		///<param name="br"></param>
 		public AuthorityRR(RecordReader br)
 			: base(br)
 		{
 		}
 	}
 
+	///<summary>
+	///</summary>
 	public class AdditionalRR : RR
 	{
+		///<summary>
+		///</summary>
+		///<param name="br"></param>
 		public AdditionalRR(RecordReader br)
 			: base(br)
 		{

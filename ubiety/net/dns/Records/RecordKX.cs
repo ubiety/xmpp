@@ -1,4 +1,5 @@
 using System;
+
 /*
  * http://tools.ietf.org/rfc/rfc2230.txt
  * 
@@ -6,21 +7,21 @@ using System;
 
    The KX DNS record has the following RDATA format:
 
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    |                  PREFERENCE                   |
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-    /                   EXCHANGER                   /
-    /                                               /
-    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	|                  PREFERENCE                   |
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+	/                   EXCHANGER                   /
+	/                                               /
+	+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
    where:
 
    PREFERENCE      A 16 bit non-negative integer which specifies the
-                   preference given to this RR among other KX records
-                   at the same owner.  Lower values are preferred.
+				   preference given to this RR among other KX records
+				   at the same owner.  Lower values are preferred.
 
    EXCHANGER       A <domain-name> which specifies a host willing to
-                   act as a mail exchange for the owner name.
+				   act as a mail exchange for the owner name.
 
    KX records MUST cause type A additional section processing for the
    host specified by EXCHANGER.  In the event that the host processing
@@ -30,7 +31,7 @@ using System;
    The KX RDATA field MUST NOT be compressed.
 
  */
-namespace Heijden.DNS
+namespace ubiety.net.dns.Records
 {
 	public class RecordKX : Record, IComparable
 	{

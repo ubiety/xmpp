@@ -22,13 +22,13 @@ namespace ubiety.states
 {
 	///<summary>
 	///</summary>
-	public class ClosedState : State
+	public class DisconnectedState : State
 	{
 		public override void Execute(Tag data)
 		{
 			Logger.Debug(this, "Cleaning up");
 			ProtocolParser.Reset();
-			Current.Socket.Close();
+			Current.Socket.Disconnect();
 		}
 	}
 }

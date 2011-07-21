@@ -6,7 +6,7 @@
  */
 
 
-namespace Heijden.DNS
+namespace ubiety.net.dns
 {
 	/*
 	 * 3.2.2. TYPE values
@@ -245,8 +245,8 @@ namespace Heijden.DNS
 
 	/*
 RCODE           Response code - this 4 bit field is set as part of
-                responses.  The values have the following
-                interpretation:
+				responses.  The values have the following
+				interpretation:
 	 */
 	public enum RCode
 	{
@@ -289,16 +289,16 @@ RCODE           Response code - this 4 bit field is set as part of
 
 	/*
 OPCODE          A four bit field that specifies kind of query in this
-                message.  This value is set by the originator of a query
-                and copied into the response.  The values are:
+				message.  This value is set by the originator of a query
+				and copied into the response.  The values are:
 
-                0               a standard query (QUERY)
+				0               a standard query (QUERY)
 
-                1               an inverse query (IQUERY)
+				1               an inverse query (IQUERY)
 
-                2               a server status request (STATUS)
+				2               a server status request (STATUS)
 
-                3-15            reserved for future use
+				3-15            reserved for future use
 	 */
 	public enum OPCode
 	{
