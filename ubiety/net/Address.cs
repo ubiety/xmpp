@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using ubiety.logging;
 using ubiety.net.dns;
 using ubiety.net.dns.Records;
 using TransportType = ubiety.net.dns.TransportType;
@@ -37,7 +38,13 @@ namespace ubiety.net
 
 		public Address()
 		{
-			_resolver = new Resolver {UseCache = true, TimeOut = 5000, TransportType = TransportType.Tcp};
+			_resolver = new Resolver {UseCache = true, TimeOut = 5, TransportType = TransportType.Tcp};
+			_resolver.OnVerbose += _resolver_OnVerbose;
+		}
+
+		void _resolver_OnVerbose(object sender, Resolver.VerboseEventArgs e)
+		{
+			Logger.Debug(this, e.Message);
 		}
 
 		public IPAddress NextIPAddress()

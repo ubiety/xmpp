@@ -104,21 +104,75 @@
     <Compile Include="logging\Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
-    <Compile Include="net\dns\AAAARecord.cs" />
-    <Compile Include="net\dns\ANameRecord.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="net\dns\Enums.cs" />
-    <Compile Include="net\dns\InvalidResponseException.cs" />
-    <Compile Include="net\dns\NoResponseException.cs" />
-    <Compile Include="net\dns\Pointer.cs" />
+    <Compile Include="net\dns\Header.cs" />
     <Compile Include="net\dns\Question.cs" />
-    <Compile Include="net\dns\RecordBase.cs" />
+    <Compile Include="net\dns\RecordReader.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordA6.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordAPL.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordATMA.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordCERT.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordDHCID.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordDNSKEY.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordEID.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordGID.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordHIP.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordIPSECKEY.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordNIMLOC.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordNSEC.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordNSEC3.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordNSEC3PARAM.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordOPT.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordRRSIG.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordSINK.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordSPF.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordSSHFP.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordUID.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordUINFO.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordUnknown.cs" />
+    <Compile Include="net\dns\Records\NotUsed\RecordUNSPEC.cs" />
+    <Compile Include="net\dns\Records\Obsolete\RecordGPOS.cs" />
+    <Compile Include="net\dns\Records\Obsolete\RecordMD.cs" />
+    <Compile Include="net\dns\Records\Obsolete\RecordMF.cs" />
+    <Compile Include="net\dns\Records\Obsolete\RecordNSAPPTR.cs" />
+    <Compile Include="net\dns\Records\Obsolete\RecordNXT.cs" />
+    <Compile Include="net\dns\Records\Record.cs" />
+    <Compile Include="net\dns\Records\RecordA.cs" />
+    <Compile Include="net\dns\Records\RecordAAAA.cs" />
+    <Compile Include="net\dns\Records\RecordAFSDB.cs" />
+    <Compile Include="net\dns\Records\RecordCNAME.cs" />
+    <Compile Include="net\dns\Records\RecordDNAME.cs" />
+    <Compile Include="net\dns\Records\RecordDS.cs" />
+    <Compile Include="net\dns\Records\RecordHINFO.cs" />
+    <Compile Include="net\dns\Records\RecordISDN.cs" />
+    <Compile Include="net\dns\Records\RecordKEY.cs" />
+    <Compile Include="net\dns\Records\RecordKX.cs" />
+    <Compile Include="net\dns\Records\RecordLOC.cs" />
+    <Compile Include="net\dns\Records\RecordMB.cs" />
+    <Compile Include="net\dns\Records\RecordMG.cs" />
+    <Compile Include="net\dns\Records\RecordMINFO.cs" />
+    <Compile Include="net\dns\Records\RecordMR.cs" />
+    <Compile Include="net\dns\Records\RecordMX.cs" />
+    <Compile Include="net\dns\Records\RecordNAPTR.cs" />
+    <Compile Include="net\dns\Records\RecordNS.cs" />
+    <Compile Include="net\dns\Records\RecordNSAP.cs" />
+    <Compile Include="net\dns\Records\RecordNULL.cs" />
+    <Compile Include="net\dns\Records\RecordPTR.cs" />
+    <Compile Include="net\dns\Records\RecordPX.cs" />
+    <Compile Include="net\dns\Records\RecordRP.cs" />
+    <Compile Include="net\dns\Records\RecordRT.cs" />
+    <Compile Include="net\dns\Records\RecordSIG.cs" />
+    <Compile Include="net\dns\Records\RecordSOA.cs" />
+    <Compile Include="net\dns\Records\RecordSRV.cs" />
+    <Compile Include="net\dns\Records\RecordTKEY.cs" />
+    <Compile Include="net\dns\Records\RecordTSIG.cs" />
+    <Compile Include="net\dns\Records\RecordTXT.cs" />
+    <Compile Include="net\dns\Records\RecordWKS.cs" />
+    <Compile Include="net\dns\Records\RecordX25.cs" />
     <Compile Include="net\dns\Request.cs" />
     <Compile Include="net\dns\Resolver.cs" />
-    <Compile Include="net\dns\ResourceRecord.cs" />
     <Compile Include="net\dns\Response.cs" />
-    <Compile Include="net\dns\SRVRecord.cs" />
+    <Compile Include="net\dns\RR.cs" />
+    <Compile Include="net\dns\Structs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtocolParser.cs" />
     <Compile Include="registries\Allocator.cs" />
@@ -128,7 +182,7 @@
     <Compile Include="registries\TagRegistry.cs" />
     <Compile Include="UbietySettings.cs" />
     <Compile Include="states\BindingState.cs" />
-    <Compile Include="states\ClosedState.cs" />
+    <Compile Include="states\DisconnectedState.cs" />
     <Compile Include="states\CompressedState.cs" />
     <Compile Include="states\ConnectedState.cs" />
     <Compile Include="states\ConnectingState.cs" />
@@ -169,10 +223,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="net\dns\Records\totla.txt" />
+    <Content Include="net\dns\Root\named_root.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

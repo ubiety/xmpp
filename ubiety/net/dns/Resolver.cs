@@ -202,12 +202,10 @@ namespace ubiety.net.dns
 					_mDnsServers.Add(new IPEndPoint(ip, DefaultPort));
 					return;
 				}
-				Response response = Query(value, QType.A);
-				if (response.RecordsA.Length > 0)
-				{
-					_mDnsServers.Clear();
-					_mDnsServers.Add(new IPEndPoint(response.RecordsA[0].Address, DefaultPort));
-				}
+				var response = Query(value, QType.A);
+				if (response.RecordsA.Length <= 0) return;
+				_mDnsServers.Clear();
+				_mDnsServers.Add(new IPEndPoint(response.RecordsA[0].Address, DefaultPort));
 			}
 		}
 
@@ -347,10 +345,13 @@ namespace ubiety.net.dns
 			{
 				for (var intDnsServer = 0; intDnsServer < _mDnsServers.Count; intDnsServer++)
 				{
-					var tcpClient = new TcpClient {ReceiveTimeout = _mTimeout*1000};
+					//var tcpClient = new TcpClient(AddressFamily.InterNetworkV6) {ReceiveTimeout = _mTimeout*1000};
+					var tcpClient = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+					tcpClient.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, false);
 
 					try
 					{
+						Verbose(";; Connecting to nameserver {0}", _mDnsServers[intDnsServer].Address);
 						var result = tcpClient.BeginConnect(_mDnsServers[intDnsServer].Address, _mDnsServers[intDnsServer].Port,
 						                                             null, null);
 
@@ -359,11 +360,11 @@ namespace ubiety.net.dns
 						if (!success || !tcpClient.Connected)
 						{
 							tcpClient.Close();
-							Verbose(string.Format(";; Connection to nameserver {0} failed", (intDnsServer + 1)));
+							Verbose(string.Format(";; Connection to nameserver {0} failed", _mDnsServers[intDnsServer].Address));
 							continue;
 						}
 
-						var bs = new BufferedStream(tcpClient.GetStream());
+						var bs = new BufferedStream(new NetworkStream(tcpClient));
 
 						var data = request.Data;
 						bs.WriteByte((byte) ((data.Length >> 8) & 0xff));
@@ -451,7 +452,7 @@ namespace ubiety.net.dns
 		public Response Query(string name, QType qtype, QClass qclass)
 		{
 			var question = new Question(name, qtype, qclass);
-			var response = SearchInCache(question);
+			Response response = SearchInCache(question);
 			if (response != null)
 				return response;
 
@@ -469,7 +470,7 @@ namespace ubiety.net.dns
 		public Response Query(string name, QType qtype)
 		{
 			var question = new Question(name, qtype, QClass.IN);
-			var response = SearchInCache(question);
+			Response response = SearchInCache(question);
 			if (response != null)
 				return response;
 
@@ -501,12 +502,14 @@ namespace ubiety.net.dns
 		{
 			var list = new List<IPEndPoint>();
 
-			var adapters = NetworkInterface.GetAllNetworkInterfaces();
-			foreach (var entry in from n in adapters
-			                      where n.OperationalStatus == OperationalStatus.Up
-			                      select n.GetIPProperties()
-			                      into ipProps from ipAddr in ipProps.DnsAddresses select new IPEndPoint(ipAddr, DefaultPort)
-			                      into entry where !list.Contains(entry) select entry)
+			NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+			foreach (IPEndPoint entry in from n in adapters
+			                             where n.OperationalStatus == OperationalStatus.Up
+			                             select n.GetIPProperties()
+			                             into ipProps from ipAddr in ipProps.DnsAddresses
+			                             //where ipAddr.AddressFamily == AddressFamily.InterNetwork
+			                             select new IPEndPoint(ipAddr, DefaultPort)
+			                             into entry where !list.Contains(entry) select entry)
 			{
 				list.Add(entry);
 			}
@@ -520,12 +523,12 @@ namespace ubiety.net.dns
 		{
 			var entry = new IPHostEntry {HostName = hostName};
 
-			var response = Query(hostName, QType.A, QClass.IN);
+			Response response = Query(hostName, QType.A, QClass.IN);
 
 			// fill AddressList and aliases
 			var addressList = new List<IPAddress>();
 			var aliases = new List<string>();
-			foreach (var answerRr in response.Answers)
+			foreach (AnswerRR answerRr in response.Answers)
 			{
 				switch (answerRr.Type)
 				{
@@ -565,7 +568,7 @@ namespace ubiety.net.dns
 			{
 				var sb = new StringBuilder();
 				sb.Append("ip6.arpa.");
-				foreach (var b in ip.GetAddressBytes())
+				foreach (byte b in ip.GetAddressBytes())
 				{
 					sb.Insert(0, string.Format("{0:x}.", (b >> 4) & 0xf));
 					sb.Insert(0, string.Format("{0:x}.", (b >> 0) & 0xf));
@@ -582,9 +585,9 @@ namespace ubiety.net.dns
 		public static string GetArpaFromEnum(string strEnum)
 		{
 			var sb = new StringBuilder();
-			var number = Regex.Replace(strEnum, "[^0-9]", "");
+			string number = Regex.Replace(strEnum, "[^0-9]", "");
 			sb.Append("e164.arpa.");
-			foreach (var c in number)
+			foreach (char c in number)
 			{
 				sb.Insert(0, string.Format("{0}.", c));
 			}
@@ -601,7 +604,7 @@ namespace ubiety.net.dns
 		///</returns>
 		public IPHostEntry GetHostEntry(IPAddress ip)
 		{
-			var response = Query(GetArpaFromIp(ip), QType.PTR, QClass.IN);
+			Response response = Query(GetArpaFromIp(ip), QType.PTR, QClass.IN);
 			return response.RecordsPTR.Length > 0 ? MakeEntry(response.RecordsPTR[0].PTRDNAME) : new IPHostEntry();
 		}
 
@@ -660,7 +663,7 @@ namespace ubiety.net.dns
 		/// <summary>
 		/// Ends an asynchronous request for DNS information.
 		/// </summary>
-		/// <param name="AsyncResult">
+		/// <param name="asyncResult">
 		///		An System.IAsyncResult instance returned by a call to an 
 		///		Overload:Heijden.Dns.Resolver.BeginGetHostEntry method.
 		/// </param>
@@ -668,18 +671,18 @@ namespace ubiety.net.dns
 		///		An System.Net.IPHostEntry instance that contains address information about
 		///		the host. 
 		///</returns>
-		public IPHostEntry EndGetHostEntry(IAsyncResult AsyncResult)
+		public IPHostEntry EndGetHostEntry(IAsyncResult asyncResult)
 		{
-			var aResult = (AsyncResult) AsyncResult;
+			var aResult = (AsyncResult) asyncResult;
 			if (aResult.AsyncDelegate is GetHostEntryDelegate)
 			{
 				var g = (GetHostEntryDelegate) aResult.AsyncDelegate;
-				return g.EndInvoke(AsyncResult);
+				return g.EndInvoke(asyncResult);
 			}
 			if (aResult.AsyncDelegate is GetHostEntryViaIPDelegate)
 			{
 				var g = (GetHostEntryViaIPDelegate) aResult.AsyncDelegate;
-				return g.EndInvoke(AsyncResult);
+				return g.EndInvoke(asyncResult);
 			}
 			return null;
 		}
@@ -692,25 +695,25 @@ namespace ubiety.net.dns
 			var sr = new StreamReader(strPath);
 			while (!sr.EndOfStream)
 			{
-				var strLine = sr.ReadLine();
+				string strLine = sr.ReadLine();
 				if (strLine == null)
 					break;
-				var intI = strLine.IndexOf(';');
+				int intI = strLine.IndexOf(';');
 				if (intI >= 0)
 					strLine = strLine.Substring(0, intI);
 				strLine = strLine.Trim();
 				if (strLine.Length == 0)
 					continue;
-				var status = RRRecordStatus.NAME;
-				var Name = "";
-				var Ttl = "";
-				var Class = "";
-				var Type = "";
-				var Value = "";
-				var strW = "";
+				RRRecordStatus status = RRRecordStatus.NAME;
+				string Name = "";
+				string Ttl = "";
+				string Class = "";
+				string Type = "";
+				string Value = "";
+				string strW = "";
 				for (intI = 0; intI < strLine.Length; intI++)
 				{
-					var c = strLine[intI];
+					char c = strLine[intI];
 
 					if (c <= ' ' && strW != "")
 					{
@@ -760,7 +763,7 @@ namespace ubiety.net.dns
 		///</returns>
 		public IPAddress[] GetHostAddresses(string hostNameOrAddress)
 		{
-			var entry = GetHostEntry(hostNameOrAddress);
+			IPHostEntry entry = GetHostEntry(hostNameOrAddress);
 			return entry.AddressList;
 		}
 
@@ -967,7 +970,7 @@ namespace ubiety.net.dns
 			///<param name="message"></param>
 			public VerboseEventArgs(string message)
 			{
-				this.Message = message;
+				Message = message;
 			}
 		}
 
@@ -988,7 +991,7 @@ namespace ubiety.net.dns
 			///<param name="message"></param>
 			public VerboseOutputEventArgs(string message)
 			{
-				this.Message = message;
+				Message = message;
 			}
 		}
 
