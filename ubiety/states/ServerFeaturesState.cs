@@ -72,7 +72,7 @@ namespace ubiety.states
 					{
 						Logger.Debug(this, "No allowed type available. Allow more authentication options.");
 						Current.State = new DisconnectState();
-						Current.Execute();
+						Current.State.Execute(null);
 						return;
 					}
 					Logger.Debug(this, "Sending auth with mechanism type");
@@ -105,7 +105,7 @@ namespace ubiety.states
 
 			Logger.Debug(this, "Authenticated");
 			Current.State = new BindingState();
-			Current.Execute();
+			Current.State.Execute(null);
 		}
 	}
 }

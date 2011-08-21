@@ -36,7 +36,7 @@ namespace ubiety.states
 			Current.Socket.StartCompression(Current.Algorithm);
 			Current.Compressed = true;
 			Current.State = new ConnectedState();
-			Current.Execute();
+			Current.State.Execute(null);
 		}
 	}
 }

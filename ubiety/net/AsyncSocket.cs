@@ -129,7 +129,7 @@ namespace ubiety.net
 				_stream.BeginRead(_buff, 0, BufferSize, Receive, null);
 
 				_states.State = new ConnectedState();
-				_states.Execute();
+				_states.State.Execute(null);
 			}
 			finally
 			{

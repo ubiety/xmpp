@@ -62,7 +62,7 @@ namespace ubiety.states
 				Logger.InfoFormat(this, "Current XID is now: {0}", UbietySettings.Id);
 
 				Current.State = new SessionState();
-				Current.Execute();
+				Current.State.Execute(null);
 			}
 		}
 	}

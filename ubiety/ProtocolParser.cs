@@ -77,7 +77,7 @@ namespace ubiety
 				Logger.Info(typeof (ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
 				States.State = new ClosedState();
-				States.Execute();
+				States.State.Execute(null);
 				return;
 			}
 
@@ -120,7 +120,7 @@ namespace ubiety
 				if (States.Socket.Connected)
 				{
 					States.State = new DisconnectState();
-					States.Execute();
+					States.State.Execute(null);
 				}
 			}
 			catch (InvalidOperationException e)
@@ -234,7 +234,8 @@ namespace ubiety
 				}
 				else
 				{
-					States.Execute(tag);
+					//States.Execute(tag);
+					UbietyMessages.Instance.OnAllMessages(new MessageArgs { Tag = tag });
 				}
 			}
 			_elem = parent;

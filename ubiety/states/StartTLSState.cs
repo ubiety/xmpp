@@ -35,7 +35,7 @@ namespace ubiety.states
 			if (data.LocalName != "proceed") return;
 			Current.Socket.StartSecure();
 			Current.State = new ConnectedState();
-			Current.Execute();
+			Current.State.Execute(null);
 		}
 	}
 }
