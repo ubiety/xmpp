@@ -1,6 +1,6 @@
-// StartTLSState.cs
+﻿// UbietyMessages.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,27 +15,45 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System;
 using ubiety.common;
 
-namespace ubiety.states
+namespace ubiety
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	public class StartTLSState : State
+	public class MessageArgs : EventArgs
 	{
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		public override void Execute(Tag data)
+		public Tag Tag;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public sealed class UbietyMessages
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UbietyMessages Instance = new UbietyMessages();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public event EventHandler<MessageArgs> AllMessages;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="e"></param>
+		public void OnAllMessages(MessageArgs e)
 		{
-			if (data.LocalName != "proceed") return;
-			Current.Socket.StartSecure();
-			Current.State = new ConnectedState();
-			Current.State.Execute(null);
+			var handler = AllMessages;
+			if (handler != null) handler(this, e);
 		}
 	}
 }

@@ -29,21 +29,22 @@ namespace ubiety.states
 	{
 		public static readonly ProtocolState Instance = new ProtocolState();
 		private readonly XmlDocument _doc = new XmlDocument();
-		private State _state;
 
 		private ProtocolState()
 		{
-			_state = new DisconnectedState();
+			State = new ClosedState();
+			UbietyMessages.Instance.AllMessages += UbietyMessagesAllMessages;
+		}
+
+		private void UbietyMessagesAllMessages(object sender, MessageArgs e)
+		{
+			State.Execute(e.Tag);
 		}
 
 		/// <value>
 		/// The current state we are in.
 		/// </value>
-		public State State
-		{
-			get { return _state; }
-			set { _state = value; }
-		}
+		public State State { get; set; }
 
 		/// <value>
 		/// The socket used for connecting to the server.
@@ -78,9 +79,9 @@ namespace ubiety.states
 		/// <param name="data">
 		/// The <see cref="Tag"/> used in the state.
 		/// </param>
-		public void Execute(Tag data = null)
-		{
-			_state.Execute(data);
-		}
+		//public void Execute(Tag data = null)
+		//{
+		//    _state.Execute(data);
+		//}
 	}
 }

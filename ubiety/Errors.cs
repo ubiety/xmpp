@@ -69,15 +69,11 @@ namespace ubiety
 	/// <summary>
 	/// 
 	/// </summary>
-	public class Errors
+	public sealed class Errors
 	{
 		///<summary>
 		///</summary>
 		public static readonly Errors Instance = new Errors();
-
-		private Errors()
-		{
-		}
 
 		/// <summary>
 		/// Subscribing to this event will allow you to receive all errors generated in the library.

@@ -180,6 +180,7 @@
     <Compile Include="registries\Registry.cs" />
     <Compile Include="registries\RegistryAllocator.cs" />
     <Compile Include="registries\TagRegistry.cs" />
+    <Compile Include="UbietyMessages.cs" />
     <Compile Include="UbietySettings.cs" />
     <Compile Include="states\BindingState.cs" />
     <Compile Include="states\DisconnectedState.cs" />

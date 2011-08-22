@@ -41,13 +41,13 @@ namespace ubiety.states
 					Logger.Debug(this, "Sending start stream again");
 					Current.Authenticated = true;
 					Current.State = new ConnectedState();
-					Current.Execute();
+					Current.State.Execute(null);
 					break;
 				case "failure":
 					// Failed to authenticate. Send a message to the user.
 					Errors.Instance.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
 					Current.State = new DisconnectState();
-					Current.Execute();
+					Current.State.Execute(null);
 					return;
 				default:
 					Current.Socket.Write(res);

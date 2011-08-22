@@ -119,7 +119,9 @@ namespace ubiety.net
 		/// <summary>
 		/// Is the address IPV6?
 		/// </summary>
+// ReSharper disable InconsistentNaming
 		public bool IPv6 { get; private set; }
+// ReSharper restore InconsistentNaming
 
 		public string Hostname { get; private set; }
 	}

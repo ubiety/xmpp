@@ -51,8 +51,8 @@ namespace ubiety
 	///		public static Main()
 	///		{
 	///			// Create a new ID for authentication
-	///			Settings.ID = new XID("user@jabber.org/chat");
-	///			Settings.Password = "password";
+	///			UbietySettings.ID = new JID("user@jabber.org/chat");
+	///			UbietySettings.Password = "password";
 	/// 
 	///			// Create a new instance of the XMPP class
 	///			XMPP ubiety = new XMPP();
@@ -104,7 +104,7 @@ namespace ubiety
 
 			// Set the current state to connecting and start the process.
 			States.State = new ConnectingState();
-			States.Execute();
+			States.State.Execute(null);
 		}
 
 		/// <summary>
@@ -114,7 +114,7 @@ namespace ubiety
 		{
 			if ((States.State is DisconnectState)) return;
 			States.State = new DisconnectState();
-			States.Execute();
+			States.State.Execute(null);
 		}
 
 		private void OnError(object sender, ErrorEventArgs e)
