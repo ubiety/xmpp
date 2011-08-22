@@ -51,8 +51,8 @@ namespace ubiety
 	///		public static Main()
 	///		{
 	///			// Create a new ID for authentication
-	///			Settings.ID = new XID("user@jabber.org/chat");
-	///			Settings.Password = "password";
+	///			UbietySettings.ID = new JID("user@jabber.org/chat");
+	///			UbietySettings.Password = "password";
 	/// 
 	///			// Create a new instance of the XMPP class
 	///			XMPP ubiety = new XMPP();

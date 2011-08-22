@@ -212,7 +212,7 @@ namespace ubiety
 
 		private static void EndTag()
 		{
-			if ((_elem == null) && (_reader.Name == "stream:stream"))
+			if ((_elem == null) || (_reader.Name == "stream:stream"))
 				return;
 
 			if ((_elem.Name != _reader.Name))
