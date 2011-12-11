@@ -39,19 +39,19 @@ namespace ubiety.net
 	{
 		// Timeout after 5 seconds by default
 		private const int Timeout = 5000;
-		private readonly Address _dest;
 		private const int BufferSize = 4096;
 		private readonly byte[] _buff = new byte[BufferSize];
-		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
+		private readonly Address _dest;
 		private readonly ProtocolState _states = ProtocolState.Instance;
+		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
+		private ICompression _comp;
 		private bool _compressed;
 		private Socket _socket;
 		private Stream _stream;
-		private ICompression _comp;
 
 		#region Properties
-		
+
 		public AsyncSocket()
 		{
 			_dest = new Address();
@@ -120,7 +120,7 @@ namespace ubiety.net
 			{
 				var socket = (Socket) ar.AsyncState;
 				socket.EndConnect(ar);
-				
+
 				Connected = true;
 
 				var netstream = new NetworkStream(socket);
@@ -179,7 +179,7 @@ namespace ubiety.net
 				return true;
 			}
 
-			Logger.DebugFormat(typeof(AsyncSocket), "X509Chain {0}", chain.ChainStatus[0].Status);
+			Logger.DebugFormat(typeof (AsyncSocket), "X509Chain {0}", chain.ChainStatus[0].Status);
 			Logger.DebugFormat(typeof (AsyncSocket), "Policy Errors: {0}", errors);
 			return false;
 		}
