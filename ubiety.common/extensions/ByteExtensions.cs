@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ubiety.common.extensions
 {
@@ -29,6 +30,15 @@ namespace ubiety.common.extensions
 			}
 
 			return null;
+		}
+
+		/// <summary>
+		/// Clears a byte array
+		/// </summary>
+		/// <param name="data"></param>
+		public static void Clear(this byte[] data)
+		{
+			Array.Clear(data, 0, data.Length);
 		}
 	}
 }

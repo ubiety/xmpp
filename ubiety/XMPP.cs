@@ -106,7 +106,7 @@ namespace ubiety
 
 			// Set the current state to connecting and start the process.
 			States.State = new ConnectingState();
-			States.State.Execute(null);
+			States.State.Execute();
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace ubiety
 		{
 			if ((States.State is DisconnectState)) return;
 			States.State = new DisconnectState();
-			States.State.Execute(null);
+			States.State.Execute();
 		}
 
 		private void OnError(object sender, ErrorEventArgs e)

@@ -102,11 +102,11 @@ namespace ubiety.net
 			try
 			{
 				_socket.BeginConnect(end, FinishConnect, _socket);
-				if (!_timeoutEvent.WaitOne(Timeout))
-				{
-					Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out connecting to server.");
-					return;
-				}
+				//if (!_timeoutEvent.WaitOne(Timeout))
+				//{
+				//    Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out connecting to server.");
+				//    return;
+				//}
 			}
 			catch (SocketException e)
 			{
@@ -201,17 +201,18 @@ namespace ubiety.net
 		{
 			try
 			{
-				var rx = _stream.EndRead(ar);
+				_stream.EndRead(ar);
 
 				var t = _buff.TrimNull();
 
 				var m = _utf.GetString(_compressed ? _comp.Inflate(t, t.Length) : t);
 
 				Logger.DebugFormat(this, "Incoming Message: {0}", m);
-				ProtocolParser.Parse(m, rx);
+				ProtocolParser.Parse(m);
 
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
-				Array.Clear(_buff, 0, _buff.Length);
+				_buff.Clear();
+				//Array.Clear(_buff, 0, _buff.Length);
 
 				if (!Connected || _states.State is ClosedState) return;
 

@@ -59,7 +59,7 @@ namespace ubiety
 		/// <summary>
 		/// Parses the message into its appropriate <seealso cref="Tag"/>
 		/// </summary>
-		public static void Parse(string message, int length)
+		public static void Parse(string message)
 		{
 			if (States.State is ClosedState)
 			{
@@ -68,8 +68,6 @@ namespace ubiety
 			}
 
 			Logger.Info(typeof (ProtocolParser), "Starting message parsing...");
-
-			Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", States.State);
 
 			// We have received the end tag asking to finish communication so we change to the Disconnect State.
 			if (message.Contains("</stream:stream>"))
@@ -197,8 +195,6 @@ namespace ubiety
 				}
 
 				_root = elem;
-				// If the tag is a stream change to the Server Features State.
-				States.State = new ServerFeaturesState();
 			}
 			else
 			{
@@ -212,7 +208,7 @@ namespace ubiety
 
 		private static void EndTag()
 		{
-			if ((_elem == null) || (_reader.Name == "stream:stream"))
+			if (_elem == null)
 				return;
 
 			if ((_elem.Name != _reader.Name))
@@ -224,18 +220,8 @@ namespace ubiety
 			var parent = (XmlElement) _elem.ParentNode;
 			if (parent == null)
 			{
-				var tag = (Tag) _elem;
-				if (tag is Features || tag is Stream)
-					States.State = new ServerFeaturesState();
-				Logger.DebugFormat(typeof (ProtocolParser), "Current State: {0}", States.State.ToString());
-				if (tag.Name == "error")
-				{
-					Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.XMLError, "Stream Error", true);
-				}
-				else
-				{
-					UbietyMessages.Instance.OnAllMessages(new MessageArgs { Tag = tag });
-				}
+				Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", States.State);
+				UbietyMessages.Instance.OnAllMessages(new MessageArgs { Tag = (Tag) _elem });
 			}
 			_elem = parent;
 		}

@@ -39,6 +39,7 @@ namespace ubiety.states
 			stream.Ns = Namespaces.Client;
 			stream.Lang = "en";
 			Current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+			Current.State = new ServerFeaturesState();
 		}
 	}
 }

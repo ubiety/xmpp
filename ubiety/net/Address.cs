@@ -59,6 +59,12 @@ namespace ubiety.net
 		public IPAddress NextIPAddress()
 		{
 			Hostname = !String.IsNullOrEmpty(UbietySettings.Hostname) ? UbietySettings.Hostname : UbietySettings.Id.Server;
+
+			if (Hostname == "localhost")
+			{
+				return IPAddress.Parse("127.0.0.1");
+			}
+
 			if(_srvRecords == null && !_srvFailed)
 				_srvRecords = FindSRV();
 

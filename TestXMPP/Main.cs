@@ -11,12 +11,12 @@ namespace TestXMPP
 {
 	public partial class Main : Form
 	{
-		private XMPP _xmpp;
+		private readonly XMPP _xmpp;
 
 		public Main()
 		{
 			InitializeComponent();
-			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
+			//CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
 			Errors.Instance.OnError += Errors_OnError;
 			_xmpp = new XMPP(); 
 			slVersion.Text = Resources.Version_Label + XMPP.Version;
