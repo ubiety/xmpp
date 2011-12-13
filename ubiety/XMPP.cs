@@ -66,9 +66,11 @@ namespace ubiety
 	{
 		private static readonly Errors Errors = Errors.Instance;
 		private static readonly ProtocolState States = ProtocolState.Instance;
+
 		///<summary>
 		///</summary>
 		public static readonly string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
 		private readonly TagRegistry _reg = TagRegistry.Instance;
 
 		/// <summary>
@@ -90,7 +92,7 @@ namespace ubiety
 			if (String.IsNullOrEmpty(UbietySettings.Password))
 			{
 				Errors.SendError(typeof (XMPP), ErrorType.MissingPassword,
-				                  "Set the Password property of the Settings before connecting.", true);
+				                 "Set the Password property of the Settings before connecting.", true);
 				return;
 			}
 
@@ -104,7 +106,7 @@ namespace ubiety
 
 			// Set the current state to connecting and start the process.
 			States.State = new ConnectingState();
-			States.State.Execute(null);
+			States.State.Execute();
 		}
 
 		/// <summary>
@@ -114,7 +116,7 @@ namespace ubiety
 		{
 			if ((States.State is DisconnectState)) return;
 			States.State = new DisconnectState();
-			States.State.Execute(null);
+			States.State.Execute();
 		}
 
 		private void OnError(object sender, ErrorEventArgs e)
@@ -127,6 +129,7 @@ namespace ubiety
 		}
 
 		#region Properties
+
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="XMPP"/> is connected to a server.
 		/// </summary>

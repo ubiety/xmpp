@@ -35,7 +35,7 @@ namespace ubiety.states
 		/// <param name="data">
 		/// A <see cref="Tag"/>
 		/// </param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			Features f;
 
@@ -72,7 +72,7 @@ namespace ubiety.states
 					{
 						Logger.Debug(this, "No allowed type available. Allow more authentication options.");
 						Current.State = new DisconnectState();
-						Current.State.Execute(null);
+						Current.State.Execute();
 						return;
 					}
 					Logger.Debug(this, "Sending auth with mechanism type");
@@ -105,7 +105,7 @@ namespace ubiety.states
 
 			Logger.Debug(this, "Authenticated");
 			Current.State = new BindingState();
-			Current.State.Execute(null);
+			Current.State.Execute();
 		}
 	}
 }

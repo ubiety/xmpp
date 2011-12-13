@@ -30,12 +30,12 @@ namespace ubiety.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
-			if (data.LocalName != "proceed") return;
+			if (data != null && data.LocalName != "proceed") return;
 			Current.Socket.StartSecure();
 			Current.State = new ConnectedState();
-			Current.State.Execute(null);
+			Current.State.Execute();
 		}
 	}
 }

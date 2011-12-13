@@ -31,7 +31,7 @@ namespace ubiety.states
 		/// <param name="data">
 		/// The <see cref="ubiety.common.Tag"/> to parse.  In this case null.
 		/// </param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			var stream = (Stream) Reg.GetTag("stream", Namespaces.Stream, Current.Document);
 			stream.Version = "1.0";
@@ -39,6 +39,7 @@ namespace ubiety.states
 			stream.Ns = Namespaces.Client;
 			stream.Lang = "en";
 			Current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+			Current.State = new ServerFeaturesState();
 		}
 	}
 }

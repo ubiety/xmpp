@@ -36,7 +36,7 @@ namespace ubiety.states
 		/// <param name="data">
 		/// A <see cref="System.Object"/>
 		/// </param>
-		public virtual void Execute(common.Tag data)
+		public virtual void Execute(common.Tag data = null)
 		{
 		}
 	}

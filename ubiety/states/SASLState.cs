@@ -31,7 +31,7 @@ namespace ubiety.states
 		/// <param name="data">
 		/// The <see cref="Tag"/> we received from the server.  Probably a challenge or response.
 		/// </param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			Logger.Debug(this, "Processing next SASL step");
 			var res = Current.Processor.Step(data);
@@ -41,13 +41,13 @@ namespace ubiety.states
 					Logger.Debug(this, "Sending start stream again");
 					Current.Authenticated = true;
 					Current.State = new ConnectedState();
-					Current.State.Execute(null);
+					Current.State.Execute();
 					break;
 				case "failure":
 					// Failed to authenticate. Send a message to the user.
 					Errors.Instance.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
 					Current.State = new DisconnectState();
-					Current.State.Execute(null);
+					Current.State.Execute();
 					return;
 				default:
 					Current.Socket.Write(res);

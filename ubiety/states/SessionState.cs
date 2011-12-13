@@ -24,7 +24,7 @@ namespace ubiety.states
 	///</summary>
 	public class SessionState : State
 	{
-		public override void Execute (Tag data)
+		public override void Execute (Tag data = null)
 		{
 			if (data == null)
 			{

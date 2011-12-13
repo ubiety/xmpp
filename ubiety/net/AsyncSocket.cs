@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -26,6 +25,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using ubiety.common;
+using ubiety.common.extensions;
 using ubiety.logging;
 using ubiety.registries;
 using ubiety.states;
@@ -39,19 +39,19 @@ namespace ubiety.net
 	{
 		// Timeout after 5 seconds by default
 		private const int Timeout = 5000;
-		private readonly Address _dest;
 		private const int BufferSize = 4096;
 		private readonly byte[] _buff = new byte[BufferSize];
-		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
+		private readonly Address _dest;
 		private readonly ProtocolState _states = ProtocolState.Instance;
+		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
+		private ICompression _comp;
 		private bool _compressed;
 		private Socket _socket;
 		private Stream _stream;
-		private ICompression _comp;
 
 		#region Properties
-		
+
 		public AsyncSocket()
 		{
 			_dest = new Address();
@@ -112,11 +112,11 @@ namespace ubiety.net
 			try
 			{
 				_socket.BeginConnect(end, FinishConnect, _socket);
-				if (!_timeoutEvent.WaitOne(Timeout))
-				{
-					Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out connecting to server.");
-					return;
-				}
+				//if (!_timeoutEvent.WaitOne(Timeout))
+				//{
+				//    Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Timed out connecting to server.");
+				//    return;
+				//}
 			}
 			catch (SocketException e)
 			{
@@ -130,7 +130,7 @@ namespace ubiety.net
 			{
 				var socket = (Socket) ar.AsyncState;
 				socket.EndConnect(ar);
-				
+
 				Connected = true;
 
 				var netstream = new NetworkStream(socket);
@@ -139,7 +139,7 @@ namespace ubiety.net
 				_stream.BeginRead(_buff, 0, BufferSize, Receive, null);
 
 				_states.State = new ConnectedState();
-				_states.State.Execute(null);
+				_states.State.Execute();
 			}
 			finally
 			{
@@ -189,7 +189,7 @@ namespace ubiety.net
 				return true;
 			}
 
-			Logger.DebugFormat(typeof(AsyncSocket), "X509Chain {0}", chain.ChainStatus[0].Status);
+			Logger.DebugFormat(typeof (AsyncSocket), "X509Chain {0}", chain.ChainStatus[0].Status);
 			Logger.DebugFormat(typeof (AsyncSocket), "Policy Errors: {0}", errors);
 			return false;
 		}
@@ -211,17 +211,18 @@ namespace ubiety.net
 		{
 			try
 			{
-				var rx = _stream.EndRead(ar);
+				_stream.EndRead(ar);
 
-				var t = TrimNull(_buff);
+				var t = _buff.TrimNull();
 
 				var m = _utf.GetString(_compressed ? _comp.Inflate(t, t.Length) : t);
 
 				Logger.DebugFormat(this, "Incoming Message: {0}", m);
-				ProtocolParser.Parse(m, rx);
+				ProtocolParser.Parse(m);
 
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
-				Array.Clear(_buff, 0, _buff.Length);
+				_buff.Clear();
+				//Array.Clear(_buff, 0, _buff.Length);
 
 				if (!Connected || _states.State is DisconnectedState) return;
 
@@ -245,28 +246,6 @@ namespace ubiety.net
 		{
 			_comp = CompressionRegistry.Instance.GetCompression(algorithm);
 			_compressed = true;
-		}
-
-		private static byte[] TrimNull(IList<byte> message)
-		{
-			if (message.Count > 1)
-			{
-				var c = message.Count - 1;
-				while (message[c] == 0x00)
-				{
-					c--;
-				}
-
-				var r = new byte[(c + 1)];
-				for (var i = 0; i < (c + 1); i++)
-				{
-					r[i] = message[i];
-				}
-
-				return r;
-			}
-
-			return null;
 		}
 	}
 }

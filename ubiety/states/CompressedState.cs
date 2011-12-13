@@ -29,14 +29,14 @@ namespace ubiety.states
 		/// 
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
-			if (data.Name != "compressed") return;
+			if (data != null && data.Name != "compressed") return;
 			Logger.Debug(this, "Starting compression of the socket");
 			Current.Socket.StartCompression(Current.Algorithm);
 			Current.Compressed = true;
 			Current.State = new ConnectedState();
-			Current.State.Execute(null);
+			Current.State.Execute();
 		}
 	}
 }

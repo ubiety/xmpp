@@ -24,8 +24,6 @@ namespace ubiety.registries
 	/// </summary>
 	public abstract class Allocator<T> : IDisposable where T : class
 	{
-		protected Allocator() {}
-
 		/// <summary>
 		/// 
 		/// </summary>

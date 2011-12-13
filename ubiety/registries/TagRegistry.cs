@@ -71,21 +71,20 @@ namespace ubiety.registries
 		/// <returns>A new instance of the requested tag</returns>
 		public Tag GetTag(XmlQualifiedName qname, XmlDocument doc)
 		{
-			Type t;
 			Tag tag = null;
-			ConstructorInfo ctor;
 
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
 			try
 			{
+				Type t;
 				if (RegisteredItems.TryGetValue(qname.ToString(), out t))
 				{
 					//tag = (Tag)Activator.CreateInstance(t, new object[] { doc });
-					ctor = t.GetConstructor(new[] {typeof (XmlDocument)});
+					var ctor = t.GetConstructor(new[] {typeof (XmlDocument)});
 					if (ctor == null)
 					{
 						ctor = t.GetConstructor(new[] {typeof (XmlDocument), typeof (XmlQualifiedName)});
-						tag = (Tag) ctor.Invoke(new object[] {doc, qname});
+						if (ctor != null) tag = (Tag) ctor.Invoke(new object[] {doc, qname});
 					}
 					else
 					{

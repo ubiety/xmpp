@@ -17,9 +17,9 @@
 
 namespace ubiety.common
 {
-    /// <summary>
-    /// 
-    /// </summary>
+	/// <summary>
+	/// 
+	/// </summary>
 	public class Namespaces
 	{
 		///<summary>
@@ -32,29 +32,29 @@ namespace ubiety.common
 		///<summary>
 		///</summary>
 		public const string Client = "jabber:client";
-        /// <summary>
-        /// Stream Namespace - http://etherx.jabber.org/streams
-        /// </summary>
+		/// <summary>
+		/// Stream Namespace - http://etherx.jabber.org/streams
+		/// </summary>
 		public const string Stream = "http://etherx.jabber.org/streams";
 
-        ///<summary>
-        ///</summary>
-        public const string XMPPStreams = "urn:ietf:params:xml:ns:xmpp-streams";
-        /// <summary>
-        /// 
-        /// </summary>
+		///<summary>
+		///</summary>
+		public const string XMPPStreams = "urn:ietf:params:xml:ns:xmpp-streams";
+		/// <summary>
+		/// 
+		/// </summary>
 		public const string StartTLS = "urn:ietf:params:xml:ns:xmpp-tls";
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public const string SASL = "urn:ietf:params:xml:ns:xmpp-sasl";
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public const string Auth = "http://jabber.org/features/iq-auth";
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public const string Register = "http://jabber.org/features/iq-register";
 		
 		///<summary>
@@ -75,9 +75,9 @@ namespace ubiety.common
 		///</summary>
 		public const string Stanzas = "urn:ietf:params:xml:ns:xmpp-stanzas";
 
-        ///<summary>
-        ///</summary>
-        public const string Rostver = "urn:xmpp:features:rosterver";
+		///<summary>
+		///</summary>
+		public const string Rostver = "urn:xmpp:features:rosterver";
 
 		/// <summary>
 		/// Namespace for Entity Capabilities XEP-0115
@@ -87,6 +87,6 @@ namespace ubiety.common
 		/// <summary>
 		/// Service discovery namespace
 		/// </summary>
-    	public const string DiscoInfo = "http://jabber.org/protocol/disco#info";
+		public const string DiscoInfo = "http://jabber.org/protocol/disco#info";
 	}
 }

@@ -61,7 +61,7 @@ namespace ubiety.common
 		/// </summary>
 		public string XmppId
 		{
-			get { return _xid ?? BuildXID(); }
+			get { return _xid ?? BuildJID(); }
 			set { Parse(value); }
 		}
 
@@ -70,7 +70,7 @@ namespace ubiety.common
 		/// </summary>
 		public string User
 		{
-			get { return _user; }
+			get { return Unescape(); }
 			set
 			{
 				var tmp = Escape(value);
@@ -247,7 +247,7 @@ namespace ubiety.common
 		/// Builds a string version of an XID from the three parts.
 		/// </summary>
 		/// <returns>string version of xid</returns>
-		private string BuildXID()
+		private string BuildJID()
 		{
 			var sb = new StringBuilder();
 			if (_user != null)
@@ -319,7 +319,7 @@ namespace ubiety.common
 			var u = new StringBuilder();
 			var count = 0;
 
-			foreach (char c in user)
+			foreach (var c in user)
 			{
 				switch (c)
 				{
@@ -368,34 +368,34 @@ namespace ubiety.common
 		private string Unescape()
 		{
 			var re = new Regex(@"\\([2-5][0267face])");
-			var u = re.Replace(_user, new MatchEvaluator(delegate(Match m)
-			                                                	{
-			                                                		switch (m.Groups[1].Value)
-			                                                		{
-			                                                			case "20":
-			                                                				return " ";
-			                                                			case "22":
-			                                                				return "\"";
-			                                                			case "26":
-			                                                				return "&";
-			                                                			case "27":
-			                                                				return "'";
-			                                                			case "2f":
-			                                                				return "/";
-			                                                			case "3a":
-			                                                				return ":";
-			                                                			case "3c":
-			                                                				return "<";
-			                                                			case "3e":
-			                                                				return ">";
-			                                                			case "40":
-			                                                				return "@";
-			                                                			case "5c":
-			                                                				return @"\";
-			                                                			default:
-			                                                				return m.Groups[0].Value;
-			                                                		}
-			                                                	}));
+			var u = re.Replace(_user, delegate(Match m)
+			                             	{
+			                             		switch (m.Groups[1].Value)
+			                             		{
+			                             			case "20":
+			                             				return " ";
+			                             			case "22":
+			                             				return "\"";
+			                             			case "26":
+			                             				return "&";
+			                             			case "27":
+			                             				return "'";
+			                             			case "2f":
+			                             				return "/";
+			                             			case "3a":
+			                             				return ":";
+			                             			case "3c":
+			                             				return "<";
+			                             			case "3e":
+			                             				return ">";
+			                             			case "40":
+			                             				return "@";
+			                             			case "5c":
+			                             				return @"\";
+			                             			default:
+			                             				return m.Groups[0].Value;
+			                             		}
+			                             	});
 
 			return u;
 		}

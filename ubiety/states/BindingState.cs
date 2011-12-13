@@ -26,7 +26,7 @@ namespace ubiety.states
 	///</summary>
 	public class BindingState : State
 	{
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			if (data == null)
 			{
@@ -62,7 +62,7 @@ namespace ubiety.states
 				Logger.InfoFormat(this, "Current XID is now: {0}", UbietySettings.Id);
 
 				Current.State = new SessionState();
-				Current.State.Execute(null);
+				Current.State.Execute();
 			}
 		}
 	}

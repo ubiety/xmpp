@@ -26,7 +26,7 @@ namespace ubiety.core
 	/// 
 	/// </summary>
 	[XmppTag("stream", Namespaces.Stream, typeof (Stream))]
-	public class Stream : Tag
+	public class Stream : Stanza
 	{
 		/// <summary>
 		/// 
@@ -66,10 +66,7 @@ namespace ubiety.core
 		///</summary>
 		public string Lang
 		{
-			get
-			{
-				return !HasAttribute("lang", Namespaces.XML) ? null : GetAttribute("lang", Namespaces.XML);
-			}
+			get { return !HasAttribute("lang", Namespaces.XML) ? null : GetAttribute("lang", Namespaces.XML); }
 			set
 			{
 				if (HasAttribute("lang", Namespaces.XML))
@@ -80,22 +77,6 @@ namespace ubiety.core
 				attr.Value = value;
 				Attributes.Append(attr);
 			}
-		}
-
-		///<summary>
-		///</summary>
-		public string To
-		{
-			get { return GetAttribute("to"); }
-			set { SetAttribute("to", value); }
-		}
-
-		///<summary>
-		///</summary>
-		public string Id
-		{
-			get { return GetAttribute("id"); }
-			set { SetAttribute("id", value); }
 		}
 
 		/// <summary>
