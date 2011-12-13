@@ -174,8 +174,6 @@ namespace ubiety.common.SASL
 			hmac.Key = serverKey;
 			_serverSignature = hmac.ComputeHash(auth);
 
-			//_serverSignature = _utf.GetString(server);
-
 			// Calculate Client Proof
 			var proof = new byte[20];
 			for (var i = 0; i < signature.Length; ++i)

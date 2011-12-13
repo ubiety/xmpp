@@ -30,7 +30,7 @@ namespace ubiety.states
 		/// <param name="data">
 		/// The <see cref="ubiety.common.Tag"/> is not needed here as we are just starting the connection.
 		/// </param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			Current.Socket.Connect();
 		}

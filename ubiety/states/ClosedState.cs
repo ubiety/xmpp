@@ -24,7 +24,7 @@ namespace ubiety.states
 	///</summary>
 	public class ClosedState : State
 	{
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			Logger.Debug(this, "Cleaning up");
 			ProtocolParser.Reset();

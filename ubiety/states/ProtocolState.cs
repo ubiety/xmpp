@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
 using ubiety.common.SASL;
 using ubiety.net;
 
@@ -72,16 +71,5 @@ namespace ubiety.states
 		{
 			get { return _doc; }
 		}
-
-		/// <summary>
-		/// Executes the current state.
-		/// </summary>
-		/// <param name="data">
-		/// The <see cref="Tag"/> used in the state.
-		/// </param>
-		//public void Execute(Tag data = null)
-		//{
-		//    _state.Execute(data);
-		//}
 	}
 }

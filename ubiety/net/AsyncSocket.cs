@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -26,6 +25,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using ubiety.common;
+using ubiety.common.extensions;
 using ubiety.logging;
 using ubiety.registries;
 using ubiety.states;
@@ -129,7 +129,7 @@ namespace ubiety.net
 				_stream.BeginRead(_buff, 0, BufferSize, Receive, null);
 
 				_states.State = new ConnectedState();
-				_states.State.Execute(null);
+				_states.State.Execute();
 			}
 			finally
 			{
@@ -203,7 +203,7 @@ namespace ubiety.net
 			{
 				var rx = _stream.EndRead(ar);
 
-				var t = TrimNull(_buff);
+				var t = _buff.TrimNull();
 
 				var m = _utf.GetString(_compressed ? _comp.Inflate(t, t.Length) : t);
 
@@ -235,28 +235,6 @@ namespace ubiety.net
 		{
 			_comp = CompressionRegistry.Instance.GetCompression(algorithm);
 			_compressed = true;
-		}
-
-		private static byte[] TrimNull(IList<byte> message)
-		{
-			if (message.Count > 1)
-			{
-				var c = message.Count - 1;
-				while (message[c] == 0x00)
-				{
-					c--;
-				}
-
-				var r = new byte[(c + 1)];
-				for (var i = 0; i < (c + 1); i++)
-				{
-					r[i] = message[i];
-				}
-
-				return r;
-			}
-
-			return null;
 		}
 	}
 }

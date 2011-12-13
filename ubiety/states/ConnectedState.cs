@@ -31,7 +31,7 @@ namespace ubiety.states
 		/// <param name="data">
 		/// The <see cref="ubiety.common.Tag"/> to parse.  In this case null.
 		/// </param>
-		public override void Execute(Tag data)
+		public override void Execute(Tag data = null)
 		{
 			var stream = (Stream) Reg.GetTag("stream", Namespaces.Stream, Current.Document);
 			stream.Version = "1.0";
