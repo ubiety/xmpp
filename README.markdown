@@ -25,4 +25,4 @@ Support
 -------
 
 * Mailing List: <xmppnet-devel@googlegroups.com>
-* Issues: <http://jira.ubiety.ca/jira/>
+* Issues: <https://ubiety.atlassian.net/browse/UX>
