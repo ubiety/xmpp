@@ -22,11 +22,9 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 using ubiety.common;
-using ubiety.core;
 using ubiety.logging;
 using ubiety.registries;
 using ubiety.states;
-using Stream = ubiety.core.Stream;
 
 #endregion
 
@@ -61,7 +59,7 @@ namespace ubiety
 		/// </summary>
 		public static void Parse(string message)
 		{
-			if (States.State is ClosedState)
+			if (States.State is DisconnectedState)
 			{
 				Logger.Debug(typeof (ProtocolParser), "Closed.  Nothing to do");
 				return;
@@ -74,7 +72,7 @@ namespace ubiety
 			{
 				Logger.Info(typeof (ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
-				States.State = new ClosedState();
+				States.State = new DisconnectedState();
 				States.State.Execute();
 				return;
 			}

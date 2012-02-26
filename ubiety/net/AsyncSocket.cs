@@ -222,7 +222,6 @@ namespace ubiety.net
 
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
 				_buff.Clear();
-				//Array.Clear(_buff, 0, _buff.Length);
 
 				if (!Connected || _states.State is DisconnectedState) return;
 

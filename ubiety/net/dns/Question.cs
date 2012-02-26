@@ -55,9 +55,11 @@ namespace ubiety.net.dns
 		///<summary>
 		///</summary>
 		public QClass QClass;
+
 		///<summary>
 		///</summary>
 		public QType QType;
+
 		private string _mQName;
 
 		///<summary>

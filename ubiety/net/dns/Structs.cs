@@ -16,57 +16,168 @@ namespace ubiety.net.dns
 	 *
 	 *		TYPE		value			meaning
 	 */
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum Type : ushort
 	{
-		A = 1,				// a IPV4 host address
-		NS = 2,				// an authoritative name server
-		MD = 3,				// a mail destination (Obsolete - use MX)
-		MF = 4,				// a mail forwarder (Obsolete - use MX)
-		CNAME = 5,			// the canonical name for an alias
-		SOA = 6,			// marks the start of a zone of authority
-		MB = 7,				// a mailbox domain name (EXPERIMENTAL)
-		MG = 8,				// a mail group member (EXPERIMENTAL)
-		MR = 9,				// a mail rename domain name (EXPERIMENTAL)
-		NULL = 10,			// a null RR (EXPERIMENTAL)
-		WKS = 11,			// a well known service description
-		PTR = 12,			// a domain name pointer
-		HINFO = 13,			// host information
-		MINFO = 14,			// mailbox or mail list information
-		MX = 15,			// mail exchange
-		TXT = 16,			// text strings
+		/// <summary>
+		/// a IPv4 host address
+		/// </summary>
+		A = 1,
+		/// <summary>
+		/// an authoritative name server
+		/// </summary>
+		NS = 2,
+		/// <summary>
+		/// a mail destination (Obsolete - use MX)
+		/// </summary>
+		MD = 3,
+		/// <summary>
+		/// a mail forwarder (Obsolete - use MX)
+		/// </summary>
+		MF = 4,
+		/// <summary>
+		/// the canonical name for an alias
+		/// </summary>
+		CNAME = 5,
+		/// <summary>
+		/// marks the start of a zone of authority
+		/// </summary>
+		SOA = 6,
+		/// <summary>
+		/// a mailbox domain name (EXPERIMENTAL)
+		/// </summary>
+		MB = 7,
+		/// <summary>
+		/// a mail group member (EXPERIMENTAL)
+		/// </summary>
+		MG = 8,
+		/// <summary>
+		/// a mail rename domain name (EXPERIMENTAL)
+		/// </summary>
+		MR = 9,
+		/// <summary>
+		/// a null RR (EXPERIMENTAL)
+		/// </summary>
+		NULL = 10,
+		/// <summary>
+		/// a well known service description
+		/// </summary>
+		WKS = 11,
+		/// <summary>
+		/// a domain name pointer
+		/// </summary>
+		PTR = 12,
+		/// <summary>
+		/// host information
+		/// </summary>
+		HINFO = 13,
+		/// <summary>
+		/// mailbox or mail list information
+		/// </summary>
+		MINFO = 14,
+		/// <summary>
+		/// mail exchange
+		/// </summary>
+		MX = 15,
+		/// <summary>
+		/// text strings
+		/// </summary>
+		TXT = 16,
 
-		RP = 17,			// The Responsible Person rfc1183
-		AFSDB = 18,			// AFS Data Base location
-		X25 = 19,			// X.25 address rfc1183
-		ISDN = 20,			// ISDN address rfc1183 
-		RT = 21,			// The Route Through rfc1183
+		/// <summary>
+		/// The Responsible Person rfc1183
+		/// </summary>
+		RP = 17,
+		/// <summary>
+		/// AFS Data Base location
+		/// </summary>
+		AFSDB = 18,
+		/// <summary>
+		/// X.25 address rfc1183
+		/// </summary>
+		X25 = 19,
+		/// <summary>
+		/// ISDN address rfc1183
+		/// </summary>
+		ISDN = 20,
+		/// <summary>
+		/// The Route Through rfc1183
+		/// </summary>
+		RT = 21,
 
-		NSAP = 22,			// Network service access point address rfc1706
-		NSAPPTR = 23,		// Obsolete, rfc1348
+		/// <summary>
+		/// Network service access point address rfc1706
+		/// </summary>
+		NSAP = 22,
+		/// <summary>
+		/// Obsolete, rfc1348
+		/// </summary>
+		NSAPPTR = 23,
 
-		SIG = 24,			// Cryptographic public key signature rfc2931 / rfc2535
-		KEY = 25,			// Public key as used in DNSSEC rfc2535
+		/// <summary>
+		/// Cryptographic public key signature rfc2931 / rfc2535
+		/// </summary>
+		SIG = 24,
+		/// <summary>
+		/// Public key as used in DNSSEC rfc2535
+		/// </summary>
+		KEY = 25,
 
-		PX = 26,			// Pointer to X.400/RFC822 mail mapping information rfc2163
+		/// <summary>
+		/// Pointer to X.400/RFC822 mail mapping information rfc2163
+		/// </summary>
+		PX = 26,
 
-		GPOS = 27,			// Geographical position rfc1712 (obsolete)
+		/// <summary>
+		/// Geographical position rfc1712 (obsolete)
+		/// </summary>
+		GPOS = 27,
 
-		AAAA = 28,			// a IPV6 host address, rfc3596
+		/// <summary>
+		/// a IPv6 host address, rfc3596
+		/// </summary>
+		AAAA = 28,
 
-		LOC = 29,			// Location information rfc1876
+		/// <summary>
+		/// Location information rfc1876
+		/// </summary>
+		LOC = 29,
 
-		NXT = 30,			// Next Domain, Obsolete rfc2065 / rfc2535
+		/// <summary>
+		/// Next Domain, Obsolete rfc2065 / rfc2535
+		/// </summary>
+		NXT = 30,
 
-		EID = 31,			// *** Endpoint Identifier (Patton)
-		NIMLOC = 32,		// *** Nimrod Locator (Patton)
+		/// <summary>
+		/// *** Endpoint Identifier (Patton)
+		/// </summary>
+		EID = 31,
+		/// <summary>
+		/// *** Nimrod Locator (Patton)
+		/// </summary>
+		NIMLOC = 32,
 
-		SRV = 33,			// Location of services rfc2782
+		/// <summary>
+		/// Location of services rfc2782
+		/// </summary>
+		SRV = 33,
 
-		ATMA = 34,			// *** ATM Address (Dobrowski)
+		/// <summary>
+		/// *** ATM Address (Dobrowski)
+		/// </summary>
+		ATMA = 34,
 
-		NAPTR = 35,			// The Naming Authority Pointer rfc3403
+		/// <summary>
+		/// The Naming Authority Pointer rfc3403
+		/// </summary>
+		NAPTR = 35,
 
-		KX = 36,			// Key Exchange Delegation Record rfc2230
+		/// <summary>
+		/// Key Exchange Delegation Record rfc2230
+		/// </summary>
+		KX = 36,
 
 		CERT = 37,			// *** CERT RFC2538
 
@@ -217,11 +328,26 @@ namespace ubiety.net.dns
 	 *
 	 *		CLASS		value			meaning
 	 */
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum Class : ushort
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		IN = 1,				// the Internet
+		/// <summary>
+		/// 
+		/// </summary>
 		CS = 2,				// the CSNET class (Obsolete - used only for examples in some obsolete RFCs)
+		/// <summary>
+		/// 
+		/// </summary>
 		CH = 3,				// the CHAOS class
+		/// <summary>
+		/// 
+		/// </summary>
 		HS = 4				// Hesiod [Dyer 87]
 	}
 	/*
@@ -233,13 +359,31 @@ namespace ubiety.net.dns
 	 *
 	 *		QCLASS		value			meaning
 	 */
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum QClass : ushort
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		IN = Class.IN,		// the Internet
+		/// <summary>
+		/// 
+		/// </summary>
 		CS = Class.CS,		// the CSNET class (Obsolete - used only for examples in some obsolete RFCs)
+		/// <summary>
+		/// 
+		/// </summary>
 		CH = Class.CH,		// the CHAOS class
+		/// <summary>
+		/// 
+		/// </summary>
 		HS = Class.HS,		// Hesiod [Dyer 87]
 
+		/// <summary>
+		/// 
+		/// </summary>
 		ANY = 255			// any class
 	}
 
@@ -323,9 +467,18 @@ OPCODE          A four bit field that specifies kind of query in this
 		RESERVED15 = 15,
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum TransportType
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		Udp,
+		/// <summary>
+		/// 
+		/// </summary>
 		Tcp
 	}
 }

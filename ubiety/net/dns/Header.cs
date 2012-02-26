@@ -139,8 +139,6 @@ namespace ubiety.net.dns
 		/// </summary>
 		public ushort ARCOUNT;
 
-		private ushort _flags;
-
 		/// <summary>
 		/// An identifier assigned by the program
 		/// </summary>
@@ -155,6 +153,8 @@ namespace ubiety.net.dns
 		/// the number of entries in the question section
 		/// </summary>
 		public ushort QDCOUNT;
+
+		private ushort _flags;
 
 		///<summary>
 		///</summary>
@@ -279,7 +279,7 @@ namespace ubiety.net.dns
 				return oldValue;
 
 			// get some mask to put on
-			int mask = (2 << (length - 1)) - 1;
+			var mask = (2 << (length - 1)) - 1;
 
 			// clear out value
 			oldValue &= (ushort) ~(mask << position);
@@ -296,7 +296,7 @@ namespace ubiety.net.dns
 				return 0;
 
 			// get some mask to put on
-			int mask = (2 << (length - 1)) - 1;
+			var mask = (2 << (length - 1)) - 1;
 
 			// shift down to get some value and mask it
 			return (ushort) ((oldValue >> position) & mask);

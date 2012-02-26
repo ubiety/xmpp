@@ -13,6 +13,7 @@ Hosts that have multiple Internet addresses will have multiple A
 records.
  * 
  */
+
 using System.Net;
 
 namespace ubiety.net.dns.Records

@@ -205,23 +205,10 @@ namespace ubiety.net.dns
 		{
 			get
 			{
-				var list = new List<RR>();
-				foreach (RR rr in Answers)
-				{
-					list.Add(rr);
-				}
-				foreach (RR rr in Answers)
-				{
-					list.Add(rr);
-				}
-				foreach (RR rr in Authorities)
-				{
-					list.Add(rr);
-				}
-				foreach (RR rr in Additionals)
-				{
-					list.Add(rr);
-				}
+				var list = Answers.Cast<RR>().ToList();
+				list.AddRange(Answers);
+				list.AddRange(Authorities);
+				list.AddRange(Additionals);
 				return list.ToArray();
 			}
 		}

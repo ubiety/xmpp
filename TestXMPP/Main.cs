@@ -16,7 +16,7 @@ namespace TestXMPP
 		public Main()
 		{
 			InitializeComponent();
-			//CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
+			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
 			Errors.Instance.OnError += Errors_OnError;
 			_xmpp = new XMPP(); 
 			slVersion.Text = Resources.Version_Label + XMPP.Version;
@@ -41,6 +41,11 @@ namespace TestXMPP
 			if (_xmpp != null && _xmpp.Connected)
 				_xmpp.Disconnect();
 			Application.Exit();
+		}
+
+		private void BtnSendClick(object sender, EventArgs e)
+		{
+			UbietyMessages.Instance.SendMessage(txtMessage.Text);
 		}
 	}
 }

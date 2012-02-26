@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using ubiety.common.extensions;
 
 namespace ubiety.registries
 {
@@ -69,11 +69,17 @@ namespace ubiety.registries
 		/// <returns>
 		/// A <see cref="System.Object"/>
 		/// </returns>
-		protected TE[] GetAttributes<TE> (Assembly ass)
+		protected IEnumerable<TE> GetAttributes<TE> (Assembly ass) where TE : Attribute
 		{
+			var tags = new List<TE>();
 			var types = ass.GetTypes();
 
-			return (from type in types from a in type.GetCustomAttributes(typeof (TE), false) select (TE) a).ToArray();
+			foreach (var type in types)
+			{
+				type.GetCustomAttributes<TE>(true).Apply(tags.Add);
+			}
+
+			return tags;
 		}
 		
 		/// <summary>

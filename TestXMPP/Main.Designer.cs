@@ -38,6 +38,8 @@ namespace TestXMPP
 			this.txtUsername = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtPassword = new System.Windows.Forms.TextBox();
+			this.txtMessage = new System.Windows.Forms.TextBox();
+			this.btnSend = new System.Windows.Forms.Button();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -88,7 +90,7 @@ namespace TestXMPP
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.slVersion});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 72);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 190);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(404, 22);
 			this.statusStrip1.TabIndex = 1;
@@ -138,11 +140,31 @@ namespace TestXMPP
 			this.txtPassword.Size = new System.Drawing.Size(316, 20);
 			this.txtPassword.TabIndex = 5;
 			// 
+			// txtMessage
+			// 
+			this.txtMessage.Location = new System.Drawing.Point(12, 71);
+			this.txtMessage.Multiline = true;
+			this.txtMessage.Name = "txtMessage";
+			this.txtMessage.Size = new System.Drawing.Size(380, 87);
+			this.txtMessage.TabIndex = 6;
+			// 
+			// btnSend
+			// 
+			this.btnSend.Location = new System.Drawing.Point(317, 164);
+			this.btnSend.Name = "btnSend";
+			this.btnSend.Size = new System.Drawing.Size(75, 23);
+			this.btnSend.TabIndex = 7;
+			this.btnSend.Text = "Send";
+			this.btnSend.UseVisualStyleBackColor = true;
+			this.btnSend.Click += new System.EventHandler(this.BtnSendClick);
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(404, 94);
+			this.ClientSize = new System.Drawing.Size(404, 212);
+			this.Controls.Add(this.btnSend);
+			this.Controls.Add(this.txtMessage);
 			this.Controls.Add(this.txtPassword);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.txtUsername);
@@ -172,6 +194,8 @@ namespace TestXMPP
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtPassword;
+		private System.Windows.Forms.TextBox txtMessage;
+		private System.Windows.Forms.Button btnSend;
 
 
 

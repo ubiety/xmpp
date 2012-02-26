@@ -452,7 +452,7 @@ namespace ubiety.net.dns
 		public Response Query(string name, QType qtype, QClass qclass)
 		{
 			var question = new Question(name, qtype, qclass);
-			Response response = SearchInCache(question);
+			var response = SearchInCache(question);
 			if (response != null)
 				return response;
 
@@ -470,7 +470,7 @@ namespace ubiety.net.dns
 		public Response Query(string name, QType qtype)
 		{
 			var question = new Question(name, qtype, QClass.IN);
-			Response response = SearchInCache(question);
+			var response = SearchInCache(question);
 			if (response != null)
 				return response;
 
@@ -502,12 +502,12 @@ namespace ubiety.net.dns
 		{
 			var list = new List<IPEndPoint>();
 
-			NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-			foreach (IPEndPoint entry in from n in adapters
+			var adapters = NetworkInterface.GetAllNetworkInterfaces();
+			foreach (var entry in from n in adapters
 			                             where n.OperationalStatus == OperationalStatus.Up
 			                             select n.GetIPProperties()
 			                             into ipProps from ipAddr in ipProps.DnsAddresses
-			                             //where ipAddr.AddressFamily == AddressFamily.InterNetwork
+			                             	//where ipAddr.AddressFamily == AddressFamily.InterNetwork
 			                             select new IPEndPoint(ipAddr, DefaultPort)
 			                             into entry where !list.Contains(entry) select entry)
 			{
@@ -523,12 +523,12 @@ namespace ubiety.net.dns
 		{
 			var entry = new IPHostEntry {HostName = hostName};
 
-			Response response = Query(hostName, QType.A, QClass.IN);
+			var response = Query(hostName, QType.A, QClass.IN);
 
 			// fill AddressList and aliases
 			var addressList = new List<IPAddress>();
 			var aliases = new List<string>();
-			foreach (AnswerRR answerRr in response.Answers)
+			foreach (var answerRr in response.Answers)
 			{
 				switch (answerRr.Type)
 				{
@@ -558,7 +558,7 @@ namespace ubiety.net.dns
 			{
 				var sb = new StringBuilder();
 				sb.Append("in-addr.arpa.");
-				foreach (byte b in ip.GetAddressBytes())
+				foreach (var b in ip.GetAddressBytes())
 				{
 					sb.Insert(0, string.Format("{0}.", b));
 				}
@@ -585,9 +585,9 @@ namespace ubiety.net.dns
 		public static string GetArpaFromEnum(string strEnum)
 		{
 			var sb = new StringBuilder();
-			string number = Regex.Replace(strEnum, "[^0-9]", "");
+			var number = Regex.Replace(strEnum, "[^0-9]", "");
 			sb.Append("e164.arpa.");
-			foreach (char c in number)
+			foreach (var c in number)
 			{
 				sb.Insert(0, string.Format("{0}.", c));
 			}
@@ -604,7 +604,7 @@ namespace ubiety.net.dns
 		///</returns>
 		public IPHostEntry GetHostEntry(IPAddress ip)
 		{
-			Response response = Query(GetArpaFromIp(ip), QType.PTR, QClass.IN);
+			var response = Query(GetArpaFromIp(ip), QType.PTR, QClass.IN);
 			return response.RecordsPTR.Length > 0 ? MakeEntry(response.RecordsPTR[0].PTRDNAME) : new IPHostEntry();
 		}
 
@@ -695,51 +695,49 @@ namespace ubiety.net.dns
 			var sr = new StreamReader(strPath);
 			while (!sr.EndOfStream)
 			{
-				string strLine = sr.ReadLine();
+				var strLine = sr.ReadLine();
 				if (strLine == null)
 					break;
-				int intI = strLine.IndexOf(';');
+				var intI = strLine.IndexOf(';');
 				if (intI >= 0)
 					strLine = strLine.Substring(0, intI);
 				strLine = strLine.Trim();
 				if (strLine.Length == 0)
 					continue;
-				RRRecordStatus status = RRRecordStatus.NAME;
-				string Name = "";
-				string Ttl = "";
-				string Class = "";
-				string Type = "";
-				string Value = "";
-				string strW = "";
+				var status = RRRecordStatus.Name;
+				var Name = "";
+				var Ttl = "";
+				var Class = "";
+				var Type = "";
+				var Value = "";
+				var strW = "";
 				for (intI = 0; intI < strLine.Length; intI++)
 				{
-					char c = strLine[intI];
+					var c = strLine[intI];
 
 					if (c <= ' ' && strW != "")
 					{
 						switch (status)
 						{
-							case RRRecordStatus.NAME:
+							case RRRecordStatus.Name:
 								Name = strW;
 								status = RRRecordStatus.TTL;
 								break;
 							case RRRecordStatus.TTL:
 								Ttl = strW;
-								status = RRRecordStatus.CLASS;
+								status = RRRecordStatus.Class;
 								break;
-							case RRRecordStatus.CLASS:
+							case RRRecordStatus.Class:
 								Class = strW;
-								status = RRRecordStatus.TYPE;
+								status = RRRecordStatus.Type;
 								break;
-							case RRRecordStatus.TYPE:
+							case RRRecordStatus.Type:
 								Type = strW;
-								status = RRRecordStatus.VALUE;
+								status = RRRecordStatus.Value;
 								break;
-							case RRRecordStatus.VALUE:
+							case RRRecordStatus.Value:
 								Value = strW;
-								status = RRRecordStatus.UNKNOWN;
-								break;
-							default:
+								status = RRRecordStatus.Unknown;
 								break;
 						}
 						strW = "";
@@ -763,7 +761,7 @@ namespace ubiety.net.dns
 		///</returns>
 		public IPAddress[] GetHostAddresses(string hostNameOrAddress)
 		{
-			IPHostEntry entry = GetHostEntry(hostNameOrAddress);
+			var entry = GetHostEntry(hostNameOrAddress);
 			return entry.AddressList;
 		}
 
@@ -790,16 +788,16 @@ namespace ubiety.net.dns
 		/// <summary>
 		///		Ends an asynchronous request for DNS information.
 		/// </summary>
-		/// <param name="AsyncResult">
+		/// <param name="asyncResult">
 		///		An System.IAsyncResult instance returned by a call to the Heijden.Dns.Resolver.BeginGetHostAddresses(System.String,System.AsyncCallback,System.Object)
 		///		method.
 		/// </param>
 		/// <returns></returns>
-		public IPAddress[] EndGetHostAddresses(IAsyncResult AsyncResult)
+		public IPAddress[] EndGetHostAddresses(IAsyncResult asyncResult)
 		{
-			var aResult = (AsyncResult) AsyncResult;
+			var aResult = (AsyncResult) asyncResult;
 			var g = (GetHostAddressesDelegate) aResult.AsyncDelegate;
-			return g.EndInvoke(AsyncResult);
+			return g.EndInvoke(asyncResult);
 		}
 
 		/// <summary>
@@ -851,16 +849,16 @@ namespace ubiety.net.dns
 		/// <summary>
 		///		Ends an asynchronous request for DNS information.
 		/// </summary>
-		/// <param name="AsyncResult">
+		/// <param name="asyncResult">
 		///		An System.IAsyncResult instance returned by a call to an 
 		///		Heijden.Dns.Resolver.BeginGetHostByName method.
 		/// </param>
 		/// <returns></returns>
-		public IPHostEntry EndGetHostByName(IAsyncResult AsyncResult)
+		public IPHostEntry EndGetHostByName(IAsyncResult asyncResult)
 		{
-			var aResult = (AsyncResult) AsyncResult;
+			var aResult = (AsyncResult) asyncResult;
 			var g = (GetHostByNameDelegate) aResult.AsyncDelegate;
-			return g.EndInvoke(AsyncResult);
+			return g.EndInvoke(asyncResult);
 		}
 
 		/// <summary>
@@ -897,16 +895,16 @@ namespace ubiety.net.dns
 		/// <summary>
 		///		Ends an asynchronous request for DNS information.
 		/// </summary>
-		/// <param name="AsyncResult">
+		/// <param name="asyncResult">
 		///		An System.IAsyncResult instance that is returned by a call to the System.Net.Dns.BeginResolve(System.String,System.AsyncCallback,System.Object)
 		///     method.
 		/// </param>
 		/// <returns>An System.Net.IPHostEntry object that contains DNS information about a host.</returns>
-		public IPHostEntry EndResolve(IAsyncResult AsyncResult)
+		public IPHostEntry EndResolve(IAsyncResult asyncResult)
 		{
-			var aResult = (AsyncResult) AsyncResult;
+			var aResult = (AsyncResult) asyncResult;
 			var g = (ResolveDelegate) aResult.AsyncDelegate;
-			return g.EndInvoke(AsyncResult);
+			return g.EndInvoke(asyncResult);
 		}
 
 		#region Nested type: GetHostAddressesDelegate
@@ -945,12 +943,12 @@ namespace ubiety.net.dns
 
 		private enum RRRecordStatus
 		{
-			UNKNOWN,
-			NAME,
+			Unknown,
+			Name,
 			TTL,
-			CLASS,
-			TYPE,
-			VALUE
+			Class,
+			Type,
+			Value
 		}
 
 		#endregion

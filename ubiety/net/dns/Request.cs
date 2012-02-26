@@ -7,6 +7,7 @@ namespace ubiety.net.dns
 	public class Request
 	{
 		private readonly List<Question> _questions;
+
 		///<summary>
 		///</summary>
 		public Header Header;
