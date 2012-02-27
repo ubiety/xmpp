@@ -47,7 +47,7 @@ namespace ubiety.net.dns
 		///<returns></returns>
 		public byte ReadByte()
 		{
-			return (byte) (_mPosition >= _mData.Length ? 0 : _mData[_mPosition++]);
+			return (byte) (_mPosition >= _mData.Length ? (byte) 0 : _mData[_mPosition++]);
 		}
 
 		///<summary>

@@ -347,7 +347,7 @@ namespace ubiety.net.dns
 				{
 					//var tcpClient = new TcpClient(AddressFamily.InterNetworkV6) {ReceiveTimeout = _mTimeout*1000};
 					var tcpClient = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
-					tcpClient.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, false);
+					//tcpClient.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, false);
 
 					try
 					{
