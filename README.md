@@ -25,4 +25,3 @@ Support
 -------
 
 * Mailing List: <xmppnet-devel@googlegroups.com>
-* Issues: <https://ubiety.atlassian.net/browse/UX>
