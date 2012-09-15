@@ -21,7 +21,7 @@
 using System;
 using System.Text;
 
-namespace Gnu.Inet.Encoding
+namespace ubiety.common.idn
 {		
 	public class NFKC
 	{

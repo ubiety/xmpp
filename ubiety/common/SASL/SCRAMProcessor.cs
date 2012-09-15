@@ -19,11 +19,11 @@ using System;
 using System.Xml;
 using System.Text;
 using System.Security.Cryptography;
+using ubiety.common.idn;
 using ubiety.common.logging;
-using ubiety.registries;
-using ubiety.core.SASL;
 using ubiety.core;
-using Gnu.Inet.Encoding;
+using ubiety.core.SASL;
+using ubiety.registries;
 
 namespace ubiety.common.SASL
 {

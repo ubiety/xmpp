@@ -21,7 +21,7 @@
 using System;
 using System.Text;
 
-namespace Gnu.Inet.Encoding
+namespace ubiety.common.idn
 {	
 	/// <summary> This class offers static methods for preparing internationalized
 	/// strings. It supports the following stringprep profiles:

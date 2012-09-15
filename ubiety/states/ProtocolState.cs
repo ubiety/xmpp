@@ -26,16 +26,15 @@ namespace ubiety.states
 	/// </summary>
 	internal static class ProtocolState
 	{
-		//public static readonly ProtocolState Instance = new ProtocolState();
 		private static readonly XmlDocument _doc = new XmlDocument();
 
 		static ProtocolState()
 		{
 			State = new DisconnectedState();
-			UbietyMessages.Instance.AllMessages += UbietyMessagesAllMessages;
+			UbietyMessages.AllMessages += AllMessages;
 		}
 
-		private static void UbietyMessagesAllMessages(object sender, MessageArgs e)
+		private static void AllMessages(object sender, MessageEventArgs e)
 		{
 			State.Execute(e.Tag);
 		}

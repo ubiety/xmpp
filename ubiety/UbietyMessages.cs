@@ -24,7 +24,7 @@ namespace ubiety
 	/// <summary>
 	/// 
 	/// </summary>
-	public class MessageArgs : EventArgs
+	public class MessageEventArgs : EventArgs
 	{
 		/// <summary>
 		/// 
@@ -35,26 +35,20 @@ namespace ubiety
 	/// <summary>
 	/// 
 	/// </summary>
-	public sealed class UbietyMessages
+	public static class UbietyMessages
 	{
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UbietyMessages Instance = new UbietyMessages();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public event EventHandler<MessageArgs> AllMessages;
+		public static event EventHandler<MessageEventArgs> AllMessages;
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="e"></param>
-		public void OnAllMessages(MessageArgs e)
+		public static void OnAllMessages(MessageEventArgs e)
 		{
-			var handler = AllMessages;
-			if (handler != null) handler(this, e);
+			if (AllMessages != null) AllMessages(typeof(UbietyMessages), e);
 		}
 
 		/// <summary>
@@ -62,7 +56,7 @@ namespace ubiety
 		/// </summary>
 		/// <param name="text"></param>
 		/// <exception cref="NotImplementedException"></exception>
-		public void SendMessage(string text)
+		public static void SendMessage(string text)
 		{
 			ProtocolState.Socket.Write(text);
 		}

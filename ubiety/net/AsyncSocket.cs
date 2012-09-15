@@ -42,7 +42,6 @@ namespace ubiety.net
 		private const int BufferSize = 4096;
 		private readonly byte[] _buff = new byte[BufferSize];
 		private readonly Address _dest;
-		//private readonly ProtocolState _states = ProtocolState.Instance;
 		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private ICompression _comp;

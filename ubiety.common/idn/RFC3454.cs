@@ -1,7 +1,7 @@
 // Do not edit !!!
 // this file is generated automatically
 
-namespace Gnu.Inet.Encoding {
+namespace ubiety.common.idn {
 
 ///<summary>
 ///</summary>

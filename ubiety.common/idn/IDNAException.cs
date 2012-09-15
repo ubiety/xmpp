@@ -20,7 +20,7 @@
 
 using System;
 
-namespace Gnu.Inet.Encoding
+namespace ubiety.common.idn
 {		
 	public class IDNAException : System.Exception
 	{

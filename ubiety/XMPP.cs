@@ -85,18 +85,16 @@ namespace ubiety
 			// We need an XID and Password to connect to the server.
 			if (String.IsNullOrEmpty(UbietySettings.Password))
 			{
-				Errors.SendError(typeof (XMPP), ErrorType.MissingPassword,
+				Errors.SendError(this, ErrorType.MissingPassword,
 				                 "Set the Password property of the Settings before connecting.", true);
 				return;
 			}
 
 			if (String.IsNullOrEmpty(UbietySettings.Id))
 			{
-				Errors.SendError(typeof (XMPP), ErrorType.MissingId, "Set the ID property of the Settings before connecting.", true);
+				Errors.SendError(this, ErrorType.MissingId, "Set the ID property of the Settings before connecting.", true);
 				return;
 			}
-
-			//Logger.InfoFormat(typeof (XMPP), "Connecting to {0}", States.Socket.Hostname);
 
 			// Set the current state to connecting and start the process.
 			ProtocolState.State = new ConnectingState();
@@ -132,7 +130,7 @@ namespace ubiety
 		/// </value>
 		public bool Connected
 		{
-			get { return ProtocolState.State.GetType() != typeof (DisconnectedState); }
+			get { return ProtocolState.State is RunningState; }
 		}
 
 		#endregion

@@ -33,10 +33,9 @@ namespace ubiety
 	/// <remarks>
 	/// The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag"/>
 	/// </remarks>
-	internal class ProtocolParser
+	internal static class ProtocolParser
 	{
 		private static readonly XmlNamespaceManager Ns;
-		//private static readonly TagRegistry Reg = TagRegistry.Instance;
 		private static XmlElement _elem;
 		private static XmlElement _root;
 
@@ -218,7 +217,7 @@ namespace ubiety
 			if (parent == null)
 			{
 				Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", ProtocolState.State);
-				UbietyMessages.Instance.OnAllMessages(new MessageArgs { Tag = (Tag) _elem });
+				UbietyMessages.OnAllMessages(new MessageEventArgs { Tag = (Tag) _elem });
 			}
 			_elem = parent;
 		}
