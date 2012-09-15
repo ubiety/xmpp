@@ -16,10 +16,10 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using ubiety.attributes;
 using System.Reflection;
 using ubiety.common;
-using ubiety.logging;
+using ubiety.common.attributes;
+using ubiety.common.logging;
 
 namespace ubiety.registries
 {

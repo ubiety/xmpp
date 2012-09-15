@@ -17,7 +17,7 @@
 
 using System;
 
-namespace ubiety.attributes
+namespace ubiety.common.attributes
 {
 	///<summary>
 	///</summary>

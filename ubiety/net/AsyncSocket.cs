@@ -26,7 +26,7 @@ using System.Text;
 using System.Threading;
 using ubiety.common;
 using ubiety.common.extensions;
-using ubiety.logging;
+using ubiety.common.logging;
 using ubiety.registries;
 using ubiety.states;
 

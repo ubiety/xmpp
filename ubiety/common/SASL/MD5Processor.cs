@@ -22,7 +22,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using ubiety.core;
 using ubiety.core.SASL;
-using ubiety.logging;
+using ubiety.common.logging;
 using ubiety.registries;
 
 namespace ubiety.common.SASL

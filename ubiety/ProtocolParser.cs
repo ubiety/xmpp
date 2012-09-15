@@ -22,7 +22,7 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 using ubiety.common;
-using ubiety.logging;
+using ubiety.common.logging;
 using ubiety.registries;
 using ubiety.states;
 

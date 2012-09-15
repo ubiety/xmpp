@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using ubiety.logging;
+using ubiety.common.logging;
 using ubiety.net.dns;
 using ubiety.net.dns.Records;
 using TransportType = ubiety.net.dns.TransportType;

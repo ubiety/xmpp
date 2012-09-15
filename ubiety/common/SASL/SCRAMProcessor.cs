@@ -19,7 +19,7 @@ using System;
 using System.Xml;
 using System.Text;
 using System.Security.Cryptography;
-using ubiety.logging;
+using ubiety.common.logging;
 using ubiety.registries;
 using ubiety.core.SASL;
 using ubiety.core;

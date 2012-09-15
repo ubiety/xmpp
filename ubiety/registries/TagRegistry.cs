@@ -1,6 +1,6 @@
 // TagRegistry.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 // 
 // This library is free software; you can redistribute it and/or modify it under
 // the terms of the GNU Lesser General Public License as published by the Free
@@ -18,9 +18,9 @@
 using System;
 using System.Reflection;
 using System.Xml;
-using ubiety.attributes;
 using ubiety.common;
-using ubiety.logging;
+using ubiety.common.attributes;
+using ubiety.common.logging;
 
 namespace ubiety.registries
 {

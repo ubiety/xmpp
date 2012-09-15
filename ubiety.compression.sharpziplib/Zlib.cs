@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using ubiety.attributes;
 using ubiety.common;
+using ubiety.common.attributes;
 using ubiety.compression.sharpziplib.Zip.Compression;
 
 namespace ubiety.compression.sharpziplib

@@ -17,7 +17,7 @@
 
 using System;
 
-namespace ubiety.attributes
+namespace ubiety.common.attributes
 {
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.

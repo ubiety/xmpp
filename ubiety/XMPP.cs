@@ -1,6 +1,6 @@
 // XMPP.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -19,7 +19,7 @@
 
 using System;
 using ubiety.common;
-using ubiety.logging;
+using ubiety.common.logging;
 using ubiety.net;
 using ubiety.registries;
 using ubiety.states;
