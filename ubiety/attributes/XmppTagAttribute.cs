@@ -22,7 +22,7 @@ namespace ubiety.attributes
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.
 	/// </remarks>
-	[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+	[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
 	public class XmppTagAttribute : Attribute
 	{
 		private readonly string _namespace;

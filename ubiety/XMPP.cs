@@ -18,7 +18,6 @@
 #region Usings
 
 using System;
-using System.Reflection;
 using ubiety.common;
 using ubiety.logging;
 using ubiety.net;
@@ -69,7 +68,7 @@ namespace ubiety
 
 		///<summary>
 		///</summary>
-		public static readonly string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		public static readonly string Version = typeof (XMPP).Assembly.GetName().Version.ToString();
 
 		private readonly TagRegistry _reg = TagRegistry.Instance;
 
@@ -78,7 +77,7 @@ namespace ubiety
 		/// </summary>
 		public XMPP()
 		{
-			_reg.AddAssembly(Assembly.GetExecutingAssembly());
+			_reg.AddAssembly(typeof (XMPP).Assembly);
 			Errors.OnError += OnError;
 			States.Socket = new AsyncSocket();
 		}
@@ -138,7 +137,7 @@ namespace ubiety
 		/// </value>
 		public bool Connected
 		{
-			get { return States.State.GetType() != typeof (ClosedState); }
+			get { return States.State.GetType() != typeof (DisconnectedState); }
 		}
 
 		#endregion

@@ -83,10 +83,20 @@ namespace ubiety.net
 		/// <returns>True if we connected, false if we didn't</returns>
 		public void Connect()
 		{
-			var end = new IPEndPoint(_dest.NextIPAddress(), UbietySettings.Port);
+			var address = _dest.NextIPAddress();
+			IPEndPoint end;
+			if (address != null)
+			{
+				end = new IPEndPoint(address, UbietySettings.Port);
+			}
+			else
+			{
+				Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Unable to obtain server IP address.");
+				return;
+			}
 
 			Logger.InfoFormat(this, "Trying to connect to: {2}({0}:{1})", end.Address, UbietySettings.Port.ToString(),
-			                  UbietySettings.Hostname);
+				                  UbietySettings.Hostname);
 
 			if (!_dest.IPv6)
 			{
@@ -138,9 +148,9 @@ namespace ubiety.net
 		}
 
 		/// <summary>
-		/// Closes the current socket.
+		/// Disconnects the socket from the server.
 		/// </summary>
-		public void Close()
+		public void Disconnect()
 		{
 			Logger.Debug(this, "Closing socket (Graceful Shutdown)");
 			Connected = false;
@@ -212,9 +222,8 @@ namespace ubiety.net
 
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
 				_buff.Clear();
-				//Array.Clear(_buff, 0, _buff.Length);
 
-				if (!Connected || _states.State is ClosedState) return;
+				if (!Connected || _states.State is DisconnectedState) return;
 
 				_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 			}
