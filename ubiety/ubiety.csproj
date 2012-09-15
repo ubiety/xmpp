@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ubiety</RootNamespace>
     <AssemblyName>ubiety</AssemblyName>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>xmpp.pfx</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
     <FileUpgradeFlags>
@@ -19,8 +19,6 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -37,9 +35,9 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET20</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -48,7 +46,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;NET20</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -56,15 +54,10 @@
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\references\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="attributes\CompressionAttribute.cs" />
-    <Compile Include="attributes\XmppTagAttribute.cs" />
     <Compile Include="common\disco\IDiscoManager.cs" />
     <Compile Include="common\disco\RegistryDiscoManager.cs" />
     <Compile Include="common\ErrorType.cs" />
@@ -89,19 +82,6 @@
     <Compile Include="core\StartTLS.cs" />
     <Compile Include="core\Stream.cs" />
     <Compile Include="Errors.cs" />
-    <Compile Include="idn\CombiningClass.cs" />
-    <Compile Include="idn\Composition.cs" />
-    <Compile Include="idn\DecompositionKeys.cs" />
-    <Compile Include="idn\DecompositionMappings.cs" />
-    <Compile Include="idn\IDNA.cs" />
-    <Compile Include="idn\IDNAException.cs" />
-    <Compile Include="idn\NFKC.cs" />
-    <Compile Include="idn\Punycode.cs" />
-    <Compile Include="idn\PunycodeException.cs" />
-    <Compile Include="idn\RFC3454.cs" />
-    <Compile Include="idn\Stringprep.cs" />
-    <Compile Include="idn\StringprepException.cs" />
-    <Compile Include="logging\Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
     <Compile Include="net\dns\Header.cs" />
@@ -182,7 +162,6 @@
     <Compile Include="registries\TagRegistry.cs" />
     <Compile Include="states\DisconnectedState.cs" />
     <Compile Include="UbietyMessages.cs" />
-    <Compile Include="UbietySettings.cs" />
     <Compile Include="states\BindingState.cs" />
     <Compile Include="states\CompressedState.cs" />
     <Compile Include="states\ConnectedState.cs" />
@@ -196,6 +175,7 @@
     <Compile Include="states\StartTLSState.cs" />
     <Compile Include="states\State.cs" />
     <Compile Include="XMPP.cs" />
+    <Compile Include="UbietySettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
