@@ -1,6 +1,6 @@
 // Errors.cs
 //
-//Ubiety XMPP Library Copyright (C) 2008, 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2008 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -69,16 +69,16 @@ namespace ubiety
 	/// <summary>
 	/// 
 	/// </summary>
-	public sealed class Errors
+	public static class Errors
 	{
 		///<summary>
 		///</summary>
-		public static readonly Errors Instance = new Errors();
+		//public static readonly Errors Instance = new Errors();
 
 		/// <summary>
 		/// Subscribing to this event will allow you to receive all errors generated in the library.
 		/// </summary>
-		public event EventHandler<ErrorEventArgs> OnError;
+		public static event EventHandler<ErrorEventArgs> OnError;
 
 		/// <summary>
 		/// Sends an error from the calling class to the application.
@@ -92,7 +92,7 @@ namespace ubiety
 		/// <param name="message">
 		/// The default message to be supplied with the error.
 		/// </param>
-		public void SendError(object sender, ErrorType type, string message, Boolean fatal = false)
+		public static void SendError(object sender, ErrorType type, string message, Boolean fatal = false)
 		{
 			if (OnError != null)
 			{

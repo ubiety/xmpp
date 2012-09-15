@@ -32,7 +32,7 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data = null)
 		{
-			Current.Socket.Connect();
+			ProtocolState.Socket.Connect();
 		}
 	}
 }

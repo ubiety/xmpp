@@ -34,23 +34,23 @@ namespace ubiety.states
 		public override void Execute(Tag data = null)
 		{
 			Logger.Debug(this, "Processing next SASL step");
-			var res = Current.Processor.Step(data);
+			var res = ProtocolState.Processor.Step(data);
 			switch (res.Name)
 			{
 				case "success":
 					Logger.Debug(this, "Sending start stream again");
-					Current.Authenticated = true;
-					Current.State = new ConnectedState();
-					Current.State.Execute();
+					ProtocolState.Authenticated = true;
+					ProtocolState.State = new ConnectedState();
+					ProtocolState.State.Execute();
 					break;
 				case "failure":
 					// Failed to authenticate. Send a message to the user.
-					Errors.Instance.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
-					Current.State = new DisconnectState();
-					Current.State.Execute();
+					Errors.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
+					ProtocolState.State = new DisconnectState();
+					ProtocolState.State.Execute();
 					return;
 				default:
-					Current.Socket.Write(res);
+					ProtocolState.Socket.Write(res);
 					break;
 			}
 		}

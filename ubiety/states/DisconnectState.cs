@@ -1,6 +1,6 @@
 // DisconnectState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2008, 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2008 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -32,9 +32,9 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data = null)
 		{
-			if (Current.Socket.Connected)
+			if (ProtocolState.Socket.Connected)
 			{
-				Current.Socket.Write("</stream:stream>");
+				ProtocolState.Socket.Write("</stream:stream>");
 			}
 		}
 	}

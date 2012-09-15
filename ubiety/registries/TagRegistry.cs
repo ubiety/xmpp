@@ -21,6 +21,7 @@ using System.Xml;
 using ubiety.common;
 using ubiety.common.attributes;
 using ubiety.common.logging;
+using ubiety.states;
 
 namespace ubiety.registries
 {
@@ -37,11 +38,11 @@ namespace ubiety.registries
 		/// Used to add <seealso cref="Tag">Tag(s)</seealso> to the registry.  Using attributes the <see cref="TagRegistry"/> looks for and adds any appropriate tags found in the assembly.
 		/// </summary>
 		/// <param name="ass">The assembly to search for tags</param>
-		public void AddAssembly(Assembly ass)
+		public void AddAssembly(Assembly assembly)
 		{
-			Logger.DebugFormat(this, "Adding assembly {0}", ass.FullName);
+			Logger.DebugFormat(this, "Adding assembly {0}", assembly.FullName);
 
-			var tags = GetAttributes<XmppTagAttribute>(ass);
+			var tags = GetAttributes<XmppTagAttribute>(assembly);
 			Logger.DebugFormat(this, "{0,-24}{1,-36}{2}", "Tag Name", "Class", "Namespace");
 			foreach (var tag in tags)
 			{
@@ -57,10 +58,9 @@ namespace ubiety.registries
 		/// <param name="ns"></param>
 		/// <param name="doc"></param>
 		/// <returns></returns>
-		public Tag GetTag(string name, string ns, XmlDocument doc)
+		public Tag GetTag(string name, string ns)
 		{
-			var qname = new XmlQualifiedName(name, ns);
-			return GetTag(qname, doc);
+            return GetTag(new XmlQualifiedName(name, ns));
 		}
 
 		/// <summary>
@@ -69,42 +69,35 @@ namespace ubiety.registries
 		/// <param name="qname">Qualified Namespace</param>
 		/// <param name="doc">XmlDocument to create tag with</param>
 		/// <returns>A new instance of the requested tag</returns>
-		public Tag GetTag(XmlQualifiedName qname, XmlDocument doc)
+		public Tag GetTag(XmlQualifiedName qname)
 		{
 			Tag tag = null;
 
 			Logger.DebugFormat(this, "Finding tag: {0}", qname);
-			try
+
+			Type t;
+			if (RegisteredItems.TryGetValue(qname.ToString(), out t))
 			{
-				Type t;
-				if (RegisteredItems.TryGetValue(qname.ToString(), out t))
+				//tag = (Tag)Activator.CreateInstance(t, new object[] { doc });
+				var ctor = t.GetConstructor(new[] {typeof (XmlDocument)});
+				if (ctor == null)
 				{
-					//tag = (Tag)Activator.CreateInstance(t, new object[] { doc });
-					var ctor = t.GetConstructor(new[] {typeof (XmlDocument)});
-					if (ctor == null)
-					{
-						ctor = t.GetConstructor(new[] {typeof (XmlDocument), typeof (XmlQualifiedName)});
-						if (ctor != null) tag = (Tag) ctor.Invoke(new object[] {doc, qname});
-					}
-					else
-					{
-						tag = (Tag) ctor.Invoke(new object[] {doc});
-					}
+					ctor = t.GetConstructor(new[] {typeof (XmlDocument), typeof (XmlQualifiedName)});
+					if (ctor != null) tag = (Tag) ctor.Invoke(new object[] {ProtocolState.Document, qname});
 				}
 				else
 				{
-					Errors.Instance.SendError(this, ErrorType.UnregisteredItem,
-					                          "Tag " + qname + " not found in registry.  Please load appropriate library.");
-					return null;
+					tag = (Tag) ctor.Invoke(new object[] {ProtocolState.Document});
 				}
 			}
-			catch (Exception e)
+			else
 			{
-				Logger.ErrorFormat(this, "Unable to find tag {0} in registry.  Check to make sure library is loaded into registry.",
-				                   qname);
-				Logger.Error(this, e);
+				Errors.SendError(this, ErrorType.UnregisteredItem,
+				                          "Tag " + qname + " not found in registry.  Please load appropriate library.");
+				return null;
 			}
-			return tag;
+
+            return tag;
 		}
 	}
 }

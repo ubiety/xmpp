@@ -1,6 +1,6 @@
 // ProtocolState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -24,18 +24,18 @@ namespace ubiety.states
 	/// <summary>
 	/// Keeps track of all the current state information like id, password, socket and the current state.
 	/// </summary>
-	internal class ProtocolState
+	internal static class ProtocolState
 	{
-		public static readonly ProtocolState Instance = new ProtocolState();
-		private readonly XmlDocument _doc = new XmlDocument();
+		//public static readonly ProtocolState Instance = new ProtocolState();
+		private static readonly XmlDocument _doc = new XmlDocument();
 
-		private ProtocolState()
+		static ProtocolState()
 		{
 			State = new DisconnectedState();
 			UbietyMessages.Instance.AllMessages += UbietyMessagesAllMessages;
 		}
 
-		private void UbietyMessagesAllMessages(object sender, MessageArgs e)
+		private static void UbietyMessagesAllMessages(object sender, MessageArgs e)
 		{
 			State.Execute(e.Tag);
 		}
@@ -43,31 +43,31 @@ namespace ubiety.states
 		/// <value>
 		/// The current state we are in.
 		/// </value>
-		public State State { get; set; }
+		public static State State { get; set; }
 
 		/// <value>
 		/// The socket used for connecting to the server.
 		/// </value>
-		internal AsyncSocket Socket { get; set; }
+		internal static AsyncSocket Socket { get; set; }
 
 		/// <value>
 		/// The current SASL processor based on server communication.
 		/// </value>
-		public SASLProcessor Processor { get; set; }
+		public static SASLProcessor Processor { get; set; }
 
 		/// <value>
 		/// Are we authenticated yet?
 		/// </value>
-		public bool Authenticated { get; set; }
+		public static bool Authenticated { get; set; }
 
 		/// <summary>
 		/// Is the stream currently compressed?
 		/// </summary>
-		public bool Compressed { get; set; }
+		public static bool Compressed { get; set; }
 
-		public string Algorithm { get; set; }
+		public static string Algorithm { get; set; }
 
-		public XmlDocument Document
+		public static XmlDocument Document
 		{
 			get { return _doc; }
 		}

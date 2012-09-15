@@ -33,13 +33,13 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data = null)
 		{
-			var stream = (Stream) Reg.GetTag("stream", Namespaces.Stream, Current.Document);
+			var stream = (Stream) Reg.GetTag("stream", Namespaces.Stream);
 			stream.Version = "1.0";
 			stream.To = UbietySettings.Id.Server;
 			stream.Ns = Namespaces.Client;
 			stream.Lang = "en";
-			Current.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
-			Current.State = new ServerFeaturesState();
+			ProtocolState.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+			ProtocolState.State = new ServerFeaturesState();
 		}
 	}
 }

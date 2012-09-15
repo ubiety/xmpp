@@ -33,10 +33,10 @@ namespace ubiety.states
 		{
 			if (data != null && data.Name != "compressed") return;
 			Logger.Debug(this, "Starting compression of the socket");
-			Current.Socket.StartCompression(Current.Algorithm);
-			Current.Compressed = true;
-			Current.State = new ConnectedState();
-			Current.State.Execute();
+			ProtocolState.Socket.StartCompression(ProtocolState.Algorithm);
+			ProtocolState.Compressed = true;
+			ProtocolState.State = new ConnectedState();
+			ProtocolState.State.Execute();
 		}
 	}
 }

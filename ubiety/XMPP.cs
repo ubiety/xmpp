@@ -63,9 +63,6 @@ namespace ubiety
 	/// </example>
 	public class XMPP
 	{
-		private static readonly Errors Errors = Errors.Instance;
-		private static readonly ProtocolState States = ProtocolState.Instance;
-
 		///<summary>
 		///</summary>
 		public static readonly string Version = typeof (XMPP).Assembly.GetName().Version.ToString();
@@ -79,7 +76,7 @@ namespace ubiety
 		{
 			_reg.AddAssembly(typeof (XMPP).Assembly);
 			Errors.OnError += OnError;
-			States.Socket = new AsyncSocket();
+			ProtocolState.Socket = new AsyncSocket();
 		}
 
 		/// <summary>
@@ -104,8 +101,8 @@ namespace ubiety
 			//Logger.InfoFormat(typeof (XMPP), "Connecting to {0}", States.Socket.Hostname);
 
 			// Set the current state to connecting and start the process.
-			States.State = new ConnectingState();
-			States.State.Execute();
+			ProtocolState.State = new ConnectingState();
+			ProtocolState.State.Execute();
 		}
 
 		/// <summary>
@@ -113,9 +110,9 @@ namespace ubiety
 		/// </summary>
 		public void Disconnect()
 		{
-			if ((States.State is DisconnectState)) return;
-			States.State = new DisconnectState();
-			States.State.Execute();
+			if ((ProtocolState.State is DisconnectState)) return;
+			ProtocolState.State = new DisconnectState();
+			ProtocolState.State.Execute();
 		}
 
 		private void OnError(object sender, ErrorEventArgs e)
@@ -137,7 +134,7 @@ namespace ubiety
 		/// </value>
 		public bool Connected
 		{
-			get { return States.State.GetType() != typeof (DisconnectedState); }
+			get { return ProtocolState.State.GetType() != typeof (DisconnectedState); }
 		}
 
 		#endregion

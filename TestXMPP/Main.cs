@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using TestXMPP.Properties;
@@ -6,6 +7,7 @@ using ubiety;
 using ubiety.common;
 using ubiety.core;
 using ubiety.registries;
+using ErrorEventArgs = ubiety.ErrorEventArgs;
 
 namespace TestXMPP
 {
@@ -16,7 +18,7 @@ namespace TestXMPP
 		public Main()
 		{
 			InitializeComponent();
-			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Application.StartupPath + @"\ubiety.compression.sharpziplib.dll"));
+			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Path.Combine(Application.StartupPath, "ubiety.compression.sharpziplib.dll")));
 			Errors.Instance.OnError += Errors_OnError;
 			_xmpp = new XMPP(); 
 			slVersion.Text = Resources.Version_Label + XMPP.Version;

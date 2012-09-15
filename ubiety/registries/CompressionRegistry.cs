@@ -71,13 +71,13 @@ namespace ubiety.registries
 				}
 				else
 				{
-					Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+					Errors.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
 					return null;
 				}
 			}
 			catch (Exception e)
 			{
-				Errors.Instance.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+				Errors.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
 				Logger.Error(this, e);
 			}
 			return stream;

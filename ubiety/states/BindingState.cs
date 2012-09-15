@@ -30,12 +30,12 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				var a = (Bind) Reg.GetTag("bind", Namespaces.Bind, Current.Document);
-				var b = (Iq) Reg.GetTag("iq", Namespaces.Client, Current.Document);
+				var a = (Bind) Reg.GetTag("bind", Namespaces.Bind);
+				var b = (Iq) Reg.GetTag("iq", Namespaces.Client);
 
 				if (UbietySettings.Id.Resource != null)
 				{
-					var res = Reg.GetTag("resource", Namespaces.Bind, Current.Document);
+					var res = Reg.GetTag("resource", Namespaces.Bind);
 					res.InnerText = UbietySettings.Id.Resource;
 					a.AddChildTag(res);
 				}
@@ -43,7 +43,7 @@ namespace ubiety.states
 				b.IqType = IqType.Set;
 				b.Payload = a;
 
-				Current.Socket.Write(b);
+				ProtocolState.Socket.Write(b);
 			}
 			else
 			{
@@ -54,15 +54,15 @@ namespace ubiety.states
 					if (iq.IqType == IqType.Error)
 					{
 						var e = iq["error"];
-						if (e != null) Errors.Instance.SendError(this, ErrorType.XMLError, e.InnerText);
+						if (e != null) Errors.SendError(this, ErrorType.XMLError, e.InnerText);
 					}
 					bind = iq.Payload as Bind;
 				}
 				if (bind != null) UbietySettings.Id = bind.XID.XID;
 				Logger.InfoFormat(this, "Current XID is now: {0}", UbietySettings.Id);
 
-				Current.State = new SessionState();
-				Current.State.Execute();
+				ProtocolState.State = new SessionState();
+				ProtocolState.State.Execute();
 			}
 		}
 	}

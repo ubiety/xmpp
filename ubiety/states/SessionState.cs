@@ -1,6 +1,6 @@
 // SessionState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -28,22 +28,22 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				var iq = (Iq)Reg.GetTag("iq", Namespaces.Client, Current.Document);
-				var sess = Reg.GetTag("session", Namespaces.Session, Current.Document);
+				var iq = (Iq)Reg.GetTag("iq", Namespaces.Client);
+				var sess = Reg.GetTag("session", Namespaces.Session);
 
 				iq.From = UbietySettings.Id;
 				iq.To = UbietySettings.Id.Server;
 				iq.IqType = IqType.Set;
 				iq.Payload = sess;
 
-				Current.Socket.Write(iq);
+				ProtocolState.Socket.Write(iq);
 			}
 			else
 			{
-				var p = Reg.GetTag("presence", Namespaces.Client, Current.Document);
-				Current.Socket.Write(p);
+				var p = Reg.GetTag("presence", Namespaces.Client);
+				ProtocolState.Socket.Write(p);
 
-				Current.State = new RunningState();
+				ProtocolState.State = new RunningState();
 			}
 		}
 	}

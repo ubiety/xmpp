@@ -42,7 +42,7 @@ namespace ubiety.net
 		private const int BufferSize = 4096;
 		private readonly byte[] _buff = new byte[BufferSize];
 		private readonly Address _dest;
-		private readonly ProtocolState _states = ProtocolState.Instance;
+		//private readonly ProtocolState _states = ProtocolState.Instance;
 		private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
 		private readonly UTF8Encoding _utf = new UTF8Encoding();
 		private ICompression _comp;
@@ -91,7 +91,7 @@ namespace ubiety.net
 			}
 			else
 			{
-				Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, "Unable to obtain server IP address.");
+				Errors.SendError(this, ErrorType.ConnectionTimeout, "Unable to obtain server IP address.");
 				return;
 			}
 
@@ -120,7 +120,7 @@ namespace ubiety.net
 			}
 			catch (SocketException e)
 			{
-				Errors.Instance.SendError(this, ErrorType.ConnectionTimeout, e.Message);
+				Errors.SendError(this, ErrorType.ConnectionTimeout, e.Message);
 			}
 		}
 
@@ -138,8 +138,8 @@ namespace ubiety.net
 
 				_stream.BeginRead(_buff, 0, BufferSize, Receive, null);
 
-				_states.State = new ConnectedState();
-				_states.State.Execute();
+				ProtocolState.State = new ConnectedState();
+				ProtocolState.State.Execute();
 			}
 			finally
 			{
@@ -178,7 +178,7 @@ namespace ubiety.net
 			catch (Exception e)
 			{
 				Logger.ErrorFormat(this, "SSL Error: {0}", e);
-				Errors.Instance.SendError(this, ErrorType.XMLError, "SSL connection error", true);
+				Errors.SendError(this, ErrorType.XMLError, "SSL connection error", true);
 			}
 		}
 
@@ -223,7 +223,7 @@ namespace ubiety.net
 				// Clear the buffer otherwise we get leftover tags and it confuses the parser.
 				_buff.Clear();
 
-				if (!Connected || _states.State is DisconnectedState) return;
+				if (!Connected || ProtocolState.State is DisconnectedState) return;
 
 				_stream.BeginRead(_buff, 0, _buff.Length, Receive, null);
 			}

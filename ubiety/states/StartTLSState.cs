@@ -1,6 +1,6 @@
 // StartTLSState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -33,9 +33,9 @@ namespace ubiety.states
 		public override void Execute(Tag data = null)
 		{
 			if (data != null && data.LocalName != "proceed") return;
-			Current.Socket.StartSecure();
-			Current.State = new ConnectedState();
-			Current.State.Execute();
+			ProtocolState.Socket.StartSecure();
+			ProtocolState.State = new ConnectedState();
+			ProtocolState.State.Execute();
 		}
 	}
 }

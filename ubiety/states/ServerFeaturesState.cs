@@ -44,7 +44,7 @@ namespace ubiety.states
 				var s = data as Stream;
 				if (!s.Version.StartsWith("1."))
 				{
-					Errors.Instance.SendError(this, ErrorType.WrongProtocolVersion, "Expecting stream:features from 1.x server");
+					Errors.SendError(this, ErrorType.WrongProtocolVersion, "Expecting stream:features from 1.x server");
 					return;
 				}
 				f = s.Features;
@@ -58,32 +58,32 @@ namespace ubiety.states
 			{
 				if (f.StartTLS != null && UbietySettings.SSL)
 				{
-					Current.State = new StartTLSState();
-					var tls = (StartTLS) Reg.GetTag("starttls", Namespaces.StartTLS, Current.Document);
-					Current.Socket.Write(tls);
+					ProtocolState.State = new StartTLSState();
+					var tls = (StartTLS) Reg.GetTag("starttls", Namespaces.StartTLS);
+					ProtocolState.Socket.Write(tls);
 					return;
 				}
 
-				if (!Current.Authenticated)
+				if (!ProtocolState.Authenticated)
 				{
 					Logger.Debug(this, "Creating SASL Processor");
-					Current.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
-					if (Current.Processor == null)
+					ProtocolState.Processor = SASLProcessor.CreateProcessor(f.StartSASL.SupportedTypes);
+					if (ProtocolState.Processor == null)
 					{
 						Logger.Debug(this, "No allowed type available. Allow more authentication options.");
-						Current.State = new DisconnectState();
-						Current.State.Execute();
+						ProtocolState.State = new DisconnectState();
+						ProtocolState.State.Execute();
 						return;
 					}
 					Logger.Debug(this, "Sending auth with mechanism type");
-					Current.Socket.Write(Current.Processor.Initialize());
+					ProtocolState.Socket.Write(ProtocolState.Processor.Initialize());
 
-					Current.State = new SASLState();
+					ProtocolState.State = new SASLState();
 					return;
 				}
 
 				// Takes place after authentication according to XEP-0170
-				if (!Current.Compressed && CompressionRegistry.AlgorithmsAvailable && !UbietySettings.SSL && f.Compression != null)
+				if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable && !UbietySettings.SSL && f.Compression != null)
 				{
 					Logger.Info(this, "Starting compression");
 					// Do we have a stream for any of the compressions supported by the server?
@@ -91,21 +91,21 @@ namespace ubiety.states
 						f.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
 					{
 						Logger.DebugFormat(this, "Using {0} for compression", algorithm);
-						var c = Reg.GetTag("compress", Namespaces.CompressionProtocol, Current.Document);
-						var m = Reg.GetTag("method", Namespaces.CompressionProtocol, Current.Document);
+						var c = Reg.GetTag("compress", Namespaces.CompressionProtocol);
+						var m = Reg.GetTag("method", Namespaces.CompressionProtocol);
 
-						m.InnerText = Current.Algorithm = algorithm;
+						m.InnerText = ProtocolState.Algorithm = algorithm;
 						c.AddChildTag(m);
-						Current.Socket.Write(c);
-						Current.State = new CompressedState();
+						ProtocolState.Socket.Write(c);
+						ProtocolState.State = new CompressedState();
 						return;
 					}
 				}
 			}
 
 			Logger.Debug(this, "Authenticated");
-			Current.State = new BindingState();
-			Current.State.Execute();
+			ProtocolState.State = new BindingState();
+			ProtocolState.State.Execute();
 		}
 	}
 }

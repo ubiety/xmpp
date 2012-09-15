@@ -28,7 +28,7 @@ namespace ubiety.states
 		{
 			Logger.Debug(this, "Cleaning up");
 			ProtocolParser.Reset();
-			Current.Socket.Disconnect();
+			ProtocolState.Socket.Disconnect();
 		}
 	}
 }

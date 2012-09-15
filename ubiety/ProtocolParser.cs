@@ -37,7 +37,6 @@ namespace ubiety
 	{
 		private static readonly XmlNamespaceManager Ns;
 		private static readonly TagRegistry Reg = TagRegistry.Instance;
-		private static readonly ProtocolState States = ProtocolState.Instance;
 		private static XmlElement _elem;
 		private static XmlElement _root;
 
@@ -48,7 +47,7 @@ namespace ubiety
 		{
 			Logger.Info(typeof (ProtocolParser), "Setting up environment");
 			Settings = new XmlReaderSettings {ConformanceLevel = ConformanceLevel.Fragment};
-			Ns = new XmlNamespaceManager(States.Document.NameTable);
+			Ns = new XmlNamespaceManager(ProtocolState.Document.NameTable);
 
 			Ns.AddNamespace("", Namespaces.Client);
 			Ns.AddNamespace("stream", Namespaces.Stream);
@@ -59,7 +58,7 @@ namespace ubiety
 		/// </summary>
 		public static void Parse(string message)
 		{
-			if (States.State is DisconnectedState)
+			if (ProtocolState.State is DisconnectedState)
 			{
 				Logger.Debug(typeof (ProtocolParser), "Closed.  Nothing to do");
 				return;
@@ -72,8 +71,8 @@ namespace ubiety
 			{
 				Logger.Info(typeof (ProtocolParser), "End of stream received from server");
 				// Just close the socket.  We don't need to reply but we will signal we aren't connected.
-				States.State = new DisconnectedState();
-				States.State.Execute();
+				ProtocolState.State = new DisconnectedState();
+				ProtocolState.State.Execute();
 				return;
 			}
 
@@ -111,12 +110,12 @@ namespace ubiety
 			catch (XmlException e)
 			{
 				Logger.ErrorFormat(typeof (ProtocolParser), "Message Parsing Error: {0}", e);
-				Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.XMLError,
+				Errors.SendError(typeof (ProtocolParser), ErrorType.XMLError,
 				                          "Error parsing incoming XML.  Please try again.");
-				if (States.Socket.Connected)
+				if (ProtocolState.Socket.Connected)
 				{
-					States.State = new DisconnectState();
-					States.State.Execute();
+					ProtocolState.State = new DisconnectState();
+					ProtocolState.State.Execute();
 				}
 			}
 			catch (InvalidOperationException e)
@@ -129,7 +128,7 @@ namespace ubiety
 		{
 			if (_elem != null)
 			{
-				_elem.AppendChild(States.Document.CreateTextNode(_reader.Value));
+				_elem.AppendChild(ProtocolState.Document.CreateTextNode(_reader.Value));
 			}
 		}
 
@@ -159,7 +158,7 @@ namespace ubiety
 
 			var ns = Ns.LookupNamespace(_reader.Prefix);
 			var q = new XmlQualifiedName(_reader.LocalName, ns);
-			XmlElement elem = Reg.GetTag(q, States.Document);
+			XmlElement elem = Reg.GetTag(q);
 
 			foreach (string attrname in ht.Keys)
 			{
@@ -169,14 +168,14 @@ namespace ubiety
 					var prefix = attrname.Substring(0, colon);
 					var name = attrname.Substring(colon + 1);
 
-					var attr = States.Document.CreateAttribute(prefix, name, Ns.LookupNamespace(prefix));
+					var attr = ProtocolState.Document.CreateAttribute(prefix, name, Ns.LookupNamespace(prefix));
 					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);
 				}
 				else
 				{
-					var attr = States.Document.CreateAttribute(attrname);
+					var attr = ProtocolState.Document.CreateAttribute(attrname);
 					attr.InnerXml = (string) ht[attrname];
 
 					elem.SetAttributeNode(attr);
@@ -187,7 +186,7 @@ namespace ubiety
 			{
 				if (elem.Name != "stream:stream")
 				{
-					Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.WrongProtocolVersion,
+					Errors.SendError(typeof (ProtocolParser), ErrorType.WrongProtocolVersion,
 					                          "Missing stream:stream from server");
 					return;
 				}
@@ -211,14 +210,14 @@ namespace ubiety
 
 			if ((_elem.Name != _reader.Name))
 			{
-				Errors.Instance.SendError(typeof (ProtocolParser), ErrorType.XMLError, "Wrong element");
+				Errors.SendError(typeof (ProtocolParser), ErrorType.XMLError, "Wrong element");
 				return;
 			}
 
 			var parent = (XmlElement) _elem.ParentNode;
 			if (parent == null)
 			{
-				Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", States.State);
+				Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", ProtocolState.State);
 				UbietyMessages.Instance.OnAllMessages(new MessageArgs { Tag = (Tag) _elem });
 			}
 			_elem = parent;
@@ -227,7 +226,7 @@ namespace ubiety
 		public static void Reset()
 		{
 			_root = null;
-			States.Authenticated = false;
+			ProtocolState.Authenticated = false;
 		}
 	}
 }
