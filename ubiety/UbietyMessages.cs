@@ -17,6 +17,7 @@
 
 using System;
 using ubiety.common;
+using ubiety.states;
 
 namespace ubiety
 {
@@ -54,6 +55,16 @@ namespace ubiety
 		{
 			var handler = AllMessages;
 			if (handler != null) handler(this, e);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="text"></param>
+		/// <exception cref="NotImplementedException"></exception>
+		public void SendMessage(string text)
+		{
+			ProtocolState.Instance.Socket.Write(text);
 		}
 	}
 }

@@ -23,12 +23,8 @@ namespace ubiety.logging
 	/// <summary>
 	/// A simple logging class that wraps log4net
 	/// </summary>
-	public class Logger
+	public static class Logger
 	{
-		private Logger()
-		{
-		}
-
 		#region .: Enabled Checks :.
 
 		/// <summary>
@@ -241,9 +237,9 @@ namespace ubiety.logging
 			return LogManager.GetLogger(name).IsFatalEnabled;
 		}
 
-	  #endregion
+		#endregion
 
-	  #region .: Debug :.
+		#region .: Debug :.
 
 		/// <summary>
 		/// 
@@ -338,9 +334,9 @@ namespace ubiety.logging
 			LogManager.GetLogger(name).Debug(format, parameters);
 		}
 
-	  #endregion
+		#endregion
 
-	  #region .: Info :.
+		#region .: Info :.
 
 		/// <summary>
 		/// 
@@ -435,9 +431,9 @@ namespace ubiety.logging
 			LogManager.GetLogger(name).Info(format, parameters);
 		}
 
-	  #endregion
+		#endregion
 
-	  #region .: Warn :.
+		#region .: Warn :.
 
 		/// <summary>
 		/// 
@@ -493,10 +489,10 @@ namespace ubiety.logging
 		/// <param name="parameters">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void WarnFormat(object o, string format, params object[] parameters)
-	  {
-		 WarnFormat(o.GetType(), format, parameters);
-	  }
+		public static void WarnFormat(object o, string format, params object[] parameters)
+		{
+			WarnFormat(o.GetType(), format, parameters);
+		}
 
 		/// <summary>
 		/// 
@@ -510,10 +506,10 @@ namespace ubiety.logging
 		/// <param name="parameters">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void WarnFormat(Type t, string format, params object[] parameters)
-	  {
-		 WarnFormat(t.FullName, format, parameters);
-	  }
+		public static void WarnFormat(Type t, string format, params object[] parameters)
+		{
+			WarnFormat(t.FullName, format, parameters);
+		}
 
 		/// <summary>
 		/// 
@@ -527,14 +523,14 @@ namespace ubiety.logging
 		/// <param name="parameters">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void WarnFormat(string name, string format, params object[] parameters)
-	  {
-		 LogManager.GetLogger(name).Warn(format, parameters);
-	  }
+		public static void WarnFormat(string name, string format, params object[] parameters)
+		{
+			LogManager.GetLogger(name).Warn(format, parameters);
+		}
 
-	  #endregion
+		#endregion
 
-	  #region .: Error :.
+		#region .: Error :.
 
 		/// <summary>
 		/// 
@@ -545,10 +541,10 @@ namespace ubiety.logging
 		/// <param name="message">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void Error(object o, object message)
-	  {
-		 Error(o.GetType(), message);
-	  }
+		public static void Error(object o, object message)
+		{
+			Error(o.GetType(), message);
+		}
 
 		/// <summary>
 		/// 
@@ -559,10 +555,10 @@ namespace ubiety.logging
 		/// <param name="message">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void Error(Type t, object message)
-	  {
-		 Error(t.FullName, message);
-	  }
+		public static void Error(Type t, object message)
+		{
+			Error(t.FullName, message);
+		}
 
 		/// <summary>
 		/// 
@@ -573,107 +569,10 @@ namespace ubiety.logging
 		/// <param name="message">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void Error(string name, object message)
-	  {
-		 LogManager.GetLogger(name).Error(message);
-	  }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="o">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		/// <param name="format">
-		/// A <see cref="System.String"/>
-		/// </param>
-		/// <param name="parameters">
-		/// A <see cref="System.Object"/>
-		/// </param>
-	  public static void ErrorFormat(object o, string format, params object[] parameters)
-	  {
-		 ErrorFormat(o.GetType(), format, parameters);
-	  }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="t">
-		/// A <see cref="Type"/>
-		/// </param>
-		/// <param name="format">
-		/// A <see cref="System.String"/>
-		/// </param>
-		/// <param name="parameters">
-		/// A <see cref="System.Object"/>
-		/// </param>
-	  public static void ErrorFormat(Type t, string format, params object[] parameters)
-	  {
-		 ErrorFormat(t.FullName, format, parameters);
-	  }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="name">
-		/// A <see cref="System.String"/>
-		/// </param>
-		/// <param name="format">
-		/// A <see cref="System.String"/>
-		/// </param>
-		/// <param name="parameters">
-		/// A <see cref="System.Object"/>
-		/// </param>
-	  public static void ErrorFormat(string name, string format, params object[] parameters)
-	  {
-		 LogManager.GetLogger(name).Error(format, parameters);
-	  }
-
-	  #endregion
-
-	  #region .: Fatal :.
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="o">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		/// <param name="message">
-		/// A <see cref="System.Object"/>
-		/// </param>
-	  public static void Fatal(object o, object message)
-	  {
-		 Fatal(o.GetType(), message);
-	  }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="t">
-		/// A <see cref="Type"/>
-		/// </param>
-		/// <param name="message">
-		/// A <see cref="System.Object"/>
-		/// </param>
-	  public static void Fatal(Type t, object message)
-	  {
-		 Fatal(t.FullName, message);
-	  }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="name">
-		/// A <see cref="System.String"/>
-		/// </param>
-		/// <param name="message">
-		/// A <see cref="System.Object"/>
-		/// </param>
-	  public static void Fatal(string name, object message)
-	  {
-		 LogManager.GetLogger(name).Fatal(message);
-	  }
+		public static void Error(string name, object message)
+		{
+			LogManager.GetLogger(name).Error(message);
+		}
 
 		/// <summary>
 		/// 
@@ -687,10 +586,10 @@ namespace ubiety.logging
 		/// <param name="parameters">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void FatalFormat(object o, string format, params object[] parameters)
-	  {
-		 FatalFormat(o.GetType(), format, parameters);
-	  }
+		public static void ErrorFormat(object o, string format, params object[] parameters)
+		{
+			ErrorFormat(o.GetType(), format, parameters);
+		}
 
 		/// <summary>
 		/// 
@@ -704,10 +603,10 @@ namespace ubiety.logging
 		/// <param name="parameters">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void FatalFormat(Type t, string format, params object[] parameters)
-	  {
-		 FatalFormat(t.FullName, format, parameters);
-	  }
+		public static void ErrorFormat(Type t, string format, params object[] parameters)
+		{
+			ErrorFormat(t.FullName, format, parameters);
+		}
 
 		/// <summary>
 		/// 
@@ -721,11 +620,108 @@ namespace ubiety.logging
 		/// <param name="parameters">
 		/// A <see cref="System.Object"/>
 		/// </param>
-	  public static void FatalFormat(string name, string format, params object[] parameters)
-	  {
-		 LogManager.GetLogger(name).Fatal(format, parameters);
-	  }
+		public static void ErrorFormat(string name, string format, params object[] parameters)
+		{
+			LogManager.GetLogger(name).Error(format, parameters);
+		}
 
-	  #endregion
-   }
+		#endregion
+
+		#region .: Fatal :.
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="o">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		/// <param name="message">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public static void Fatal(object o, object message)
+		{
+			Fatal(o.GetType(), message);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="t">
+		/// A <see cref="Type"/>
+		/// </param>
+		/// <param name="message">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public static void Fatal(Type t, object message)
+		{
+			Fatal(t.FullName, message);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="name">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="message">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public static void Fatal(string name, object message)
+		{
+			LogManager.GetLogger(name).Fatal(message);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="o">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		/// <param name="format">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="parameters">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public static void FatalFormat(object o, string format, params object[] parameters)
+		{
+			FatalFormat(o.GetType(), format, parameters);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="t">
+		/// A <see cref="Type"/>
+		/// </param>
+		/// <param name="format">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="parameters">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public static void FatalFormat(Type t, string format, params object[] parameters)
+		{
+			FatalFormat(t.FullName, format, parameters);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="name">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="format">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="parameters">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		public static void FatalFormat(string name, string format, params object[] parameters)
+		{
+			LogManager.GetLogger(name).Fatal(format, parameters);
+		}
+
+		#endregion
+	}
 }

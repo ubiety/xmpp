@@ -35,6 +35,8 @@ namespace ubiety.core
 	[XmppTag("session", Namespaces.Session, typeof(GenericTag))]
 	[XmppTag("resource", Namespaces.Bind, typeof(GenericTag))]
 	[XmppTag("error", Namespaces.Client, typeof(GenericTag))]
+	[XmppTag("ping", Namespaces.Ping, typeof(GenericTag))]
+	[XmppTag("query", Namespaces.Roster, typeof(GenericTag))]
 
 	// SASL
 	[XmppTag("success", Namespaces.SASL, typeof(GenericTag))]

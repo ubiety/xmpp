@@ -31,7 +31,7 @@ namespace ubiety.states
 
 		private ProtocolState()
 		{
-			State = new ClosedState();
+			State = new DisconnectedState();
 			UbietyMessages.Instance.AllMessages += UbietyMessagesAllMessages;
 		}
 

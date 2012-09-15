@@ -1,6 +1,6 @@
 // Tag.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -24,7 +24,7 @@ namespace ubiety.common
 	/// <summary>
 	/// Tag is the class from which all tags are subclassed.
 	/// </summary>
-	public class Tag : XmlElement
+	public abstract class Tag : XmlElement
 	{
 		private static int _packetCounter;
 
@@ -34,14 +34,14 @@ namespace ubiety.common
 		/// <param name="prefix">Tag Prefix</param>
 		/// <param name="qname">Qualified Namespace</param>
 		/// <param name="doc">XmlDocument associated with the tag</param>
-		public Tag(string prefix, XmlQualifiedName qname, XmlDocument doc)
+		protected Tag(string prefix, XmlQualifiedName qname, XmlDocument doc)
 			: base(prefix, qname.Name, qname.Namespace, doc)
 		{
 		}
 
 		///<summary>
 		///</summary>
-		public Tag() : base("", "", "", new XmlDocument())
+		protected Tag() : base("", "", "", new XmlDocument())
 		{
 		}
 
@@ -62,7 +62,7 @@ namespace ubiety.common
 		///<returns></returns>
 		public T GetEnumAttribute<T>(string name)
 		{
-			string value = Attributes[name].Value;
+			var value = Attributes[name].Value;
 			return (T) Enum.Parse(typeof (T), value, true);
 		}
 
@@ -86,6 +86,8 @@ namespace ubiety.common
 			set { InnerText = Convert.ToBase64String(value); }
 		}
 
+		#endregion
+	
 		///<summary>
 		///</summary>
 		///<param name="one"></param>
@@ -103,7 +105,5 @@ namespace ubiety.common
 		{
 			return OuterXml;
 		}
-
-		#endregion
 	}
 }

@@ -88,5 +88,12 @@ namespace ubiety.common
 		/// Service discovery namespace
 		/// </summary>
 		public const string DiscoInfo = "http://jabber.org/protocol/disco#info";
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public const string Ping = "urn:xmpp:ping";
+
+		public const string Roster = "jabber:iq:roster";
 	}
 }
