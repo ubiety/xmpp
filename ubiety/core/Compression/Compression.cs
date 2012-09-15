@@ -29,8 +29,8 @@ namespace ubiety.core.compression
 		///<summary>
 		///</summary>
 		///<param name="doc"></param>
-		public Compression(XmlDocument doc)
-			: base("", new XmlQualifiedName("compression", Namespaces.Compression), doc)
+		public Compression()
+			: base("", new XmlQualifiedName("compression", Namespaces.Compression))
 		{
 		}
 

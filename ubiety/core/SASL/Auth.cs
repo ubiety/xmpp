@@ -29,7 +29,7 @@ namespace ubiety.core.SASL
 		///<summary>
 		///</summary>
 		///<param name="doc"></param>
-		public Auth(XmlDocument doc) : base("", new XmlQualifiedName("auth", Namespaces.SASL), doc)
+		public Auth() : base("", new XmlQualifiedName("auth", Namespaces.SASL))
 		{
 		}
 

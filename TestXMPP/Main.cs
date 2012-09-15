@@ -47,7 +47,7 @@ namespace TestXMPP
 
 		private void BtnSendClick(object sender, EventArgs e)
 		{
-			UbietyMessages.Instance.SendMessage(txtMessage.Text);
+			UbietyMessages.SendMessage(txtMessage.Text);
 		}
 	}
 }

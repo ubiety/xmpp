@@ -29,13 +29,13 @@ namespace ubiety.core
 		///<summary>
 		///</summary>
 		///<param name="doc"></param>
-		public Jid(XmlDocument doc) : base("", new XmlQualifiedName("jid", Namespaces.Bind), doc)
+		public Jid() : base("", new XmlQualifiedName("jid", Namespaces.Bind))
 		{
 		}
 
 		///<summary>
 		///</summary>
-		public JID XID
+		public JID JID
 		{
 			get { return new JID(InnerText); }
 		}

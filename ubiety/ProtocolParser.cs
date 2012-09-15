@@ -157,7 +157,7 @@ namespace ubiety
 
 			var ns = Ns.LookupNamespace(_reader.Prefix);
 			var q = new XmlQualifiedName(_reader.LocalName, ns);
-			XmlElement elem = TagRegistry.GetTag(q);
+			XmlElement elem = TagRegistry.GetTag<Tag>(q);
 
 			foreach (string attrname in ht.Keys)
 			{

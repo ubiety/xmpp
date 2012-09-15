@@ -31,12 +31,12 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				var a = (Bind) TagRegistry.GetTag("bind", Namespaces.Bind);
-				var b = (Iq) TagRegistry.GetTag("iq", Namespaces.Client);
+				var a = TagRegistry.GetTag<Bind>("bind", Namespaces.Bind);
+				var b = TagRegistry.GetTag<Iq>("iq", Namespaces.Client);
 
 				if (UbietySettings.Id.Resource != null)
 				{
-					var res = TagRegistry.GetTag("resource", Namespaces.Bind);
+					var res = TagRegistry.GetTag<GenericTag>("resource", Namespaces.Bind);
 					res.InnerText = UbietySettings.Id.Resource;
 					a.AddChildTag(res);
 				}
@@ -59,7 +59,7 @@ namespace ubiety.states
 					}
 					bind = iq.Payload as Bind;
 				}
-				if (bind != null) UbietySettings.Id = bind.XID.XID;
+				if (bind != null) UbietySettings.Id = bind.JidTag.JID;
 				Logger.InfoFormat(this, "Current XID is now: {0}", UbietySettings.Id);
 
 				ProtocolState.State = new SessionState();

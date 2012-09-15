@@ -60,7 +60,7 @@ namespace ubiety.common.SASL
 		{
 			base.Initialize();
 
-			var tag = (Auth) TagRegistry.GetTag("auth", Namespaces.SASL);
+			var tag = TagRegistry.GetTag<Auth>("auth", Namespaces.SASL);
 			tag.Mechanism = Mechanism.GetMechanism(MechanismType.DigestMD5);
 			return tag;
 		}
@@ -90,7 +90,7 @@ namespace ubiety.common.SASL
 			var chall = tag;
 			Logger.Debug(this, _enc.GetString(tag.Bytes));
 			PopulateDirectives(chall);
-			var res = TagRegistry.GetTag("response", Namespaces.SASL);
+			var res = TagRegistry.GetTag<GenericTag>("response", Namespaces.SASL);
 			if (this["rspauth"] == null)
 			{
 				GenerateResponseHash();

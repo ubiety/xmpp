@@ -31,8 +31,8 @@ namespace ubiety.core
 		/// Creates a new instance of the StartTLS tag.
 		/// </summary>
 		/// <param name="doc">XmlDocument used for the tag.</param>
-		public StartTLS(XmlDocument doc)
-			: base("", new XmlQualifiedName("starttls", Namespaces.StartTLS), doc)
+		public StartTLS()
+			: base("", new XmlQualifiedName("starttls", Namespaces.StartTLS))
 		{
 		}
 

@@ -53,7 +53,7 @@ namespace ubiety.common.SASL
 			sb.Append((char) 0);
 			sb.Append(UbietySettings.Password);
 
-			var auth = (Auth) TagRegistry.GetTag("auth", Namespaces.SASL);
+			var auth = TagRegistry.GetTag<Auth>("auth", Namespaces.SASL);
 
 			auth.Text = Convert.ToBase64String(Encoding.UTF8.GetBytes(sb.ToString()));
 			auth.Mechanism = Mechanism.GetMechanism(MechanismType.Plain);

@@ -47,7 +47,7 @@ namespace ubiety.core.iq
 		///<summary>
 		///</summary>
 		///<param name="doc"></param>
-		public Iq(XmlDocument doc) : base("", new XmlQualifiedName("iq", Namespaces.Client), doc)
+		public Iq() : base("", new XmlQualifiedName("iq", Namespaces.Client))
 		{
 			Id = GetNextId();
 		}

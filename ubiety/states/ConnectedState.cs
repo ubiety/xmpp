@@ -34,7 +34,7 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data = null)
 		{
-			var stream = (Stream) TagRegistry.GetTag("stream", Namespaces.Stream);
+			var stream = TagRegistry.GetTag<Stream>("stream", Namespaces.Stream);
 			stream.Version = "1.0";
 			stream.To = UbietySettings.Id.Server;
 			stream.Ns = Namespaces.Client;

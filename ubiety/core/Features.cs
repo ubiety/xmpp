@@ -32,8 +32,8 @@ namespace ubiety.core
 		/// 
 		/// </summary>
 		/// <param name="doc"></param>
-		public Features(XmlDocument doc)
-			: base("stream", new XmlQualifiedName("features", Namespaces.Stream), doc)
+		public Features()
+			: base("stream", new XmlQualifiedName("features", Namespaces.Stream))
 		{
 		}
 

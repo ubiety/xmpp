@@ -64,7 +64,7 @@ namespace ubiety.core
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="qname"></param>
-		public GenericTag(XmlDocument doc, XmlQualifiedName qname) : base("", qname, doc)
+		public GenericTag(XmlQualifiedName qname) : base("", qname)
 		{
 		}
 	}

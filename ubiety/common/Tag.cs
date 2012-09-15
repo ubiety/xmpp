@@ -1,6 +1,6 @@
 // Tag.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -18,6 +18,7 @@
 using System;
 using System.Threading;
 using System.Xml;
+using ubiety.states;
 
 namespace ubiety.common
 {
@@ -34,14 +35,14 @@ namespace ubiety.common
 		/// <param name="prefix">Tag Prefix</param>
 		/// <param name="qname">Qualified Namespace</param>
 		/// <param name="doc">XmlDocument associated with the tag</param>
-		protected Tag(string prefix, XmlQualifiedName qname, XmlDocument doc)
-			: base(prefix, qname.Name, qname.Namespace, doc)
+		protected Tag(string prefix, XmlQualifiedName qname)
+			: base(prefix, qname.Name, qname.Namespace, ProtocolState.Document)
 		{
 		}
 
 		///<summary>
 		///</summary>
-		protected Tag() : base("", "", "", new XmlDocument())
+		protected Tag() : base("", "", "", ProtocolState.Document)
 		{
 		}
 

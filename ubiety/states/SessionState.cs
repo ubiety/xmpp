@@ -16,6 +16,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using ubiety.common;
+using ubiety.core;
 using ubiety.core.iq;
 using ubiety.registries;
 
@@ -29,8 +30,8 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				var iq = (Iq)TagRegistry.GetTag("iq", Namespaces.Client);
-				var sess = TagRegistry.GetTag("session", Namespaces.Session);
+				var iq = TagRegistry.GetTag<Iq>("iq", Namespaces.Client);
+				var sess = TagRegistry.GetTag<GenericTag>("session", Namespaces.Session);
 
 				iq.From = UbietySettings.Id;
 				iq.To = UbietySettings.Id.Server;
@@ -41,7 +42,7 @@ namespace ubiety.states
 			}
 			else
 			{
-				var p = TagRegistry.GetTag("presence", Namespaces.Client);
+				var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
 				ProtocolState.Socket.Write(p);
 
 				ProtocolState.State = new RunningState();

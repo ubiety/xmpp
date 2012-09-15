@@ -30,8 +30,8 @@ namespace ubiety.core.disco
 		///<summary>
 		///</summary>
 		///<param name="doc"></param>
-		public C(XmlDocument doc)
-			: base("", new XmlQualifiedName("c", Namespaces.Entity), doc)
+		public C()
+			: base("", new XmlQualifiedName("c", Namespaces.Entity))
 		{
 		}
 

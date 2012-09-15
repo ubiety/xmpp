@@ -64,8 +64,8 @@ namespace ubiety.core
 		/// 
 		/// </summary>
 		/// <param name="doc"></param>
-		public Mechanisms(XmlDocument doc)
-			: base("", new XmlQualifiedName("mechanisms", Namespaces.SASL), doc)
+		public Mechanisms()
+			: base("", new XmlQualifiedName("mechanisms", Namespaces.SASL))
 		{
 		}
 
@@ -107,8 +107,8 @@ namespace ubiety.core
 		/// 
 		/// </summary>
 		/// <param name="doc"></param>
-		public Mechanism(XmlDocument doc)
-			: base("", new XmlQualifiedName("mechanism", Namespaces.SASL), doc)
+		public Mechanism()
+			: base("", new XmlQualifiedName("mechanism", Namespaces.SASL))
 		{
 		}
 
