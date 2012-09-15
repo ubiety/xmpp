@@ -1,6 +1,6 @@
 // CompressionRegistry.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,20 +16,20 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using ubiety.common;
 using ubiety.common.attributes;
+using ubiety.common.extensions;
 using ubiety.common.logging;
 
 namespace ubiety.registries
 {
 	///<summary>
 	///</summary>
-	public sealed class CompressionRegistry : Registry<CompressionRegistry, RegistryAllocator<CompressionRegistry>>
+	public static class CompressionRegistry
 	{
-		private CompressionRegistry()
-		{
-		}
+        private static Dictionary<string, Type> RegisteredItems = new Dictionary<string, Type>();
 
 		/// <summary>
 		/// Add a compression stream to the library.  Zlib is the default.
@@ -37,14 +37,14 @@ namespace ubiety.registries
 		/// <param name="a">
 		/// The assembly containing the stream definition.
 		/// </param>
-		public void AddCompression(Assembly a)
+		public static void AddCompression(Assembly a)
 		{
-			Logger.DebugFormat(this, "Adding assembly {0}", a.FullName);
+			Logger.DebugFormat(typeof(CompressionRegistry), "Adding assembly {0}", a.FullName);
 			
-			var tags = GetAttributes<CompressionAttribute>(a);
+			var tags = a.GetAttributes<CompressionAttribute>();
 			foreach (var tag in tags)
 			{
-				Logger.DebugFormat(this, "Adding {0}", tag.Algorithm);
+                Logger.DebugFormat(typeof(CompressionRegistry), "Adding {0}", tag.Algorithm);
 				RegisteredItems.Add(tag.Algorithm, tag.ClassType);
 			}			
 		}
@@ -58,9 +58,9 @@ namespace ubiety.registries
 		/// <returns>
 		/// The wrapped stream ready for compression.
 		/// </returns>
-		public ICompression GetCompression(string algorithm)
+		public static ICompression GetCompression(string algorithm)
 		{
-			Logger.InfoFormat(this, "Finding algorithm {0}.", algorithm);
+			Logger.InfoFormat(typeof(CompressionRegistry), "Finding algorithm {0}.", algorithm);
 			ICompression stream = null;
 			try
 			{
@@ -71,14 +71,14 @@ namespace ubiety.registries
 				}
 				else
 				{
-					Errors.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+					Errors.SendError(typeof(CompressionRegistry), ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
 					return null;
 				}
 			}
 			catch (Exception e)
 			{
-				Errors.SendError(this, ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
-				Logger.Error(this, e);
+				Errors.SendError(typeof(CompressionRegistry), ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
+				Logger.Error(typeof(CompressionRegistry), e);
 			}
 			return stream;
 		}

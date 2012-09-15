@@ -67,14 +67,12 @@ namespace ubiety
 		///</summary>
 		public static readonly string Version = typeof (XMPP).Assembly.GetName().Version.ToString();
 
-		private readonly TagRegistry _reg = TagRegistry.Instance;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XMPP"/> class.
 		/// </summary>
 		public XMPP()
 		{
-			_reg.AddAssembly(typeof (XMPP).Assembly);
+			TagRegistry.AddAssembly(typeof (XMPP).Assembly);
 			Errors.OnError += OnError;
 			ProtocolState.Socket = new AsyncSocket();
 		}

@@ -67,7 +67,7 @@ namespace ubiety.common.SASL
 
 			_clientFirst = msg.ToString().Substring(3);
 
-			var tag = (Auth)TagRegistry.Instance.GetTag("auth", Namespaces.SASL);
+			var tag = (Auth)TagRegistry.GetTag("auth", Namespaces.SASL);
 			tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
 			tag.Bytes = _utf.GetBytes(msg.ToString());
 			return tag;
@@ -121,7 +121,7 @@ namespace ubiety.common.SASL
 
 						Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
 
-						var resp = TagRegistry.Instance.GetTag("response", Namespaces.SASL);
+						var resp = TagRegistry.GetTag("response", Namespaces.SASL);
 						resp.Bytes = _utf.GetBytes(final.ToString());
 
 						return resp;

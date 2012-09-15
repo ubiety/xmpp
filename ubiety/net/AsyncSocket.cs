@@ -243,7 +243,7 @@ namespace ubiety.net
 		/// <param name="algorithm"></param>
 		public void StartCompression(string algorithm)
 		{
-			_comp = CompressionRegistry.Instance.GetCompression(algorithm);
+			_comp = CompressionRegistry.GetCompression(algorithm);
 			_compressed = true;
 		}
 	}

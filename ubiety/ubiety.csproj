@@ -155,10 +155,7 @@
     <Compile Include="net\dns\Structs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtocolParser.cs" />
-    <Compile Include="registries\Allocator.cs" />
     <Compile Include="registries\CompressionRegistry.cs" />
-    <Compile Include="registries\Registry.cs" />
-    <Compile Include="registries\RegistryAllocator.cs" />
     <Compile Include="registries\TagRegistry.cs" />
     <Compile Include="states\DisconnectedState.cs" />
     <Compile Include="UbietyMessages.cs" />

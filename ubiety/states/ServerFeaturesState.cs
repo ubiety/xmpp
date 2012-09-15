@@ -59,7 +59,7 @@ namespace ubiety.states
 				if (f.StartTLS != null && UbietySettings.SSL)
 				{
 					ProtocolState.State = new StartTLSState();
-					var tls = (StartTLS) Reg.GetTag("starttls", Namespaces.StartTLS);
+					var tls = (StartTLS) TagRegistry.GetTag("starttls", Namespaces.StartTLS);
 					ProtocolState.Socket.Write(tls);
 					return;
 				}
@@ -91,8 +91,8 @@ namespace ubiety.states
 						f.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
 					{
 						Logger.DebugFormat(this, "Using {0} for compression", algorithm);
-						var c = Reg.GetTag("compress", Namespaces.CompressionProtocol);
-						var m = Reg.GetTag("method", Namespaces.CompressionProtocol);
+						var c = TagRegistry.GetTag("compress", Namespaces.CompressionProtocol);
+						var m = TagRegistry.GetTag("method", Namespaces.CompressionProtocol);
 
 						m.InnerText = ProtocolState.Algorithm = algorithm;
 						c.AddChildTag(m);

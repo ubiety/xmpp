@@ -1,6 +1,6 @@
 // ConnectedState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 20011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,6 +17,7 @@
 
 using ubiety.common;
 using ubiety.core;
+using ubiety.registries;
 
 namespace ubiety.states
 {
@@ -33,7 +34,7 @@ namespace ubiety.states
 		/// </param>
 		public override void Execute(Tag data = null)
 		{
-			var stream = (Stream) Reg.GetTag("stream", Namespaces.Stream);
+			var stream = (Stream) TagRegistry.GetTag("stream", Namespaces.Stream);
 			stream.Version = "1.0";
 			stream.To = UbietySettings.Id.Server;
 			stream.Ns = Namespaces.Client;

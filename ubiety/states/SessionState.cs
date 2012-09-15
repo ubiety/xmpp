@@ -17,6 +17,7 @@
 
 using ubiety.common;
 using ubiety.core.iq;
+using ubiety.registries;
 
 namespace ubiety.states
 {
@@ -28,8 +29,8 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				var iq = (Iq)Reg.GetTag("iq", Namespaces.Client);
-				var sess = Reg.GetTag("session", Namespaces.Session);
+				var iq = (Iq)TagRegistry.GetTag("iq", Namespaces.Client);
+				var sess = TagRegistry.GetTag("session", Namespaces.Session);
 
 				iq.From = UbietySettings.Id;
 				iq.To = UbietySettings.Id.Server;
@@ -40,7 +41,7 @@ namespace ubiety.states
 			}
 			else
 			{
-				var p = Reg.GetTag("presence", Namespaces.Client);
+				var p = TagRegistry.GetTag("presence", Namespaces.Client);
 				ProtocolState.Socket.Write(p);
 
 				ProtocolState.State = new RunningState();

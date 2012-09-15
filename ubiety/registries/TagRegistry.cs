@@ -16,10 +16,12 @@
 // Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
 using ubiety.common;
 using ubiety.common.attributes;
+using ubiety.common.extensions;
 using ubiety.common.logging;
 using ubiety.states;
 
@@ -28,25 +30,23 @@ namespace ubiety.registries
 	/// <remarks>
 	/// TagRegistry stores all the construction information for the <seealso cref="Tag">Tags</seealso> the library is aware of.
 	/// </remarks>
-	public sealed class TagRegistry : Registry<TagRegistry, RegistryAllocator<TagRegistry>>
+	public static class TagRegistry
 	{
-		private TagRegistry()
-		{
-		}
+        private static Dictionary<string, Type> RegisteredItems = new Dictionary<string, Type>();
 
 		/// <summary>
 		/// Used to add <seealso cref="Tag">Tag(s)</seealso> to the registry.  Using attributes the <see cref="TagRegistry"/> looks for and adds any appropriate tags found in the assembly.
 		/// </summary>
 		/// <param name="ass">The assembly to search for tags</param>
-		public void AddAssembly(Assembly assembly)
+		public static void AddAssembly(Assembly assembly)
 		{
-			Logger.DebugFormat(this, "Adding assembly {0}", assembly.FullName);
+			Logger.DebugFormat(typeof(CompressionRegistry), "Adding assembly {0}", assembly.FullName);
 
-			var tags = GetAttributes<XmppTagAttribute>(assembly);
-			Logger.DebugFormat(this, "{0,-24}{1,-36}{2}", "Tag Name", "Class", "Namespace");
+			var tags = assembly.GetAttributes<XmppTagAttribute>();
+			Logger.DebugFormat(typeof(CompressionRegistry), "{0,-24}{1,-36}{2}", "Tag Name", "Class", "Namespace");
 			foreach (var tag in tags)
 			{
-				Logger.DebugFormat(this, "{0,-24}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.Ns);
+				Logger.DebugFormat(typeof(CompressionRegistry), "{0,-24}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.Ns);
 				RegisteredItems.Add(new XmlQualifiedName(tag.Name, tag.Ns).ToString(), tag.ClassType);
 			}
 		}
@@ -58,7 +58,7 @@ namespace ubiety.registries
 		/// <param name="ns"></param>
 		/// <param name="doc"></param>
 		/// <returns></returns>
-		public Tag GetTag(string name, string ns)
+		public static Tag GetTag(string name, string ns)
 		{
             return GetTag(new XmlQualifiedName(name, ns));
 		}
@@ -69,16 +69,15 @@ namespace ubiety.registries
 		/// <param name="qname">Qualified Namespace</param>
 		/// <param name="doc">XmlDocument to create tag with</param>
 		/// <returns>A new instance of the requested tag</returns>
-		public Tag GetTag(XmlQualifiedName qname)
+		public static Tag GetTag(XmlQualifiedName qname)
 		{
 			Tag tag = null;
+            Type t;
 
-			Logger.DebugFormat(this, "Finding tag: {0}", qname);
+			Logger.DebugFormat(typeof(CompressionRegistry), "Finding tag: {0}", qname);
 
-			Type t;
 			if (RegisteredItems.TryGetValue(qname.ToString(), out t))
 			{
-				//tag = (Tag)Activator.CreateInstance(t, new object[] { doc });
 				var ctor = t.GetConstructor(new[] {typeof (XmlDocument)});
 				if (ctor == null)
 				{
@@ -92,7 +91,7 @@ namespace ubiety.registries
 			}
 			else
 			{
-				Errors.SendError(this, ErrorType.UnregisteredItem,
+				Errors.SendError(typeof(CompressionRegistry), ErrorType.UnregisteredItem,
 				                          "Tag " + qname + " not found in registry.  Please load appropriate library.");
 				return null;
 			}

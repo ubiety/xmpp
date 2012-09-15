@@ -19,6 +19,7 @@ using ubiety.common;
 using ubiety.common.logging;
 using ubiety.core;
 using ubiety.core.iq;
+using ubiety.registries;
 
 namespace ubiety.states
 {
@@ -30,12 +31,12 @@ namespace ubiety.states
 		{
 			if (data == null)
 			{
-				var a = (Bind) Reg.GetTag("bind", Namespaces.Bind);
-				var b = (Iq) Reg.GetTag("iq", Namespaces.Client);
+				var a = (Bind) TagRegistry.GetTag("bind", Namespaces.Bind);
+				var b = (Iq) TagRegistry.GetTag("iq", Namespaces.Client);
 
 				if (UbietySettings.Id.Resource != null)
 				{
-					var res = Reg.GetTag("resource", Namespaces.Bind);
+					var res = TagRegistry.GetTag("resource", Namespaces.Bind);
 					res.InnerText = UbietySettings.Id.Resource;
 					a.AddChildTag(res);
 				}

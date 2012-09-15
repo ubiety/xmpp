@@ -36,7 +36,7 @@ namespace ubiety
 	internal class ProtocolParser
 	{
 		private static readonly XmlNamespaceManager Ns;
-		private static readonly TagRegistry Reg = TagRegistry.Instance;
+		//private static readonly TagRegistry Reg = TagRegistry.Instance;
 		private static XmlElement _elem;
 		private static XmlElement _root;
 
@@ -158,7 +158,7 @@ namespace ubiety
 
 			var ns = Ns.LookupNamespace(_reader.Prefix);
 			var q = new XmlQualifiedName(_reader.LocalName, ns);
-			XmlElement elem = Reg.GetTag(q);
+			XmlElement elem = TagRegistry.GetTag(q);
 
 			foreach (string attrname in ht.Keys)
 			{

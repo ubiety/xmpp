@@ -18,8 +18,8 @@ namespace TestXMPP
 		public Main()
 		{
 			InitializeComponent();
-			CompressionRegistry.Instance.AddCompression(Assembly.LoadFile(Path.Combine(Application.StartupPath, "ubiety.compression.sharpziplib.dll")));
-			Errors.Instance.OnError += Errors_OnError;
+			CompressionRegistry.AddCompression(Assembly.LoadFile(Path.Combine(Application.StartupPath, "ubiety.compression.sharpziplib.dll")));
+			Errors.OnError += Errors_OnError;
 			_xmpp = new XMPP(); 
 			slVersion.Text = Resources.Version_Label + XMPP.Version;
 		}
