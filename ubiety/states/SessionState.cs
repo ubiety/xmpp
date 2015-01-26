@@ -15,12 +15,12 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety.common;
-using ubiety.core;
-using ubiety.core.iq;
-using ubiety.registries;
+using Ubiety.Common;
+using Ubiety.Core;
+using Ubiety.Core.Iq;
+using Ubiety.Registries;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
 	///<summary>
 	///</summary>

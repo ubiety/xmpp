@@ -19,10 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using ubiety.common;
-using ubiety.infrastructure.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core
+namespace Ubiety.Core
 {
     /// <summary>
     /// </summary>

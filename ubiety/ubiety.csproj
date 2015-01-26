@@ -55,6 +55,15 @@
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Heijden.Dns">
+      <HintPath>..\packages\Heijden.Dns.1.0.0\lib\net35\Heijden.Dns.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="libidn">
+      <HintPath>..\references\libidn.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.2.0.0\lib\net40\NLog.dll</HintPath>
     </Reference>
@@ -65,138 +74,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common\disco\IDiscoManager.cs" />
-    <Compile Include="common\disco\RegistryDiscoManager.cs" />
-    <Compile Include="common\ErrorType.cs" />
-    <Compile Include="common\ICompression.cs" />
-    <Compile Include="common\Namespaces.cs" />
-    <Compile Include="common\sasl\MD5Processor.cs" />
-    <Compile Include="common\sasl\PlainProcessor.cs" />
-    <Compile Include="common\sasl\SASLProcessor.cs" />
-    <Compile Include="common\sasl\SCRAMProcessor.cs" />
-    <Compile Include="common\Stanza.cs" />
-    <Compile Include="common\Tag.cs" />
-    <Compile Include="common\JID.cs" />
-    <Compile Include="core\Bind.cs" />
-    <Compile Include="core\Compression\Compression.cs" />
-    <Compile Include="core\disco\C.cs" />
-    <Compile Include="core\Features.cs" />
-    <Compile Include="core\GenericTag.cs" />
-    <Compile Include="core\iq\Iq.cs" />
-    <Compile Include="core\Jid.cs" />
-    <Compile Include="core\Mechanisms.cs" />
-    <Compile Include="core\SASL\Auth.cs" />
-    <Compile Include="core\StartTLS.cs" />
-    <Compile Include="core\Stream.cs" />
+    <Compile Include="Common\Disco\IDiscoManager.cs" />
+    <Compile Include="Common\Disco\RegistryDiscoManager.cs" />
+    <Compile Include="Common\ErrorType.cs" />
+    <Compile Include="Common\ICompression.cs" />
+    <Compile Include="Common\Namespaces.cs" />
+    <Compile Include="Common\Sasl\Md5Processor.cs" />
+    <Compile Include="Common\Sasl\PlainProcessor.cs" />
+    <Compile Include="Common\Sasl\SaslProcessor.cs" />
+    <Compile Include="Common\Sasl\ScramProcessor.cs" />
+    <Compile Include="Common\Stanza.cs" />
+    <Compile Include="Common\Tag.cs" />
+    <Compile Include="Common\JID.cs" />
+    <Compile Include="Core\Bind.cs" />
+    <Compile Include="Core\Compression.cs" />
+    <Compile Include="Common\Compression\Zlib.cs" />
+    <Compile Include="Core\Disco\C.cs" />
+    <Compile Include="Core\Features.cs" />
+    <Compile Include="Core\GenericTag.cs" />
+    <Compile Include="Core\Iq\Iq.cs" />
+    <Compile Include="Core\Jid.cs" />
+    <Compile Include="Core\Mechanisms.cs" />
+    <Compile Include="Core\Sasl\Auth.cs" />
+    <Compile Include="Core\StartTls.cs" />
+    <Compile Include="Core\Stream.cs" />
     <Compile Include="Errors.cs" />
-    <Compile Include="infrastructure\attributes\CompressionAttribute.cs" />
-    <Compile Include="infrastructure\attributes\XmppTagAttribute.cs" />
-    <Compile Include="infrastructure\extensions\AssemblyExtensions.cs" />
-    <Compile Include="infrastructure\extensions\ByteExtensions.cs" />
-    <Compile Include="infrastructure\extensions\EnumerableExtensions.cs" />
-    <Compile Include="infrastructure\extensions\TypeExtensions.cs" />
-    <Compile Include="infrastructure\idn\CombiningClass.cs" />
-    <Compile Include="infrastructure\idn\Composition.cs" />
-    <Compile Include="infrastructure\idn\DecompositionKeys.cs" />
-    <Compile Include="infrastructure\idn\DecompositionMappings.cs" />
-    <Compile Include="infrastructure\idn\IDNA.cs" />
-    <Compile Include="infrastructure\idn\IDNAException.cs" />
-    <Compile Include="infrastructure\idn\NFKC.cs" />
-    <Compile Include="infrastructure\idn\Punycode.cs" />
-    <Compile Include="infrastructure\idn\PunycodeException.cs" />
-    <Compile Include="infrastructure\idn\RFC3454.cs" />
-    <Compile Include="infrastructure\idn\Stringprep.cs" />
-    <Compile Include="infrastructure\idn\StringprepException.cs" />
-    <Compile Include="infrastructure\logging\Logger.cs" />
-    <Compile Include="net\Address.cs" />
-    <Compile Include="net\AsyncSocket.cs" />
-    <Compile Include="net\dns\Header.cs" />
-    <Compile Include="net\dns\Question.cs" />
-    <Compile Include="net\dns\RecordReader.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordA6.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordAPL.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordATMA.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordCERT.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordDHCID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordDNSKEY.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordEID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordGID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordHIP.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordIPSECKEY.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNIMLOC.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNSEC.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNSEC3.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNSEC3PARAM.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordOPT.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordRRSIG.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordSINK.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordSPF.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordSSHFP.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUINFO.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUnknown.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUNSPEC.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordGPOS.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordMD.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordMF.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordNSAPPTR.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordNXT.cs" />
-    <Compile Include="net\dns\Records\Record.cs" />
-    <Compile Include="net\dns\Records\RecordA.cs" />
-    <Compile Include="net\dns\Records\RecordAAAA.cs" />
-    <Compile Include="net\dns\Records\RecordAFSDB.cs" />
-    <Compile Include="net\dns\Records\RecordCNAME.cs" />
-    <Compile Include="net\dns\Records\RecordDNAME.cs" />
-    <Compile Include="net\dns\Records\RecordDS.cs" />
-    <Compile Include="net\dns\Records\RecordHINFO.cs" />
-    <Compile Include="net\dns\Records\RecordISDN.cs" />
-    <Compile Include="net\dns\Records\RecordKEY.cs" />
-    <Compile Include="net\dns\Records\RecordKX.cs" />
-    <Compile Include="net\dns\Records\RecordLOC.cs" />
-    <Compile Include="net\dns\Records\RecordMB.cs" />
-    <Compile Include="net\dns\Records\RecordMG.cs" />
-    <Compile Include="net\dns\Records\RecordMINFO.cs" />
-    <Compile Include="net\dns\Records\RecordMR.cs" />
-    <Compile Include="net\dns\Records\RecordMX.cs" />
-    <Compile Include="net\dns\Records\RecordNAPTR.cs" />
-    <Compile Include="net\dns\Records\RecordNS.cs" />
-    <Compile Include="net\dns\Records\RecordNSAP.cs" />
-    <Compile Include="net\dns\Records\RecordNULL.cs" />
-    <Compile Include="net\dns\Records\RecordPTR.cs" />
-    <Compile Include="net\dns\Records\RecordPX.cs" />
-    <Compile Include="net\dns\Records\RecordRP.cs" />
-    <Compile Include="net\dns\Records\RecordRT.cs" />
-    <Compile Include="net\dns\Records\RecordSIG.cs" />
-    <Compile Include="net\dns\Records\RecordSOA.cs" />
-    <Compile Include="net\dns\Records\RecordSRV.cs" />
-    <Compile Include="net\dns\Records\RecordTKEY.cs" />
-    <Compile Include="net\dns\Records\RecordTSIG.cs" />
-    <Compile Include="net\dns\Records\RecordTXT.cs" />
-    <Compile Include="net\dns\Records\RecordWKS.cs" />
-    <Compile Include="net\dns\Records\RecordX25.cs" />
-    <Compile Include="net\dns\Request.cs" />
-    <Compile Include="net\dns\Resolver.cs" />
-    <Compile Include="net\dns\Response.cs" />
-    <Compile Include="net\dns\RR.cs" />
-    <Compile Include="net\dns\Structs.cs" />
+    <Compile Include="Infrastructure\Attributes\CompressionAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\XmppTagAttribute.cs" />
+    <Compile Include="Infrastructure\Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ByteExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\TypeExtensions.cs" />
+    <Compile Include="Infrastructure\Logging\Logger.cs" />
+    <Compile Include="Net\Address.cs" />
+    <Compile Include="Net\AsyncSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="infrastructure\ProtocolParser.cs" />
-    <Compile Include="registries\CompressionRegistry.cs" />
-    <Compile Include="registries\TagRegistry.cs" />
-    <Compile Include="states\DisconnectedState.cs" />
+    <Compile Include="Infrastructure\ProtocolParser.cs" />
+    <Compile Include="Registries\CompressionRegistry.cs" />
+    <Compile Include="Registries\TagRegistry.cs" />
+    <Compile Include="States\DisconnectedState.cs" />
     <Compile Include="UbietyMessages.cs" />
-    <Compile Include="states\BindingState.cs" />
-    <Compile Include="states\CompressedState.cs" />
-    <Compile Include="states\ConnectedState.cs" />
-    <Compile Include="states\ConnectingState.cs" />
-    <Compile Include="states\DisconnectState.cs" />
-    <Compile Include="states\ProtocolState.cs" />
-    <Compile Include="states\RunningState.cs" />
-    <Compile Include="states\SASLState.cs" />
-    <Compile Include="states\ServerFeaturesState.cs" />
-    <Compile Include="states\SessionState.cs" />
-    <Compile Include="states\StartTLSState.cs" />
-    <Compile Include="states\State.cs" />
+    <Compile Include="States\BindingState.cs" />
+    <Compile Include="States\CompressedState.cs" />
+    <Compile Include="States\ConnectedState.cs" />
+    <Compile Include="States\ConnectingState.cs" />
+    <Compile Include="States\DisconnectState.cs" />
+    <Compile Include="States\ProtocolState.cs" />
+    <Compile Include="States\RunningState.cs" />
+    <Compile Include="States\SaslState.cs" />
+    <Compile Include="States\ServerFeaturesState.cs" />
+    <Compile Include="States\SessionState.cs" />
+    <Compile Include="States\StartTlsState.cs" />
+    <Compile Include="States\State.cs" />
     <Compile Include="XMPP.cs" />
     <Compile Include="UbietySettings.cs" />
   </ItemGroup>
@@ -226,10 +155,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="net\dns\Records\totla.txt" />
-    <Content Include="net\dns\Root\named_root.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

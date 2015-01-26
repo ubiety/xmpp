@@ -16,55 +16,58 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.infrastructure.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core.iq
+namespace Ubiety.Core.Iq
 {
-	///<summary>
-	///</summary>
-	public enum IqType
-	{
-		///<summary>
-		///</summary>
-		Get,
-		///<summary>
-		///</summary>
-		Set,
-		///<summary>
-		///</summary>
-		Error,
-		///<summary>
-		///</summary>
-		Result
-	}
+    /// <summary>
+    /// </summary>
+    public enum IqType
+    {
+        /// <summary>
+        /// </summary>
+        Get,
 
-	///<summary>
-	///</summary>
-	[XmppTag("iq", Namespaces.Client, typeof (Iq))]
-	public class Iq : Stanza
-	{
-		///<summary>
-		///</summary>
-		public Iq() : base("", new XmlQualifiedName("iq", Namespaces.Client))
-		{
-			Id = GetNextId();
-		}
+        /// <summary>
+        /// </summary>
+        Set,
 
-		///<summary>
-		///</summary>
-		public IqType IqType
-		{
-			get { return GetEnumAttribute<IqType>("type"); }
-			set { SetAttribute("type", value.ToString().ToLower()); }
-		}
+        /// <summary>
+        /// </summary>
+        Error,
 
-		///<summary>
-		///</summary>
-		public Tag Payload
-		{
-			get { return (Tag) FirstChild; }
-			set { AddChildTag(value); }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        Result
+    }
+
+    /// <summary>
+    /// </summary>
+    [XmppTag("iq", Namespaces.Client, typeof (Iq))]
+    public class Iq : Stanza
+    {
+        /// <summary>
+        /// </summary>
+        public Iq() : base("", new XmlQualifiedName("iq", Namespaces.Client))
+        {
+            Id = GetNextId();
+        }
+
+        /// <summary>
+        /// </summary>
+        public IqType IqType
+        {
+            get { return GetEnumAttribute<IqType>("type"); }
+            set { SetAttribute("type", value.ToString().ToLower()); }
+        }
+
+        /// <summary>
+        /// </summary>
+        public Tag Payload
+        {
+            get { return (Tag) FirstChild; }
+            set { AddChildTag(value); }
+        }
+    }
 }

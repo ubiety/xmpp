@@ -17,7 +17,7 @@
 
 using System;
 
-namespace ubiety.infrastructure.attributes
+namespace Ubiety.Infrastructure.Attributes
 {
 	///<summary>
 	///</summary>

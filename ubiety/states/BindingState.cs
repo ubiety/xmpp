@@ -15,13 +15,13 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety.common;
-using ubiety.core;
-using ubiety.core.iq;
-using ubiety.infrastructure.logging;
-using ubiety.registries;
+using Ubiety.Common;
+using Ubiety.Core;
+using Ubiety.Core.Iq;
+using Ubiety.Infrastructure.Logging;
+using Ubiety.Registries;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
 	///<summary>
 	///</summary>
@@ -55,7 +55,7 @@ namespace ubiety.states
 					if (iq.IqType == IqType.Error)
 					{
 						var e = iq["error"];
-						if (e != null) Errors.SendError(this, ErrorType.XMLError, e.InnerText);
+						if (e != null) Errors.SendError(this, ErrorType.XmlError, e.InnerText);
 					}
 					bind = iq.Payload as Bind;
 				}

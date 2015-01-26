@@ -16,10 +16,10 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common.sasl;
-using ubiety.net;
+using Ubiety.Common.Sasl;
+using Ubiety.Net;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
     /// <summary>
     ///     Keeps track of all the current state information like id, password, socket and the current state.

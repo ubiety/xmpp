@@ -20,7 +20,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ubiety.common.idn;
 
-namespace ubiety.common
+namespace Ubiety.Common
 {
     /// <summary>
     ///     Manages all aspects of a users identity on an XMPP network.

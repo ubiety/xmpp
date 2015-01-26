@@ -21,14 +21,15 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-using ubiety.common;
+using ubiety;
+using Ubiety.Common;
 using ubiety.infrastructure.logging;
 using ubiety.registries;
 using ubiety.states;
 
 #endregion
 
-namespace ubiety.infrastructure
+namespace Ubiety.Infrastructure
 {
     /// <remarks>
     ///     The core of the library.  All messages come through here to be translated into the appropriate <see cref="Tag" />
@@ -109,7 +110,7 @@ namespace ubiety.infrastructure
             catch (XmlException e)
             {
                 Logger.ErrorFormat(typeof (ProtocolParser), "Message Parsing Error: {0}", e);
-                Errors.SendError(typeof (ProtocolParser), ErrorType.XMLError,
+                Errors.SendError(typeof (ProtocolParser), ErrorType.XmlError,
                     "Error parsing incoming XML.  Please try again.");
                 if (ProtocolState.Socket.Connected)
                 {
@@ -209,7 +210,7 @@ namespace ubiety.infrastructure
 
             if ((_element.Name != _reader.Name))
             {
-                Errors.SendError(typeof (ProtocolParser), ErrorType.XMLError, "Wrong element");
+                Errors.SendError(typeof (ProtocolParser), ErrorType.XmlError, "Wrong element");
                 return;
             }
 

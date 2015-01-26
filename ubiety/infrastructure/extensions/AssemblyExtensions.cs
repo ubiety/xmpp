@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ubiety.infrastructure.extensions
+namespace Ubiety.Infrastructure.Extensions
 {
     /// <summary>
     /// </summary>

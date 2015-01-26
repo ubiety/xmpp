@@ -15,9 +15,9 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety.common;
+using Ubiety.Common;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
     /// <summary>
     /// </summary>

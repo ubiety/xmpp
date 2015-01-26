@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ubiety.infrastructure.extensions
+namespace Ubiety.Infrastructure.Extensions
 {
     /// <summary>
     /// </summary>

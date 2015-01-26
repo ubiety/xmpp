@@ -25,14 +25,14 @@ using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using ubiety.common;
-using ubiety.infrastructure;
-using ubiety.infrastructure.extensions;
-using ubiety.infrastructure.logging;
+using Ubiety.Common;
+using Ubiety.Infrastructure;
+using Ubiety.Infrastructure.Extensions;
+using Ubiety.Infrastructure.Logging;
 using ubiety.registries;
 using ubiety.states;
 
-namespace ubiety.net
+namespace Ubiety.Net
 {
     /// <remarks>
     ///     AsyncSocket is the class that communicates with the server.
@@ -183,7 +183,7 @@ namespace ubiety.net
             catch (Exception e)
             {
                 Logger.ErrorFormat(this, "SSL Error: {0}", e);
-                Errors.SendError(this, ErrorType.XMLError, "SSL connection error", true);
+                Errors.SendError(this, ErrorType.XmlError, "SSL connection error", true);
             }
         }
 

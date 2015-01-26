@@ -18,109 +18,106 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ubiety.core;
-using System.Text;
 using System.Security.Cryptography;
-using ubiety.infrastructure.logging;
+using System.Text;
+using Ubiety.Core;
+using Ubiety.Infrastructure.Logging;
 
-namespace ubiety.common.sasl
+namespace Ubiety.Common.Sasl
 {
-	///<summary>
-	///</summary>
-	public abstract class SaslProcessor
-	{
-		protected JID Id;
-		protected string Password;
-		
-		private readonly Hashtable _directives = new Hashtable();
+    /// <summary>
+    /// </summary>
+    public abstract class SaslProcessor
+    {
+        private readonly Hashtable _directives = new Hashtable();
+        protected JID Id;
+        protected string Password;
 
-		///<summary>
-		///</summary>
-		///<param name="type"></param>
-		///<returns></returns>
-		///<exception cref="NotSupportedException"></exception>
-		public static SaslProcessor CreateProcessor(MechanismType type)
-		{
-			if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
-			{
-				Logger.Debug(typeof(SaslProcessor), "External Not Supported");
-				throw new NotSupportedException();
-			}
+        /// <summary>
+        /// </summary>
+        /// <param name="directive"></param>
+        /// <returns></returns>
+        public string this[string directive]
+        {
+            get { return (string) _directives[directive]; }
+            set { _directives[directive] = value; }
+        }
 
-			if ((type & MechanismType.Scram & UbietySettings.AuthenticationTypes) == MechanismType.Scram)
-			{
-				Logger.Debug(typeof(SaslProcessor), "Creating SCRAM-SHA-1 Processor");
-				return new ScramProcessor();
-			}
+        /// <summary>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        /// <exception cref="NotSupportedException"></exception>
+        public static SaslProcessor CreateProcessor(MechanismType type)
+        {
+            if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
+            {
+                Logger.Debug(typeof (SaslProcessor), "External Not Supported");
+                throw new NotSupportedException();
+            }
 
-			if ((type & MechanismType.DigestMd5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMd5)
-			{
-				Logger.Debug(typeof(SaslProcessor), "Creating DIGEST-MD5 Processor");
-				return new Md5Processor();
-			}
+            if ((type & MechanismType.Scram & UbietySettings.AuthenticationTypes) == MechanismType.Scram)
+            {
+                Logger.Debug(typeof (SaslProcessor), "Creating SCRAM-SHA-1 Processor");
+                return new ScramProcessor();
+            }
 
-			if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
-			{
-				Logger.Debug(typeof(SaslProcessor), "Creating PLAIN SASL processor");
-				return new PlainProcessor();
-			}
+            if ((type & MechanismType.DigestMd5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMd5)
+            {
+                Logger.Debug(typeof (SaslProcessor), "Creating DIGEST-MD5 Processor");
+                return new Md5Processor();
+            }
 
-			return null;
-		}
+            if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
+            {
+                Logger.Debug(typeof (SaslProcessor), "Creating PLAIN SASL processor");
+                return new PlainProcessor();
+            }
 
-		///<summary>
-		///</summary>
-		public abstract Tag Step(Tag tag);
+            return null;
+        }
 
-		///<summary>
-		///</summary>
-		public virtual Tag Initialize()
-		{
-			Logger.Debug(this, "Initializing Base Processor");
-			
-			Id = UbietySettings.Id;
-			Password = UbietySettings.Password;
+        /// <summary>
+        /// </summary>
+        public abstract Tag Step(Tag tag);
 
-			return null;
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="directive"></param>
-		/// <returns></returns>
-		public string this[string directive]
-		{
-			get { return (string)_directives[directive]; }
-			set { _directives[directive] = value; }
-		}
+        /// <summary>
+        /// </summary>
+        public virtual Tag Initialize()
+        {
+            Logger.Debug(this, "Initializing Base Processor");
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="buff"></param>
-		/// <returns></returns>
-		protected string HexString(IEnumerable<byte> buff)
-		{
-			var sb = new StringBuilder();
-			foreach (byte b in buff)
-			{
-				sb.Append(b.ToString("x2"));
-			}
+            Id = UbietySettings.Id;
+            Password = UbietySettings.Password;
 
-			return sb.ToString();
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// Generates a new random 64bit number
-		/// </summary>
-		/// <returns>Random Int64</returns>
-		protected static Int64 NextInt64()
-		{
-			var bytes = new byte[sizeof(Int64)];
-			var rand = new RNGCryptoServiceProvider();
-			rand.GetBytes(bytes);
-			return BitConverter.ToInt64(bytes, 0);
-		}
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        protected string HexString(IEnumerable<byte> buff)
+        {
+            var sb = new StringBuilder();
+            foreach (byte b in buff)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Generates a new random 64bit number
+        /// </summary>
+        /// <returns>Random Int64</returns>
+        protected static Int64 NextInt64()
+        {
+            var bytes = new byte[sizeof (Int64)];
+            var rand = new RNGCryptoServiceProvider();
+            rand.GetBytes(bytes);
+            return BitConverter.ToInt64(bytes, 0);
+        }
+    }
 }

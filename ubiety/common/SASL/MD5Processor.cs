@@ -21,12 +21,12 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using ubiety.core;
-using ubiety.core.SASL;
+using Ubiety.Core;
+using Ubiety.Core.Sasl;
 using ubiety.infrastructure.logging;
 using ubiety.registries;
 
-namespace ubiety.common.sasl
+namespace Ubiety.Common.Sasl
 {
     /// <summary>
     /// </summary>

@@ -19,12 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
-using ubiety.common;
-using ubiety.infrastructure.attributes;
-using ubiety.infrastructure.extensions;
-using ubiety.infrastructure.logging;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
+using Ubiety.Infrastructure.Extensions;
+using Ubiety.Infrastructure.Logging;
 
-namespace ubiety.registries
+namespace Ubiety.Registries
 {
     /// <remarks>
     ///     TagRegistry stores all the construction information for the <seealso cref="Tag">Tags</seealso> the library is aware
@@ -47,8 +47,8 @@ namespace ubiety.registries
             Logger.DebugFormat(typeof (TagRegistry), "{0,-24}{1,-36}{2}", "Tag Name", "Class", "Namespace");
             foreach (XmppTagAttribute tag in tags)
             {
-                Logger.DebugFormat(typeof (TagRegistry), "{0,-24}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.Ns);
-                RegisteredItems.Add(new XmlQualifiedName(tag.Name, tag.Ns).ToString(), tag.ClassType);
+                Logger.DebugFormat(typeof (TagRegistry), "{0,-24}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.Namespace);
+                RegisteredItems.Add(new XmlQualifiedName(tag.Name, tag.Namespace).ToString(), tag.ClassType);
             }
         }
 

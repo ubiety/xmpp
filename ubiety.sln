@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXMPP", "TestXMPP\TestXM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiety", "ubiety\Ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubiety.compression.sharpziplib", "ubiety.compression.sharpziplib\ubiety.compression.sharpziplib.csproj", "{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubietynunit", "ubietynunit\ubietynunit.csproj", "{76FB5852-B727-426B-9054-0B580C0B5E5F}"
 EndProject
 Global
@@ -41,16 +39,6 @@ Global
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FB8056A1-0547-4CEF-BA68-0154462BC3DB}.Release|x86.ActiveCfg = Release|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}.Release|x86.ActiveCfg = Release|Any CPU
 		{76FB5852-B727-426B-9054-0B580C0B5E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{76FB5852-B727-426B-9054-0B580C0B5E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76FB5852-B727-426B-9054-0B580C0B5E5F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

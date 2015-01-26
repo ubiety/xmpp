@@ -16,27 +16,27 @@
 // Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.infrastructure.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core
+namespace Ubiety.Core
 {
-	///<summary>
-	///</summary>
-	[XmppTag("jid", Namespaces.Bind, typeof (Jid))]
-	public class Jid : Tag
-	{
-		///<summary>
-		///</summary>
-		public Jid() : base("", new XmlQualifiedName("jid", Namespaces.Bind))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("jid", Namespaces.Bind, typeof (Jid))]
+    public class Jid : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Jid() : base("", new XmlQualifiedName("jid", Namespaces.Bind))
+        {
+        }
 
-		///<summary>
-		///</summary>
-		public JID JID
-		{
-			get { return new JID(InnerText); }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public JID JID
+        {
+            get { return new JID(InnerText); }
+        }
+    }
 }

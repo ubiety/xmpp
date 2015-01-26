@@ -18,7 +18,7 @@
 using System;
 using NLog;
 
-namespace ubiety.infrastructure.logging
+namespace Ubiety.Infrastructure.Logging
 {
 	/// <summary>
 	/// A simple logging class that wraps log4net

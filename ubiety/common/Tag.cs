@@ -20,7 +20,7 @@ using System.Threading;
 using System.Xml;
 using ubiety.states;
 
-namespace ubiety.common
+namespace Ubiety.Common
 {
     /// <summary>
     ///     Tag is the class from which all tags are subclassed.

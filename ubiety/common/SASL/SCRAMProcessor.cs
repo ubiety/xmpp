@@ -25,7 +25,7 @@ using ubiety.core.SASL;
 using ubiety.infrastructure.logging;
 using ubiety.registries;
 
-namespace ubiety.common.sasl
+namespace Ubiety.Common.Sasl
 {
     /// <summary>
     /// </summary>

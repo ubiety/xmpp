@@ -1,6 +1,6 @@
 // PlainProcessor.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -22,7 +22,7 @@ using ubiety.core.SASL;
 using ubiety.infrastructure.logging;
 using ubiety.registries;
 
-namespace ubiety.common.SASL
+namespace Ubiety.Common.Sasl
 {
     /// <summary>
     /// </summary>

@@ -16,10 +16,10 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.infrastructure.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core.disco
+namespace Ubiety.Core.Disco
 {
     /// <summary>
     ///     &lt;c/&gt; element as described in XEP-0115

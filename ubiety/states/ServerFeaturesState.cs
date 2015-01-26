@@ -16,13 +16,13 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Linq;
-using ubiety.common;
-using ubiety.common.sasl;
-using ubiety.core;
-using ubiety.infrastructure.logging;
-using ubiety.registries;
+using Ubiety.Common;
+using Ubiety.Common.Sasl;
+using Ubiety.Core;
+using Ubiety.Infrastructure.Logging;
+using Ubiety.Registries;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
     /// <summary>
     ///     The server features state occurs just after connecting.
@@ -77,7 +77,7 @@ namespace ubiety.states
                     Logger.Debug(this, "Sending auth with mechanism type");
                     ProtocolState.Socket.Write(ProtocolState.Processor.Initialize());
 
-                    ProtocolState.State = new SASLState();
+                    ProtocolState.State = new SaslState();
                     return;
                 }
 

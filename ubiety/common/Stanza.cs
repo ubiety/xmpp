@@ -17,7 +17,7 @@
 
 using System.Xml;
 
-namespace ubiety.common
+namespace Ubiety.Common
 {
 	///<summary>
 	///</summary>
@@ -27,7 +27,6 @@ namespace ubiety.common
 		///</summary>
 		///<param name="prefix"></param>
 		///<param name="qname"></param>
-		///<param name="doc"></param>
 		protected Stanza(string prefix, XmlQualifiedName qname) : base(prefix, qname)
 		{
 		}

@@ -19,12 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using ubiety.infrastructure.logging;
-using ubiety.net.dns;
-using ubiety.net.dns.Records;
-using TransportType = ubiety.net.dns.TransportType;
+using Heijden.DNS;
+using Ubiety.Infrastructure.Logging;
+using TransportType = Heijden.DNS.TransportType;
 
-namespace ubiety.net
+namespace Ubiety.Net
 {
     /// <summary>
     ///     Resolves the IM server address from the hostname provided by the XID.
@@ -75,8 +74,8 @@ namespace ubiety.net
             {
                 if (_srvAttempts < _srvRecords.Count)
                 {
-                    UbietySettings.Port = _srvRecords[_srvAttempts].Port;
-                    IPAddress ip = Resolve(_srvRecords[_srvAttempts].Target);
+                    UbietySettings.Port = _srvRecords[_srvAttempts].PORT;
+                    IPAddress ip = Resolve(_srvRecords[_srvAttempts].TARGET);
                     if (ip == null)
                         _srvAttempts++;
                     else
@@ -90,10 +89,10 @@ namespace ubiety.net
         {
             Response resp = _resolver.Query("_xmpp-client._tcp." + Hostname, QType.SRV, QClass.IN);
 
-            if (resp.Header.ANCOUNT > 0)
+            if (resp.header.ANCOUNT > 0)
             {
                 _srvFailed = false;
-                return resp.Answers.Select(record => record.Record as RecordSRV).ToList();
+                return resp.Answers.Select(record => record.RECORD as RecordSRV).ToList();
             }
 
             _srvFailed = true;
@@ -105,7 +104,7 @@ namespace ubiety.net
             Response resp = _resolver.Query(hostname, QType.A, QClass.IN);
 
             IPv6 = false;
-            return ((RecordA) resp.Answers[0].Record).Address;
+            return ((RecordA) resp.Answers[0].RECORD).Address;
 
             //while (true)
             //{

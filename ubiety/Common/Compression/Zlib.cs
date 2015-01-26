@@ -1,10 +1,11 @@
 ﻿using System.IO;
-using ubiety.common;
-using ubiety.compression.sharpziplib.Zip.Compression;
-using ubiety.infrastructure.attributes;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.compression.sharpziplib
+namespace Ubiety.Common.Compression
 {
+    /// <summary>
+    /// </summary>
     [Compression("zlib", typeof (Zlib))]
     public class Zlib : ICompression
     {

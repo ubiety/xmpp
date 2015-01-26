@@ -18,15 +18,15 @@
 #region Usings
 
 using System;
-using ubiety.common;
-using ubiety.infrastructure.logging;
-using ubiety.net;
-using ubiety.registries;
-using ubiety.states;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Logging;
+using Ubiety.Net;
+using Ubiety.Registries;
+using Ubiety.States;
 
 #endregion
 
-namespace ubiety
+namespace Ubiety
 {
     /// <summary>
     ///     Implements the XMPP(Jabber) Core and IM protocols

@@ -18,12 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using ubiety.common;
-using ubiety.infrastructure.attributes;
-using ubiety.infrastructure.extensions;
-using ubiety.infrastructure.logging;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
+using Ubiety.Infrastructure.Extensions;
+using Ubiety.Infrastructure.Logging;
 
-namespace ubiety.registries
+namespace Ubiety.Registries
 {
     /// <summary>
     /// </summary>

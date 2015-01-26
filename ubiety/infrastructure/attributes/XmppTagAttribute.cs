@@ -17,7 +17,7 @@
 
 using System;
 
-namespace ubiety.infrastructure.attributes
+namespace Ubiety.Infrastructure.Attributes
 {
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.
@@ -53,7 +53,7 @@ namespace ubiety.infrastructure.attributes
 		/// <summary>
 		/// The tags namespace
 		/// </summary>
-		public string Ns
+		public string Namespace
 		{
 			get { return _namespace; }
 		}
