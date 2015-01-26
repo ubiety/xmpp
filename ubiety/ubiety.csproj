@@ -55,6 +55,12 @@
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.2.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Stateless">
+      <HintPath>..\packages\Stateless.2.5.11.0\lib\portable-net40+sl50+win+wp80\Stateless.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -83,6 +89,25 @@
     <Compile Include="core\StartTLS.cs" />
     <Compile Include="core\Stream.cs" />
     <Compile Include="Errors.cs" />
+    <Compile Include="infrastructure\attributes\CompressionAttribute.cs" />
+    <Compile Include="infrastructure\attributes\XmppTagAttribute.cs" />
+    <Compile Include="infrastructure\extensions\AssemblyExtensions.cs" />
+    <Compile Include="infrastructure\extensions\ByteExtensions.cs" />
+    <Compile Include="infrastructure\extensions\EnumerableExtensions.cs" />
+    <Compile Include="infrastructure\extensions\TypeExtensions.cs" />
+    <Compile Include="infrastructure\idn\CombiningClass.cs" />
+    <Compile Include="infrastructure\idn\Composition.cs" />
+    <Compile Include="infrastructure\idn\DecompositionKeys.cs" />
+    <Compile Include="infrastructure\idn\DecompositionMappings.cs" />
+    <Compile Include="infrastructure\idn\IDNA.cs" />
+    <Compile Include="infrastructure\idn\IDNAException.cs" />
+    <Compile Include="infrastructure\idn\NFKC.cs" />
+    <Compile Include="infrastructure\idn\Punycode.cs" />
+    <Compile Include="infrastructure\idn\PunycodeException.cs" />
+    <Compile Include="infrastructure\idn\RFC3454.cs" />
+    <Compile Include="infrastructure\idn\Stringprep.cs" />
+    <Compile Include="infrastructure\idn\StringprepException.cs" />
+    <Compile Include="infrastructure\logging\Logger.cs" />
     <Compile Include="net\Address.cs" />
     <Compile Include="net\AsyncSocket.cs" />
     <Compile Include="net\dns\Header.cs" />
@@ -203,19 +228,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ubiety.common\ubiety.common.csproj">
-      <Project>{CE4A4A0B-8718-4BBF-B1DD-5C57629D00AE}</Project>
-      <Name>ubiety.common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="net\dns\Records\totla.txt" />
     <Content Include="net\dns\Root\named_root.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
