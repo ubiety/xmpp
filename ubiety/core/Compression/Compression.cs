@@ -15,41 +15,41 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System.Collections.Generic;
 using System.Xml;
 using ubiety.common;
-using ubiety.common.attributes;
+using ubiety.infrastructure.attributes;
 
 namespace ubiety.core.compression
 {
-	///<summary>
-	///</summary>
-	[XmppTag("compression", Namespaces.Compression, typeof (Compression))]
-	public class Compression : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="doc"></param>
-		public Compression()
-			: base("", new XmlQualifiedName("compression", Namespaces.Compression))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("compression", Namespaces.Compression, typeof (Compression))]
+    public class Compression : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Compression()
+            : base("", new XmlQualifiedName("compression", Namespaces.Compression))
+        {
+        }
 
-		///<summary>
-		///</summary>
-		public string[] Algorithms
-		{
-			get
-			{
-				var nl = GetElementsByTagName("method", Namespaces.Compression);
-				var als = new string[nl.Count];
-				var i = 0;
-				foreach (XmlElement m in nl)
-				{
-					als[i] = m.InnerText;
-					i++;
-				}
-				return als;
-			}
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public IEnumerable<string> Algorithms
+        {
+            get
+            {
+                XmlNodeList nl = GetElementsByTagName("method", Namespaces.Compression);
+                var als = new string[nl.Count];
+                int i = 0;
+                foreach (XmlElement m in nl)
+                {
+                    als[i] = m.InnerText;
+                    i++;
+                }
+                return als;
+            }
+        }
+    }
 }

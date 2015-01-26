@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXMPP", "TestXMPP\TestXMPP.csproj", "{F6E95CED-F304-481B-A644-D78B74749436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubiety", "ubiety\ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiety", "ubiety\Ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubiety.compression.sharpziplib", "ubiety.compression.sharpziplib\ubiety.compression.sharpziplib.csproj", "{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}"
 EndProject

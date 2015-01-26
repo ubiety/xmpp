@@ -1,6 +1,6 @@
 // ErrorType.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,33 +17,40 @@
 
 namespace ubiety.common
 {
-	///<summary>
-	///</summary>
-	public enum ErrorType
-	{
-		///<summary>
-		///</summary>
-		MissingId,
-		///<summary>
-		///</summary>
-		MissingPassword,
-		///<summary>
-		///</summary>
-		AuthorizationFailed,
-		///<summary>
-		///</summary>
-		WrongProtocolVersion,
-		///<summary>
-		///</summary>
-		UnregisteredItem,
-		///<summary>
-		///</summary>
-		CompressionFailed,
-		///<summary>
-		///</summary>
-		XMLError,
-		///<summary>
-		///</summary>
-		ConnectionTimeout
-	}
+    /// <summary>
+    /// </summary>
+    public enum ErrorType
+    {
+        /// <summary>
+        /// </summary>
+        MissingId,
+
+        /// <summary>
+        /// </summary>
+        MissingPassword,
+
+        /// <summary>
+        /// </summary>
+        AuthorizationFailed,
+
+        /// <summary>
+        /// </summary>
+        WrongProtocolVersion,
+
+        /// <summary>
+        /// </summary>
+        UnregisteredItem,
+
+        /// <summary>
+        /// </summary>
+        CompressionFailed,
+
+        /// <summary>
+        /// </summary>
+        XMLError,
+
+        /// <summary>
+        /// </summary>
+        ConnectionTimeout
+    }
 }

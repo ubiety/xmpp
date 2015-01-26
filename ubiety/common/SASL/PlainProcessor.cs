@@ -17,48 +17,47 @@
 
 using System;
 using System.Text;
-using System.Xml;
-using ubiety.common.logging;
 using ubiety.core;
 using ubiety.core.SASL;
+using ubiety.infrastructure.logging;
 using ubiety.registries;
 
 namespace ubiety.common.SASL
 {
-	///<summary>
-	///</summary>
-	public class PlainProcessor : SASLProcessor
-	{
-		///<summary>
-		///</summary>
-		///<param name="tag"></param>
-		///<exception cref="NotImplementedException"></exception>
-		public override Tag Step(Tag tag)
-		{
-			throw new NotImplementedException();
-		}
+    /// <summary>
+    /// </summary>
+    public class PlainProcessor : SaslProcessor
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public override Tag Step(Tag tag)
+        {
+            throw new NotImplementedException();
+        }
 
-		///<summary>
-		///</summary>
-		///<exception cref="NotImplementedException"></exception>
-		public override Tag Initialize()
-		{
-			Logger.Debug(this, "Initializing Plain Processor");
-			Logger.DebugFormat(this, "ID User: {0}", UbietySettings.Id.User);
+        /// <summary>
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public override Tag Initialize()
+        {
+            Logger.Debug(this, "Initializing Plain Processor");
+            Logger.DebugFormat(this, "ID User: {0}", UbietySettings.Id.User);
 
-			var sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-			sb.Append((char) 0);
-			sb.Append(UbietySettings.Id.User);
-			sb.Append((char) 0);
-			sb.Append(UbietySettings.Password);
+            sb.Append((char) 0);
+            sb.Append(UbietySettings.Id.User);
+            sb.Append((char) 0);
+            sb.Append(UbietySettings.Password);
 
-			var auth = TagRegistry.GetTag<Auth>("auth", Namespaces.SASL);
+            var auth = TagRegistry.GetTag<Auth>("auth", Namespaces.Sasl);
 
-			auth.Text = Convert.ToBase64String(Encoding.UTF8.GetBytes(sb.ToString()));
-			auth.Mechanism = Mechanism.GetMechanism(MechanismType.Plain);
+            auth.Text = Convert.ToBase64String(Encoding.UTF8.GetBytes(sb.ToString()));
+            auth.Mechanism = Mechanism.GetMechanism(MechanismType.Plain);
 
-			return auth;
-		}
-	}
+            return auth;
+        }
+    }
 }

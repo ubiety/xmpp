@@ -1,6 +1,6 @@
 ﻿// SCRAMProcessor.cs
 //
-//Ubiety XMPP Library Copyright (C) 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2011 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,203 +16,200 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Xml;
-using System.Text;
+using System.Globalization;
 using System.Security.Cryptography;
+using System.Text;
 using ubiety.common.idn;
-using ubiety.common.logging;
 using ubiety.core;
 using ubiety.core.SASL;
+using ubiety.infrastructure.logging;
 using ubiety.registries;
 
-namespace ubiety.common.SASL
+namespace ubiety.common.sasl
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class SCRAMProcessor : SASLProcessor
-	{
-		private readonly Encoding _utf = Encoding.UTF8;
+    /// <summary>
+    /// </summary>
+    public class ScramProcessor : SaslProcessor
+    {
+        private readonly Encoding _utf = Encoding.UTF8;
+        private string _clientFinal;
+        private string _clientFirst;
+        private string _clientProof;
+        private int _i;
 
-		private string _nonce;
-		private string _snonce;
-		private byte[] _salt;
-		private int _i;
-		private string _clientFirst;
-		private byte[] _serverFirst;
-		private string _clientFinal;
+        private string _nonce;
+        private byte[] _salt;
+        private byte[] _serverFirst;
 
-		private byte[] _serverSignature;
-		private string _clientProof;
+        private byte[] _serverSignature;
+        private string _snonce;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public override Tag Initialize()
-		{
-			base.Initialize();
-			Logger.Debug(this, "Initializing SCRAM Processor");
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        public override Tag Initialize()
+        {
+            base.Initialize();
+            Logger.Debug(this, "Initializing SCRAM Processor");
 
-			Logger.Debug(this, "Generating nonce");
-			_nonce = NextInt64().ToString();
-			Logger.DebugFormat(this, "Nonce: {0}", _nonce);
-			Logger.Debug(this, "Building Initial Message");
-			var msg = new StringBuilder();
-			msg.Append("n,,n=");
-			msg.Append(Id.User);
-			msg.Append(",r=");
-			msg.Append(_nonce);
-			Logger.DebugFormat(this, "Message: {0}", msg.ToString());
+            Logger.Debug(this, "Generating nonce");
+            _nonce = NextInt64().ToString(CultureInfo.InvariantCulture);
+            Logger.DebugFormat(this, "Nonce: {0}", _nonce);
+            Logger.Debug(this, "Building Initial Message");
+            var msg = new StringBuilder();
+            msg.Append("n,,n=");
+            msg.Append(Id.User);
+            msg.Append(",r=");
+            msg.Append(_nonce);
+            Logger.DebugFormat(this, "Message: {0}", msg.ToString());
 
-			_clientFirst = msg.ToString().Substring(3);
+            _clientFirst = msg.ToString().Substring(3);
 
-			var tag = TagRegistry.GetTag<Auth>("auth", Namespaces.SASL);
-			tag.Mechanism = Mechanism.GetMechanism(MechanismType.SCRAM);
-			tag.Bytes = _utf.GetBytes(msg.ToString());
-			return tag;
-		}
+            var tag = TagRegistry.GetTag<Auth>("auth", Namespaces.Sasl);
+            tag.Mechanism = Mechanism.GetMechanism(MechanismType.Scram);
+            tag.Bytes = _utf.GetBytes(msg.ToString());
+            return tag;
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="tag"></param>
-		/// <returns></returns>
-		public override Tag Step(Tag tag)
-		{
-			switch (tag.Name)
-			{
-				case "challenge":
-					{
-						_serverFirst = tag.Bytes;
-						var response = _utf.GetString(tag.Bytes);
-						Logger.DebugFormat(this, "Challenge: {0}", response);
+        /// <summary>
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public override Tag Step(Tag tag)
+        {
+            switch (tag.Name)
+            {
+                case "challenge":
+                {
+                    _serverFirst = tag.Bytes;
+                    string response = _utf.GetString(tag.Bytes);
+                    Logger.DebugFormat(this, "Challenge: {0}", response);
 
-						// Split challenge into pieces
-						var tokens = response.Split(',');
+                    // Split challenge into pieces
+                    string[] tokens = response.Split(',');
 
-						_snonce = tokens[0].Substring(2);
-						// Ensure that the first length of nonce is the same nonce we sent.
-						var r = _snonce.Substring(0, _nonce.Length);
-						if (0 != String.Compare(r, _nonce))
-						{
-							Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
-						}
+                    _snonce = tokens[0].Substring(2);
+                    // Ensure that the first length of nonce is the same nonce we sent.
+                    string r = _snonce.Substring(0, _nonce.Length);
+                    if (0 != String.CompareOrdinal(r, _nonce))
+                    {
+                        Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
+                    }
 
-						Logger.Debug(this, "Getting Salt");
-						var a = tokens[1].Substring(2);
-						_salt = Convert.FromBase64String(a);
+                    Logger.Debug(this, "Getting Salt");
+                    string a = tokens[1].Substring(2);
+                    _salt = Convert.FromBase64String(a);
 
-						Logger.Debug(this, "Getting Iterations");
-						var i = tokens[2].Substring(2);
-						_i = int.Parse(i);
-						Logger.DebugFormat(this, "Iterations: {0}", _i);
+                    Logger.Debug(this, "Getting Iterations");
+                    string i = tokens[2].Substring(2);
+                    _i = int.Parse(i);
+                    Logger.DebugFormat(this, "Iterations: {0}", _i);
 
-						var final = new StringBuilder();
-						final.Append("c=biws,r=");
-						final.Append(_snonce);
+                    var final = new StringBuilder();
+                    final.Append("c=biws,r=");
+                    final.Append(_snonce);
 
-						_clientFinal = final.ToString();
+                    _clientFinal = final.ToString();
 
-						CalculateProofs();
+                    CalculateProofs();
 
-						final.Append(",p=");
-						final.Append(_clientProof);
+                    final.Append(",p=");
+                    final.Append(_clientProof);
 
-						Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
+                    Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
 
-						var resp = TagRegistry.GetTag<GenericTag>("response", Namespaces.SASL);
-						resp.Bytes = _utf.GetBytes(final.ToString());
+                    var resp = TagRegistry.GetTag<GenericTag>("response", Namespaces.Sasl);
+                    resp.Bytes = _utf.GetBytes(final.ToString());
 
-						return resp;
-					}
+                    return resp;
+                }
 
-				case "success":
-					{
-						var response = _utf.GetString(tag.Bytes);
-						var signature = Convert.FromBase64String(response.Substring(2));
-						return _utf.GetString(signature) == _utf.GetString(_serverSignature) ? tag : null;
-					}
-				case "failure":
-					return tag;
-			}
+                case "success":
+                {
+                    string response = _utf.GetString(tag.Bytes);
+                    byte[] signature = Convert.FromBase64String(response.Substring(2));
+                    return _utf.GetString(signature) == _utf.GetString(_serverSignature) ? tag : null;
+                }
+                case "failure":
+                    return tag;
+            }
 
-			return null;
-		}
+            return null;
+        }
 
-		private void CalculateProofs()
-		{
-			var hmac = new HMACSHA1();
-			SHA1 hash = new SHA1CryptoServiceProvider();
+        private void CalculateProofs()
+        {
+            var hmac = new HMACSHA1();
+            SHA1 hash = new SHA1CryptoServiceProvider();
 
-			var saltedPassword = Hi();
+            byte[] saltedPassword = Hi();
 
-			// Calculate Client Key
-			hmac.Key = saltedPassword;
-			var clientKey = hmac.ComputeHash(_utf.GetBytes("Client Key"));
+            // Calculate Client Key
+            hmac.Key = saltedPassword;
+            byte[] clientKey = hmac.ComputeHash(_utf.GetBytes("Client Key"));
 
-			// Calculate Server Key
-			var serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
+            // Calculate Server Key
+            byte[] serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
 
-			// Calculate Stored Key
-			var storedKey = hash.ComputeHash(clientKey);
+            // Calculate Stored Key
+            byte[] storedKey = hash.ComputeHash(clientKey);
 
-			var a = new StringBuilder();
-			a.Append(_clientFirst);
-			a.Append(",");
-			a.Append(_utf.GetString(_serverFirst));
-			a.Append(",");
-			a.Append(_clientFinal);
+            var a = new StringBuilder();
+            a.Append(_clientFirst);
+            a.Append(",");
+            a.Append(_utf.GetString(_serverFirst));
+            a.Append(",");
+            a.Append(_clientFinal);
 
-			var auth = _utf.GetBytes(a.ToString());
+            byte[] auth = _utf.GetBytes(a.ToString());
 
-			// Calculate Client Signature
-			hmac.Key = storedKey;
-			var signature = hmac.ComputeHash(auth);
+            // Calculate Client Signature
+            hmac.Key = storedKey;
+            byte[] signature = hmac.ComputeHash(auth);
 
-			// Calculate Server Signature
-			hmac.Key = serverKey;
-			_serverSignature = hmac.ComputeHash(auth);
+            // Calculate Server Signature
+            hmac.Key = serverKey;
+            _serverSignature = hmac.ComputeHash(auth);
 
-			// Calculate Client Proof
-			var proof = new byte[20];
-			for (var i = 0; i < signature.Length; ++i)
-			{
-				proof[i] = (byte)(clientKey[i] ^ signature[i]);
-			}
+            // Calculate Client Proof
+            var proof = new byte[20];
+            for (int i = 0; i < signature.Length; ++i)
+            {
+                proof[i] = (byte) (clientKey[i] ^ signature[i]);
+            }
 
-			_clientProof = Convert.ToBase64String(proof);
-		}
+            _clientProof = Convert.ToBase64String(proof);
+        }
 
-		private byte[] Hi()
-		{
-			var prev = new byte[20];
-			var password = _utf.GetBytes(Stringprep.SASLPrep(Password));
+        private byte[] Hi()
+        {
+            var prev = new byte[20];
+            byte[] password = _utf.GetBytes(Stringprep.SASLPrep(Password));
 
-			// Add 1 to the end of salt with most significat octet first
-			var key = new byte[_salt.Length + 4];
+            // Add 1 to the end of salt with most significat octet first
+            var key = new byte[_salt.Length + 4];
 
-			Array.Copy(_salt, key, _salt.Length);
-			byte[] g = { 0, 0, 0, 1 };
-			Array.Copy(g, 0, key, _salt.Length, 4);
+            Array.Copy(_salt, key, _salt.Length);
+            byte[] g = {0, 0, 0, 1};
+            Array.Copy(g, 0, key, _salt.Length, 4);
 
-			// Compute initial hash
-			var hmac = new HMACSHA1(password);
-			var result = hmac.ComputeHash(key);
-			Array.Copy(result, prev, result.Length);
+            // Compute initial hash
+            var hmac = new HMACSHA1(password);
+            byte[] result = hmac.ComputeHash(key);
+            Array.Copy(result, prev, result.Length);
 
-			for (var i = 1; i < _i; ++i)
-			{
-				var temp = hmac.ComputeHash(prev);
-				for (var j = 0; j < temp.Length; ++j)
-				{
-					result[j] ^= temp[j];
-				}
+            for (int i = 1; i < _i; ++i)
+            {
+                byte[] temp = hmac.ComputeHash(prev);
+                for (int j = 0; j < temp.Length; ++j)
+                {
+                    result[j] ^= temp[j];
+                }
 
-				Array.Copy(temp, prev, temp.Length);
-			}
+                Array.Copy(temp, prev, temp.Length);
+            }
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

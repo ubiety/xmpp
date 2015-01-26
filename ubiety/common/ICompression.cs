@@ -1,6 +1,6 @@
 ﻿// ICompression.cs
 //
-//Ubiety XMPP Library Copyright (C) 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2011 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,22 +17,22 @@
 
 namespace ubiety.common
 {
-	///<summary>
-	///</summary>
-	public interface ICompression
-	{
-		///<summary>
-		/// Called when the stream needs to decompress the incoming data.
-		///</summary>
-		///<param name="data">The data to be decompressed as a byte array.</param>
-		///<returns>A byte array containiong the decompressed data.</returns>
-		byte[] Deflate(byte[] data);
+    /// <summary>
+    /// </summary>
+    public interface ICompression
+    {
+        /// <summary>
+        ///     Called when the stream needs to decompress the incoming data.
+        /// </summary>
+        /// <param name="data">The data to be decompressed as a byte array.</param>
+        /// <returns>A byte array containiong the decompressed data.</returns>
+        byte[] Deflate(byte[] data);
 
-		///<summary>
-		///</summary>
-		///<param name="data"></param>
-		///<param name="length"></param>
-		///<returns></returns>
-		byte[] Inflate(byte[] data, int length);
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        byte[] Inflate(byte[] data, int length);
+    }
 }

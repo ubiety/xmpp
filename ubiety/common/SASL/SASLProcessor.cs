@@ -1,6 +1,6 @@
 // SASLProcessor.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,16 +17,17 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using ubiety.core;
 using System.Text;
 using System.Security.Cryptography;
-using ubiety.common.logging;
+using ubiety.infrastructure.logging;
 
-namespace ubiety.common.SASL
+namespace ubiety.common.sasl
 {
 	///<summary>
 	///</summary>
-	public abstract class SASLProcessor
+	public abstract class SaslProcessor
 	{
 		protected JID Id;
 		protected string Password;
@@ -38,29 +39,29 @@ namespace ubiety.common.SASL
 		///<param name="type"></param>
 		///<returns></returns>
 		///<exception cref="NotSupportedException"></exception>
-		public static SASLProcessor CreateProcessor(MechanismType type)
+		public static SaslProcessor CreateProcessor(MechanismType type)
 		{
 			if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
 			{
-				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
+				Logger.Debug(typeof(SaslProcessor), "External Not Supported");
 				throw new NotSupportedException();
 			}
 
-			if ((type & MechanismType.SCRAM & UbietySettings.AuthenticationTypes) == MechanismType.SCRAM)
+			if ((type & MechanismType.Scram & UbietySettings.AuthenticationTypes) == MechanismType.Scram)
 			{
-				Logger.Debug(typeof(SASLProcessor), "Creating SCRAM-SHA-1 Processor");
-				return new SCRAMProcessor();
+				Logger.Debug(typeof(SaslProcessor), "Creating SCRAM-SHA-1 Processor");
+				return new ScramProcessor();
 			}
 
-			if ((type & MechanismType.DigestMD5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMD5)
+			if ((type & MechanismType.DigestMd5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMd5)
 			{
-				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
-				return new MD5Processor();
+				Logger.Debug(typeof(SaslProcessor), "Creating DIGEST-MD5 Processor");
+				return new Md5Processor();
 			}
 
 			if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
 			{
-				Logger.Debug(typeof(SASLProcessor), "Creating PLAIN SASL processor");
+				Logger.Debug(typeof(SaslProcessor), "Creating PLAIN SASL processor");
 				return new PlainProcessor();
 			}
 
@@ -99,7 +100,7 @@ namespace ubiety.common.SASL
 		/// </summary>
 		/// <param name="buff"></param>
 		/// <returns></returns>
-		protected string HexString(byte[] buff)
+		protected string HexString(IEnumerable<byte> buff)
 		{
 			var sb = new StringBuilder();
 			foreach (byte b in buff)

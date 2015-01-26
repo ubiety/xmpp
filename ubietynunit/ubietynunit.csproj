@@ -67,9 +67,9 @@
       <Project>{13A7D189-9C18-4FBF-BEDC-5A9D6557C693}</Project>
       <Name>ubiety.compression.sharpziplib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ubiety\ubiety.csproj">
+    <ProjectReference Include="..\ubiety\Ubiety.csproj">
       <Project>{FB8056A1-0547-4CEF-BA68-0154462BC3DB}</Project>
-      <Name>ubiety</Name>
+      <Name>Ubiety</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

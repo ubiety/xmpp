@@ -1,16 +1,40 @@
-﻿using System;
+﻿// EnumerableExtensions.cs
+//
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//
+//This library is free software; you can redistribute it and/or modify it under
+//the terms of the GNU Lesser General Public License as published by the Free
+//Software Foundation; either version 3 of the License, or (at your option)
+//any later version.
+//
+//This library is distributed in the hope that it will be useful, but WITHOUT
+//ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+//FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+//
+//You should have received a copy of the GNU Lesser General Public License along
+//with this library; if not, write to the Free Software Foundation, Inc., 59
+//Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+using System;
 using System.Collections.Generic;
 
-namespace ubiety.common.extensions
+namespace ubiety.infrastructure.extensions
 {
-	public static class EnumerableExtensions
-	{
-		public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> function)
-		{
-			foreach (var item in enumerable)
-			{
-				function.Invoke(item);
-			}
-		}
-	}
+    /// <summary>
+    /// </summary>
+    public static class EnumerableExtensions
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <param name="function"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> function)
+        {
+            foreach (T item in enumerable)
+            {
+                function.Invoke(item);
+            }
+        }
+    }
 }

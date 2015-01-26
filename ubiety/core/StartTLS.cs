@@ -17,22 +17,21 @@
 
 using System.Xml;
 using ubiety.common;
-using ubiety.common.attributes;
+using ubiety.infrastructure.attributes;
 
 namespace ubiety.core
 {
 	/// <summary>
 	/// StartTLS is used to start an encrypted authentication session.
 	/// </summary>
-	[XmppTag("starttls", Namespaces.StartTLS, typeof (StartTLS))]
-	public class StartTLS : Tag
+	[XmppTag("starttls", Namespaces.StartTls, typeof (StartTls))]
+	public class StartTls : Tag
 	{
 		/// <summary>
 		/// Creates a new instance of the StartTLS tag.
 		/// </summary>
-		/// <param name="doc">XmlDocument used for the tag.</param>
-		public StartTLS()
-			: base("", new XmlQualifiedName("starttls", Namespaces.StartTLS))
+		public StartTls()
+			: base("", new XmlQualifiedName("starttls", Namespaces.StartTls))
 		{
 		}
 

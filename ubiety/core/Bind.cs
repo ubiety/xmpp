@@ -17,28 +17,27 @@
 
 using System.Xml;
 using ubiety.common;
-using ubiety.common.attributes;
+using ubiety.infrastructure.attributes;
 
 namespace ubiety.core
 {
-	///<summary>
-	///</summary>
-	[XmppTag("bind", Namespaces.Bind, typeof (Bind))]
-	public class Bind : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="doc"></param>
-		public Bind()
-			: base("", new XmlQualifiedName("bind", Namespaces.Bind))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("bind", Namespaces.Bind, typeof (Bind))]
+    public class Bind : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Bind()
+            : base("", new XmlQualifiedName("bind", Namespaces.Bind))
+        {
+        }
 
-		///<summary>
-		///</summary>
-		public Jid JidTag
-		{
-			get { return this["jid", Namespaces.Bind] as Jid; }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public Jid JidTag
+        {
+            get { return this["jid", Namespaces.Bind] as Jid; }
+        }
+    }
 }

@@ -8,7 +8,7 @@
     <ProjectGuid>{FB8056A1-0547-4CEF-BA68-0154462BC3DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ubiety</RootNamespace>
+    <RootNamespace>Ubiety</RootNamespace>
     <AssemblyName>ubiety</AssemblyName>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>xmpp.pfx</AssemblyOriginatorKeyFile>
@@ -70,10 +70,10 @@
     <Compile Include="common\ErrorType.cs" />
     <Compile Include="common\ICompression.cs" />
     <Compile Include="common\Namespaces.cs" />
-    <Compile Include="common\SASL\MD5Processor.cs" />
-    <Compile Include="common\SASL\PlainProcessor.cs" />
-    <Compile Include="common\SASL\SASLProcessor.cs" />
-    <Compile Include="common\SASL\SCRAMProcessor.cs" />
+    <Compile Include="common\sasl\MD5Processor.cs" />
+    <Compile Include="common\sasl\PlainProcessor.cs" />
+    <Compile Include="common\sasl\SASLProcessor.cs" />
+    <Compile Include="common\sasl\SCRAMProcessor.cs" />
     <Compile Include="common\Stanza.cs" />
     <Compile Include="common\Tag.cs" />
     <Compile Include="common\JID.cs" />
@@ -180,7 +180,7 @@
     <Compile Include="net\dns\RR.cs" />
     <Compile Include="net\dns\Structs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProtocolParser.cs" />
+    <Compile Include="infrastructure\ProtocolParser.cs" />
     <Compile Include="registries\CompressionRegistry.cs" />
     <Compile Include="registries\TagRegistry.cs" />
     <Compile Include="states\DisconnectedState.cs" />
@@ -237,7 +237,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
 // Logger.cs
 //
-//Ubiety XMPP Library Copyright (C) 2008 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2008 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -18,7 +18,7 @@
 using System;
 using NLog;
 
-namespace ubiety.common.logging
+namespace ubiety.infrastructure.logging
 {
 	/// <summary>
 	/// A simple logging class that wraps log4net

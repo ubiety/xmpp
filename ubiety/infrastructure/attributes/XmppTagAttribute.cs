@@ -1,6 +1,6 @@
 // XmppTagAttribute.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,7 +17,7 @@
 
 using System;
 
-namespace ubiety.common.attributes
+namespace ubiety.infrastructure.attributes
 {
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.
