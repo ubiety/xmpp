@@ -18,8 +18,8 @@
 #region Usings
 
 using System;
+using Serilog;
 using Ubiety.Common;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Net;
 using Ubiety.Registries;
 using Ubiety.States;
@@ -72,6 +72,10 @@ namespace Ubiety
         /// </summary>
         public Xmpp()
         {
+            var log = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.RollingFile("Logs\\log-{Date}.txt").WriteTo.Seq("http://localhost:5341").CreateLogger();
+            Log.Logger = log;
+            Serilog.Debugging.SelfLog.Out = Console.Error;
+
             TagRegistry.AddAssembly(typeof (Xmpp).Assembly);
             Errors.OnError += OnError;
             ProtocolState.Socket = new AsyncSocket();
@@ -114,7 +118,7 @@ namespace Ubiety
 
         private void OnError(object sender, ErrorEventArgs e)
         {
-            Logger.ErrorFormat(this, "Error from {0}: {1}", sender, e.Message);
+            Log.Error("Error from {sender}: {message}", sender, e.Message);
             if (e.Fatal)
             {
                 Disconnect();

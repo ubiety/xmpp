@@ -21,11 +21,10 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
-using ubiety;
 using Ubiety.Common;
-using ubiety.infrastructure.logging;
-using ubiety.registries;
-using ubiety.states;
+using Ubiety.Infrastructure.Logging;
+using Ubiety.Registries;
+using Ubiety.States;
 
 #endregion
 

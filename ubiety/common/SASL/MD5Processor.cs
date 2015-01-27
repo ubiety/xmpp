@@ -23,8 +23,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Ubiety.Core;
 using Ubiety.Core.Sasl;
-using ubiety.infrastructure.logging;
-using ubiety.registries;
+using Ubiety.Infrastructure.Logging;
+using Ubiety.Registries;
 
 namespace Ubiety.Common.Sasl
 {

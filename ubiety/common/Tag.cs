@@ -18,7 +18,7 @@
 using System;
 using System.Threading;
 using System.Xml;
-using ubiety.states;
+using Ubiety.States;
 
 namespace Ubiety.Common
 {

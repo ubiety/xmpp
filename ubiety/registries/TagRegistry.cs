@@ -19,10 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
+using Serilog;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 using Ubiety.Infrastructure.Extensions;
-using Ubiety.Infrastructure.Logging;
 
 namespace Ubiety.Registries
 {
@@ -35,19 +35,18 @@ namespace Ubiety.Registries
         private static readonly Dictionary<string, Type> RegisteredItems = new Dictionary<string, Type>();
 
         /// <summary>
-        ///     Used to add <seealso cref="Tag">Tag(s)</seealso> to the registry.  Using attributes the <see cref="TagRegistry" />
+        ///     Used to add <seealso cref="Tag">Tag(s)</seealso> to the registry. Using attributes the <see cref="TagRegistry" />
         ///     looks for and adds any appropriate tags found in the assembly.
         /// </summary>
         /// <param name="assembly">The assembly to search for tags</param>
         public static void AddAssembly(Assembly assembly)
         {
-            Logger.DebugFormat(typeof (TagRegistry), "Adding assembly {0}", assembly.FullName);
+            Log.Debug("Loading tags from assembly {assembly}", assembly.FullName);
 
             IEnumerable<XmppTagAttribute> tags = assembly.GetAttributes<XmppTagAttribute>();
-            Logger.DebugFormat(typeof (TagRegistry), "{0,-24}{1,-36}{2}", "Tag Name", "Class", "Namespace");
             foreach (XmppTagAttribute tag in tags)
             {
-                Logger.DebugFormat(typeof (TagRegistry), "{0,-24}{1,-36}{2}", tag.Name, tag.ClassType.FullName, tag.Namespace);
+                Log.Debug("Loading tag {TagName} as class {ClassName} in the {Namespace} namespace.", tag.Name, tag.ClassType.FullName, tag.Namespace);
                 RegisteredItems.Add(new XmlQualifiedName(tag.Name, tag.Namespace).ToString(), tag.ClassType);
             }
         }
@@ -72,7 +71,8 @@ namespace Ubiety.Registries
             T tag = null;
             Type t;
 
-            Logger.DebugFormat(typeof (TagRegistry), "Finding tag: {0}", qname);
+            Log.Debug("Finding tag {TagName}...", qname);
+            //Logger.DebugFormat(typeof (TagRegistry), "Finding tag: {0}", qname);
 
             if (RegisteredItems.TryGetValue(qname.ToString(), out t))
             {

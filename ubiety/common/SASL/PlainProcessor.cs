@@ -17,10 +17,10 @@
 
 using System;
 using System.Text;
-using ubiety.core;
-using ubiety.core.SASL;
-using ubiety.infrastructure.logging;
-using ubiety.registries;
+using Ubiety.Core;
+using Ubiety.Core.Sasl;
+using Ubiety.Infrastructure.Logging;
+using Ubiety.Registries;
 
 namespace Ubiety.Common.Sasl
 {

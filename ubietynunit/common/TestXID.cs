@@ -16,7 +16,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using NUnit.Framework;
-using ubiety.common;
+using Ubiety.Common;
 
 namespace ubietynunit.common
 {

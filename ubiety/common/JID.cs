@@ -18,7 +18,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using ubiety.common.idn;
+using Gnu.Inet.Encoding;
 
 namespace Ubiety.Common
 {

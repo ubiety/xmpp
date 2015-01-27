@@ -29,8 +29,8 @@ using Ubiety.Common;
 using Ubiety.Infrastructure;
 using Ubiety.Infrastructure.Extensions;
 using Ubiety.Infrastructure.Logging;
-using ubiety.registries;
-using ubiety.states;
+using Ubiety.Registries;
+using Ubiety.States;
 
 namespace Ubiety.Net
 {
