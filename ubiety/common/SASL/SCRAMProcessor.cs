@@ -50,18 +50,13 @@ namespace Ubiety.Common.Sasl
         public override Tag Initialize()
         {
             base.Initialize();
-            Logger.Debug(this, "Initializing SCRAM Processor");
 
-            Logger.Debug(this, "Generating nonce");
             _nonce = NextInt64().ToString(CultureInfo.InvariantCulture);
-            Logger.DebugFormat(this, "Nonce: {0}", _nonce);
-            Logger.Debug(this, "Building Initial Message");
             var msg = new StringBuilder();
             msg.Append("n,,n=");
             msg.Append(Id.User);
             msg.Append(",r=");
             msg.Append(_nonce);
-            Logger.DebugFormat(this, "Message: {0}", msg.ToString());
 
             _clientFirst = msg.ToString().Substring(3);
 
@@ -83,7 +78,6 @@ namespace Ubiety.Common.Sasl
                 {
                     _serverFirst = tag.Bytes;
                     string response = _utf.GetString(tag.Bytes);
-                    Logger.DebugFormat(this, "Challenge: {0}", response);
 
                     // Split challenge into pieces
                     string[] tokens = response.Split(',');
@@ -93,17 +87,14 @@ namespace Ubiety.Common.Sasl
                     string r = _snonce.Substring(0, _nonce.Length);
                     if (0 != String.CompareOrdinal(r, _nonce))
                     {
-                        Logger.DebugFormat(this, "{0} does not match {1}", r, _nonce);
+                        throw new Exception("Error in authenticating server nonce.");
                     }
 
-                    Logger.Debug(this, "Getting Salt");
                     string a = tokens[1].Substring(2);
                     _salt = Convert.FromBase64String(a);
 
-                    Logger.Debug(this, "Getting Iterations");
                     string i = tokens[2].Substring(2);
                     _i = int.Parse(i);
-                    Logger.DebugFormat(this, "Iterations: {0}", _i);
 
                     var final = new StringBuilder();
                     final.Append("c=biws,r=");
@@ -115,8 +106,6 @@ namespace Ubiety.Common.Sasl
 
                     final.Append(",p=");
                     final.Append(_clientProof);
-
-                    Logger.DebugFormat(this, "Final Message: {0}", final.ToString());
 
                     var resp = TagRegistry.GetTag<GenericTag>("response", Namespaces.Sasl);
                     resp.Bytes = _utf.GetBytes(final.ToString());

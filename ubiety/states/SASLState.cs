@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using Ubiety.Common;
-using Ubiety.Infrastructure.Logging;
 
 namespace Ubiety.States
 {
@@ -33,12 +32,10 @@ namespace Ubiety.States
         /// </param>
         public override void Execute(Tag data = null)
         {
-            Logger.Debug(this, "Processing next SASL step");
             Tag res = ProtocolState.Processor.Step(data);
             switch (res.Name)
             {
                 case "success":
-                    Logger.Debug(this, "Sending start stream again");
                     ProtocolState.Authenticated = true;
                     ProtocolState.State = new ConnectedState();
                     ProtocolState.State.Execute();

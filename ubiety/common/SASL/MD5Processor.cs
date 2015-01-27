@@ -23,7 +23,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Ubiety.Core;
 using Ubiety.Core.Sasl;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 
 namespace Ubiety.Common.Sasl
@@ -73,7 +72,6 @@ namespace Ubiety.Common.Sasl
             {
                 Tag succ = tag;
                 PopulateDirectives(succ);
-                Logger.DebugFormat(this, "rspauth = {0}", this["rspauth"]);
 
                 return succ;
             }
@@ -85,7 +83,6 @@ namespace Ubiety.Common.Sasl
             }
 
             Tag chall = tag;
-            Logger.Debug(this, _enc.GetString(tag.Bytes));
             PopulateDirectives(chall);
             var res = TagRegistry.GetTag<GenericTag>("response", Namespaces.Sasl);
             if (this["rspauth"] == null)
@@ -141,7 +138,6 @@ namespace Ubiety.Common.Sasl
             sb.Append("charset=");
             sb.Append(this["charset"]);
             string temp = sb.ToString();
-            Logger.Debug(this, temp);
             return _enc.GetBytes(temp);
         }
 

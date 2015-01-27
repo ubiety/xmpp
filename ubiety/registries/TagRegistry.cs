@@ -72,7 +72,6 @@ namespace Ubiety.Registries
             Type t;
 
             Log.Debug("Finding tag {TagName}...", qname);
-            //Logger.DebugFormat(typeof (TagRegistry), "Finding tag: {0}", qname);
 
             if (RegisteredItems.TryGetValue(qname.ToString(), out t))
             {

@@ -19,7 +19,6 @@ using System.Linq;
 using Ubiety.Common;
 using Ubiety.Common.Sasl;
 using Ubiety.Core;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 
 namespace Ubiety.States
@@ -65,16 +64,13 @@ namespace Ubiety.States
 
                 if (!ProtocolState.Authenticated)
                 {
-                    Logger.Debug(this, "Creating SASL Processor");
                     ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes);
                     if (ProtocolState.Processor == null)
                     {
-                        Logger.Debug(this, "No allowed type available. Allow more authentication options.");
                         ProtocolState.State = new DisconnectState();
                         ProtocolState.State.Execute();
                         return;
                     }
-                    Logger.Debug(this, "Sending auth with mechanism type");
                     ProtocolState.Socket.Write(ProtocolState.Processor.Initialize());
 
                     ProtocolState.State = new SaslState();
@@ -85,12 +81,10 @@ namespace Ubiety.States
                 if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable && !UbietySettings.SSL &&
                     f.Compression != null)
                 {
-                    Logger.Info(this, "Starting compression");
                     // Do we have a stream for any of the compressions supported by the server?
                     foreach (string algorithm in
                         f.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
                     {
-                        Logger.DebugFormat(this, "Using {0} for compression", algorithm);
                         var c = TagRegistry.GetTag<GenericTag>("compress", Namespaces.CompressionProtocol);
                         var m = TagRegistry.GetTag<GenericTag>("method", Namespaces.CompressionProtocol);
 
@@ -103,7 +97,6 @@ namespace Ubiety.States
                 }
             }
 
-            Logger.Debug(this, "Authenticated");
             ProtocolState.State = new BindingState();
             ProtocolState.State.Execute();
         }

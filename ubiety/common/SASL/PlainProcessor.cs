@@ -19,7 +19,6 @@ using System;
 using System.Text;
 using Ubiety.Core;
 using Ubiety.Core.Sasl;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 
 namespace Ubiety.Common.Sasl
@@ -42,9 +41,6 @@ namespace Ubiety.Common.Sasl
         /// <exception cref="NotImplementedException"></exception>
         public override Tag Initialize()
         {
-            Logger.Debug(this, "Initializing Plain Processor");
-            Logger.DebugFormat(this, "ID User: {0}", UbietySettings.Id.User);
-
             var sb = new StringBuilder();
 
             sb.Append((char) 0);

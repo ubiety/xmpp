@@ -122,6 +122,7 @@
     <Compile Include="Core\Compression.cs" />
     <Compile Include="Common\Compression\Zlib.cs" />
     <Compile Include="Core\Disco\C.cs" />
+    <Compile Include="Core\Error.cs" />
     <Compile Include="Core\Features.cs" />
     <Compile Include="Core\GenericTag.cs" />
     <Compile Include="Core\Iq\Iq.cs" />

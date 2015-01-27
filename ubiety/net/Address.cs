@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Heijden.DNS;
-using Ubiety.Infrastructure.Logging;
+using Serilog;
 using TransportType = Heijden.DNS.TransportType;
 
 namespace Ubiety.Net
@@ -37,7 +37,8 @@ namespace Ubiety.Net
 
         public Address()
         {
-            _resolver = new Resolver {UseCache = true, TimeOut = 5, TransportType = TransportType.Tcp};
+            _resolver = new Resolver("8.8.8.8") {UseCache = true, TimeOut = 5, TransportType = TransportType.Tcp};
+            Log.Debug("Default DNS Servers: {DnsServers}", _resolver.DnsServer);
             _resolver.OnVerbose += _resolver_OnVerbose;
         }
 
@@ -53,7 +54,7 @@ namespace Ubiety.Net
 
         private void _resolver_OnVerbose(object sender, Resolver.VerboseEventArgs e)
         {
-            Logger.Debug(this, e.Message);
+            Log.Debug("DNS Resolver Verbose Message: {Message}", e.Message);
         }
 
         public IPAddress NextIpAddress()
@@ -62,7 +63,7 @@ namespace Ubiety.Net
                 ? UbietySettings.Hostname
                 : UbietySettings.Id.Server;
 
-            if (Hostname == "localhost")
+            if (Hostname == "dieter-pc")
             {
                 return IPAddress.Parse("127.0.0.1");
             }

@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using Ubiety.Core;
-using Ubiety.Infrastructure.Logging;
 
 namespace Ubiety.Common.Sasl
 {
@@ -37,7 +36,7 @@ namespace Ubiety.Common.Sasl
         /// </summary>
         /// <param name="directive"></param>
         /// <returns></returns>
-        public string this[string directive]
+        protected string this[string directive]
         {
             get { return (string) _directives[directive]; }
             set { _directives[directive] = value; }
@@ -52,25 +51,21 @@ namespace Ubiety.Common.Sasl
         {
             if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
             {
-                Logger.Debug(typeof (SaslProcessor), "External Not Supported");
                 throw new NotSupportedException();
             }
 
             if ((type & MechanismType.Scram & UbietySettings.AuthenticationTypes) == MechanismType.Scram)
             {
-                Logger.Debug(typeof (SaslProcessor), "Creating SCRAM-SHA-1 Processor");
                 return new ScramProcessor();
             }
 
             if ((type & MechanismType.DigestMd5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMd5)
             {
-                Logger.Debug(typeof (SaslProcessor), "Creating DIGEST-MD5 Processor");
                 return new Md5Processor();
             }
 
             if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
             {
-                Logger.Debug(typeof (SaslProcessor), "Creating PLAIN SASL processor");
                 return new PlainProcessor();
             }
 
@@ -85,8 +80,6 @@ namespace Ubiety.Common.Sasl
         /// </summary>
         public virtual Tag Initialize()
         {
-            Logger.Debug(this, "Initializing Base Processor");
-
             Id = UbietySettings.Id;
             Password = UbietySettings.Password;
 

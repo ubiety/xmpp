@@ -21,6 +21,7 @@ using Ubiety.Infrastructure.Attributes;
 
 namespace Ubiety.Core
 {
+    // TODO - Evaluate whether this is the best way to handle these tags.
     /// <summary>
     /// </summary>
     [XmppTag("register", Namespaces.Register, typeof (GenericTag))]
@@ -36,6 +37,7 @@ namespace Ubiety.Core
     [XmppTag("error", Namespaces.Client, typeof (GenericTag))]
     [XmppTag("ping", Namespaces.Ping, typeof (GenericTag))]
     [XmppTag("query", Namespaces.Roster, typeof (GenericTag))]
+    [XmppTag("text", Namespaces.XmppStreams, typeof(GenericTag))]
 
     // SASL
     [XmppTag("success", Namespaces.Sasl, typeof (GenericTag))]
@@ -47,6 +49,7 @@ namespace Ubiety.Core
 
     // Errors
     [XmppTag("unsupported-stanza-type", Namespaces.XmppStreams, typeof (GenericTag))]
+    [XmppTag("host-unknown", Namespaces.XmppStreams, typeof(GenericTag))]
 
     // Compression Tags
     [XmppTag("method", Namespaces.Compression, typeof (GenericTag))]

@@ -58,6 +58,14 @@ namespace Ubiety.Core
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public Error Error
+        {
+            get { return this["error,", Namespaces.Stream] as Error; }
+        }
+
+        /// <summary>
         /// </summary>
         public string Language
         {

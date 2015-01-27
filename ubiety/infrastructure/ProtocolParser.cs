@@ -21,8 +21,8 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
+using Serilog;
 using Ubiety.Common;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 using Ubiety.States;
 
@@ -44,7 +44,6 @@ namespace Ubiety.Infrastructure
 
         static ProtocolParser()
         {
-            Logger.Info(typeof (ProtocolParser), "Setting up environment");
             Settings = new XmlReaderSettings {ConformanceLevel = ConformanceLevel.Fragment};
             NamespaceManager = new XmlNamespaceManager(ProtocolState.Document.NameTable);
 
@@ -57,29 +56,37 @@ namespace Ubiety.Infrastructure
         /// </summary>
         public static void Parse(string message)
         {
+            bool fullStream = false;
+
             if (ProtocolState.State is DisconnectedState)
             {
-                Logger.Debug(typeof (ProtocolParser), "Closed.  Nothing to do");
                 return;
             }
 
-            Logger.Info(typeof (ProtocolParser), "Starting message parsing...");
-
             // We have received the end tag asking to finish communication so we change to the Disconnect State.
+            // TODO - Handle messages that include the end stream tag.
             if (message.Contains("</stream:stream>"))
             {
-                Logger.Info(typeof (ProtocolParser), "End of stream received from server");
                 // Just close the socket.  We don't need to reply but we will signal we aren't connected.
                 ProtocolState.State = new DisconnectedState();
                 ProtocolState.State.Execute();
-                return;
+
+                if (message.Length == 16)
+                {
+                    return;
+                }
+
+                fullStream = true;
             }
 
             // We have to cheat because XmlTextReader doesn't like malformed XML
+            // TODO - If we get a full message we don't need to add anything to it.
             if (message.Contains("<stream:stream"))
             {
-                Logger.Debug(typeof (ProtocolParser), "Adding closing tag so xml parser doesn't complain");
-                message += "</stream:stream>";
+                if (!fullStream)
+                {
+                    message += "</stream:stream>";                    
+                }
             }
 
             var context = new XmlParserContext(null, NamespaceManager, null, XmlSpace.None);
@@ -108,7 +115,7 @@ namespace Ubiety.Infrastructure
             }
             catch (XmlException e)
             {
-                Logger.ErrorFormat(typeof (ProtocolParser), "Message Parsing Error: {0}", e);
+                Log.Error(e, "Error in xml from server");
                 Errors.SendError(typeof (ProtocolParser), ErrorType.XmlError,
                     "Error parsing incoming XML.  Please try again.");
                 if (ProtocolState.Socket.Connected)
@@ -119,7 +126,7 @@ namespace Ubiety.Infrastructure
             }
             catch (InvalidOperationException e)
             {
-                Logger.ErrorFormat(typeof (ProtocolParser), "Invalid Operation: {0}", e);
+                Log.Error(e, "Invalid operation parsing incoming message.");
             }
         }
 
@@ -216,7 +223,6 @@ namespace Ubiety.Infrastructure
             var parent = (XmlElement) _element.ParentNode;
             if (parent == null)
             {
-                Logger.InfoFormat(typeof (ProtocolParser), "Current State: {0}", ProtocolState.State);
                 UbietyMessages.OnAllMessages(new MessageEventArgs {Tag = (Tag) _element});
             }
             _element = parent;

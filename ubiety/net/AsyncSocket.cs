@@ -16,7 +16,6 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -25,10 +24,10 @@ using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
+using Serilog;
 using Ubiety.Common;
 using Ubiety.Infrastructure;
 using Ubiety.Infrastructure.Extensions;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 using Ubiety.States;
 
@@ -100,17 +99,12 @@ namespace Ubiety.Net
                 return;
             }
 
-            Logger.InfoFormat(this, "Trying to connect to: {2}({0}:{1})", end.Address, UbietySettings.Port.ToString(CultureInfo.InvariantCulture),
-                UbietySettings.Hostname);
-
             if (!_destinationAddress.IPv6)
             {
-                Logger.Debug(this, "Connecting using IPv4");
                 _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             }
             else
             {
-                Logger.Debug(this, "Connecting using IPv6");
                 _socket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
             }
 
@@ -157,7 +151,6 @@ namespace Ubiety.Net
         /// </summary>
         public void Disconnect()
         {
-            Logger.Debug(this, "Closing socket (Graceful Shutdown)");
             Connected = false;
             _stream.Close();
             _socket.Shutdown(SocketShutdown.Both);
@@ -169,9 +162,7 @@ namespace Ubiety.Net
         /// </summary>
         public void StartSecure()
         {
-            Logger.Debug(this, "Starting .NET Secure Mode");
             var sslstream = new SslStream(_stream, true, RemoteValidation);
-            Logger.Debug(this, "Authenticating as Client");
             try
             {
                 sslstream.AuthenticateAsClient(_destinationAddress.Hostname, null, SslProtocols.Tls, false);
@@ -182,7 +173,7 @@ namespace Ubiety.Net
             }
             catch (Exception e)
             {
-                Logger.ErrorFormat(this, "SSL Error: {0}", e);
+                Log.Error(e, "Error is starting secure connection.");
                 Errors.SendError(this, ErrorType.XmlError, "SSL connection error", true);
             }
         }
@@ -195,8 +186,6 @@ namespace Ubiety.Net
                 return true;
             }
 
-            Logger.DebugFormat(typeof (AsyncSocket), "X509Chain {0}", chain.ChainStatus[0].Status);
-            Logger.DebugFormat(typeof (AsyncSocket), "Policy Errors: {0}", errors);
             return false;
         }
 
@@ -206,8 +195,9 @@ namespace Ubiety.Net
         /// <param name="msg">Message to send</param>
         public void Write(string msg)
         {
+            Log.Debug("Outgoing message: {Message}", msg);
+
             if (!Connected) return;
-            Logger.DebugFormat(this, "Outgoing Message: {0}", msg);
             byte[] mesg = _utf.GetBytes(msg);
             mesg = _compressed ? _compression.Deflate(mesg) : mesg;
             _stream.Write(mesg, 0, mesg.Length);
@@ -223,7 +213,8 @@ namespace Ubiety.Net
 
                 string m = _utf.GetString(_compressed ? _compression.Inflate(t, t.Length) : t);
 
-                Logger.DebugFormat(this, "Incoming Message: {0}", m);
+                Log.Debug("Incoming Message: {Message}", m);
+
                 ProtocolParser.Parse(m);
 
                 // Clear the buffer otherwise we get leftover tags and it confuses the parser.
@@ -235,11 +226,11 @@ namespace Ubiety.Net
             }
             catch (SocketException e)
             {
-                Logger.DebugFormat(this, "Socket Exception: {0}", e);
+                Log.Error(e, "Error in socket receiving data.");
             }
             catch (InvalidOperationException e)
             {
-                Logger.DebugFormat(this, "Invalid Operation: {0}", e);
+                Log.Error(e, "Socket committed an invalid operation trying to receive data.");
             }
         }
 

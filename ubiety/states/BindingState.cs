@@ -18,7 +18,6 @@
 using Ubiety.Common;
 using Ubiety.Core;
 using Ubiety.Core.Iq;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 
 namespace Ubiety.States
@@ -27,6 +26,10 @@ namespace Ubiety.States
 	///</summary>
 	public class BindingState : State
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data"></param>
 		public override void Execute(Tag data = null)
 		{
 			if (data == null)
@@ -60,7 +63,6 @@ namespace Ubiety.States
 					bind = iq.Payload as Bind;
 				}
 				if (bind != null) UbietySettings.Id = bind.JidTag.JID;
-				Logger.InfoFormat(this, "Current XID is now: {0}", UbietySettings.Id);
 
 				ProtocolState.State = new SessionState();
 				ProtocolState.State.Execute();

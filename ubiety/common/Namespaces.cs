@@ -22,14 +22,17 @@ namespace Ubiety.Common
     public static class Namespaces
     {
         /// <summary>
+        ///     Standard XMLNS namespace - http://www.w3.org/2000/xmlns
         /// </summary>
         public const string Xmlns = "http://www.w3.org/2000/xmlns";
 
         /// <summary>
+        ///     Standard XML namespace - http://www.w3.org/XML/1998/namespace
         /// </summary>
         public const string Xml = "http://www.w3.org/XML/1998/namespace";
 
         /// <summary>
+        ///     Default client namespace - jabber:client
         /// </summary>
         public const string Client = "jabber:client";
 
@@ -39,6 +42,7 @@ namespace Ubiety.Common
         public const string Stream = "http://etherx.jabber.org/streams";
 
         /// <summary>
+        ///     XMPP streams namespace - urn:ietf:params:xml:ns:xmpp-streams
         /// </summary>
         public const string XmppStreams = "urn:ietf:params:xml:ns:xmpp-streams";
 

@@ -16,8 +16,8 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using Ubiety.Common;
+using Ubiety.Core;
 using Ubiety.Infrastructure;
-using Ubiety.Infrastructure.Logging;
 
 namespace Ubiety.States
 {
@@ -30,9 +30,16 @@ namespace Ubiety.States
         /// <param name="data"></param>
         public override void Execute(Tag data = null)
         {
-            Logger.Debug(this, "Cleaning up");
-            ProtocolParser.Reset();
-            ProtocolState.Socket.Disconnect();
+            if (data != null)
+            {
+                // TODO - Bubble the error message out
+                var tag = ((Stream) data).Error;
+            }
+            else
+            {
+                ProtocolParser.Reset();
+                ProtocolState.Socket.Disconnect();                
+            }
         }
     }
 }

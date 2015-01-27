@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Serilog;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 using Ubiety.Infrastructure.Extensions;
-using Ubiety.Infrastructure.Logging;
 
 namespace Ubiety.Registries
 {
@@ -47,12 +47,12 @@ namespace Ubiety.Registries
         /// </param>
         public static void AddCompression(Assembly a)
         {
-            Logger.DebugFormat(typeof (CompressionRegistry), "Adding assembly {0}", a.FullName);
+            Log.Debug("Loading compression algorithms from {Assembly}", a.FullName);
 
             IEnumerable<CompressionAttribute> tags = a.GetAttributes<CompressionAttribute>();
             foreach (CompressionAttribute tag in tags)
             {
-                Logger.DebugFormat(typeof (CompressionRegistry), "Adding {0}", tag.Algorithm);
+                Log.Debug("Loading algorithm {Algorithm}", tag.Algorithm);
                 RegisteredItems.Add(tag.Algorithm, tag.ClassType);
             }
         }
@@ -68,7 +68,6 @@ namespace Ubiety.Registries
         /// </returns>
         public static ICompression GetCompression(string algorithm)
         {
-            Logger.InfoFormat(typeof (CompressionRegistry), "Finding algorithm {0}.", algorithm);
             ICompression stream = null;
             try
             {
@@ -88,7 +87,6 @@ namespace Ubiety.Registries
             {
                 Errors.SendError(typeof (CompressionRegistry), ErrorType.UnregisteredItem,
                     "Unable to find requested compression algorithm");
-                Logger.Error(typeof (CompressionRegistry), e);
             }
             return stream;
         }

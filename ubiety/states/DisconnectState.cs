@@ -28,7 +28,7 @@ namespace Ubiety.States
 		/// Executes the disconnect command by sending the closing stream tag and closing the socket.
 		/// </summary>
 		/// <param name="data">
-		/// No <see cref="ubiety.common.Tag"/> needed so we pass null.
+		/// No <see cref="Ubiety.Common.Tag"/> needed so we pass null.
 		/// </param>
 		public override void Execute(Tag data = null)
 		{
