@@ -1,6 +1,6 @@
 // ErrorType.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,35 +15,63 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-namespace ubiety.common
+namespace Ubiety.Common
 {
-	///<summary>
-	///</summary>
-	public enum ErrorType
-	{
-		///<summary>
-		///</summary>
-		MissingId,
-		///<summary>
-		///</summary>
-		MissingPassword,
-		///<summary>
-		///</summary>
-		AuthorizationFailed,
-		///<summary>
-		///</summary>
-		WrongProtocolVersion,
-		///<summary>
-		///</summary>
-		UnregisteredItem,
-		///<summary>
-		///</summary>
-		CompressionFailed,
-		///<summary>
-		///</summary>
-		XMLError,
-		///<summary>
-		///</summary>
-		ConnectionTimeout
-	}
+    /// <summary>
+    /// </summary>
+    public enum ErrorType
+    {
+        /// <summary>
+        /// </summary>
+        MissingId,
+
+        /// <summary>
+        /// </summary>
+        MissingPassword,
+
+        /// <summary>
+        /// </summary>
+        AuthorizationFailed,
+
+        /// <summary>
+        /// </summary>
+        WrongProtocolVersion,
+
+        /// <summary>
+        /// </summary>
+        UnregisteredItem,
+
+        /// <summary>
+        /// </summary>
+        CompressionFailed,
+
+        /// <summary>
+        /// </summary>
+        XmlError,
+
+        /// <summary>
+        /// </summary>
+        ConnectionTimeout
+    }
+
+    /// <summary>
+    /// </summary>
+    public enum ErrorLevel
+    {
+        /// <summary>
+        /// </summary>
+        Information,
+
+        /// <summary>
+        /// </summary>
+        Disconnect,
+
+        /// <summary>
+        /// </summary>
+        Reconnect,
+
+        /// <summary>
+        /// </summary>
+        Fatal
+    }
 }

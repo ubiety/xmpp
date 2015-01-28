@@ -1,6 +1,6 @@
 // Jid.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 // 
 // This library is free software; you can redistribute it and/or modify it under
 // the terms of the GNU Lesser General Public License as published by the Free
@@ -16,28 +16,27 @@
 // Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.common.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core
+namespace Ubiety.Core
 {
-	///<summary>
-	///</summary>
-	[XmppTag("jid", Namespaces.Bind, typeof (Jid))]
-	public class Jid : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="doc"></param>
-		public Jid() : base("", new XmlQualifiedName("jid", Namespaces.Bind))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("jid", Namespaces.Bind, typeof (Jid))]
+    public class Jid : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Jid() : base("", new XmlQualifiedName("jid", Namespaces.Bind))
+        {
+        }
 
-		///<summary>
-		///</summary>
-		public JID JID
-		{
-			get { return new JID(InnerText); }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public JID JID
+        {
+            get { return new JID(InnerText); }
+        }
+    }
 }

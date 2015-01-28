@@ -1,6 +1,6 @@
 // BindingState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,18 +15,21 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety.common;
-using ubiety.common.logging;
-using ubiety.core;
-using ubiety.core.iq;
-using ubiety.registries;
+using Ubiety.Common;
+using Ubiety.Core;
+using Ubiety.Core.Iq;
+using Ubiety.Registries;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
 	///<summary>
 	///</summary>
 	public class BindingState : State
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="data"></param>
 		public override void Execute(Tag data = null)
 		{
 			if (data == null)
@@ -34,10 +37,10 @@ namespace ubiety.states
 				var a = TagRegistry.GetTag<Bind>("bind", Namespaces.Bind);
 				var b = TagRegistry.GetTag<Iq>("iq", Namespaces.Client);
 
-				if (UbietySettings.Id.Resource != null)
+				if (ProtocolState.Settings.Id.Resource != null)
 				{
 					var res = TagRegistry.GetTag<GenericTag>("resource", Namespaces.Bind);
-					res.InnerText = UbietySettings.Id.Resource;
+					res.InnerText = ProtocolState.Settings.Id.Resource;
 					a.AddChildTag(res);
 				}
 
@@ -55,12 +58,11 @@ namespace ubiety.states
 					if (iq.IqType == IqType.Error)
 					{
 						var e = iq["error"];
-						if (e != null) Errors.SendError(this, ErrorType.XMLError, e.InnerText);
+						if (e != null) ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorLevel.Reconnect, e.InnerText);
 					}
 					bind = iq.Payload as Bind;
 				}
-				if (bind != null) UbietySettings.Id = bind.JidTag.JID;
-				Logger.InfoFormat(this, "Current XID is now: {0}", UbietySettings.Id);
+				if (bind != null) ProtocolState.Settings.Id = bind.JidTag.JID;
 
 				ProtocolState.State = new SessionState();
 				ProtocolState.State.Execute();

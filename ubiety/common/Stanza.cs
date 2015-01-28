@@ -1,6 +1,6 @@
 // Stanza.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,7 +17,7 @@
 
 using System.Xml;
 
-namespace ubiety.common
+namespace Ubiety.Common
 {
 	///<summary>
 	///</summary>
@@ -27,8 +27,7 @@ namespace ubiety.common
 		///</summary>
 		///<param name="prefix"></param>
 		///<param name="qname"></param>
-		///<param name="doc"></param>
-		public Stanza(string prefix, XmlQualifiedName qname) : base(prefix, qname)
+		protected Stanza(string prefix, XmlQualifiedName qname) : base(prefix, qname)
 		{
 		}
 

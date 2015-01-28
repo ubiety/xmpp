@@ -1,6 +1,6 @@
 ﻿// C.cs
 //
-//Ubiety XMPP Library Copyright (C) 2011 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2011 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,39 +16,39 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.common.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core.disco
+namespace Ubiety.Core.Disco
 {
-	/// <summary>
-	/// &lt;c/&gt; element as described in XEP-0115
-	/// </summary>
-	[XmppTag("c", Namespaces.Entity, typeof (C))]
-	public class C : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="doc"></param>
-		public C()
-			: base("", new XmlQualifiedName("c", Namespaces.Entity))
-		{
-		}
+    /// <summary>
+    ///     &lt;c/&gt; element as described in XEP-0115
+    /// </summary>
+    [XmppTag("c", Namespaces.Entity, typeof (C))]
+    public class C : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public C()
+            : base("", new XmlQualifiedName("c", Namespaces.Entity))
+        {
+        }
 
-		///<summary>
-		/// A URI that uniquely identifies a software application, typically a URL at the website of the project or company that produces the software.
-		///</summary>
-		public string Node
-		{
-			get { return GetAttribute("node"); }
-		}
+        /// <summary>
+        ///     A URI that uniquely identifies a software application, typically a URL at the website of the project or company
+        ///     that produces the software.
+        /// </summary>
+        public string Node
+        {
+            get { return GetAttribute("node"); }
+        }
 
-		///<summary>
-		/// A string that is used to verify the identity and supported features of the entity.
-		///</summary>
-		public string Ver
-		{
-			get { return GetAttribute("ver"); }
-		}
-	}
+        /// <summary>
+        ///     A string that is used to verify the identity and supported features of the entity.
+        /// </summary>
+        public string Ver
+        {
+            get { return GetAttribute("ver"); }
+        }
+    }
 }

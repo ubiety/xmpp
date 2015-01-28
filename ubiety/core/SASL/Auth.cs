@@ -1,6 +1,6 @@
 // Auth.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,37 +16,36 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.common.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core.SASL
+namespace Ubiety.Core.Sasl
 {
-	///<summary>
-	///</summary>
-	[XmppTag("auth", Namespaces.SASL, typeof (Auth))]
-	public class Auth : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="doc"></param>
-		public Auth() : base("", new XmlQualifiedName("auth", Namespaces.SASL))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("auth", Namespaces.Sasl, typeof (Auth))]
+    public class Auth : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Auth() : base("", new XmlQualifiedName("auth", Namespaces.Sasl))
+        {
+        }
 
-		///<summary>
-		///</summary>
-		public string Mechanism
-		{
-			get { return GetAttribute("mechanism"); }
-			set { SetAttribute("mechanism", value); }
-		}
+        /// <summary>
+        /// </summary>
+        public string Mechanism
+        {
+            get { return GetAttribute("mechanism"); }
+            set { SetAttribute("mechanism", value); }
+        }
 
-		///<summary>
-		///</summary>
-		public string Text
-		{
-			get { return InnerText; }
-			set { InnerText = value; }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public string Text
+        {
+            get { return InnerText; }
+            set { InnerText = value; }
+        }
+    }
 }

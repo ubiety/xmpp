@@ -1,6 +1,6 @@
 // Bind.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,29 +16,28 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.common.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core
+namespace Ubiety.Core
 {
-	///<summary>
-	///</summary>
-	[XmppTag("bind", Namespaces.Bind, typeof (Bind))]
-	public class Bind : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="doc"></param>
-		public Bind()
-			: base("", new XmlQualifiedName("bind", Namespaces.Bind))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("bind", Namespaces.Bind, typeof (Bind))]
+    public class Bind : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Bind()
+            : base("", new XmlQualifiedName("bind", Namespaces.Bind))
+        {
+        }
 
-		///<summary>
-		///</summary>
-		public Jid JidTag
-		{
-			get { return this["jid", Namespaces.Bind] as Jid; }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public Jid JidTag
+        {
+            get { return this["jid", Namespaces.Bind] as Jid; }
+        }
+    }
 }

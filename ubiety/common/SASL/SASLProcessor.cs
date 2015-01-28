@@ -1,6 +1,6 @@
 // SASLProcessor.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,109 +17,108 @@
 
 using System;
 using System.Collections;
-using ubiety.core;
-using System.Text;
+using System.Collections.Generic;
 using System.Security.Cryptography;
-using ubiety.common.logging;
+using System.Text;
+using Ubiety.Core;
 
-namespace ubiety.common.SASL
+namespace Ubiety.Common.Sasl
 {
-	///<summary>
-	///</summary>
-	public abstract class SASLProcessor
-	{
-		protected JID Id;
-		protected string Password;
-		
-		private readonly Hashtable _directives = new Hashtable();
+    /// <summary>
+    /// </summary>
+    public abstract class SaslProcessor
+    {
+        private readonly Hashtable _directives = new Hashtable();
 
-		///<summary>
-		///</summary>
-		///<param name="type"></param>
-		///<returns></returns>
-		///<exception cref="NotSupportedException"></exception>
-		public static SASLProcessor CreateProcessor(MechanismType type)
-		{
-			if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
-			{
-				Logger.Debug(typeof(SASLProcessor), "External Not Supported");
-				throw new NotSupportedException();
-			}
+        /// <summary>
+        /// </summary>
+        protected JID Id;
 
-			if ((type & MechanismType.SCRAM & UbietySettings.AuthenticationTypes) == MechanismType.SCRAM)
-			{
-				Logger.Debug(typeof(SASLProcessor), "Creating SCRAM-SHA-1 Processor");
-				return new SCRAMProcessor();
-			}
+        /// <summary>
+        /// </summary>
+        protected string Password;
 
-			if ((type & MechanismType.DigestMD5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMD5)
-			{
-				Logger.Debug(typeof(SASLProcessor), "Creating DIGEST-MD5 Processor");
-				return new MD5Processor();
-			}
+        /// <summary>
+        /// </summary>
+        /// <param name="directive"></param>
+        /// <returns></returns>
+        protected string this[string directive]
+        {
+            get { return (string) _directives[directive]; }
+            set { _directives[directive] = value; }
+        }
 
-			if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
-			{
-				Logger.Debug(typeof(SASLProcessor), "Creating PLAIN SASL processor");
-				return new PlainProcessor();
-			}
+        /// <summary>
+        ///     Creates the appropriate authentication processor based on the types supported by the server and client.
+        /// </summary>
+        /// <param name="serverTypes">Authentication methods supported by the server</param>
+        /// <param name="clientTypes">Authentication methods supported by the client</param>
+        /// <returns>Authentication processor that is common between client and server.</returns>
+        /// <exception cref="NotSupportedException"></exception>
+        public static SaslProcessor CreateProcessor(MechanismType serverTypes, MechanismType clientTypes)
+        {
+            if ((serverTypes & MechanismType.External & clientTypes) == MechanismType.External)
+            {
+                throw new NotSupportedException();
+            }
 
-			return null;
-		}
+            if ((serverTypes & MechanismType.Scram & clientTypes) == MechanismType.Scram)
+            {
+                return new ScramProcessor();
+            }
 
-		///<summary>
-		///</summary>
-		public abstract Tag Step(Tag tag);
+            if ((serverTypes & MechanismType.DigestMd5 & clientTypes) == MechanismType.DigestMd5)
+            {
+                return new Md5Processor();
+            }
 
-		///<summary>
-		///</summary>
-		public virtual Tag Initialize()
-		{
-			Logger.Debug(this, "Initializing Base Processor");
-			
-			Id = UbietySettings.Id;
-			Password = UbietySettings.Password;
+            if ((serverTypes & MechanismType.Plain & clientTypes) == MechanismType.Plain)
+            {
+                return new PlainProcessor();
+            }
 
-			return null;
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="directive"></param>
-		/// <returns></returns>
-		public string this[string directive]
-		{
-			get { return (string)_directives[directive]; }
-			set { _directives[directive] = value; }
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="buff"></param>
-		/// <returns></returns>
-		protected string HexString(byte[] buff)
-		{
-			var sb = new StringBuilder();
-			foreach (byte b in buff)
-			{
-				sb.Append(b.ToString("x2"));
-			}
+        /// <summary>
+        /// </summary>
+        public abstract Tag Step(Tag tag);
 
-			return sb.ToString();
-		}
+        /// <summary>
+        /// </summary>
+        public virtual Tag Initialize(String id, String password)
+        {
+            Id = id;
+            Password = password;
 
-		/// <summary>
-		/// Generates a new random 64bit number
-		/// </summary>
-		/// <returns>Random Int64</returns>
-		protected static Int64 NextInt64()
-		{
-			var bytes = new byte[sizeof(Int64)];
-			var rand = new RNGCryptoServiceProvider();
-			rand.GetBytes(bytes);
-			return BitConverter.ToInt64(bytes, 0);
-		}
-	}
+            return null;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        protected string HexString(IEnumerable<byte> buff)
+        {
+            var sb = new StringBuilder();
+            foreach (byte b in buff)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Generates a new random 64bit number
+        /// </summary>
+        /// <returns>Random Int64</returns>
+        protected static Int64 NextInt64()
+        {
+            var bytes = new byte[sizeof (Int64)];
+            var rand = new RNGCryptoServiceProvider();
+            rand.GetBytes(bytes);
+            return BitConverter.ToInt64(bytes, 0);
+        }
+    }
 }

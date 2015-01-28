@@ -8,7 +8,7 @@
     <ProjectGuid>{FB8056A1-0547-4CEF-BA68-0154462BC3DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ubiety</RootNamespace>
+    <RootNamespace>Ubiety</RootNamespace>
     <AssemblyName>ubiety</AssemblyName>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>xmpp.pfx</AssemblyOriginatorKeyFile>
@@ -34,6 +34,13 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ReleaseVersion>0.5</ReleaseVersion>
+    <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyFileVersionSettings>IncrementOnDemand.YearStamp.DeltaDayStamp.Increment</AssemblyFileVersionSettings>
+    <AssemblyVersionSettings>IncrementOnDemand.YearStamp.DeltaDayStamp.Increment</AssemblyVersionSettings>
+    <NuGetPackageImportStamp>448ca221</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -55,125 +62,107 @@
     <DocumentationFile>xmpp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Heijden.Dns">
+      <HintPath>..\packages\Heijden.Dns.1.0.0\lib\net35\Heijden.Dns.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="libidn, Version=1.0.5504.26636, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\libidn.1.29.1\lib\libidn.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.1.4.139\lib\net40\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx">
+      <HintPath>..\packages\Serilog.1.4.139\lib\net40\Serilog.FullNetFx.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Seq">
+      <HintPath>..\packages\Serilog.Sinks.Seq.1.4.139\lib\net40\Serilog.Sinks.Seq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common\disco\IDiscoManager.cs" />
-    <Compile Include="common\disco\RegistryDiscoManager.cs" />
-    <Compile Include="common\ErrorType.cs" />
-    <Compile Include="common\ICompression.cs" />
-    <Compile Include="common\Namespaces.cs" />
-    <Compile Include="common\SASL\MD5Processor.cs" />
-    <Compile Include="common\SASL\PlainProcessor.cs" />
-    <Compile Include="common\SASL\SASLProcessor.cs" />
-    <Compile Include="common\SASL\SCRAMProcessor.cs" />
-    <Compile Include="common\Stanza.cs" />
-    <Compile Include="common\Tag.cs" />
-    <Compile Include="common\JID.cs" />
-    <Compile Include="core\Bind.cs" />
-    <Compile Include="core\Compression\Compression.cs" />
-    <Compile Include="core\disco\C.cs" />
-    <Compile Include="core\Features.cs" />
-    <Compile Include="core\GenericTag.cs" />
-    <Compile Include="core\iq\Iq.cs" />
-    <Compile Include="core\Jid.cs" />
-    <Compile Include="core\Mechanisms.cs" />
-    <Compile Include="core\SASL\Auth.cs" />
-    <Compile Include="core\StartTLS.cs" />
-    <Compile Include="core\Stream.cs" />
-    <Compile Include="Errors.cs" />
-    <Compile Include="net\Address.cs" />
-    <Compile Include="net\AsyncSocket.cs" />
-    <Compile Include="net\dns\Header.cs" />
-    <Compile Include="net\dns\Question.cs" />
-    <Compile Include="net\dns\RecordReader.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordA6.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordAPL.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordATMA.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordCERT.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordDHCID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordDNSKEY.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordEID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordGID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordHIP.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordIPSECKEY.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNIMLOC.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNSEC.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNSEC3.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordNSEC3PARAM.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordOPT.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordRRSIG.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordSINK.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordSPF.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordSSHFP.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUID.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUINFO.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUnknown.cs" />
-    <Compile Include="net\dns\Records\NotUsed\RecordUNSPEC.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordGPOS.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordMD.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordMF.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordNSAPPTR.cs" />
-    <Compile Include="net\dns\Records\Obsolete\RecordNXT.cs" />
-    <Compile Include="net\dns\Records\Record.cs" />
-    <Compile Include="net\dns\Records\RecordA.cs" />
-    <Compile Include="net\dns\Records\RecordAAAA.cs" />
-    <Compile Include="net\dns\Records\RecordAFSDB.cs" />
-    <Compile Include="net\dns\Records\RecordCNAME.cs" />
-    <Compile Include="net\dns\Records\RecordDNAME.cs" />
-    <Compile Include="net\dns\Records\RecordDS.cs" />
-    <Compile Include="net\dns\Records\RecordHINFO.cs" />
-    <Compile Include="net\dns\Records\RecordISDN.cs" />
-    <Compile Include="net\dns\Records\RecordKEY.cs" />
-    <Compile Include="net\dns\Records\RecordKX.cs" />
-    <Compile Include="net\dns\Records\RecordLOC.cs" />
-    <Compile Include="net\dns\Records\RecordMB.cs" />
-    <Compile Include="net\dns\Records\RecordMG.cs" />
-    <Compile Include="net\dns\Records\RecordMINFO.cs" />
-    <Compile Include="net\dns\Records\RecordMR.cs" />
-    <Compile Include="net\dns\Records\RecordMX.cs" />
-    <Compile Include="net\dns\Records\RecordNAPTR.cs" />
-    <Compile Include="net\dns\Records\RecordNS.cs" />
-    <Compile Include="net\dns\Records\RecordNSAP.cs" />
-    <Compile Include="net\dns\Records\RecordNULL.cs" />
-    <Compile Include="net\dns\Records\RecordPTR.cs" />
-    <Compile Include="net\dns\Records\RecordPX.cs" />
-    <Compile Include="net\dns\Records\RecordRP.cs" />
-    <Compile Include="net\dns\Records\RecordRT.cs" />
-    <Compile Include="net\dns\Records\RecordSIG.cs" />
-    <Compile Include="net\dns\Records\RecordSOA.cs" />
-    <Compile Include="net\dns\Records\RecordSRV.cs" />
-    <Compile Include="net\dns\Records\RecordTKEY.cs" />
-    <Compile Include="net\dns\Records\RecordTSIG.cs" />
-    <Compile Include="net\dns\Records\RecordTXT.cs" />
-    <Compile Include="net\dns\Records\RecordWKS.cs" />
-    <Compile Include="net\dns\Records\RecordX25.cs" />
-    <Compile Include="net\dns\Request.cs" />
-    <Compile Include="net\dns\Resolver.cs" />
-    <Compile Include="net\dns\Response.cs" />
-    <Compile Include="net\dns\RR.cs" />
-    <Compile Include="net\dns\Structs.cs" />
+    <Compile Include="Common\Disco\IDiscoManager.cs" />
+    <Compile Include="Common\Disco\RegistryDiscoManager.cs" />
+    <Compile Include="Common\ErrorType.cs" />
+    <Compile Include="Common\ICompression.cs" />
+    <Compile Include="Common\Namespaces.cs" />
+    <Compile Include="Common\Sasl\Md5Processor.cs" />
+    <Compile Include="Common\Sasl\PlainProcessor.cs" />
+    <Compile Include="Common\Sasl\SaslProcessor.cs" />
+    <Compile Include="Common\Sasl\ScramProcessor.cs" />
+    <Compile Include="Common\Stanza.cs" />
+    <Compile Include="Common\Tag.cs" />
+    <Compile Include="Common\JID.cs" />
+    <Compile Include="Core\Bind.cs" />
+    <Compile Include="Core\Compression.cs" />
+    <Compile Include="Common\Compression\Zlib.cs" />
+    <Compile Include="Core\Disco\C.cs" />
+    <Compile Include="Core\Error.cs" />
+    <Compile Include="Core\Features.cs" />
+    <Compile Include="Core\GenericTag.cs" />
+    <Compile Include="Core\Iq\Iq.cs" />
+    <Compile Include="Core\Jid.cs" />
+    <Compile Include="Core\Mechanisms.cs" />
+    <Compile Include="Core\Sasl\Auth.cs" />
+    <Compile Include="Core\StartTls.cs" />
+    <Compile Include="Core\Stream.cs" />
+    <Compile Include="Infrastructure\Attributes\CompressionAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\XmppTagAttribute.cs" />
+    <Compile Include="Infrastructure\Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ByteExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\TypeExtensions.cs" />
+    <Compile Include="Infrastructure\XmppEvents.cs" />
+    <Compile Include="Net\Address.cs" />
+    <Compile Include="Net\AsyncSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProtocolParser.cs" />
-    <Compile Include="registries\CompressionRegistry.cs" />
-    <Compile Include="registries\TagRegistry.cs" />
-    <Compile Include="states\DisconnectedState.cs" />
-    <Compile Include="UbietyMessages.cs" />
-    <Compile Include="states\BindingState.cs" />
-    <Compile Include="states\CompressedState.cs" />
-    <Compile Include="states\ConnectedState.cs" />
-    <Compile Include="states\ConnectingState.cs" />
-    <Compile Include="states\DisconnectState.cs" />
-    <Compile Include="states\ProtocolState.cs" />
-    <Compile Include="states\RunningState.cs" />
-    <Compile Include="states\SASLState.cs" />
-    <Compile Include="states\ServerFeaturesState.cs" />
-    <Compile Include="states\SessionState.cs" />
-    <Compile Include="states\StartTLSState.cs" />
-    <Compile Include="states\State.cs" />
-    <Compile Include="XMPP.cs" />
-    <Compile Include="UbietySettings.cs" />
+    <Compile Include="Infrastructure\ProtocolParser.cs" />
+    <Compile Include="Registries\CompressionRegistry.cs" />
+    <Compile Include="Registries\TagRegistry.cs" />
+    <Compile Include="States\DisconnectedState.cs" />
+    <Compile Include="States\BindingState.cs" />
+    <Compile Include="States\CompressedState.cs" />
+    <Compile Include="States\ConnectedState.cs" />
+    <Compile Include="States\ConnectingState.cs" />
+    <Compile Include="States\DisconnectState.cs" />
+    <Compile Include="States\ProtocolState.cs" />
+    <Compile Include="States\RunningState.cs" />
+    <Compile Include="States\SaslState.cs" />
+    <Compile Include="States\ServerFeaturesState.cs" />
+    <Compile Include="States\SessionState.cs" />
+    <Compile Include="States\StartTlsState.cs" />
+    <Compile Include="States\State.cs" />
+    <Compile Include="Xmpp.cs" />
+    <Compile Include="Infrastructure\XmppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -203,14 +192,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ubiety.common\ubiety.common.csproj">
-      <Project>{CE4A4A0B-8718-4BBF-B1DD-5C57629D00AE}</Project>
-      <Name>ubiety.common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="net\dns\Records\totla.txt" />
-    <Content Include="net\dns\Root\named_root.txt" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -218,6 +201,13 @@
       <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

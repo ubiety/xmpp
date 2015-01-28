@@ -1,6 +1,6 @@
 // Mechanisms.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,159 +16,152 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using ubiety.common;
-using ubiety.common.attributes;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core
+namespace Ubiety.Core
 {
-	///<summary>
-	///</summary>
-	[Flags]
-	public enum MechanismType
-	{
-		///<summary>
-		/// No Authentication
-		///</summary>
-		None,
-		///<summary>
-		/// Plain Text Authentication (Only use on encrypted connections)
-		///</summary>
-		Plain = (1 << 0),
-		///<summary>
-		/// DIGEST-MD5 Authentication
-		///</summary>
-		DigestMD5 = (1 << 1),
-		///<summary>
-		/// External Certificate Authentication (Not Implmented Yet)
-		///</summary>
-		External = (1 << 2),
-		/// <summary>
-		/// SCRAM-SHA-1 Authentication
-		/// </summary>
-		SCRAM = (1 << 3),
-		/// <summary>
-		/// Default Authentication Types (SCRAM-SHA-1 and DIGEST-MD5)
-		/// </summary>
-		Default = SCRAM | DigestMD5
-	}
+    /// <summary>
+    /// </summary>
+    [Flags]
+    public enum MechanismType
+    {
+        /// <summary>
+        ///     No Authentication
+        /// </summary>
+        None,
 
-	/// <summary>
-	/// 
-	/// </summary>
-	[XmppTag("mechanisms", Namespaces.SASL, typeof (Mechanisms))]
-	public class Mechanisms : Tag
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="doc"></param>
-		public Mechanisms()
-			: base("", new XmlQualifiedName("mechanisms", Namespaces.SASL))
-		{
-		}
+        /// <summary>
+        ///     Plain Text Authentication (Only use on encrypted connections)
+        /// </summary>
+        Plain = (1 << 0),
 
-		///<summary>
-		///</summary>
-		public MechanismType SupportedTypes
-		{
-			get
-			{
-				return GetMechanisms().Aggregate(MechanismType.None, (current, m) => current | m.Type);
-			}
-		}
+        /// <summary>
+        ///     DIGEST-MD5 Authentication
+        /// </summary>
+        DigestMd5 = (1 << 1),
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public Mechanism[] GetMechanisms()
-		{
-			var nl = GetElementsByTagName("mechanism", Namespaces.SASL);
-			var items = new Mechanism[nl.Count];
-			var i = 0;
-			foreach (XmlNode node in nl)
-			{
-				items[i] = (Mechanism) node;
-				i++;
-			}
-			return items;
-		}
-	}
+        /// <summary>
+        ///     External Certificate Authentication (Not Implmented Yet)
+        /// </summary>
+        External = (1 << 2),
 
-	/// <summary>
-	/// 
-	/// </summary>
-	[XmppTag("mechanism", Namespaces.SASL, typeof (Mechanism))]
-	public class Mechanism : Tag
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="doc"></param>
-		public Mechanism()
-			: base("", new XmlQualifiedName("mechanism", Namespaces.SASL))
-		{
-		}
+        /// <summary>
+        ///     SCRAM-SHA-1 Authentication
+        /// </summary>
+        Scram = (1 << 3),
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public string Text
-		{
-			get { return InnerText; }
-		}
+        /// <summary>
+        ///     Default Authentication Types (SCRAM-SHA-1 and DIGEST-MD5)
+        /// </summary>
+        Default = Scram | DigestMd5
+    }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public MechanismType Type
-		{
-			get { return GetType(Text); }
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("mechanisms", Namespaces.Sasl, typeof (Mechanisms))]
+    public class Mechanisms : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Mechanisms()
+            : base("", new XmlQualifiedName("mechanisms", Namespaces.Sasl))
+        {
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public static MechanismType GetType(string type)
-		{
-			switch (type)
-			{
-				case "PLAIN":
-					return MechanismType.Plain;
-				case "DIGEST-MD5":
-					return MechanismType.DigestMD5;
-				case "EXTERNAL":
-					return MechanismType.External;
-				case "SCRAM-SHA-1":
-					return MechanismType.SCRAM;
-				default:
-					return MechanismType.None;
-			}
-		}
+        /// <summary>
+        /// </summary>
+        public MechanismType SupportedTypes
+        {
+            get { return GetMechanisms().Aggregate(MechanismType.None, (current, m) => current | m.Type); }
+        }
 
-		///<summary>
-		///</summary>
-		///<param name="type"></param>
-		///<returns></returns>
-		public static string GetMechanism(MechanismType type)
-		{
-			switch (type)
-			{
-				case MechanismType.Plain:
-					return "PLAIN";
-				case MechanismType.External:
-					return "EXTERNAL";
-				case MechanismType.DigestMD5:
-					return "DIGEST-MD5";
-				case MechanismType.SCRAM:
-					return "SCRAM-SHA-1";
-				default:
-					return "";
-			}
-		}
-	}
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<Mechanism> GetMechanisms()
+        {
+            XmlNodeList nl = GetElementsByTagName("mechanism", Namespaces.Sasl);
+            var items = new Mechanism[nl.Count];
+            int i = 0;
+            foreach (XmlNode node in nl)
+            {
+                items[i] = (Mechanism) node;
+                i++;
+            }
+            return items;
+        }
+    }
+
+    /// <summary>
+    /// </summary>
+    [XmppTag("mechanism", Namespaces.Sasl, typeof (Mechanism))]
+    public class Mechanism : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Mechanism()
+            : base("", new XmlQualifiedName("mechanism", Namespaces.Sasl))
+        {
+        }
+
+        /// <summary>
+        /// </summary>
+        public string Text
+        {
+            get { return InnerText; }
+        }
+
+        /// <summary>
+        /// </summary>
+        public MechanismType Type
+        {
+            get { return GetType(Text); }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static MechanismType GetType(string type)
+        {
+            switch (type)
+            {
+                case "PLAIN":
+                    return MechanismType.Plain;
+                case "DIGEST-MD5":
+                    return MechanismType.DigestMd5;
+                case "EXTERNAL":
+                    return MechanismType.External;
+                case "SCRAM-SHA-1":
+                    return MechanismType.Scram;
+                default:
+                    return MechanismType.None;
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string GetMechanism(MechanismType type)
+        {
+            switch (type)
+            {
+                case MechanismType.Plain:
+                    return "PLAIN";
+                case MechanismType.External:
+                    return "EXTERNAL";
+                case MechanismType.DigestMd5:
+                    return "DIGEST-MD5";
+                case MechanismType.Scram:
+                    return "SCRAM-SHA-1";
+                default:
+                    return "";
+            }
+        }
+    }
 }

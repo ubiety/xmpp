@@ -1,6 +1,6 @@
 // CompressionRegistry.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -18,94 +18,91 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using ubiety.common;
-using ubiety.common.attributes;
-using ubiety.common.extensions;
-using ubiety.common.logging;
+using Serilog;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
+using Ubiety.Infrastructure.Extensions;
+using Ubiety.States;
 
-namespace ubiety.registries
+namespace Ubiety.Registries
 {
-	///<summary>
-	///</summary>
-	public static class CompressionRegistry
-	{
-        private static Dictionary<string, Type> RegisteredItems = new Dictionary<string, Type>();
+    /// <summary>
+    /// </summary>
+    public static class CompressionRegistry
+    {
+        private static readonly Dictionary<string, Type> RegisteredItems = new Dictionary<string, Type>();
 
-		/// <summary>
-		/// Add a compression stream to the library.  Zlib is the default.
-		/// </summary>
-		/// <param name="a">
-		/// The assembly containing the stream definition.
-		/// </param>
-		public static void AddCompression(Assembly a)
-		{
-			Logger.DebugFormat(typeof(CompressionRegistry), "Adding assembly {0}", a.FullName);
-			
-			var tags = a.GetAttributes<CompressionAttribute>();
-			foreach (var tag in tags)
-			{
-                Logger.DebugFormat(typeof(CompressionRegistry), "Adding {0}", tag.Algorithm);
-				RegisteredItems.Add(tag.Algorithm, tag.ClassType);
-			}			
-		}
+        /// <value>
+        ///     Do we have any algorithms to use?
+        /// </value>
+        public static bool AlgorithmsAvailable
+        {
+            get { return RegisteredItems.Count >= 1; }
+        }
 
-		/// <summary>
-		/// Creates the stream class for the compression algorithm specified.
-		/// </summary>
-		/// <param name="algorithm">
-		/// The algorithm we want to create the stream for.
-		/// </param>
-		/// <returns>
-		/// The wrapped stream ready for compression.
-		/// </returns>
-		public static ICompression GetCompression(string algorithm)
-		{
-			Logger.InfoFormat(typeof(CompressionRegistry), "Finding algorithm {0}.", algorithm);
-			ICompression stream = null;
-			try
-			{
-				Type t;
-				if (RegisteredItems.TryGetValue(algorithm, out t))
-				{				
-					stream = (ICompression)Activator.CreateInstance(t);
-				}
-				else
-				{
-					Errors.SendError(typeof(CompressionRegistry), ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
-					return null;
-				}
-			}
-			catch (Exception e)
-			{
-				Errors.SendError(typeof(CompressionRegistry), ErrorType.UnregisteredItem, "Unable to find requested compression algorithm");
-				Logger.Error(typeof(CompressionRegistry), e);
-			}
-			return stream;
-		}
+        /// <summary>
+        ///     Add a compression stream to the library.  Zlib is the default.
+        /// </summary>
+        /// <param name="a">
+        ///     The assembly containing the stream definition.
+        /// </param>
+        public static void AddCompression(Assembly a)
+        {
+            Log.Debug("Loading compression algorithms from {Assembly}", a.FullName);
 
-		/// <summary>
-		/// Does the library support the algorithm the server is requesting.
-		/// </summary>
-		/// <param name="algorithm">
-		/// The algorithm we are looking for.
-		/// </param>
-		/// <returns>
-		/// True if we have a stream class available.  False if not.
-		/// </returns>
-		public static bool SupportsAlgorithm(string algorithm)
-		{
-			return RegisteredItems.ContainsKey(algorithm);
-		}
+            IEnumerable<CompressionAttribute> tags = a.GetAttributes<CompressionAttribute>();
+            foreach (CompressionAttribute tag in tags)
+            {
+                Log.Debug("Loading algorithm {Algorithm}", tag.Algorithm);
+                RegisteredItems.Add(tag.Algorithm, tag.ClassType);
+            }
+        }
 
-		/// <value>
-		/// Do we have any algorithms to use?
-		/// </value>
-		public static bool AlgorithmsAvailable
-		{
-			get
-			{
-				return RegisteredItems.Count >= 1;
-			}
-		}
-	}
+        /// <summary>
+        ///     Creates the stream class for the compression algorithm specified.
+        /// </summary>
+        /// <param name="algorithm">
+        ///     The algorithm we want to create the stream for.
+        /// </param>
+        /// <returns>
+        ///     The wrapped stream ready for compression.
+        /// </returns>
+        public static ICompression GetCompression(string algorithm)
+        {
+            ICompression stream = null;
+            try
+            {
+                Type t;
+                if (RegisteredItems.TryGetValue(algorithm, out t))
+                {
+                    stream = (ICompression) Activator.CreateInstance(t);
+                }
+                else
+                {
+                    ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Unable to find requested compression algorithm.");
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Unable to locate appropriate compression algorithm.");
+                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Unable to find requested compression algorithm.");
+            }
+            return stream;
+        }
+
+        /// <summary>
+        ///     Does the library support the algorithm the server is requesting.
+        /// </summary>
+        /// <param name="algorithm">
+        ///     The algorithm we are looking for.
+        /// </param>
+        /// <returns>
+        ///     True if we have a stream class available.  False if not.
+        /// </returns>
+        public static bool SupportsAlgorithm(string algorithm)
+        {
+            return RegisteredItems.ContainsKey(algorithm);
+        }
+    }
 }

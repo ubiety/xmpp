@@ -1,6 +1,6 @@
 // ClosedState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,20 +15,32 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety.common;
-using ubiety.common.logging;
+using Ubiety.Common;
+using Ubiety.Core;
+using Ubiety.Infrastructure;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
-	///<summary>
-	///</summary>
-	public class DisconnectedState : State
-	{
-		public override void Execute(Tag data = null)
-		{
-			Logger.Debug(this, "Cleaning up");
-			ProtocolParser.Reset();
-			ProtocolState.Socket.Disconnect();
-		}
-	}
+    /// <summary>
+    /// </summary>
+    public class DisconnectedState : State
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="data"></param>
+        public override void Execute(Tag data = null)
+        {
+            if (data != null)
+            {
+                // TODO - Bubble the error message out
+                var tag = ((Stream) data).Error;
+                
+            }
+            else
+            {
+                ProtocolParser.Reset();
+                ProtocolState.Socket.Disconnect();                
+            }
+        }
+    }
 }

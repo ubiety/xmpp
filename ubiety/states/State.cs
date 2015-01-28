@@ -1,6 +1,6 @@
 // State.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,21 +15,21 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-namespace ubiety.states
+using Ubiety.Common;
+
+namespace Ubiety.States
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public abstract class State
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		public virtual void Execute(common.Tag data = null)
-		{
-		}
-	}
+    /// <summary>
+    /// </summary>
+    public abstract class State
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="data">
+        ///     A <see cref="System.Object" />
+        /// </param>
+        public virtual void Execute(Tag data = null)
+        {
+        }
+    }
 }

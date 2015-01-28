@@ -1,6 +1,6 @@
 // SASLState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,44 +15,41 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using ubiety.common;
-using ubiety.common.logging;
+using Ubiety.Common;
 
-namespace ubiety.states
+namespace Ubiety.States
 {
-	/// <summary>
-	/// SASL state is used to authenticate the user with the current processor.
-	/// </summary>
-	public class SASLState : State
-	{
-		/// <summary>
-		/// Execute the actions to authenticate the user.
-		/// </summary>
-		/// <param name="data">
-		/// The <see cref="Tag"/> we received from the server.  Probably a challenge or response.
-		/// </param>
-		public override void Execute(Tag data = null)
-		{
-			Logger.Debug(this, "Processing next SASL step");
-			var res = ProtocolState.Processor.Step(data);
-			switch (res.Name)
-			{
-				case "success":
-					Logger.Debug(this, "Sending start stream again");
-					ProtocolState.Authenticated = true;
-					ProtocolState.State = new ConnectedState();
-					ProtocolState.State.Execute();
-					break;
-				case "failure":
-					// Failed to authenticate. Send a message to the user.
-					Errors.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
-					ProtocolState.State = new DisconnectState();
-					ProtocolState.State.Execute();
-					return;
-				default:
-					ProtocolState.Socket.Write(res);
-					break;
-			}
-		}
-	}
+    /// <summary>
+    ///     SASL state is used to authenticate the user with the current processor.
+    /// </summary>
+    public class SaslState : State
+    {
+        /// <summary>
+        ///     Execute the actions to authenticate the user.
+        /// </summary>
+        /// <param name="data">
+        ///     The <see cref="Tag" /> we received from the server.  Probably a challenge or response.
+        /// </param>
+        public override void Execute(Tag data = null)
+        {
+            Tag res = ProtocolState.Processor.Step(data);
+            switch (res.Name)
+            {
+                case "success":
+                    ProtocolState.Authenticated = true;
+                    ProtocolState.State = new ConnectedState();
+                    ProtocolState.State.Execute();
+                    break;
+                case "failure":
+                    // Failed to authenticate. Send a message to the user.
+                    ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorLevel.Reconnect, "Failed to authenticate user with current credentials.");
+                    ProtocolState.State = new DisconnectState();
+                    ProtocolState.State.Execute();
+                    return;
+                default:
+                    ProtocolState.Socket.Write(res);
+                    break;
+            }
+        }
+    }
 }

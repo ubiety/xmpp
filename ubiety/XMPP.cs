@@ -1,6 +1,6 @@
 // XMPP.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -18,121 +18,131 @@
 #region Usings
 
 using System;
-using ubiety.common;
-using ubiety.common.logging;
-using ubiety.net;
-using ubiety.registries;
-using ubiety.states;
+using Serilog;
+using Ubiety.Common;
+using Ubiety.Infrastructure;
+using Ubiety.Registries;
+using Ubiety.States;
 
 #endregion
 
-namespace ubiety
+namespace Ubiety
 {
-	/// <summary>
-	/// Implements the XMPP(Jabber) Core and IM protocols
-	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// The Extensible Messaging and Presence Protocol (XMPP) is an open XML technology for real-time
-	/// communications, which powers a wide range of applications including instant messaging, presence,
-	/// media negotiation, whiteboarding, collaboration, lightweight middleware, content syndication, and
-	/// generalized XML delivery.
-	/// </para>
-	/// <para>
-	/// This library is an implementation of this protocol.  Those involved with the design and development
-	/// of this library are as committed to open standards as the committees who created the original protocol.
-	/// </para>
-	/// </remarks>
-	/// <example>
-	/// <code>
-	/// public class Test
-	/// {
-	///		public static Main()
-	///		{
-	///			// Create a new ID for authentication
-	///			UbietySettings.ID = new JID("user@jabber.org/chat");
-	///			UbietySettings.Password = "password";
-	/// 
-	///			// Create a new instance of the XMPP class
-	///			XMPP ubiety = new XMPP();
-	///			
-	///         ubiety.Connect();
-	///		}
-	/// }
-	/// </code>
-	/// </example>
-	public class XMPP
-	{
-		///<summary>
-		///</summary>
-		public static readonly string Version = typeof (XMPP).Assembly.GetName().Version.ToString();
+    /// <summary>
+    ///     Implements the XMPP(Jabber) Core and IM protocols
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         The Extensible Messaging and Presence Protocol (XMPP) is an open XML technology for real-time
+    ///         communications, which powers a wide range of applications including instant messaging, presence,
+    ///         media negotiation, whiteboarding, collaboration, lightweight middleware, content syndication, and
+    ///         generalized XML delivery.
+    ///     </para>
+    ///     <para>
+    ///         This library is an implementation of this protocol.  Those involved with the design and development
+    ///         of this library are as committed to open standards as the committees who created the original protocol.
+    ///     </para>
+    /// </remarks>
+    /// <example>
+    ///     <code>
+    ///  public class Test
+    ///  {
+    /// 		public static Main()
+    /// 		{
+    /// 			// Create a new ID for authentication
+    /// 			UbietySettings.ID = new JID("user@jabber.org/chat");
+    /// 			UbietySettings.Password = "password";
+    ///  
+    /// 			// Create a new instance of the XMPP class
+    /// 			XMPP ubiety = new XMPP();
+    /// 			
+    ///          ubiety.Connect();
+    /// 		}
+    ///  }
+    ///  </code>
+    /// </example>
+    public class Xmpp
+    {
+        /// <summary>
+        /// </summary>
+        public static readonly string Version = typeof (Xmpp).Assembly.GetName().Version.ToString();
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XMPP"/> class.
-		/// </summary>
-		public XMPP()
-		{
-			TagRegistry.AddAssembly(typeof (XMPP).Assembly);
-			Errors.OnError += OnError;
-			ProtocolState.Socket = new AsyncSocket();
-		}
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Xmpp" /> class.
+        /// </summary>
+        public Xmpp()
+        {
+            ILogger log =
+                new LoggerConfiguration().MinimumLevel.Debug()
+                    .WriteTo.RollingFile("Logs\\log-{Date}.txt")
+                    .WriteTo.Seq("http://localhost:5341")
+                    .CreateLogger();
+            Log.Logger = log;
 
-		/// <summary>
-		/// Connects this instance to an XMPP server.
-		/// </summary>
-		public void Connect()
-		{
-			// We need an XID and Password to connect to the server.
-			if (String.IsNullOrEmpty(UbietySettings.Password))
-			{
-				Errors.SendError(this, ErrorType.MissingPassword,
-				                 "Set the Password property of the Settings before connecting.", true);
-				return;
-			}
+            TagRegistry.AddAssembly(typeof (Xmpp).Assembly);
+        }
 
-			if (String.IsNullOrEmpty(UbietySettings.Id))
-			{
-				Errors.SendError(this, ErrorType.MissingId, "Set the ID property of the Settings before connecting.", true);
-				return;
-			}
+        /// <summary>
+        ///     Connects this instance to an XMPP server.
+        /// </summary>
+        public void Connect()
+        {
+            ProtocolState.Events.Connect(this);
+        }
 
-			// Set the current state to connecting and start the process.
-			ProtocolState.State = new ConnectingState();
-			ProtocolState.State.Execute();
-		}
+        /// <summary>
+        ///     Disconnects this instance from the server.
+        /// </summary>
+        public void Disconnect()
+        {
+            ProtocolState.Events.Disconnect(this);
+        }
 
-		/// <summary>
-		/// Disconnects this instance from the server.
-		/// </summary>
-		public void Disconnect()
-		{
-			if ((ProtocolState.State is DisconnectState)) return;
-			ProtocolState.State = new DisconnectState();
-			ProtocolState.State.Execute();
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="tag"></param>
+        public void Send(Tag tag)
+        {
+            Send(new TagEventArgs(tag));
+        }
 
-		private void OnError(object sender, ErrorEventArgs e)
-		{
-			Logger.ErrorFormat(this, "Error from {0}: {1}", sender, e.Message);
-			if (e.Fatal)
-			{
-				Disconnect();
-			}
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="args"></param>
+        public void Send(TagEventArgs args)
+        {
+            ProtocolState.Events.Send(this, args);
+        }
 
-		#region Properties
+        /// <summary>
+        ///     An error occured
+        /// </summary>
+        public event EventHandler<ErrorEventArgs> OnError
+        {
+            add { ProtocolState.Events.OnError += value; }
+            remove { ProtocolState.Events.OnError -= value; }
+        }
 
-		/// <summary>
-		/// Gets a value indicating whether this <see cref="XMPP"/> is connected to a server.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if connected; otherwise, <c>false</c>.
-		/// </value>
-		public bool Connected
-		{
-			get { return ProtocolState.State is RunningState; }
-		}
+        #region Properties
 
-		#endregion
-	}
+        /// <summary>
+        ///     Gets a value indicating whether this <see cref="Xmpp" /> is connected to a server.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if connected; otherwise, <c>false</c>.
+        /// </value>
+        public bool Connected
+        {
+            get { return ProtocolState.State is RunningState; }
+        }
+
+        /// <summary>
+        /// </summary>
+        public XmppSettings Settings
+        {
+            get { return ProtocolState.Settings; }
+        }
+
+        #endregion
+    }
 }

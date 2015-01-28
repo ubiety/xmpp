@@ -1,6 +1,6 @@
 ﻿// RegistryDiscoManager.cs
 //
-//Ubiety XMPP Library Copyright (C) 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2011 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,19 +17,23 @@
 
 using System;
 
-namespace ubiety.common.disco
+namespace Ubiety.Common.Disco
 {
-	///<summary>
-	///</summary>
-	public class RegistryDiscoManager : IDiscoManager
-	{
-		#region IDiscoManager Members
+    /// <summary>
+    /// </summary>
+    public class RegistryDiscoManager : IDiscoManager
+    {
+        #region IDiscoManager Members
 
-		public void LookupHash(string hash)
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="hash"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void LookupHash(string hash)
+        {
+            throw new NotImplementedException();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

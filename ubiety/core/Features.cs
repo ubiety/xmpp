@@ -1,6 +1,6 @@
 // Features.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,48 +16,42 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
-using ubiety.common;
-using ubiety.common.attributes;
-using ubiety.core.compression;
+using Ubiety.Common;
+using Ubiety.Infrastructure.Attributes;
 
-namespace ubiety.core
+namespace Ubiety.Core
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	[XmppTag("features", Namespaces.Stream, typeof (Features))]
-	public class Features : Tag
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="doc"></param>
-		public Features()
-			: base("stream", new XmlQualifiedName("features", Namespaces.Stream))
-		{
-		}
+    /// <summary>
+    /// </summary>
+    [XmppTag("features", Namespaces.Stream, typeof (Features))]
+    public class Features : Tag
+    {
+        /// <summary>
+        /// </summary>
+        public Features()
+            : base("stream", new XmlQualifiedName("features", Namespaces.Stream))
+        {
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public Mechanisms StartSASL
-		{
-			get { return this["mechanisms", Namespaces.SASL] as Mechanisms; }
-		}
+        /// <summary>
+        /// </summary>
+        public Mechanisms StartSasl
+        {
+            get { return this["mechanisms", Namespaces.Sasl] as Mechanisms; }
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public StartTLS StartTLS
-		{
-			get { return this["starttls", Namespaces.StartTLS] as StartTLS; }
-		}
+        /// <summary>
+        /// </summary>
+        public StartTls StartTls
+        {
+            get { return this["starttls", Namespaces.StartTls] as StartTls; }
+        }
 
-		///<summary>
-		///</summary>
-		public Compression Compression
-		{
-			get { return this["compression", Namespaces.Compression] as Compression; }
-		}
-	}
+        /// <summary>
+        /// </summary>
+        public Compression Compression
+        {
+            get { return this["compression", Namespaces.Compression] as Compression; }
+        }
+    }
 }

@@ -43,6 +43,7 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+packages/
 
 ubiety.shfbproj_Dieter
 ubiety-xmpp-cert.crt

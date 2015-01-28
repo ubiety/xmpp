@@ -1,6 +1,6 @@
 ﻿// IDiscoManager.cs
 //
-//Ubiety XMPP Library Copyright (C) 2011 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2011 - 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,7 +15,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-namespace ubiety.common.disco
+namespace Ubiety.Common.Disco
 {
 	///<summary>
 	/// Interface defining the methods that should be exposed by a feature discovery class.
