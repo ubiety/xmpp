@@ -43,28 +43,30 @@ namespace Ubiety.Common.Sasl
         }
 
         /// <summary>
+        ///     Creates the appropriate authentication processor based on the types supported by the server and client.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="serverTypes">Authentication methods supported by the server</param>
+        /// <param name="clientTypes">Authentication methods supported by the client</param>
+        /// <returns>Authentication processor that is common between client and server.</returns>
         /// <exception cref="NotSupportedException"></exception>
-        public static SaslProcessor CreateProcessor(MechanismType type)
+        public static SaslProcessor CreateProcessor(MechanismType serverTypes, MechanismType clientTypes)
         {
-            if ((type & MechanismType.External & UbietySettings.AuthenticationTypes) == MechanismType.External)
+            if ((serverTypes & MechanismType.External & clientTypes) == MechanismType.External)
             {
                 throw new NotSupportedException();
             }
 
-            if ((type & MechanismType.Scram & UbietySettings.AuthenticationTypes) == MechanismType.Scram)
+            if ((serverTypes & MechanismType.Scram & clientTypes) == MechanismType.Scram)
             {
                 return new ScramProcessor();
             }
 
-            if ((type & MechanismType.DigestMd5 & UbietySettings.AuthenticationTypes) == MechanismType.DigestMd5)
+            if ((serverTypes & MechanismType.DigestMd5 & clientTypes) == MechanismType.DigestMd5)
             {
                 return new Md5Processor();
             }
 
-            if ((type & MechanismType.Plain & UbietySettings.AuthenticationTypes) == MechanismType.Plain)
+            if ((serverTypes & MechanismType.Plain & clientTypes) == MechanismType.Plain)
             {
                 return new PlainProcessor();
             }
@@ -78,10 +80,10 @@ namespace Ubiety.Common.Sasl
 
         /// <summary>
         /// </summary>
-        public virtual Tag Initialize()
+        public virtual Tag Initialize(String id, String password)
         {
-            Id = UbietySettings.Id;
-            Password = UbietySettings.Password;
+            Id = id;
+            Password = password;
 
             return null;
         }

@@ -17,10 +17,8 @@
 
 #region Usings
 
-using System;
 using Serilog;
-using Ubiety.Common;
-using Ubiety.Net;
+using Ubiety.Infrastructure;
 using Ubiety.Registries;
 using Ubiety.States;
 
@@ -72,13 +70,15 @@ namespace Ubiety
         /// </summary>
         public Xmpp()
         {
-            var log = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.RollingFile("Logs\\log-{Date}.txt").WriteTo.Seq("http://localhost:5341").CreateLogger();
+            ILogger log =
+                new LoggerConfiguration().MinimumLevel.Debug()
+                    .WriteTo.RollingFile("Logs\\log-{Date}.txt")
+                    .WriteTo.Seq("http://localhost:5341")
+                    .CreateLogger();
             Log.Logger = log;
-            Serilog.Debugging.SelfLog.Out = Console.Error;
 
             TagRegistry.AddAssembly(typeof (Xmpp).Assembly);
             Errors.OnError += OnError;
-            ProtocolState.Socket = new AsyncSocket();
         }
 
         /// <summary>
@@ -86,24 +86,26 @@ namespace Ubiety
         /// </summary>
         public void Connect()
         {
-            // We need an XID and Password to connect to the server.
-            if (String.IsNullOrEmpty(UbietySettings.Password))
-            {
-                Errors.SendError(this, ErrorType.MissingPassword,
-                    "Set the Password property of the Settings before connecting.", true);
-                return;
-            }
+            //// We need an XID and Password to connect to the server.
+            //if (String.IsNullOrEmpty(ProtocolState.Settings.Password))
+            //{
+            //    Errors.SendError(this, ErrorType.MissingPassword,
+            //        "Set the Password property of the Settings before connecting.", true);
+            //    return;
+            //}
 
-            if (String.IsNullOrEmpty(UbietySettings.Id))
-            {
-                Errors.SendError(this, ErrorType.MissingId, "Set the ID property of the Settings before connecting.",
-                    true);
-                return;
-            }
+            //if (String.IsNullOrEmpty(ProtocolState.Settings.Id))
+            //{
+            //    Errors.SendError(this, ErrorType.MissingId, "Set the ID property of the Settings before connecting.",
+            //        true);
+            //    return;
+            //}
 
-            // Set the current state to connecting and start the process.
-            ProtocolState.State = new ConnectingState();
-            ProtocolState.State.Execute();
+            //// Set the current state to connecting and start the process.
+            //ProtocolState.State = new ConnectingState();
+            //ProtocolState.State.Execute();
+
+            ProtocolState.Events.Connect(this);
         }
 
         /// <summary>
@@ -136,6 +138,13 @@ namespace Ubiety
         public bool Connected
         {
             get { return ProtocolState.State is RunningState; }
+        }
+
+        /// <summary>
+        /// </summary>
+        public XmppSettings Settings
+        {
+            get { return ProtocolState.Settings; }
         }
 
         #endregion

@@ -91,7 +91,7 @@ namespace Ubiety.Net
             IPEndPoint end;
             if (address != null)
             {
-                end = new IPEndPoint(address, UbietySettings.Port);
+                end = new IPEndPoint(address, ProtocolState.Settings.Port);
             }
             else
             {

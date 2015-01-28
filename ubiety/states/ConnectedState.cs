@@ -36,7 +36,7 @@ namespace Ubiety.States
 		{
 			var stream = TagRegistry.GetTag<Stream>("stream", Namespaces.Stream);
 			stream.Version = "1.0";
-			stream.To = UbietySettings.Id.Server;
+			stream.To = ProtocolState.Settings.Id.Server;
 			stream.Namespace = Namespaces.Client;
 			stream.Language = "en";
 			ProtocolState.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());

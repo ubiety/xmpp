@@ -34,6 +34,7 @@ namespace Ubiety.States
             {
                 // TODO - Bubble the error message out
                 var tag = ((Stream) data).Error;
+                
             }
             else
             {

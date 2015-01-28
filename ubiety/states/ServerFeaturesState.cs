@@ -54,7 +54,7 @@ namespace Ubiety.States
 
             if (f != null)
             {
-                if (f.StartTls != null && UbietySettings.SSL)
+                if (f.StartTls != null && ProtocolState.Settings.Ssl)
                 {
                     ProtocolState.State = new StartTLSState();
                     var tls = TagRegistry.GetTag<StartTls>("starttls", Namespaces.StartTls);
@@ -64,21 +64,21 @@ namespace Ubiety.States
 
                 if (!ProtocolState.Authenticated)
                 {
-                    ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes);
+                    ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes, ProtocolState.Settings.AuthenticationTypes);
                     if (ProtocolState.Processor == null)
                     {
                         ProtocolState.State = new DisconnectState();
                         ProtocolState.State.Execute();
                         return;
                     }
-                    ProtocolState.Socket.Write(ProtocolState.Processor.Initialize());
+                    ProtocolState.Socket.Write(ProtocolState.Processor.Initialize(ProtocolState.Settings.Id, ProtocolState.Settings.Password));
 
                     ProtocolState.State = new SaslState();
                     return;
                 }
 
                 // Takes place after authentication according to XEP-0170
-                if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable && !UbietySettings.SSL &&
+                if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable && !ProtocolState.Settings.Ssl &&
                     f.Compression != null)
                 {
                     // Do we have a stream for any of the compressions supported by the server?

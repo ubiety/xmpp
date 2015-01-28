@@ -28,10 +28,10 @@ namespace TestXMPP
 
 		private void Button1Click(object sender, EventArgs e)
 		{
-			UbietySettings.AuthenticationTypes = MechanismType.Default | MechanismType.Plain;
-			UbietySettings.Id = new JID(txtUsername.Text);
-			UbietySettings.Password = txtPassword.Text;
-			UbietySettings.SSL = btnSSL.Checked;
+            _xmpp.Settings.AuthenticationTypes = MechanismType.Default;
+            _xmpp.Settings.Id = new JID(txtUsername.Text);
+			_xmpp.Settings.Password = txtPassword.Text;
+			_xmpp.Settings.Ssl = btnSSL.Checked;
 			_xmpp.Connect();
 		}
 

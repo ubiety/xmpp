@@ -53,9 +53,9 @@ namespace Ubiety.Common.Sasl
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override Tag Initialize()
+        public override Tag Initialize(String id, String password)
         {
-            base.Initialize();
+            base.Initialize(id, password);
 
             var tag = TagRegistry.GetTag<Auth>("auth", Namespaces.Sasl);
             tag.Mechanism = Mechanism.GetMechanism(MechanismType.DigestMd5);

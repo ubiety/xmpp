@@ -21,6 +21,7 @@ using System.Linq;
 using System.Net;
 using Heijden.DNS;
 using Serilog;
+using Ubiety.States;
 using TransportType = Heijden.DNS.TransportType;
 
 namespace Ubiety.Net
@@ -59,9 +60,9 @@ namespace Ubiety.Net
 
         public IPAddress NextIpAddress()
         {
-            Hostname = !String.IsNullOrEmpty(UbietySettings.Hostname)
-                ? UbietySettings.Hostname
-                : UbietySettings.Id.Server;
+            Hostname = !String.IsNullOrEmpty(ProtocolState.Settings.Hostname)
+                ? ProtocolState.Settings.Hostname
+                : ProtocolState.Settings.Id.Server;
 
             if (Hostname == "dieter-pc")
             {
@@ -75,7 +76,7 @@ namespace Ubiety.Net
             {
                 if (_srvAttempts < _srvRecords.Count)
                 {
-                    UbietySettings.Port = _srvRecords[_srvAttempts].PORT;
+                    ProtocolState.Settings.Port = _srvRecords[_srvAttempts].PORT;
                     IPAddress ip = Resolve(_srvRecords[_srvAttempts].TARGET);
                     if (ip == null)
                         _srvAttempts++;

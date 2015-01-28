@@ -17,6 +17,7 @@
 
 using System.Xml;
 using Ubiety.Common.Sasl;
+using Ubiety.Infrastructure;
 using Ubiety.Net;
 
 namespace Ubiety.States
@@ -30,8 +31,12 @@ namespace Ubiety.States
 
         static ProtocolState()
         {
+            Settings = new XmppSettings();
+            Events = new XmppEvents();
+            Socket = new AsyncSocket();
+
             State = new DisconnectedState();
-            UbietyMessages.AllMessages += AllMessages;
+            Events.OnNewTag += EventsOnOnNewTag;
         }
 
         /// <value>
@@ -61,9 +66,13 @@ namespace Ubiety.States
 
         public static string Algorithm { get; set; }
 
-        private static void AllMessages(object sender, MessageEventArgs e)
+        public static XmppSettings Settings { get; private set; }
+
+        public static XmppEvents Events { get; private set; }
+
+        private static void EventsOnOnNewTag(object sender, TagEventArgs args)
         {
-            State.Execute(e.Tag);
+            State.Execute(args.Tag);
         }
     }
 }

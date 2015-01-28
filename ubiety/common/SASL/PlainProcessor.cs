@@ -39,14 +39,16 @@ namespace Ubiety.Common.Sasl
         /// <summary>
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public override Tag Initialize()
+        public override Tag Initialize(String id, String password)
         {
+            base.Initialize(id, password);
+
             var sb = new StringBuilder();
 
             sb.Append((char) 0);
-            sb.Append(UbietySettings.Id.User);
+            sb.Append(Id.User);
             sb.Append((char) 0);
-            sb.Append(UbietySettings.Password);
+            sb.Append(Password);
 
             var auth = TagRegistry.GetTag<Auth>("auth", Namespaces.Sasl);
 

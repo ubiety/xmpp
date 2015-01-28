@@ -139,6 +139,7 @@
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\TypeExtensions.cs" />
     <Compile Include="Infrastructure\Logging\Logger.cs" />
+    <Compile Include="Infrastructure\XmppEvents.cs" />
     <Compile Include="Net\Address.cs" />
     <Compile Include="Net\AsyncSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,8 +160,8 @@
     <Compile Include="States\SessionState.cs" />
     <Compile Include="States\StartTlsState.cs" />
     <Compile Include="States\State.cs" />
-    <Compile Include="XMPP.cs" />
-    <Compile Include="UbietySettings.cs" />
+    <Compile Include="Xmpp.cs" />
+    <Compile Include="Infrastructure\XmppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -196,7 +197,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

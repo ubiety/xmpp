@@ -37,10 +37,10 @@ namespace Ubiety.States
 				var a = TagRegistry.GetTag<Bind>("bind", Namespaces.Bind);
 				var b = TagRegistry.GetTag<Iq>("iq", Namespaces.Client);
 
-				if (UbietySettings.Id.Resource != null)
+				if (ProtocolState.Settings.Id.Resource != null)
 				{
 					var res = TagRegistry.GetTag<GenericTag>("resource", Namespaces.Bind);
-					res.InnerText = UbietySettings.Id.Resource;
+					res.InnerText = ProtocolState.Settings.Id.Resource;
 					a.AddChildTag(res);
 				}
 
@@ -62,7 +62,7 @@ namespace Ubiety.States
 					}
 					bind = iq.Payload as Bind;
 				}
-				if (bind != null) UbietySettings.Id = bind.JidTag.JID;
+				if (bind != null) ProtocolState.Settings.Id = bind.JidTag.JID;
 
 				ProtocolState.State = new SessionState();
 				ProtocolState.State.Execute();

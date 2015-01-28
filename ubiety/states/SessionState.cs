@@ -22,31 +22,34 @@ using Ubiety.Registries;
 
 namespace Ubiety.States
 {
-	///<summary>
-	///</summary>
-	public class SessionState : State
-	{
-		public override void Execute (Tag data = null)
-		{
-			if (data == null)
-			{
-				var iq = TagRegistry.GetTag<Iq>("iq", Namespaces.Client);
-				var sess = TagRegistry.GetTag<GenericTag>("session", Namespaces.Session);
+    /// <summary>
+    /// </summary>
+    public class SessionState : State
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="data"></param>
+        public override void Execute(Tag data = null)
+        {
+            if (data == null)
+            {
+                var iq = TagRegistry.GetTag<Iq>("iq", Namespaces.Client);
+                var sess = TagRegistry.GetTag<GenericTag>("session", Namespaces.Session);
 
-				iq.From = UbietySettings.Id;
-				iq.To = UbietySettings.Id.Server;
-				iq.IqType = IqType.Set;
-				iq.Payload = sess;
+                iq.From = ProtocolState.Settings.Id;
+                iq.To = ProtocolState.Settings.Id.Server;
+                iq.IqType = IqType.Set;
+                iq.Payload = sess;
 
-				ProtocolState.Socket.Write(iq);
-			}
-			else
-			{
-				var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
-				ProtocolState.Socket.Write(p);
+                ProtocolState.Socket.Write(iq);
+            }
+            else
+            {
+                var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
+                ProtocolState.Socket.Write(p);
 
-				ProtocolState.State = new RunningState();
-			}
-		}
-	}
+                ProtocolState.State = new RunningState();
+            }
+        }
+    }
 }

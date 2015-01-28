@@ -22,7 +22,6 @@ using System.Text;
 using Gnu.Inet.Encoding;
 using Ubiety.Core;
 using Ubiety.Core.Sasl;
-using Ubiety.Infrastructure.Logging;
 using Ubiety.Registries;
 
 namespace Ubiety.Common.Sasl
@@ -47,9 +46,9 @@ namespace Ubiety.Common.Sasl
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override Tag Initialize()
+        public override Tag Initialize(String id, String password)
         {
-            base.Initialize();
+            base.Initialize(id, password);
 
             _nonce = NextInt64().ToString(CultureInfo.InvariantCulture);
             var msg = new StringBuilder();
