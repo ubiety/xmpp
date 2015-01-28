@@ -29,7 +29,13 @@ namespace Ubiety.Common.Sasl
     public abstract class SaslProcessor
     {
         private readonly Hashtable _directives = new Hashtable();
+
+        /// <summary>
+        /// </summary>
         protected JID Id;
+
+        /// <summary>
+        /// </summary>
         protected string Password;
 
         /// <summary>

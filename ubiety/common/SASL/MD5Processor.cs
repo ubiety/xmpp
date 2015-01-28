@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using Ubiety.Core;
 using Ubiety.Core.Sasl;
 using Ubiety.Registries;
+using Ubiety.States;
 
 namespace Ubiety.Common.Sasl
 {
@@ -78,7 +79,7 @@ namespace Ubiety.Common.Sasl
 
             if (tag.Name == "failure")
             {
-                Errors.SendError(this, ErrorType.AuthorizationFailed, "Failed authorization");
+                ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorLevel.Fatal, "Unable to authorize current user credentials.");
                 return tag;
             }
 

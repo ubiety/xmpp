@@ -34,6 +34,12 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ReleaseVersion>0.5</ReleaseVersion>
+    <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyFileVersionSettings>IncrementOnDemand.YearStamp.DeltaDayStamp.Increment</AssemblyFileVersionSettings>
+    <AssemblyVersionSettings>IncrementOnDemand.YearStamp.DeltaDayStamp.Increment</AssemblyVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -64,9 +70,6 @@
     <Reference Include="libidn">
       <HintPath>..\references\libidn.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.3.2.0.0\lib\net40\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="Serilog">
       <HintPath>..\packages\Serilog.1.4.139\lib\net40\Serilog.dll</HintPath>
     </Reference>
@@ -75,9 +78,6 @@
     </Reference>
     <Reference Include="Serilog.Sinks.Seq">
       <HintPath>..\packages\Serilog.Sinks.Seq.1.4.139\lib\net40\Serilog.Sinks.Seq.dll</HintPath>
-    </Reference>
-    <Reference Include="Stateless">
-      <HintPath>..\packages\Stateless.2.5.11.0\lib\portable-net40+sl50+win+wp80\Stateless.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO">
@@ -131,7 +131,6 @@
     <Compile Include="Core\Sasl\Auth.cs" />
     <Compile Include="Core\StartTls.cs" />
     <Compile Include="Core\Stream.cs" />
-    <Compile Include="Errors.cs" />
     <Compile Include="Infrastructure\Attributes\CompressionAttribute.cs" />
     <Compile Include="Infrastructure\Attributes\XmppTagAttribute.cs" />
     <Compile Include="Infrastructure\Extensions\AssemblyExtensions.cs" />
@@ -147,7 +146,6 @@
     <Compile Include="Registries\CompressionRegistry.cs" />
     <Compile Include="Registries\TagRegistry.cs" />
     <Compile Include="States\DisconnectedState.cs" />
-    <Compile Include="UbietyMessages.cs" />
     <Compile Include="States\BindingState.cs" />
     <Compile Include="States\CompressedState.cs" />
     <Compile Include="States\ConnectedState.cs" />
@@ -197,7 +195,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

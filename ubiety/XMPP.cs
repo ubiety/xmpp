@@ -17,7 +17,9 @@
 
 #region Usings
 
+using System;
 using Serilog;
+using Ubiety.Common;
 using Ubiety.Infrastructure;
 using Ubiety.Registries;
 using Ubiety.States;
@@ -78,7 +80,6 @@ namespace Ubiety
             Log.Logger = log;
 
             TagRegistry.AddAssembly(typeof (Xmpp).Assembly);
-            Errors.OnError += OnError;
         }
 
         /// <summary>
@@ -86,25 +87,6 @@ namespace Ubiety
         /// </summary>
         public void Connect()
         {
-            //// We need an XID and Password to connect to the server.
-            //if (String.IsNullOrEmpty(ProtocolState.Settings.Password))
-            //{
-            //    Errors.SendError(this, ErrorType.MissingPassword,
-            //        "Set the Password property of the Settings before connecting.", true);
-            //    return;
-            //}
-
-            //if (String.IsNullOrEmpty(ProtocolState.Settings.Id))
-            //{
-            //    Errors.SendError(this, ErrorType.MissingId, "Set the ID property of the Settings before connecting.",
-            //        true);
-            //    return;
-            //}
-
-            //// Set the current state to connecting and start the process.
-            //ProtocolState.State = new ConnectingState();
-            //ProtocolState.State.Execute();
-
             ProtocolState.Events.Connect(this);
         }
 
@@ -113,18 +95,32 @@ namespace Ubiety
         /// </summary>
         public void Disconnect()
         {
-            if ((ProtocolState.State is DisconnectState)) return;
-            ProtocolState.State = new DisconnectState();
-            ProtocolState.State.Execute();
+            ProtocolState.Events.Disconnect(this);
         }
 
-        private void OnError(object sender, ErrorEventArgs e)
+        /// <summary>
+        /// </summary>
+        /// <param name="tag"></param>
+        public void Send(Tag tag)
         {
-            Log.Error("Error from {sender}: {message}", sender, e.Message);
-            if (e.Fatal)
-            {
-                Disconnect();
-            }
+            Send(new TagEventArgs(tag));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="args"></param>
+        public void Send(TagEventArgs args)
+        {
+            ProtocolState.Events.Send(this, args);
+        }
+
+        /// <summary>
+        ///     An error occured
+        /// </summary>
+        public event EventHandler<ErrorEventArgs> OnError
+        {
+            add { ProtocolState.Events.OnError += value; }
+            remove { ProtocolState.Events.OnError -= value; }
         }
 
         #region Properties

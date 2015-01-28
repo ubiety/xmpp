@@ -85,7 +85,7 @@ namespace Ubiety.Infrastructure
             {
                 if (!fullStream)
                 {
-                    message += "</stream:stream>";                    
+                    message += "</stream:stream>";
                 }
             }
 
@@ -116,8 +116,7 @@ namespace Ubiety.Infrastructure
             catch (XmlException e)
             {
                 Log.Error(e, "Error in xml from server");
-                Errors.SendError(typeof (ProtocolParser), ErrorType.XmlError,
-                    "Error parsing incoming XML.  Please try again.");
+                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorLevel.Fatal, "Error parsing XML from server.");
                 if (ProtocolState.Socket.Connected)
                 {
                     ProtocolState.State = new DisconnectState();
@@ -174,7 +173,8 @@ namespace Ubiety.Infrastructure
                     string prefix = attrname.Substring(0, colon);
                     string name = attrname.Substring(colon + 1);
 
-                    XmlAttribute attr = ProtocolState.Document.CreateAttribute(prefix, name, NamespaceManager.LookupNamespace(prefix));
+                    XmlAttribute attr = ProtocolState.Document.CreateAttribute(prefix, name,
+                        NamespaceManager.LookupNamespace(prefix));
                     attr.InnerXml = (string) ht[attrname];
 
                     elem.SetAttributeNode(attr);
@@ -192,8 +192,7 @@ namespace Ubiety.Infrastructure
             {
                 if (elem.Name != "stream:stream")
                 {
-                    Errors.SendError(typeof (ProtocolParser), ErrorType.WrongProtocolVersion,
-                        "Missing stream:stream from server");
+                    ProtocolState.Events.Error(null, ErrorType.WrongProtocolVersion, ErrorLevel.Fatal, "Missing proper stream:stream header from server.");
                     return;
                 }
 
@@ -216,14 +215,14 @@ namespace Ubiety.Infrastructure
 
             if ((_element.Name != _reader.Name))
             {
-                Errors.SendError(typeof (ProtocolParser), ErrorType.XmlError, "Wrong element");
+                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorLevel.Fatal, "Wrong end tag for current element.");
                 return;
             }
 
             var parent = (XmlElement) _element.ParentNode;
             if (parent == null)
             {
-                UbietyMessages.OnAllMessages(new MessageEventArgs {Tag = (Tag) _element});
+                ProtocolState.Events.NewTag(null, (Tag) _element);
             }
             _element = parent;
         }

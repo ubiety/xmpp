@@ -39,22 +39,59 @@ namespace Ubiety.Infrastructure
 
     /// <summary>
     /// </summary>
+    public class ErrorEventArgs : EventArgs
+    {
+        private readonly ErrorLevel _level;
+        private readonly string _message;
+        private readonly ErrorType _type;
+
+        /// <summary>
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="type"></param>
+        /// <param name="level"></param>
+        public ErrorEventArgs(string message, ErrorType type, ErrorLevel level)
+        {
+            _message = message;
+            _type = type;
+            _level = level;
+        }
+
+        /// <value>
+        ///     The default error message.
+        /// </value>
+        public string Message
+        {
+            get { return _message; }
+        }
+
+        /// <value>
+        ///     The type of error that is being returned.
+        /// </value>
+        public ErrorType Type
+        {
+            get { return _type; }
+        }
+
+        /// <summary>
+        /// </summary>
+        public ErrorLevel Level
+        {
+            get { return _level; }
+        }
+    }
+
+    /// <summary>
+    /// </summary>
     public class XmppEvents
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        public delegate void InternalConnect(object sender, EventArgs args);
+        #region Internal Connect
 
         /// <summary>
-        /// 
         /// </summary>
-        public event InternalConnect OnConnect;
+        public event EventHandler<EventArgs> OnConnect;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
@@ -66,17 +103,62 @@ namespace Ubiety.Infrastructure
             }
         }
 
-        #region New Tag
+        #endregion
+
+        #region Internal Disconnect
+
+        /// <summary>
+        /// </summary>
+        public event EventHandler<EventArgs> OnDisconnect;
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public delegate void ExternalNewTag(object sender, TagEventArgs args);
+        public void Disconnect(object sender, EventArgs args = default (EventArgs))
+        {
+            if (OnDisconnect != null)
+            {
+                OnDisconnect(sender, args);
+            }
+        }
+
+        #endregion
+
+        #region Internal Send
 
         /// <summary>
         /// </summary>
-        public event ExternalNewTag OnNewTag;
+        public event EventHandler<TagEventArgs> OnSend;
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void Send(object sender, TagEventArgs args)
+        {
+            if (OnSend != null)
+            {
+                OnSend(sender, args);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="tag"></param>
+        public void Send(object sender, Tag tag)
+        {
+            Send(sender, new TagEventArgs(tag));
+        }
+
+        #endregion
+
+        #region New Tag
+
+        /// <summary>
+        /// </summary>
+        public event EventHandler<TagEventArgs> OnNewTag;
 
         /// <summary>
         /// </summary>
@@ -96,12 +178,48 @@ namespace Ubiety.Infrastructure
         /// <param name="tag"></param>
         public void NewTag(object sender, Tag tag)
         {
-            if (OnNewTag != null)
-            {
-                OnNewTag(sender, new TagEventArgs(tag));
-            }
+            NewTag(sender, new TagEventArgs(tag));
         }
 
         #endregion
+
+        /// <summary>
+        /// </summary>
+        public event EventHandler<ErrorEventArgs> OnError;
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void Error(object sender, ErrorEventArgs args)
+        {
+            if (OnError != null)
+            {
+                OnError(sender, args);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="type"></param>
+        /// <param name="level"></param>
+        /// <param name="message"></param>
+        public void Error(object sender, ErrorType type, ErrorLevel level, String message)
+        {
+            Error(sender, new ErrorEventArgs(message, type, level));
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="type"></param>
+        /// <param name="level"></param>
+        /// <param name="message"></param>
+        /// <param name="parameters"></param>
+        public void Error(object sender, ErrorType type, ErrorLevel level, String message, params object[] parameters)
+        {
+            Error(sender, type, level, String.Format(message, parameters));
+        }
     }
 }

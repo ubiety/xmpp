@@ -95,18 +95,11 @@ namespace Ubiety.Net
             }
             else
             {
-                Errors.SendError(this, ErrorType.ConnectionTimeout, "Unable to obtain server IP address.");
+                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorLevel.Fatal, "Unable to obtain server IP address.");
                 return;
             }
 
-            if (!_destinationAddress.IPv6)
-            {
-                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            }
-            else
-            {
-                _socket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
-            }
+            _socket = !_destinationAddress.IPv6 ? new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) : new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
@@ -119,7 +112,8 @@ namespace Ubiety.Net
             }
             catch (SocketException e)
             {
-                Errors.SendError(this, ErrorType.ConnectionTimeout, e.Message);
+                Log.Error(e, "Error in connecting socket.");
+                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorLevel.Fatal, "Unable to connect to server.");
             }
         }
 
@@ -174,7 +168,7 @@ namespace Ubiety.Net
             catch (Exception e)
             {
                 Log.Error(e, "Error is starting secure connection.");
-                Errors.SendError(this, ErrorType.XmlError, "SSL connection error", true);
+                ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorLevel.Fatal, "Cannot connect with SSL.");
             }
         }
 

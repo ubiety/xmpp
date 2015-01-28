@@ -4,7 +4,6 @@ using TestXMPP.Properties;
 using Ubiety;
 using Ubiety.Common;
 using Ubiety.Core;
-using ErrorEventArgs = Ubiety.ErrorEventArgs;
 
 namespace TestXMPP
 {
@@ -16,15 +15,15 @@ namespace TestXMPP
 		{
 			InitializeComponent();
             //CompressionRegistry.AddCompression(Assembly.LoadFile(Path.Combine(Application.StartupPath, "ubiety.compression.sharpziplib.dll")));
-			Errors.OnError += Errors_OnError;
-			_xmpp = new Xmpp(); 
+			_xmpp = new Xmpp();
+            _xmpp.OnError += _xmpp_OnError;
 			slVersion.Text = Resources.Version_Label + Xmpp.Version;
 		}
 
-		private static void Errors_OnError(object sender, ErrorEventArgs e)
-		{
-			MessageBox.Show(e.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
+        void _xmpp_OnError(object sender, Ubiety.Infrastructure.ErrorEventArgs e)
+        {
+            MessageBox.Show(e.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
 		private void Button1Click(object sender, EventArgs e)
 		{
@@ -44,7 +43,7 @@ namespace TestXMPP
 
 		private void BtnSendClick(object sender, EventArgs e)
 		{
-			UbietyMessages.SendMessage(txtMessage.Text);
+            //UbietyMessages.SendMessage(txtMessage.Text);
 		}
 	}
 }

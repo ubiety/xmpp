@@ -19,17 +19,21 @@ using System;
 
 namespace Ubiety.Common.Disco
 {
-	///<summary>
-	///</summary>
-	public class RegistryDiscoManager : IDiscoManager
-	{
-		#region IDiscoManager Members
+    /// <summary>
+    /// </summary>
+    public class RegistryDiscoManager : IDiscoManager
+    {
+        #region IDiscoManager Members
 
-		public void LookupHash(string hash)
-		{
-			throw new NotImplementedException();
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="hash"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void LookupHash(string hash)
+        {
+            throw new NotImplementedException();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

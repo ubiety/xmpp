@@ -22,6 +22,7 @@ using Serilog;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 using Ubiety.Infrastructure.Extensions;
+using Ubiety.States;
 
 namespace Ubiety.Registries
 {
@@ -78,15 +79,14 @@ namespace Ubiety.Registries
                 }
                 else
                 {
-                    Errors.SendError(typeof (CompressionRegistry), ErrorType.UnregisteredItem,
-                        "Unable to find requested compression algorithm");
+                    ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Unable to find requested compression algorithm.");
                     return null;
                 }
             }
             catch (Exception e)
             {
-                Errors.SendError(typeof (CompressionRegistry), ErrorType.UnregisteredItem,
-                    "Unable to find requested compression algorithm");
+                Log.Error(e, "Unable to locate appropriate compression algorithm.");
+                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Unable to find requested compression algorithm.");
             }
             return stream;
         }

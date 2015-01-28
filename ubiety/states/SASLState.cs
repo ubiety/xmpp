@@ -42,7 +42,7 @@ namespace Ubiety.States
                     break;
                 case "failure":
                     // Failed to authenticate. Send a message to the user.
-                    Errors.SendError(this, ErrorType.AuthorizationFailed, "Authentication Failed");
+                    ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorLevel.Reconnect, "Failed to authenticate user with current credentials.");
                     ProtocolState.State = new DisconnectState();
                     ProtocolState.State.Execute();
                     return;

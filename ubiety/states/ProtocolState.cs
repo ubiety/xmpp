@@ -15,7 +15,9 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using System;
 using System.Xml;
+using Ubiety.Common;
 using Ubiety.Common.Sasl;
 using Ubiety.Infrastructure;
 using Ubiety.Net;
@@ -37,6 +39,8 @@ namespace Ubiety.States
 
             State = new DisconnectedState();
             Events.OnNewTag += EventsOnOnNewTag;
+            Events.OnConnect += EventsOnOnConnect;
+            Events.OnDisconnect += EventsOnOnDisconnect;
         }
 
         /// <value>
@@ -69,6 +73,35 @@ namespace Ubiety.States
         public static XmppSettings Settings { get; private set; }
 
         public static XmppEvents Events { get; private set; }
+
+        private static void EventsOnOnDisconnect(object sender, EventArgs eventArgs)
+        {
+            if ((State is DisconnectedState)) return;
+            State = new DisconnectState();
+            State.Execute();
+        }
+
+        private static void EventsOnOnConnect(object sender, EventArgs eventArgs)
+        {
+            // We need an XID and Password to connect to the server.
+            if (String.IsNullOrEmpty(Settings.Password))
+            {
+                Events.Error(null, ErrorType.MissingPassword, ErrorLevel.Fatal,
+                    "Must have a password in the settings to connect to a server.");
+                return;
+            }
+
+            if (String.IsNullOrEmpty(Settings.Id))
+            {
+                Events.Error(null, ErrorType.MissingId, ErrorLevel.Fatal,
+                    "Must set the ID in the settings to connect to a server.");
+                return;
+            }
+
+            // Set the current state to connecting and start the process.
+            State = new ConnectingState();
+            State.Execute();
+        }
 
         private static void EventsOnOnNewTag(object sender, TagEventArgs args)
         {

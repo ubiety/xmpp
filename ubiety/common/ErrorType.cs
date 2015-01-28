@@ -53,4 +53,25 @@ namespace Ubiety.Common
         /// </summary>
         ConnectionTimeout
     }
+
+    /// <summary>
+    /// </summary>
+    public enum ErrorLevel
+    {
+        /// <summary>
+        /// </summary>
+        Information,
+
+        /// <summary>
+        /// </summary>
+        Disconnect,
+
+        /// <summary>
+        /// </summary>
+        Reconnect,
+
+        /// <summary>
+        /// </summary>
+        Fatal
+    }
 }

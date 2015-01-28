@@ -23,6 +23,7 @@ using Serilog;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 using Ubiety.Infrastructure.Extensions;
+using Ubiety.States;
 
 namespace Ubiety.Registries
 {
@@ -88,8 +89,7 @@ namespace Ubiety.Registries
             }
             else
             {
-                Errors.SendError(typeof (TagRegistry), ErrorType.UnregisteredItem,
-                    "Tag " + qname + " not found in registry.  Please load appropriate library.");
+                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Tag {0} not found in registry. Please load appropriate library.", qname);
                 return null;
             }
 
