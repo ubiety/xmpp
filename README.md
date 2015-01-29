@@ -7,15 +7,15 @@ Example
 -------
 
 ```c#
-using ubiety;
-using ubiety.common;
+using Ubiety;
+using Ubiety.Common;
 
 public class Test {
     public static void Main() {
-        UbietySettings.ID = new JID("test@ubiety.ca");
-        UbietySettings.Password = "test";
-
-        XMPP ubiety = new XMPP();
+        Xmpp ubiety = new Xmpp();
+        ubiety.Settings.ID = new JID("test@ubiety.ca");
+        ubiety.Settings.Password = "test";
+        
         ubiety.Connect();
     }
 }
