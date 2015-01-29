@@ -24,4 +24,4 @@ public class Test {
 Support
 -------
 
-* Mailing List: <xmppnet-devel@googlegroups.com>
+* Forum: <http://discourse.dieterlunn.ca>
