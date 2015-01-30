@@ -89,7 +89,7 @@ namespace Ubiety.Registries
             }
             else
             {
-                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Tag {0} not found in registry. Please load appropriate library.", qname);
+                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorSeverity.Information, "Tag {0} not found in registry. Please load appropriate library.", qname);
                 return null;
             }
 

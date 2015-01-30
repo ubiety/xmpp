@@ -79,7 +79,7 @@ namespace Ubiety.Common.Sasl
 
             if (tag.Name == "failure")
             {
-                ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorLevel.Fatal, "Unable to authorize current user credentials.");
+                ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorSeverity.Fatal, "Unable to authorize current user credentials.");
                 return tag;
             }
 

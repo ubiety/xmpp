@@ -9,6 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiety", "ubiety\Ubiety.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubietynunit", "ubietynunit\ubietynunit.csproj", "{76FB5852-B727-426B-9054-0B580C0B5E5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C72D9ACC-C60F-47A3-BEE5-96D2506195EF}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "UbietyDocumentation", "UbietyDocumentation\UbietyDocumentation.shfbproj", "{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +59,16 @@ Global
 		{76FB5852-B727-426B-9054-0B580C0B5E5F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{76FB5852-B727-426B-9054-0B580C0B5E5F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{76FB5852-B727-426B-9054-0B580C0B5E5F}.Release|x86.ActiveCfg = Release|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{93D146BB-37BF-4C2F-BDCA-CB757E8C9374}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -86,14 +86,14 @@ namespace Ubiety.States
             // We need an XID and Password to connect to the server.
             if (String.IsNullOrEmpty(Settings.Password))
             {
-                Events.Error(null, ErrorType.MissingPassword, ErrorLevel.Fatal,
+                Events.Error(null, ErrorType.MissingPassword, ErrorSeverity.Fatal,
                     "Must have a password in the settings to connect to a server.");
                 return;
             }
 
             if (String.IsNullOrEmpty(Settings.Id))
             {
-                Events.Error(null, ErrorType.MissingId, ErrorLevel.Fatal,
+                Events.Error(null, ErrorType.MissingId, ErrorSeverity.Fatal,
                     "Must set the ID in the settings to connect to a server.");
                 return;
             }

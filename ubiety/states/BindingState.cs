@@ -58,7 +58,7 @@ namespace Ubiety.States
 					if (iq.IqType == IqType.Error)
 					{
 						var e = iq["error"];
-						if (e != null) ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorLevel.Reconnect, e.InnerText);
+						if (e != null) ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Reconnect, e.InnerText);
 					}
 					bind = iq.Payload as Bind;
 				}
