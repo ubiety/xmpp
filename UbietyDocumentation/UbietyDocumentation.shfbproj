@@ -8,6 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>93d146bb-37bf-4c2f-bdca-cb757e8c9374</ProjectGuid>
     <SHFBSchemaVersion>1.9.9.0</SHFBSchemaVersion>
+    <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\packages\EWSoftware.SHFB.2014.11.22.0\Tools\</SHFBROOT>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>UbietyDocumentation</AssemblyName>
     <RootNamespace>UbietyDocumentation</RootNamespace>
@@ -27,7 +28,7 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
-    <HelpFileFormat>HtmlHelp1, MSHelpViewer</HelpFileFormat>
+    <HelpFileFormat>MSHelpViewer</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
@@ -48,8 +49,9 @@
     </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Ubiety" isDocumented="True" xmlns="">Root namespace of the library contains the main class</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Ubiety.Common" isDocumented="True" xmlns="">Contains the classes that are common across the library</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Ubiety.Common.Compression" isDocumented="True" xmlns="">Contains the classes responsible for stream compression</NamespaceSummaryItem></NamespaceSummaries>
+      <NamespaceSummaryItem name="Ubiety.Common" isDocumented="True" xmlns="">Contains the classes that are common across the library</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Ubiety.Common.Compression" isDocumented="True" xmlns="">Contains the classes responsible for stream compression</NamespaceSummaryItem>
+    </NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
