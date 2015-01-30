@@ -15,16 +15,12 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-#region Usings
-
 using System;
 using Serilog;
 using Ubiety.Common;
 using Ubiety.Infrastructure;
 using Ubiety.Registries;
 using Ubiety.States;
-
-#endregion
 
 namespace Ubiety
 {
@@ -35,7 +31,7 @@ namespace Ubiety
     ///     <para>
     ///         The Extensible Messaging and Presence Protocol (XMPP) is an open XML technology for real-time
     ///         communications, which powers a wide range of applications including instant messaging, presence,
-    ///         media negotiation, whiteboarding, collaboration, lightweight middleware, content syndication, and
+    ///         media negotiation, white boarding, collaboration, lightweight middle-ware, content syndication, and
     ///         generalized XML delivery.
     ///     </para>
     ///     <para>
@@ -45,18 +41,19 @@ namespace Ubiety
     /// </remarks>
     /// <example>
     ///     <code>
+    ///  using Ubiety;
+    ///  using Ubiety.Common;
+    /// 
     ///  public class Test
     ///  {
     /// 		public static Main()
     /// 		{
-    /// 			// Create a new ID for authentication
-    /// 			UbietySettings.ID = new JID("user@jabber.org/chat");
-    /// 			UbietySettings.Password = "password";
-    ///  
     /// 			// Create a new instance of the XMPP class
-    /// 			XMPP ubiety = new XMPP();
+    /// 			Xmpp ubiety = new Xmpp();
+    ///             ubiety.Settings.Id = new JID("user@jabber.org/chat");
+    ///             ubiety.Settings.Password = "password";
     /// 			
-    ///          ubiety.Connect();
+    ///             ubiety.Connect();
     /// 		}
     ///  }
     ///  </code>
@@ -64,6 +61,7 @@ namespace Ubiety
     public class Xmpp
     {
         /// <summary>
+        ///     Version of the library.
         /// </summary>
         public static readonly string Version = typeof (Xmpp).Assembly.GetName().Version.ToString();
 
@@ -99,23 +97,25 @@ namespace Ubiety
         }
 
         /// <summary>
+        ///     Send a message to the server via a Tag
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="tag">Tag to send to the server</param>
         public void Send(Tag tag)
         {
             Send(new TagEventArgs(tag));
         }
 
         /// <summary>
+        ///     Send a message to the server via a Tag
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">Event argument containing tag to send to the server</param>
         public void Send(TagEventArgs args)
         {
             ProtocolState.Events.Send(this, args);
         }
 
         /// <summary>
-        ///     An error occured
+        ///     An error occurred
         /// </summary>
         public event EventHandler<ErrorEventArgs> OnError
         {
@@ -137,6 +137,7 @@ namespace Ubiety
         }
 
         /// <summary>
+        ///     Current settings of the application including Id and Password.
         /// </summary>
         public XmppSettings Settings
         {

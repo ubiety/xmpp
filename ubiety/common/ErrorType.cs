@@ -18,59 +18,73 @@
 namespace Ubiety.Common
 {
     /// <summary>
+    ///     Describes the type of error being sent
     /// </summary>
     public enum ErrorType
     {
         /// <summary>
+        ///     Id is missing from the settings class
         /// </summary>
         MissingId,
 
         /// <summary>
+        ///     Password is missing from the settings class
         /// </summary>
         MissingPassword,
 
         /// <summary>
+        ///     Failed to authorize the user based on provided credentials
         /// </summary>
         AuthorizationFailed,
 
         /// <summary>
+        ///     Server and client do no support the same protocol features
         /// </summary>
         WrongProtocolVersion,
 
         /// <summary>
+        ///     Tag sent by the server is not available in client
         /// </summary>
         UnregisteredItem,
 
         /// <summary>
+        ///     Failed to implement compression of stream between client and server
         /// </summary>
         CompressionFailed,
 
         /// <summary>
+        ///     XML from the server is malformed or unexpected
         /// </summary>
         XmlError,
 
         /// <summary>
+        ///     Connection took too long to connect
         /// </summary>
         ConnectionTimeout
     }
 
     /// <summary>
+    ///     Describes the severity of an error so the appropriate action can be taken.
     /// </summary>
-    public enum ErrorLevel
+    public enum ErrorSeverity
     {
         /// <summary>
+        ///     Error is mostly informative
         /// </summary>
         Information,
 
         /// <summary>
+        ///     Error is bad enough to disconnect from the server
         /// </summary>
         Disconnect,
 
         /// <summary>
+        ///     Error caused an automatic reconnect attempt
         /// </summary>
         Reconnect,
 
         /// <summary>
+        ///     Error caused cannot allow connection to continue
         /// </summary>
         Fatal
     }

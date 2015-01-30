@@ -79,14 +79,14 @@ namespace Ubiety.Registries
                 }
                 else
                 {
-                    ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Unable to find requested compression algorithm.");
+                    ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorSeverity.Information, "Unable to find requested compression algorithm.");
                     return null;
                 }
             }
             catch (Exception e)
             {
                 Log.Error(e, "Unable to locate appropriate compression algorithm.");
-                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorLevel.Information, "Unable to find requested compression algorithm.");
+                ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorSeverity.Information, "Unable to find requested compression algorithm.");
             }
             return stream;
         }

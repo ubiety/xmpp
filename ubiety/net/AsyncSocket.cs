@@ -95,7 +95,7 @@ namespace Ubiety.Net
             }
             else
             {
-                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorLevel.Fatal, "Unable to obtain server IP address.");
+                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal, "Unable to obtain server IP address.");
                 return;
             }
 
@@ -113,7 +113,7 @@ namespace Ubiety.Net
             catch (SocketException e)
             {
                 Log.Error(e, "Error in connecting socket.");
-                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorLevel.Fatal, "Unable to connect to server.");
+                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal, "Unable to connect to server.");
             }
         }
 
@@ -168,7 +168,7 @@ namespace Ubiety.Net
             catch (Exception e)
             {
                 Log.Error(e, "Error is starting secure connection.");
-                ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorLevel.Fatal, "Cannot connect with SSL.");
+                ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Fatal, "Cannot connect with SSL.");
             }
         }
 

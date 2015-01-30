@@ -41,7 +41,7 @@ namespace Ubiety.Infrastructure
     /// </summary>
     public class ErrorEventArgs : EventArgs
     {
-        private readonly ErrorLevel _level;
+        private readonly ErrorSeverity _severity;
         private readonly string _message;
         private readonly ErrorType _type;
 
@@ -49,12 +49,12 @@ namespace Ubiety.Infrastructure
         /// </summary>
         /// <param name="message"></param>
         /// <param name="type"></param>
-        /// <param name="level"></param>
-        public ErrorEventArgs(string message, ErrorType type, ErrorLevel level)
+        /// <param name="severity"></param>
+        public ErrorEventArgs(string message, ErrorType type, ErrorSeverity severity)
         {
             _message = message;
             _type = type;
-            _level = level;
+            _severity = severity;
         }
 
         /// <value>
@@ -75,9 +75,9 @@ namespace Ubiety.Infrastructure
 
         /// <summary>
         /// </summary>
-        public ErrorLevel Level
+        public ErrorSeverity Severity
         {
-            get { return _level; }
+            get { return _severity; }
         }
     }
 
@@ -203,23 +203,23 @@ namespace Ubiety.Infrastructure
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="type"></param>
-        /// <param name="level"></param>
+        /// <param name="severity"></param>
         /// <param name="message"></param>
-        public void Error(object sender, ErrorType type, ErrorLevel level, String message)
+        public void Error(object sender, ErrorType type, ErrorSeverity severity, String message)
         {
-            Error(sender, new ErrorEventArgs(message, type, level));
+            Error(sender, new ErrorEventArgs(message, type, severity));
         }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="type"></param>
-        /// <param name="level"></param>
+        /// <param name="severity"></param>
         /// <param name="message"></param>
         /// <param name="parameters"></param>
-        public void Error(object sender, ErrorType type, ErrorLevel level, String message, params object[] parameters)
+        public void Error(object sender, ErrorType type, ErrorSeverity severity, String message, params object[] parameters)
         {
-            Error(sender, type, level, String.Format(message, parameters));
+            Error(sender, type, severity, String.Format(message, parameters));
         }
     }
 }

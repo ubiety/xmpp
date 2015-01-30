@@ -18,21 +18,23 @@
 namespace Ubiety.Common
 {
     /// <summary>
+    ///     Interface describing the methods used by the socket to compress the information with the server
     /// </summary>
     public interface ICompression
     {
         /// <summary>
-        ///     Called when the stream needs to decompress the incoming data.
+        ///     Called when the stream needs to compress the incoming data.
         /// </summary>
-        /// <param name="data">The data to be decompressed as a byte array.</param>
-        /// <returns>A byte array containiong the decompressed data.</returns>
+        /// <param name="data">The data to be compressed as a byte array.</param>
+        /// <returns>A byte array containing the compressed data.</returns>
         byte[] Deflate(byte[] data);
 
         /// <summary>
+        ///     Called when the stream needs to decompress the outgoing data.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
+        /// <param name="data">The data as a byte array to be decompressed</param>
+        /// <param name="length">The length of the array</param>
+        /// <returns>A byte array containing the decompressed data</returns>
         byte[] Inflate(byte[] data, int length);
     }
 }

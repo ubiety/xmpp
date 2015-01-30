@@ -25,7 +25,7 @@ namespace Ubiety.Common
     /// <summary>
     ///     Manages all aspects of a users identity on an XMPP network.
     /// </summary>
-    public class JID : IComparable
+    public class JID
     {
         private string _resource;
         private string _server;
@@ -33,19 +33,21 @@ namespace Ubiety.Common
         private string _xid;
 
         /// <summary>
+        /// Creates a new JID from a string representation
         /// </summary>
-        /// <param name="xid"></param>
+        /// <param name="xid">String form of a JID like "user@server.com/home"</param>
         public JID(string xid)
         {
             XmppId = xid;
         }
 
         /// <summary>
+        /// Creates a new JID from its parts
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="server"></param>
-        /// <param name="resource"></param>
-        public JID(string user, string server, string resource)
+        /// <param name="user">Username to be authenticated</param>
+        /// <param name="server">Server address to lookup and connect to</param>
+        /// <param name="resource">Resource to bind to - may be blank</param>
+        public JID(string user, string server, string resource = "")
         {
             User = user;
             Server = server;
@@ -57,7 +59,7 @@ namespace Ubiety.Common
         /// <summary>
         ///     String representation of the id.
         /// </summary>
-        public string XmppId
+        private string XmppId
         {
             get { return _xid ?? BuildJID(); }
             set { Parse(value); }
@@ -69,7 +71,7 @@ namespace Ubiety.Common
         public string User
         {
             get { return Unescape(); }
-            set
+            private set
             {
                 string tmp = Escape(value);
                 _user = Stringprep.NodePrep(tmp);
@@ -82,7 +84,7 @@ namespace Ubiety.Common
         public string Server
         {
             get { return _server; }
-            set { _server = (value == null) ? null : Stringprep.NamePrep(value); }
+            private set { _server = (value == null) ? null : Stringprep.NamePrep(value); }
         }
 
         /// <summary>
@@ -91,20 +93,7 @@ namespace Ubiety.Common
         public string Resource
         {
             get { return _resource; }
-            set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
-        }
-
-        #endregion
-
-        #region IComparable Members
-
-        /// <summary>
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public int CompareTo(object obj)
-        {
-            throw new Exception("The method or operation is not implemented.");
+            private set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
         }
 
         #endregion
@@ -118,6 +107,7 @@ namespace Ubiety.Common
         }
 
         /// <summary>
+        /// 
         /// </summary>
         /// <returns></returns>
         public override string ToString()

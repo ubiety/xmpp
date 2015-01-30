@@ -116,7 +116,7 @@ namespace Ubiety.Infrastructure
             catch (XmlException e)
             {
                 Log.Error(e, "Error in xml from server");
-                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorLevel.Fatal, "Error parsing XML from server.");
+                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorSeverity.Fatal, "Error parsing XML from server.");
                 if (ProtocolState.Socket.Connected)
                 {
                     ProtocolState.State = new DisconnectState();
@@ -192,7 +192,7 @@ namespace Ubiety.Infrastructure
             {
                 if (elem.Name != "stream:stream")
                 {
-                    ProtocolState.Events.Error(null, ErrorType.WrongProtocolVersion, ErrorLevel.Fatal, "Missing proper stream:stream header from server.");
+                    ProtocolState.Events.Error(null, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal, "Missing proper stream:stream header from server.");
                     return;
                 }
 
@@ -215,7 +215,7 @@ namespace Ubiety.Infrastructure
 
             if ((_element.Name != _reader.Name))
             {
-                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorLevel.Fatal, "Wrong end tag for current element.");
+                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorSeverity.Fatal, "Wrong end tag for current element.");
                 return;
             }
 
