@@ -1,84 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
 
-	<title>coder2000/ubiety @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #8501de;
-		  font-family: "helvetica"; 
-  		color: #ffffff;
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Xmpp by ubiety</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/ubiety/xmpp">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Xmpp</h1>
+            <h2>An XMPP library written for .Net in C#.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/ubiety/xmpp/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/ubiety/xmpp/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="ubiety-xmpp-library" class="anchor" href="#ubiety-xmpp-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ubiety XMPP Library</h1>
+
+<p>Ubiety is an extensible XMPP library written in C# to be easy and powerful.</p>
+
+<p><a href="https://ci.appveyor.com/project/coder2000/xmpp"><img src="https://ci.appveyor.com/api/projects/status/3b7lbwih7rgmsc7a?svg=true" alt="Build status"></a></p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<div class="highlight highlight-c#"><pre><span class="pl-k">using</span> Ubiety;
+<span class="pl-k">using</span> Ubiety.Common;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Test</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">Main</span>() {
+        Xmpp ubiety = <span class="pl-k">new</span> Xmpp();
+        ubiety.Settings.ID = <span class="pl-k">new</span> JID(<span class="pl-s"><span class="pl-pds">"</span>test@ubiety.ca<span class="pl-pds">"</span></span>);
+        ubiety.Settings.Password = <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>;
+
+        ubiety.Connect();
     }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #7afe21; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #7afe21; }
-    h3 { text-align: center; color: #7afe21; }
-    a { color: #7afe21; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
-</head>
+}</pre></div>
 
-<body>
-  <a href="http://github.com/coder2000/ubiety"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-  
-  <div id="container">
+<h2>
+<a id="support" class="anchor" href="#support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support</h2>
 
-    <div class="download">
-      <a href="http://github.com/coder2000/ubiety/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/coder2000/ubiety/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-      
-    <h1><a href="http://github.com/coder2000/ubiety">Ubiety XMPP Library</a> 
-      <span class="small">by <a href="http://github.com/coder2000">coder2000</a></small></h1>
+<ul>
+<li>Forum: <a href="http://discourse.dieterlunn.ca">http://discourse.dieterlunn.ca</a>
+</li>
+</ul>
+      </section>
 
-    <div class="description">
-      An XMPP library written for .Net in C#.  It will implement all the features in RFC 3920 and 3921.
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/ubiety">ubiety</a> can be found on <a href="https://github.com/ubiety/xmpp">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
     </div>
 
-    <h2>Dependencies</h2>
-<p>ICSharpZip, zlib.net.dll from ComponentAce, NUnit, log4net</p>
-<h2>License</h2>
-<p>LGPL Version 3.0</p>
-<h2>Authors</h2>
-<p>Dieter Lunn (coder2000@gmail.com)<br/>Mat Steeples (mat.steeples@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p> (coder2000@gmail.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/coder2000/ubiety/zipball/master">zip</a> or
-      <a href="http://github.com/coder2000/ubiety/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/coder2000/ubiety</pre>
-    </p>
-      
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/coder2000/ubiety">coder2000/ubiety</a>
-    </div>
     
-  </div>
-
-  
-</body>
+  </body>
 </html>
