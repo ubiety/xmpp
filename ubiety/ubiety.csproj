@@ -115,7 +115,7 @@
     <Compile Include="Common\Sasl\ScramProcessor.cs" />
     <Compile Include="Common\Stanza.cs" />
     <Compile Include="Common\Tag.cs" />
-    <Compile Include="Common\JID.cs" />
+    <Compile Include="Common\Jid.cs" />
     <Compile Include="Core\Bind.cs" />
     <Compile Include="Core\Compression.cs" />
     <Compile Include="Common\Compression\Zlib.cs" />

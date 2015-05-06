@@ -33,7 +33,7 @@ namespace Ubiety.Common
         private string _xid;
 
         /// <summary>
-        /// Creates a new JID from a string representation
+        ///     Creates a new JID from a string representation
         /// </summary>
         /// <param name="xid">String form of a JID like "user@server.com/home"</param>
         public Jid(string xid) : this()
@@ -42,7 +42,7 @@ namespace Ubiety.Common
         }
 
         /// <summary>
-        /// Creates a new JID from its parts
+        ///     Creates a new JID from its parts
         /// </summary>
         /// <param name="user">Username to be authenticated</param>
         /// <param name="server">Server address to lookup and connect to</param>
@@ -54,70 +54,34 @@ namespace Ubiety.Common
             Resource = resource;
         }
 
-        #region {{ Properties }}
-
         /// <summary>
-        ///     String representation of the id.
-        /// </summary>
-        private string XmppId
-        {
-            get { return _xid ?? BuildJid(); }
-            set { Parse(value); }
-        }
-
-        /// <summary>
-        ///     Username of the user.
-        /// </summary>
-        public string User
-        {
-            get { return Unescape(); }
-            private set
-            {
-                string tmp = Escape(value);
-                _user = Stringprep.NodePrep(tmp);
-            }
-        }
-
-        /// <summary>
-        ///     Server the user is logged into.
-        /// </summary>
-        public string Server
-        {
-            get { return _server; }
-            private set { _server = (value == null) ? null : Stringprep.NamePrep(value); }
-        }
-
-        /// <summary>
-        ///     Resource the user is communicating from.
-        /// </summary>
-        public string Resource
-        {
-            get { return _resource; }
-            private set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return _xid.GetHashCode();
-        }
-
-        /// <summary>
-        /// 
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
         public bool Equals(Jid other)
         {
-            throw new NotImplementedException();
+            return XmppId.Equals(other.XmppId);
         }
 
         /// <summary>
-        /// 
+        ///     Unique hash for an object to be used as a key in dictionaries etc...
+        /// </summary>
+        /// <returns>Hash code based on Jid parts</returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = 17;
+
+                hash = hash*23 + User.GetHashCode();
+                hash = hash*23 + Resource.GetHashCode();
+                hash = hash*23 + Server.GetHashCode();
+
+                return hash;
+            }
+        }
+
+        /// <summary>
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -148,6 +112,50 @@ namespace Ubiety.Common
             return XmppId.Equals(((Jid) obj).XmppId);
         }
 
+        #region {{ Properties }}
+
+        /// <summary>
+        ///     String representation of the id.
+        /// </summary>
+        private string XmppId
+        {
+            get { return _xid ?? BuildJid(); }
+            set { Parse(value); }
+        }
+
+        /// <summary>
+        ///     Username of the user.
+        /// </summary>
+        public string User
+        {
+            get { return Unescape(); }
+            private set
+            {
+                var tmp = Escape(value);
+                _user = Stringprep.NodePrep(tmp);
+            }
+        }
+
+        /// <summary>
+        ///     Server the user is logged into.
+        /// </summary>
+        public string Server
+        {
+            get { return _server; }
+            private set { _server = (value == null) ? null : Stringprep.NamePrep(value); }
+        }
+
+        /// <summary>
+        ///     Resource the user is communicating from.
+        /// </summary>
+        public string Resource
+        {
+            get { return _resource; }
+            private set { _resource = (value == null) ? null : Stringprep.ResourcePrep(value); }
+        }
+
+        #endregion
+
         #region {{ Operators }}
 
         /// <summary>
@@ -157,11 +165,6 @@ namespace Ubiety.Common
         /// <returns></returns>
         public static bool operator ==(Jid one, Jid two)
         {
-            if (one == null)
-            {
-                return (two == null);
-            }
-
             return one.Equals(two);
         }
 
@@ -172,11 +175,6 @@ namespace Ubiety.Common
         /// <returns></returns>
         public static bool operator !=(Jid one, Jid two)
         {
-            if (one == null)
-            {
-                return ((object) two != null);
-            }
-
             return !one.Equals(two);
         }
 
@@ -230,8 +228,8 @@ namespace Ubiety.Common
         /// </summary>
         private void Parse(string id)
         {
-            int at = id.IndexOf('@');
-            int slash = id.IndexOf('/');
+            var at = id.IndexOf('@');
+            var slash = id.IndexOf('/');
 
             if (at == -1)
             {
@@ -276,9 +274,9 @@ namespace Ubiety.Common
         private static string Escape(string user)
         {
             var u = new StringBuilder();
-            int count = 0;
+            var count = 0;
 
-            foreach (char c in user)
+            foreach (var c in user)
             {
                 switch (c)
                 {
@@ -327,7 +325,7 @@ namespace Ubiety.Common
         private string Unescape()
         {
             var re = new Regex(@"\\([2-5][0267face])");
-            string u = re.Replace(_user, delegate(Match m)
+            var u = re.Replace(_user, delegate(Match m)
             {
                 switch (m.Groups[1].Value)
                 {
