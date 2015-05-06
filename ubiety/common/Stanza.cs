@@ -34,18 +34,18 @@ namespace Ubiety.Common
 		/// <summary>
 		/// Where the message is going.
 		/// </summary>
-		public JID To
+		public Jid To
 		{
-			get { return new JID(GetAttribute("to")); }
+			get { return new Jid(GetAttribute("to")); }
 			set { SetAttribute("to", value); }
 		}
 
 		/// <summary>
 		/// Where the message came from.
 		/// </summary>
-		public JID From
+		public Jid From
 		{
-			get { return new JID(GetAttribute("from")); }
+			get { return new Jid(GetAttribute("from")); }
 			set { SetAttribute("from", value); }
 		}
 

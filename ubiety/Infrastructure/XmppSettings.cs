@@ -41,7 +41,7 @@ namespace Ubiety.Infrastructure
         /// <value>
         ///     The ID.
         /// </value>
-        public JID Id { get; set; }
+        public Common.Jid Id { get; set; }
 
         /// <summary>
         ///     Gets or sets the users password for authentication.

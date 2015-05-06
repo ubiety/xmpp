@@ -25,7 +25,7 @@ namespace Ubiety.Common
     /// <summary>
     ///     Manages all aspects of a users identity on an XMPP network.
     /// </summary>
-    public class JID
+    public struct Jid : IEquatable<Jid>
     {
         private string _resource;
         private string _server;
@@ -36,7 +36,7 @@ namespace Ubiety.Common
         /// Creates a new JID from a string representation
         /// </summary>
         /// <param name="xid">String form of a JID like "user@server.com/home"</param>
-        public JID(string xid)
+        public Jid(string xid) : this()
         {
             XmppId = xid;
         }
@@ -47,7 +47,7 @@ namespace Ubiety.Common
         /// <param name="user">Username to be authenticated</param>
         /// <param name="server">Server address to lookup and connect to</param>
         /// <param name="resource">Resource to bind to - may be blank</param>
-        public JID(string user, string server, string resource = "")
+        public Jid(string user, string server, string resource = "") : this()
         {
             User = user;
             Server = server;
@@ -61,7 +61,7 @@ namespace Ubiety.Common
         /// </summary>
         private string XmppId
         {
-            get { return _xid ?? BuildJID(); }
+            get { return _xid ?? BuildJid(); }
             set { Parse(value); }
         }
 
@@ -109,6 +109,16 @@ namespace Ubiety.Common
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Jid other)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
@@ -126,23 +136,16 @@ namespace Ubiety.Common
                 return false;
             }
 
-            JID id = obj as JID;
-
-            if (id == null)
-            {
-                return false;
-            }
-
             if (obj is string)
             {
                 return XmppId.Equals(obj);
             }
-            if (!(obj is JID))
+            if (!(obj is Jid))
             {
                 return false;
             }
 
-            return XmppId.Equals(((JID) obj).XmppId);
+            return XmppId.Equals(((Jid) obj).XmppId);
         }
 
         #region {{ Operators }}
@@ -152,7 +155,7 @@ namespace Ubiety.Common
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        public static bool operator ==(JID one, JID two)
+        public static bool operator ==(Jid one, Jid two)
         {
             if (one == null)
             {
@@ -167,7 +170,7 @@ namespace Ubiety.Common
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        public static bool operator !=(JID one, JID two)
+        public static bool operator !=(Jid one, Jid two)
         {
             if (one == null)
             {
@@ -181,16 +184,16 @@ namespace Ubiety.Common
         /// </summary>
         /// <param name="one"></param>
         /// <returns></returns>
-        public static implicit operator JID(string one)
+        public static implicit operator Jid(string one)
         {
-            return new JID(one);
+            return new Jid(one);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="one"></param>
         /// <returns></returns>
-        public static implicit operator string(JID one)
+        public static implicit operator string(Jid one)
         {
             return one.XmppId;
         }
@@ -203,7 +206,7 @@ namespace Ubiety.Common
         ///     Builds a string version of an XID from the three parts.
         /// </summary>
         /// <returns>string version of xid</returns>
-        private string BuildJID()
+        private string BuildJid()
         {
             var sb = new StringBuilder();
             if (_user != null)

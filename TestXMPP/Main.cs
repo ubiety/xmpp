@@ -2,8 +2,9 @@ using System;
 using System.Windows.Forms;
 using TestXMPP.Properties;
 using Ubiety;
-using Ubiety.Common;
 using Ubiety.Core;
+using Ubiety.Infrastructure;
+using Jid = Ubiety.Common.Jid;
 
 namespace TestXMPP
 {
@@ -20,7 +21,7 @@ namespace TestXMPP
 			slVersion.Text = Resources.Version_Label + Xmpp.Version;
 		}
 
-        void _xmpp_OnError(object sender, Ubiety.Infrastructure.ErrorEventArgs e)
+        void _xmpp_OnError(object sender, ErrorEventArgs e)
         {
             MessageBox.Show(e.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -28,7 +29,7 @@ namespace TestXMPP
 		private void Button1Click(object sender, EventArgs e)
 		{
             Xmpp.Settings.AuthenticationTypes = MechanismType.Default;
-            Xmpp.Settings.Id = new JID(txtUsername.Text);
+            Xmpp.Settings.Id = new Jid(txtUsername.Text);
 			Xmpp.Settings.Password = txtPassword.Text;
 			Xmpp.Settings.Ssl = btnSSL.Checked;
 			_xmpp.Connect();
