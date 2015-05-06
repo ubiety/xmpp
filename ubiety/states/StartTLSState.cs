@@ -22,7 +22,7 @@ namespace Ubiety.States
 	/// <summary>
 	/// 
 	/// </summary>
-	public class StartTLSState : State
+	public class StartTlsState : State
 	{
 		/// <summary>
 		/// 

@@ -86,7 +86,7 @@ namespace Ubiety.Common.Sasl
 
         /// <summary>
         /// </summary>
-        public virtual Tag Initialize(String id, String password)
+        public virtual Tag Initialize(string id, string password)
         {
             Id = id;
             Password = password;
@@ -113,9 +113,9 @@ namespace Ubiety.Common.Sasl
         ///     Generates a new random 64bit number
         /// </summary>
         /// <returns>Random Int64</returns>
-        protected static Int64 NextInt64()
+        protected static long NextInt64()
         {
-            var bytes = new byte[sizeof (Int64)];
+            var bytes = new byte[sizeof (long)];
             var rand = new RNGCryptoServiceProvider();
             rand.GetBytes(bytes);
             return BitConverter.ToInt64(bytes, 0);

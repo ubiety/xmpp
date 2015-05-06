@@ -131,18 +131,12 @@ namespace Ubiety
         /// <value>
         ///     <c>true</c> if connected; otherwise, <c>false</c>.
         /// </value>
-        public bool Connected
-        {
-            get { return ProtocolState.State is RunningState; }
-        }
+        public static bool Connected => ProtocolState.State is RunningState;
 
         /// <summary>
         ///     Current settings of the application including Id and Password.
         /// </summary>
-        public XmppSettings Settings
-        {
-            get { return ProtocolState.Settings; }
-        }
+        public static XmppSettings Settings => ProtocolState.Settings;
 
         #endregion
     }

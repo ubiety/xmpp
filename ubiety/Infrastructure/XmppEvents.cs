@@ -41,10 +41,6 @@ namespace Ubiety.Infrastructure
     /// </summary>
     public class ErrorEventArgs : EventArgs
     {
-        private readonly ErrorSeverity _severity;
-        private readonly string _message;
-        private readonly ErrorType _type;
-
         /// <summary>
         /// </summary>
         /// <param name="message"></param>
@@ -52,33 +48,24 @@ namespace Ubiety.Infrastructure
         /// <param name="severity"></param>
         public ErrorEventArgs(string message, ErrorType type, ErrorSeverity severity)
         {
-            _message = message;
-            _type = type;
-            _severity = severity;
+            Message = message;
+            Type = type;
+            Severity = severity;
         }
 
         /// <value>
         ///     The default error message.
         /// </value>
-        public string Message
-        {
-            get { return _message; }
-        }
+        public string Message { get; }
 
         /// <value>
         ///     The type of error that is being returned.
         /// </value>
-        public ErrorType Type
-        {
-            get { return _type; }
-        }
+        public ErrorType Type { get; }
 
         /// <summary>
         /// </summary>
-        public ErrorSeverity Severity
-        {
-            get { return _severity; }
-        }
+        public ErrorSeverity Severity { get; }
     }
 
     /// <summary>
@@ -97,10 +84,7 @@ namespace Ubiety.Infrastructure
         /// <param name="args"></param>
         public void Connect(object sender, EventArgs args = default (EventArgs))
         {
-            if (OnConnect != null)
-            {
-                OnConnect(sender, args);
-            }
+            OnConnect?.Invoke(sender, args);
         }
 
         #endregion
@@ -117,10 +101,7 @@ namespace Ubiety.Infrastructure
         /// <param name="args"></param>
         public void Disconnect(object sender, EventArgs args = default (EventArgs))
         {
-            if (OnDisconnect != null)
-            {
-                OnDisconnect(sender, args);
-            }
+            OnDisconnect?.Invoke(sender, args);
         }
 
         #endregion
@@ -137,10 +118,7 @@ namespace Ubiety.Infrastructure
         /// <param name="args"></param>
         public void Send(object sender, TagEventArgs args)
         {
-            if (OnSend != null)
-            {
-                OnSend(sender, args);
-            }
+            OnSend?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -166,10 +144,7 @@ namespace Ubiety.Infrastructure
         /// <param name="args"></param>
         public void NewTag(object sender, TagEventArgs args)
         {
-            if (OnNewTag != null)
-            {
-                OnNewTag(sender, args);
-            }
+            OnNewTag?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -193,10 +168,7 @@ namespace Ubiety.Infrastructure
         /// <param name="args"></param>
         public void Error(object sender, ErrorEventArgs args)
         {
-            if (OnError != null)
-            {
-                OnError(sender, args);
-            }
+            OnError?.Invoke(sender, args);
         }
 
         /// <summary>

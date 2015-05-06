@@ -125,6 +125,14 @@ namespace Ubiety.Common
             {
                 return false;
             }
+
+            JID id = obj as JID;
+
+            if (id == null)
+            {
+                return false;
+            }
+
             if (obj is string)
             {
                 return XmppId.Equals(obj);
@@ -159,21 +167,6 @@ namespace Ubiety.Common
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        public static bool operator ==(string one, JID two)
-        {
-            if (two == null)
-            {
-                return ((object) one == null);
-            }
-
-            return two.Equals(one);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
         public static bool operator !=(JID one, JID two)
         {
             if (one == null)
@@ -182,21 +175,6 @@ namespace Ubiety.Common
             }
 
             return !one.Equals(two);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
-        public static bool operator !=(string one, JID two)
-        {
-            if (two == null)
-            {
-                return ((object) one != null);
-            }
-
-            return !two.Equals(one);
         }
 
         /// <summary>

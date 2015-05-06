@@ -131,10 +131,7 @@ namespace Ubiety.Infrastructure
 
         private static void AddText()
         {
-            if (_element != null)
-            {
-                _element.AppendChild(ProtocolState.Document.CreateTextNode(_reader.Value));
-            }
+            _element?.AppendChild(ProtocolState.Document.CreateTextNode(_reader.Value));
         }
 
         private static void StartTag()
@@ -200,10 +197,7 @@ namespace Ubiety.Infrastructure
             }
             else
             {
-                if (_element != null)
-                {
-                    _element.AppendChild(elem);
-                }
+                _element?.AppendChild(elem);
                 _element = elem;
             }
         }

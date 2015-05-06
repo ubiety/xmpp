@@ -46,7 +46,7 @@ namespace Ubiety.Common.Sasl
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override Tag Initialize(String id, String password)
+        public override Tag Initialize(string id, string password)
         {
             base.Initialize(id, password);
 
@@ -84,7 +84,7 @@ namespace Ubiety.Common.Sasl
                     _snonce = tokens[0].Substring(2);
                     // Ensure that the first length of nonce is the same nonce we sent.
                     string r = _snonce.Substring(0, _nonce.Length);
-                    if (0 != String.CompareOrdinal(r, _nonce))
+                    if (0 != string.CompareOrdinal(r, _nonce))
                     {
                         throw new Exception("Error in authenticating server nonce.");
                     }

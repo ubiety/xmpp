@@ -56,7 +56,7 @@ namespace Ubiety.States
             {
                 if (f.StartTls != null && ProtocolState.Settings.Ssl)
                 {
-                    ProtocolState.State = new StartTLSState();
+                    ProtocolState.State = new StartTlsState();
                     var tls = TagRegistry.GetTag<StartTls>("starttls", Namespaces.StartTls);
                     ProtocolState.Socket.Write(tls);
                     return;

@@ -52,18 +52,12 @@ namespace Ubiety.Core
 
         /// <summary>
         /// </summary>
-        public Features Features
-        {
-            get { return this["features", Namespaces.Stream] as Features; }
-        }
+        public Features Features => this["features", Namespaces.Stream] as Features;
 
         /// <summary>
         /// 
         /// </summary>
-        public Error Error
-        {
-            get { return this["error,", Namespaces.Stream] as Error; }
-        }
+        public Error Error => this["error,", Namespaces.Stream] as Error;
 
         /// <summary>
         /// </summary>

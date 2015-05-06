@@ -35,10 +35,7 @@ namespace Ubiety.Registries
         /// <value>
         ///     Do we have any algorithms to use?
         /// </value>
-        public static bool AlgorithmsAvailable
-        {
-            get { return RegisteredItems.Count >= 1; }
-        }
+        public static bool AlgorithmsAvailable => RegisteredItems.Count >= 1;
 
         /// <summary>
         ///     Add a compression stream to the library.  Zlib is the default.

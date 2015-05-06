@@ -51,7 +51,7 @@ namespace Ubiety.States
         /// <value>
         ///     The socket used for connecting to the server.
         /// </value>
-        internal static AsyncSocket Socket { get; set; }
+        internal static AsyncSocket Socket { get; }
 
         /// <value>
         ///     The current SASL processor based on server communication.
@@ -70,9 +70,9 @@ namespace Ubiety.States
 
         public static string Algorithm { get; set; }
 
-        public static XmppSettings Settings { get; private set; }
+        public static XmppSettings Settings { get; }
 
-        public static XmppEvents Events { get; private set; }
+        public static XmppEvents Events { get; }
 
         private static void EventsOnOnDisconnect(object sender, EventArgs eventArgs)
         {
@@ -84,14 +84,14 @@ namespace Ubiety.States
         private static void EventsOnOnConnect(object sender, EventArgs eventArgs)
         {
             // We need an XID and Password to connect to the server.
-            if (String.IsNullOrEmpty(Settings.Password))
+            if (string.IsNullOrEmpty(Settings.Password))
             {
                 Events.Error(null, ErrorType.MissingPassword, ErrorSeverity.Fatal,
                     "Must have a password in the settings to connect to a server.");
                 return;
             }
 
-            if (String.IsNullOrEmpty(Settings.Id))
+            if (string.IsNullOrEmpty(Settings.Id))
             {
                 Events.Error(null, ErrorType.MissingId, ErrorSeverity.Fatal,
                     "Must set the ID in the settings to connect to a server.");

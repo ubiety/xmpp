@@ -39,7 +39,7 @@ namespace Ubiety.Common.Sasl
         /// <summary>
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public override Tag Initialize(String id, String password)
+        public override Tag Initialize(string id, string password)
         {
             base.Initialize(id, password);
 

@@ -15,7 +15,6 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -60,7 +59,7 @@ namespace Ubiety.Net
 
         public IPAddress NextIpAddress()
         {
-            Hostname = !String.IsNullOrEmpty(ProtocolState.Settings.Hostname)
+            Hostname = !string.IsNullOrEmpty(ProtocolState.Settings.Hostname)
                 ? ProtocolState.Settings.Hostname
                 : ProtocolState.Settings.Id.Server;
 
@@ -72,18 +71,14 @@ namespace Ubiety.Net
             if (_srvRecords == null && !_srvFailed)
                 _srvRecords = FindSrv();
 
-            if (!_srvFailed && _srvRecords != null)
-            {
-                if (_srvAttempts < _srvRecords.Count)
-                {
-                    ProtocolState.Settings.Port = _srvRecords[_srvAttempts].PORT;
-                    IPAddress ip = Resolve(_srvRecords[_srvAttempts].TARGET);
-                    if (ip == null)
-                        _srvAttempts++;
-                    else
-                        return ip;
-                }
-            }
+            if (_srvFailed || _srvRecords == null) return null;
+            if (_srvAttempts >= _srvRecords.Count) return null;
+            ProtocolState.Settings.Port = _srvRecords[_srvAttempts].PORT;
+            IPAddress ip = Resolve(_srvRecords[_srvAttempts].TARGET);
+            if (ip == null)
+                _srvAttempts++;
+            else
+                return ip;
             return null;
         }
 

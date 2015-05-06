@@ -54,7 +54,7 @@ namespace Ubiety.Common.Sasl
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override Tag Initialize(String id, String password)
+        public override Tag Initialize(string id, string password)
         {
             base.Initialize(id, password);
 
@@ -69,28 +69,24 @@ namespace Ubiety.Common.Sasl
         /// <returns></returns>
         public override Tag Step(Tag tag)
         {
-            if (tag.Name == "success")
+            switch (tag.Name)
             {
-                Tag succ = tag;
-                PopulateDirectives(succ);
+                case "success":
+                    Tag succ = tag;
+                    PopulateDirectives(succ);
 
-                return succ;
-            }
-
-            if (tag.Name == "failure")
-            {
-                ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorSeverity.Fatal, "Unable to authorize current user credentials.");
-                return tag;
+                    return succ;
+                case "failure":
+                    ProtocolState.Events.Error(this, ErrorType.AuthorizationFailed, ErrorSeverity.Fatal, "Unable to authorize current user credentials.");
+                    return tag;
             }
 
             Tag chall = tag;
             PopulateDirectives(chall);
             var res = TagRegistry.GetTag<GenericTag>("response", Namespaces.Sasl);
-            if (this["rspauth"] == null)
-            {
-                GenerateResponseHash();
-                res.Bytes = GenerateResponse();
-            }
+            if (this["rspauth"] != null) return res;
+            GenerateResponseHash();
+            res.Bytes = GenerateResponse();
 
             return res;
         }
@@ -198,7 +194,7 @@ namespace Ubiety.Common.Sasl
             sb.Remove(0, sb.Length);
             sb.Append("AUTHENTICATE:");
             sb.Append(_digestUri);
-            if (String.Compare(this["qop"], "auth", StringComparison.Ordinal) != 0)
+            if (string.Compare(this["qop"], "auth", StringComparison.Ordinal) != 0)
             {
                 sb.Append(":00000000000000000000000000000000");
             }

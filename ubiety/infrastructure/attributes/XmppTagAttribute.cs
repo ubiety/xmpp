@@ -22,14 +22,10 @@ namespace Ubiety.Infrastructure.Attributes
 	/// <remarks>
 	/// Used to denote which classes in an assembly are proper XMPP tags.
 	/// </remarks>
-	[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 	public class XmppTagAttribute : Attribute
 	{
-		private readonly string _namespace;
-		private readonly string _prefix;
-		private readonly Type _type;
-
-		/// <summary>
+	    /// <summary>
 		/// Creates a new instance of <see cref="XmppTagAttribute"/>
 		/// </summary>
 		/// <param name="name"></param>
@@ -37,33 +33,24 @@ namespace Ubiety.Infrastructure.Attributes
 		/// <param name="type">The class-type the tag is for</param>
 		public XmppTagAttribute(string name, string ns, Type type)
 		{
-			_prefix = name;
-			_namespace = ns;
-			_type = type;
+			Name = name;
+			Namespace = ns;
+			ClassType = type;
 		}
 
 		/// <summary>
 		/// The tag namespace prefix
 		/// </summary>
-		public string Name
-		{
-			get { return _prefix; }
-		}
+		public string Name { get; }
 
-		/// <summary>
+	    /// <summary>
 		/// The tags namespace
 		/// </summary>
-		public string Namespace
-		{
-			get { return _namespace; }
-		}
+		public string Namespace { get; }
 
-		/// <summary>
+	    /// <summary>
 		/// The <see cref="Type"/> used to create an instance
 		/// </summary>
-		public Type ClassType
-		{
-			get { return _type; }
-		}
+		public Type ClassType { get; }
 	}
 }

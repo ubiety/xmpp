@@ -38,9 +38,6 @@ namespace Ubiety.Core
 		/// <summary>
 		/// Is StartTLS required by the server for authentication.
 		/// </summary>
-		public bool Required
-		{
-			get { return this["required"] != null; }
-		}
+		public bool Required => this["required"] != null;
 	}
 }

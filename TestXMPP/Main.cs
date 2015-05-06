@@ -27,16 +27,16 @@ namespace TestXMPP
 
 		private void Button1Click(object sender, EventArgs e)
 		{
-            _xmpp.Settings.AuthenticationTypes = MechanismType.Default;
-            _xmpp.Settings.Id = new JID(txtUsername.Text);
-			_xmpp.Settings.Password = txtPassword.Text;
-			_xmpp.Settings.Ssl = btnSSL.Checked;
+            Xmpp.Settings.AuthenticationTypes = MechanismType.Default;
+            Xmpp.Settings.Id = new JID(txtUsername.Text);
+			Xmpp.Settings.Password = txtPassword.Text;
+			Xmpp.Settings.Ssl = btnSSL.Checked;
 			_xmpp.Connect();
 		}
 
 		private void BtnExitClick(object sender, EventArgs e)
 		{
-			if (_xmpp != null && _xmpp.Connected)
+			if (_xmpp != null && Xmpp.Connected)
 				_xmpp.Disconnect();
 			Application.Exit();
 		}

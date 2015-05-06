@@ -35,23 +35,14 @@ namespace Ubiety.Core
 
         /// <summary>
         /// </summary>
-        public Mechanisms StartSasl
-        {
-            get { return this["mechanisms", Namespaces.Sasl] as Mechanisms; }
-        }
+        public Mechanisms StartSasl => this["mechanisms", Namespaces.Sasl] as Mechanisms;
 
         /// <summary>
         /// </summary>
-        public StartTls StartTls
-        {
-            get { return this["starttls", Namespaces.StartTls] as StartTls; }
-        }
+        public StartTls StartTls => this["starttls", Namespaces.StartTls] as StartTls;
 
         /// <summary>
         /// </summary>
-        public Compression Compression
-        {
-            get { return this["compression", Namespaces.Compression] as Compression; }
-        }
+        public Compression Compression => this["compression", Namespaces.Compression] as Compression;
     }
 }
