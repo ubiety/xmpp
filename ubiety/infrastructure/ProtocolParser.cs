@@ -45,7 +45,7 @@ namespace Ubiety.Infrastructure
         static ProtocolParser()
         {
             Settings = new XmlReaderSettings {ConformanceLevel = ConformanceLevel.Fragment};
-            NamespaceManager = new XmlNamespaceManager(ProtocolState.Document.NameTable);
+            NamespaceManager = new XmlNamespaceManager(Tag.Document.NameTable);
 
             NamespaceManager.AddNamespace("", Namespaces.Client);
             NamespaceManager.AddNamespace("stream", Namespaces.Stream);
@@ -64,7 +64,6 @@ namespace Ubiety.Infrastructure
             }
 
             // We have received the end tag asking to finish communication so we change to the Disconnect State.
-            // TODO - Handle messages that include the end stream tag.
             if (message.Contains("</stream:stream>"))
             {
                 // Just close the socket.  We don't need to reply but we will signal we aren't connected.
@@ -80,7 +79,6 @@ namespace Ubiety.Infrastructure
             }
 
             // We have to cheat because XmlTextReader doesn't like malformed XML
-            // TODO - If we get a full message we don't need to add anything to it.
             if (message.Contains("<stream:stream"))
             {
                 if (!fullStream)
@@ -131,7 +129,7 @@ namespace Ubiety.Infrastructure
 
         private static void AddText()
         {
-            _element?.AppendChild(ProtocolState.Document.CreateTextNode(_reader.Value));
+            _element?.AppendChild(Tag.Document.CreateTextNode(_reader.Value));
         }
 
         private static void StartTag()
@@ -170,7 +168,7 @@ namespace Ubiety.Infrastructure
                     string prefix = attrname.Substring(0, colon);
                     string name = attrname.Substring(colon + 1);
 
-                    XmlAttribute attr = ProtocolState.Document.CreateAttribute(prefix, name,
+                    XmlAttribute attr = Tag.Document.CreateAttribute(prefix, name,
                         NamespaceManager.LookupNamespace(prefix));
                     attr.InnerXml = (string) ht[attrname];
 
@@ -178,7 +176,7 @@ namespace Ubiety.Infrastructure
                 }
                 else
                 {
-                    XmlAttribute attr = ProtocolState.Document.CreateAttribute(attrname);
+                    XmlAttribute attr = Tag.Document.CreateAttribute(attrname);
                     attr.InnerXml = (string) ht[attrname];
 
                     elem.SetAttributeNode(attr);

@@ -29,8 +29,6 @@ namespace Ubiety.States
     /// </summary>
     internal static class ProtocolState
     {
-        public static readonly XmlDocument Document = new XmlDocument();
-
         static ProtocolState()
         {
             Settings = new XmppSettings();

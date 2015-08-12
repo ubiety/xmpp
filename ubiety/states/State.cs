@@ -26,7 +26,7 @@ namespace Ubiety.States
         /// <summary>
         /// </summary>
         /// <param name="data">
-        ///     A <see cref="System.Object" />
+        ///     A <see cref="object" />
         /// </param>
         public virtual void Execute(Tag data = null)
         {

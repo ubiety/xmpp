@@ -30,18 +30,23 @@ namespace Ubiety.Common
         private static int _packetCounter;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static readonly XmlDocument Document = new XmlDocument();
+
+        /// <summary>
         ///     Creates a new tag
         /// </summary>
         /// <param name="prefix">Tag Prefix</param>
         /// <param name="qname">Qualified Namespace</param>
         protected Tag(string prefix, XmlQualifiedName qname)
-            : base(prefix, qname.Name, qname.Namespace, ProtocolState.Document)
+            : base(prefix, qname.Name, qname.Namespace, Document)
         {
         }
 
         /// <summary>
         /// </summary>
-        protected Tag() : base("", "", "", ProtocolState.Document)
+        protected Tag() : base("", "", "", Document)
         {
         }
 

@@ -36,7 +36,7 @@ namespace Ubiety.Net
     /// <remarks>
     ///     AsyncSocket is the class that communicates with the server.
     /// </remarks>
-    internal class AsyncSocket
+    internal class AsyncSocket : IDisposable
     {
         // Timeout after 5 seconds by default
 /*
@@ -235,6 +235,12 @@ namespace Ubiety.Net
         {
             _compression = CompressionRegistry.GetCompression(algorithm);
             _compressed = true;
+        }
+
+        public void Dispose()
+        {
+            _timeoutEvent.Dispose();
+            _socket.Dispose();
         }
     }
 }

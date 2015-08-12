@@ -73,7 +73,6 @@ namespace Ubiety
             ILogger log =
                 new LoggerConfiguration().MinimumLevel.Debug()
                     .WriteTo.RollingFile("Logs\\log-{Date}.txt")
-                    .WriteTo.Seq("http://localhost:5341")
                     .CreateLogger();
             Log.Logger = log;
 
@@ -102,7 +101,7 @@ namespace Ubiety
         /// <param name="tag">Tag to send to the server</param>
         public void Send(Tag tag)
         {
-            Send(new TagEventArgs(tag));
+            ProtocolState.Events.Send(this, tag);
         }
 
         /// <summary>
@@ -121,6 +120,15 @@ namespace Ubiety
         {
             add { ProtocolState.Events.OnError += value; }
             remove { ProtocolState.Events.OnError -= value; }
+        }
+
+        /// <summary>
+        /// A new tag has arrived from the server
+        /// </summary>
+        public event EventHandler<TagEventArgs> OnNewTag
+        {
+            add { ProtocolState.Events.OnNewTag += value; }
+            remove { ProtocolState.Events.OnNewTag -= value; }
         }
 
         #region Properties

@@ -30,7 +30,7 @@ namespace Ubiety.Common.Sasl
 {
     /// <summary>
     /// </summary>
-    public class Md5Processor : SaslProcessor
+    public sealed class Md5Processor : SaslProcessor, IDisposable
     {
         private readonly Regex _csv = new Regex(@"(?<tag>[^=]+)=(?:(?<data>[^,""]+)|(?:""(?<data>[^""]*)"")),?",
             RegexOptions.ExplicitCapture | RegexOptions.Compiled);
@@ -222,6 +222,14 @@ namespace Ubiety.Common.Sasl
             string a3 = sb.ToString();
             byte[] h3 = _md5.ComputeHash(ae.GetBytes(a3));
             _responseHash = HexString(h3).ToLower();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            _md5.Dispose();
         }
     }
 }

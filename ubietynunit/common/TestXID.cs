@@ -21,7 +21,7 @@ using Ubiety.Common;
 namespace ubietynunit.common
 {
 	[TestFixture]
-	public class TestXID
+	public class TestJid
 	{
 		[Test]
 		public void EscapeUsernameFromString()
@@ -40,7 +40,7 @@ namespace ubietynunit.common
 		}
 		
 		[Test]
-		public void NewXIDFromString()
+		public void NewJidFromString()
 		{
 			var id = new Jid("testing@jabber.org/home");
 			

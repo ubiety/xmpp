@@ -24,13 +24,13 @@ namespace Ubiety.States
 	/// </summary>
 	public class DisconnectState : State
 	{
-		/// <summary>
-		/// Executes the disconnect command by sending the closing stream tag and closing the socket.
-		/// </summary>
-		/// <param name="data">
-		/// No <see cref="Ubiety.Common.Tag"/> needed so we pass null.
-		/// </param>
-		public override void Execute(Tag data = null)
+        /// <summary>
+        /// Executes the disconnect command by sending the closing stream tag and closing the socket.
+        /// </summary>
+        /// <param name="data">
+        /// No <see cref="Tag"/> needed so we pass null.
+        /// </param>
+        public override void Execute(Tag data = null)
 		{
 			if (ProtocolState.Socket.Connected)
 			{

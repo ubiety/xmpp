@@ -23,7 +23,7 @@ namespace Ubiety.Infrastructure.Attributes
 	/// Used to denote which classes in an assembly are proper XMPP tags.
 	/// </remarks>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-	public class XmppTagAttribute : Attribute
+	public sealed class XmppTagAttribute : Attribute
 	{
 	    /// <summary>
 		/// Creates a new instance of <see cref="XmppTagAttribute"/>
