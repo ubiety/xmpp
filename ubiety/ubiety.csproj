@@ -79,11 +79,11 @@
       <HintPath>..\packages\libidn.1.29.1\lib\libidn.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.1.5.5\lib\net45\Serilog.dll</HintPath>
+      <HintPath>..\packages\Serilog.1.5.6\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.1.5.5\lib\net45\Serilog.FullNetFx.dll</HintPath>
+      <HintPath>..\packages\Serilog.1.5.6\lib\net45\Serilog.FullNetFx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Serilog.Sinks.Seq, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
@@ -107,8 +107,11 @@
     <Compile Include="Common\Disco\IDiscoManager.cs" />
     <Compile Include="Common\Disco\RegistryDiscoManager.cs" />
     <Compile Include="Common\ErrorType.cs" />
+    <Compile Include="Common\Exceptions\ServerXmlException.cs" />
     <Compile Include="Common\ICompression.cs" />
     <Compile Include="Common\Namespaces.cs" />
+    <Compile Include="Common\Roster\DefaultRosterManager.cs" />
+    <Compile Include="Common\Roster\IRosterManager.cs" />
     <Compile Include="Common\Sasl\Md5Processor.cs" />
     <Compile Include="Common\Sasl\PlainProcessor.cs" />
     <Compile Include="Common\Sasl\SaslProcessor.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Core\Features.cs" />
     <Compile Include="Core\GenericTag.cs" />
     <Compile Include="Core\Iq\Iq.cs" />
+    <Compile Include="Core\Iq\Query.cs" />
     <Compile Include="Core\Jid.cs" />
     <Compile Include="Core\Mechanisms.cs" />
     <Compile Include="Core\Sasl\Auth.cs" />
@@ -188,6 +192,11 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\ExceptionAnalyzer.1.0.5\tools\analyzers\ExceptionAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.AnalyzerPowerPack.1.0.1\analyzers\dotnet\cs\Microsoft.AnalyzerPowerPack.Common.dll" />
+    <Analyzer Include="..\packages\Microsoft.AnalyzerPowerPack.1.0.1\analyzers\dotnet\cs\Microsoft.AnalyzerPowerPack.CSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

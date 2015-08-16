@@ -1,6 +1,6 @@
-// ConnectingState.cs
+﻿// IRosterManager.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,24 +15,16 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using Ubiety.Common;
-
-namespace Ubiety.States
+namespace Ubiety.Common.Roster
 {
-	/// <summary>
-	/// The state used to connect to the server.  The initial state of the library.
-	/// </summary>
-	public class ConnectingState : State
-	{
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IRosterManager
+    {
         /// <summary>
-        /// Executes the state.  In this case we are telling the socket to connect to the server.
+        /// 
         /// </summary>
-        /// <param name="data">
-        /// The <see cref="Tag"/> is not needed here as we are just starting the connection.
-        /// </param>
-        public override void Execute(Tag data = null)
-		{
-			ProtocolState.Socket.Connect();
-		}
-	}
+        void RequestRoster();
+    }
 }

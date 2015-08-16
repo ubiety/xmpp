@@ -15,9 +15,9 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using Ubiety.Common;
 using Ubiety.Common.Disco;
 using Ubiety.Core;
+using Jid = Ubiety.Common.Jid;
 
 namespace Ubiety.Infrastructure
 {
@@ -41,7 +41,7 @@ namespace Ubiety.Infrastructure
         /// <value>
         ///     The ID.
         /// </value>
-        public Common.Jid Id { get; set; }
+        public Jid Id { get; set; }
 
         /// <summary>
         ///     Gets or sets the users password for authentication.

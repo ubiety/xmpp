@@ -26,13 +26,13 @@ namespace Ubiety.States
 	/// </summary>
 	public class ConnectedState : State
 	{
-		/// <summary>
-		/// Executes the state sending the tag to the just connected socket.
-		/// </summary>
-		/// <param name="data">
-		/// The <see cref="Ubiety.Common.Tag"/> to parse.  In this case null.
-		/// </param>
-		public override void Execute(Tag data = null)
+        /// <summary>
+        /// Executes the state sending the tag to the just connected socket.
+        /// </summary>
+        /// <param name="data">
+        /// The <see cref="Tag"/> to parse.  In this case null.
+        /// </param>
+        public override void Execute(Tag data = null)
 		{
 			var stream = TagRegistry.GetTag<Stream>("stream", Namespaces.Stream);
 			stream.Version = "1.0";

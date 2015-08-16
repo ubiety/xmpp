@@ -36,7 +36,7 @@ namespace Ubiety.Net
     /// <remarks>
     ///     AsyncSocket is the class that communicates with the server.
     /// </remarks>
-    internal class AsyncSocket
+    internal class AsyncSocket : IDisposable
     {
         // Timeout after 5 seconds by default
 /*
@@ -47,17 +47,23 @@ namespace Ubiety.Net
         private readonly Address _destinationAddress;
         private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
         private readonly UTF8Encoding _utf = new UTF8Encoding();
-        private ICompression _compression;
         private bool _compressed;
+        private ICompression _compression;
         private Socket _socket;
         private Stream _stream;
-
-        #region Properties
 
         public AsyncSocket()
         {
             _destinationAddress = new Address();
+            ProtocolState.Events.OnSend += Events_OnSend;
         }
+
+        private void Events_OnSend(object sender, TagEventArgs e)
+        {
+            Write(e.Tag.ToString());
+        }
+
+        #region Properties
 
         /// <summary>
         ///     Gets the current status of the socket.
@@ -81,13 +87,19 @@ namespace Ubiety.Net
 
         #endregion
 
+        public void Dispose()
+        {
+            _timeoutEvent.Dispose();
+            _socket.Dispose();
+        }
+
         /// <summary>
         ///     Establishes a connection to the specified remote host.
         /// </summary>
         /// <returns>True if we connected, false if we didn't</returns>
         public void Connect()
         {
-            IPAddress address = _destinationAddress.NextIpAddress();
+            var address = _destinationAddress.NextIpAddress();
             IPEndPoint end;
             if (address != null)
             {
@@ -95,11 +107,14 @@ namespace Ubiety.Net
             }
             else
             {
-                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal, "Unable to obtain server IP address.");
+                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal,
+                    "Unable to obtain server IP address.");
                 return;
             }
 
-            _socket = !_destinationAddress.IPv6 ? new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) : new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+            _socket = !_destinationAddress.IPv6
+                ? new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                : new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
@@ -113,7 +128,8 @@ namespace Ubiety.Net
             catch (SocketException e)
             {
                 Log.Error(e, "Error in connecting socket.");
-                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal, "Unable to connect to server.");
+                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal,
+                    "Unable to connect to server.");
             }
         }
 
@@ -192,7 +208,7 @@ namespace Ubiety.Net
             Log.Debug("Outgoing message: {Message}", msg);
 
             if (!Connected) return;
-            byte[] mesg = _utf.GetBytes(msg);
+            var mesg = _utf.GetBytes(msg);
             mesg = _compressed ? _compression.Deflate(mesg) : mesg;
             _stream.Write(mesg, 0, mesg.Length);
         }
@@ -203,9 +219,9 @@ namespace Ubiety.Net
             {
                 _stream.EndRead(ar);
 
-                byte[] t = _bufferBytes.TrimNull();
+                var t = _bufferBytes.TrimNull();
 
-                string m = _utf.GetString(_compressed ? _compression.Inflate(t, t.Length) : t);
+                var m = _utf.GetString(_compressed ? _compression.Inflate(t, t.Length) : t);
 
                 Log.Debug("Incoming Message: {Message}", m);
 

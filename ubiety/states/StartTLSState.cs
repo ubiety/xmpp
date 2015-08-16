@@ -24,13 +24,13 @@ namespace Ubiety.States
 	/// </summary>
 	public class StartTlsState : State
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="data">
-		/// A <see cref="System.Object"/>
-		/// </param>
-		public override void Execute(Tag data = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data">
+        /// A <see cref="object"/>
+        /// </param>
+        public override void Execute(Tag data = null)
 		{
 			if (data != null && data.LocalName != "proceed") return;
 			ProtocolState.Socket.StartSecure();

@@ -34,7 +34,7 @@ namespace Ubiety.Infrastructure
 
         /// <summary>
         /// </summary>
-        public Tag Tag { get; private set; }
+        public Tag Tag { get; }
     }
 
     /// <summary>

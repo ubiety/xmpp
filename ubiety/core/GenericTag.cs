@@ -46,6 +46,7 @@ namespace Ubiety.Core
     [XmppTag("not-authorized", Namespaces.Sasl, typeof (GenericTag))]
     [XmppTag("bad-protocol", Namespaces.Sasl, typeof (GenericTag))]
     [XmppTag("challenge", Namespaces.Sasl, typeof (GenericTag))]
+    [XmppTag("text", Namespaces.Sasl, typeof(GenericTag))]
 
     // Errors
     [XmppTag("unsupported-stanza-type", Namespaces.XmppStreams, typeof (GenericTag))]

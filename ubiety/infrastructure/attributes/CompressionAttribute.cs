@@ -22,7 +22,7 @@ namespace Ubiety.Infrastructure.Attributes
 	///<summary>
 	///</summary>
 	[AttributeUsage(AttributeTargets.Class, Inherited = false)]
-	public class CompressionAttribute : Attribute
+	public sealed class CompressionAttribute : Attribute
 	{
 	    ///<summary>
 		///</summary>
