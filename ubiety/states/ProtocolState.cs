@@ -16,8 +16,8 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
-using System.Xml;
 using Ubiety.Common;
+using Ubiety.Common.Roster;
 using Ubiety.Common.Sasl;
 using Ubiety.Infrastructure;
 using Ubiety.Net;
@@ -68,9 +68,17 @@ namespace Ubiety.States
 
         public static string Algorithm { get; set; }
 
+        /// <summary>
+        ///     The current static settings instance
+        /// </summary>
         public static XmppSettings Settings { get; }
 
+        /// <summary>
+        ///     The current event instance.
+        /// </summary>
         public static XmppEvents Events { get; }
+
+        public static IRosterManager RosterManager { get; set; }
 
         private static void EventsOnOnDisconnect(object sender, EventArgs eventArgs)
         {

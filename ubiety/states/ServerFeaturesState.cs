@@ -37,9 +37,10 @@ namespace Ubiety.States
         {
             Features f;
 
-            if (data is Stream)
+            var stream = data as Stream;
+            if (stream != null)
             {
-                var s = data as Stream;
+                var s = stream;
                 if (!s.Version.StartsWith("1."))
                 {
                     ProtocolState.Events.Error(this, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal, "Didn't receive expected stream:features tag from 1.x compliant server.");

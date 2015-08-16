@@ -107,8 +107,11 @@
     <Compile Include="Common\Disco\IDiscoManager.cs" />
     <Compile Include="Common\Disco\RegistryDiscoManager.cs" />
     <Compile Include="Common\ErrorType.cs" />
+    <Compile Include="Common\Exceptions\ServerXmlException.cs" />
     <Compile Include="Common\ICompression.cs" />
     <Compile Include="Common\Namespaces.cs" />
+    <Compile Include="Common\Roster\DefaultRosterManager.cs" />
+    <Compile Include="Common\Roster\IRosterManager.cs" />
     <Compile Include="Common\Sasl\Md5Processor.cs" />
     <Compile Include="Common\Sasl\PlainProcessor.cs" />
     <Compile Include="Common\Sasl\SaslProcessor.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Core\Features.cs" />
     <Compile Include="Core\GenericTag.cs" />
     <Compile Include="Core\Iq\Iq.cs" />
+    <Compile Include="Core\Iq\Query.cs" />
     <Compile Include="Core\Jid.cs" />
     <Compile Include="Core\Mechanisms.cs" />
     <Compile Include="Core\Sasl\Auth.cs" />
@@ -189,10 +193,15 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\ExceptionAnalyzer.1.0.5\tools\analyzers\ExceptionAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.AnalyzerPowerPack.1.0.1\analyzers\dotnet\cs\Microsoft.AnalyzerPowerPack.Common.dll" />
+    <Analyzer Include="..\packages\Microsoft.AnalyzerPowerPack.1.0.1\analyzers\dotnet\cs\Microsoft.AnalyzerPowerPack.CSharp.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

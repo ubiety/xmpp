@@ -66,7 +66,7 @@ namespace Ubiety.Registries
         /// </returns>
         public static ICompression GetCompression(string algorithm)
         {
-            ICompression stream = null;
+            ICompression stream;
             try
             {
                 Type t;
@@ -84,6 +84,8 @@ namespace Ubiety.Registries
             {
                 Log.Error(e, "Unable to locate appropriate compression algorithm.");
                 ProtocolState.Events.Error(null, ErrorType.UnregisteredItem, ErrorSeverity.Information, "Unable to find requested compression algorithm.");
+
+                throw;
             }
             return stream;
         }

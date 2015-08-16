@@ -23,6 +23,7 @@ using System.IO;
 using System.Xml;
 using Serilog;
 using Ubiety.Common;
+using Ubiety.Common.Exceptions;
 using Ubiety.Registries;
 using Ubiety.States;
 
@@ -120,10 +121,14 @@ namespace Ubiety.Infrastructure
                     ProtocolState.State = new DisconnectState();
                     ProtocolState.State.Execute();
                 }
+
+                throw new ServerXmlException("Error in xml from server", e);
             }
             catch (InvalidOperationException e)
             {
                 Log.Error(e, "Invalid operation parsing incoming message.");
+
+                throw;
             }
         }
 

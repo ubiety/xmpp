@@ -1,6 +1,6 @@
 ﻿// RunningState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009, 2015 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,11 +15,24 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using Ubiety.Common;
+using Ubiety.Common.Roster;
+
 namespace Ubiety.States
 {
-	///<summary>
-	///</summary>
-	public class RunningState : State
-	{
-	}
+    /// <summary>
+    /// </summary>
+    public class RunningState : State
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="data"></param>
+        public override void Execute(Tag data = null)
+        {
+            if (ProtocolState.RosterManager == null)
+            {
+                ProtocolState.RosterManager = new DefaultRosterManager();
+            }
+        }
+    }
 }
