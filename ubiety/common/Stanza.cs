@@ -19,43 +19,45 @@ using System.Xml;
 
 namespace Ubiety.Common
 {
-	///<summary>
-	///</summary>
-	public class Stanza : Tag
-	{
-		///<summary>
-		///</summary>
-		///<param name="prefix"></param>
-		///<param name="qname"></param>
-		protected Stanza(string prefix, XmlQualifiedName qname) : base(prefix, qname)
-		{
-		}
+    /// <summary>
+    ///     Stanza describes a sequence of messages.
+    /// </summary>
+    public class Stanza : Tag
+    {
+        /// <summary>
+        ///     Creates a new stanza 
+        /// </summary>
+        /// <param name="prefix">XML prefix of the stanza</param>
+        /// <param name="qname">XML qualified tag name of the stanza</param>
+        protected Stanza(string prefix, XmlQualifiedName qname) : base(prefix, qname)
+        {
+        }
 
-		/// <summary>
-		/// Where the message is going.
-		/// </summary>
-		public Jid To
-		{
-			get { return new Jid(GetAttribute("to")); }
-			set { SetAttribute("to", value); }
-		}
+        /// <summary>
+        ///     JID of the message receiver
+        /// </summary>
+        public JID To
+        {
+            get { return new JID(GetAttribute("to")); }
+            set { SetAttribute("to", value); }
+        }
 
-		/// <summary>
-		/// Where the message came from.
-		/// </summary>
-		public Jid From
-		{
-			get { return new Jid(GetAttribute("from")); }
-			set { SetAttribute("from", value); }
-		}
+        /// <summary>
+        ///     JID of the message sender
+        /// </summary>
+        public JID From
+        {
+            get { return new JID(GetAttribute("from")); }
+            set { SetAttribute("from", value); }
+        }
 
-		/// <summary>
-		/// The server id.
-		/// </summary>
-		public string Id
-		{
-			get { return GetAttribute("id"); }
-			set { SetAttribute("id", value); }
-		}
-	}
+        /// <summary>
+        ///     A unique id used to keep messages in the same stanza.
+        /// </summary>
+        public string Id
+        {
+            get { return GetAttribute("id"); }
+            set { SetAttribute("id", value); }
+        }
+    }
 }

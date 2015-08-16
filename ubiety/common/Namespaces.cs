@@ -18,6 +18,7 @@
 namespace Ubiety.Common
 {
     /// <summary>
+    ///     Common XML namespaces used by XMPP
     /// </summary>
     public static class Namespaces
     {
@@ -47,42 +48,52 @@ namespace Ubiety.Common
         public const string XmppStreams = "urn:ietf:params:xml:ns:xmpp-streams";
 
         /// <summary>
+        ///     Start TLS namespace
         /// </summary>
         public const string StartTls = "urn:ietf:params:xml:ns:xmpp-tls";
 
         /// <summary>
+        ///     SASL namespace
         /// </summary>
         public const string Sasl = "urn:ietf:params:xml:ns:xmpp-sasl";
 
         /// <summary>
+        ///     Authentication namespace
         /// </summary>
         public const string Auth = "http://jabber.org/features/iq-auth";
 
         /// <summary>
+        ///     Account registration namespace
         /// </summary>
         public const string Register = "http://jabber.org/features/iq-register";
 
         /// <summary>
+        ///     Resource binding namespace
         /// </summary>
         public const string Bind = "urn:ietf:params:xml:ns:xmpp-bind";
 
         /// <summary>
+        ///     Session namespace
         /// </summary>
         public const string Session = "urn:ietf:params:xml:ns:xmpp-session";
 
         /// <summary>
+        ///     Compression namespace
         /// </summary>
         public const string Compression = "http://jabber.org/features/compress";
 
         /// <summary>
+        ///     Compression protocol namespace
         /// </summary>
         public const string CompressionProtocol = "http://jabber.org/protocol/compress";
 
         /// <summary>
+        ///     Stanza namespace
         /// </summary>
         public const string Stanzas = "urn:ietf:params:xml:ns:xmpp-stanzas";
 
         /// <summary>
+        ///     Roster version namespace
         /// </summary>
         public const string Rostver = "urn:xmpp:features:rosterver";
 
@@ -97,10 +108,12 @@ namespace Ubiety.Common
         public const string DiscoInfo = "http://jabber.org/protocol/disco#info";
 
         /// <summary>
+        ///     Ping namespace
         /// </summary>
         public const string Ping = "urn:xmpp:ping";
 
         /// <summary>
+        ///     Roster namespace
         /// </summary>
         public const string Roster = "jabber:iq:roster";
     }

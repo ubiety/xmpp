@@ -2,13 +2,13 @@ using System;
 using System.Windows.Forms;
 using TestXMPP.Properties;
 using Ubiety;
+using Ubiety.Common;
 using Ubiety.Core;
 using Ubiety.Infrastructure;
-using Jid = Ubiety.Common.Jid;
 
 namespace TestXMPP
 {
-	public partial class Main : Form
+    public partial class Main : Form
 	{
 		private readonly Xmpp _xmpp;
 
@@ -29,7 +29,7 @@ namespace TestXMPP
 		private void Button1Click(object sender, EventArgs e)
 		{
             Xmpp.Settings.AuthenticationTypes = MechanismType.Default;
-            Xmpp.Settings.Id = new Jid(txtUsername.Text);
+            Xmpp.Settings.Id = new JID(txtUsername.Text);
 			Xmpp.Settings.Password = txtPassword.Text;
 			Xmpp.Settings.Ssl = btnSSL.Checked;
 			_xmpp.Connect();

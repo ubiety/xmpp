@@ -22,6 +22,7 @@ using Ubiety.Infrastructure.Attributes;
 namespace Ubiety.Common.Compression
 {
     /// <summary>
+    ///     Implements the zlib compression algorithm for use in compressing the XMPP stream
     /// </summary>
     [Compression("zlib", typeof (Zlib))]
     public class Zlib : ICompression
@@ -40,10 +41,10 @@ namespace Ubiety.Common.Compression
         #region ICompression Members
 
         /// <summary>
-        ///     Called when the stream needs to decompress the incoming data.
+        ///     Called when the stream needs to compress the outgoing data.
         /// </summary>
-        /// <param name="data">The data to be decompressed as a byte array.</param>
-        /// <returns>A byte array containiong the decompressed data.</returns>
+        /// <param name="data">The data to be compressed as a byte array.</param>
+        /// <returns>A byte array containiong the compressed data.</returns>
         public byte[] Deflate(byte[] data)
         {
             int ret;
@@ -64,10 +65,11 @@ namespace Ubiety.Common.Compression
         }
 
         /// <summary>
+        ///     Called when the stream needs to decompress the incoming data
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
+        /// <param name="data">The data to be decompressed</param>
+        /// <param name="length">Length of the byte array</param>
+        /// <returns>Byte array of the decompressed data</returns>
         public byte[] Inflate(byte[] data, int length)
         {
             int ret;

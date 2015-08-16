@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="6a9f8d72-4bad-47d2-a1df-04261aa8ea9a" visible="True" isDefault="true" isSelected="true" title="Welcome to the [TODO: Add project name]">
+  <Topic id="6a9f8d72-4bad-47d2-a1df-04261aa8ea9a" visible="True" isDefault="true" isSelected="true" title="Welcome to Ubiety XMPP">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>

@@ -18,7 +18,6 @@
 using System;
 using System.Threading;
 using System.Xml;
-using Ubiety.States;
 
 namespace Ubiety.Common
 {
@@ -30,12 +29,12 @@ namespace Ubiety.Common
         private static int _packetCounter;
 
         /// <summary>
-        /// 
+        ///     XML document all messages to and from the server will be a part of.
         /// </summary>
         public static readonly XmlDocument Document = new XmlDocument();
 
         /// <summary>
-        ///     Creates a new tag
+        ///     Initializes a new instance of a tag with the described prefix and qualified name.
         /// </summary>
         /// <param name="prefix">Tag Prefix</param>
         /// <param name="qname">Qualified Namespace</param>
@@ -45,14 +44,16 @@ namespace Ubiety.Common
         }
 
         /// <summary>
+        ///     Initializes a new blank tag instance.
         /// </summary>
         protected Tag() : base("", "", "", Document)
         {
         }
 
         /// <summary>
+        ///     Adds a tag as a child of the current tag.
         /// </summary>
-        /// <param name="child"></param>
+        /// <param name="child">Tag to add as the child.</param>
         public void AddChildTag(Tag child)
         {
             if (OwnerDocument == child.OwnerDocument)
@@ -61,10 +62,11 @@ namespace Ubiety.Common
         }
 
         /// <summary>
+        ///     Returns the value of the names attribute as the specified enumeration.
         /// </summary>
-        /// <param name="name"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <param name="name">Attribute to return.</param>
+        /// <typeparam name="T">Enumeration type to parse the attribute as.</typeparam>
+        /// <returns>Enumeration value of the named attribute.</returns>
         protected T GetEnumAttribute<T>(string name)
         {
             string value = Attributes[name].Value;
@@ -72,8 +74,9 @@ namespace Ubiety.Common
         }
 
         /// <summary>
+        ///     Calculates and returns a new unique id
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The next available unique id</returns>
         protected string GetNextId()
         {
             Interlocked.Increment(ref _packetCounter);
@@ -81,9 +84,10 @@ namespace Ubiety.Common
         }
 
         /// <summary>
+        ///     Implicit cast of a tag to a string.
         /// </summary>
-        /// <param name="one"></param>
-        /// <returns></returns>
+        /// <param name="one">Tag to cast to string</param>
+        /// <returns>String version of the tag</returns>
         public static implicit operator string(Tag one)
         {
             return one.ToString();
@@ -101,6 +105,7 @@ namespace Ubiety.Common
         #region << Properties >>
 
         /// <value>
+        ///     Tag child contents as a byte array
         /// </value>
         public byte[] Bytes
         {

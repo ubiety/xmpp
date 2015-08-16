@@ -118,7 +118,7 @@
     <Compile Include="Common\Sasl\ScramProcessor.cs" />
     <Compile Include="Common\Stanza.cs" />
     <Compile Include="Common\Tag.cs" />
-    <Compile Include="Common\Jid.cs" />
+    <Compile Include="Common\JID.cs" />
     <Compile Include="Core\Bind.cs" />
     <Compile Include="Core\Compression.cs" />
     <Compile Include="Common\Compression\Zlib.cs" />
@@ -201,7 +201,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

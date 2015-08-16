@@ -32,7 +32,7 @@ namespace Ubiety.Common.Sasl
 
         /// <summary>
         /// </summary>
-        protected Jid Id;
+        protected JID Id;
 
         /// <summary>
         /// </summary>
