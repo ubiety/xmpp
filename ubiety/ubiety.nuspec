@@ -19,6 +19,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="ubiety\bin\Debug\ubiety.dll" target="ubiety.dll" />
+        <file src="bin\Debug\ubiety.dll" target="ubiety.dll" />
     </files>
 </package>
