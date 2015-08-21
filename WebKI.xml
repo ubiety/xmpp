@@ -181,8 +181,8 @@
   </HelpKINode>
   <HelpKINode Title="EnumerableExtensions.Apply(Of T) method" Url="html/fcea6e82-887f-e20d-9684-1903b204f2bd.htm" />
   <HelpKINode Title="EnumerableExtensions.Apply&lt;T&gt; method" Url="html/fcea6e82-887f-e20d-9684-1903b204f2bd.htm" />
-  <HelpKINode Title="Equality operator" Url="html/5b415941-e671-fef4-0abc-ba2c9a4641b7.htm" />
-  <HelpKINode Title="Equals method" Url="html/5c76fc28-0bc9-9e60-f52b-c6e68562c260.htm" />
+  <HelpKINode Title="Equality operator" Url="html/c7635c13-ee94-b884-6d0a-7145e73dc8ec.htm" />
+  <HelpKINode Title="Equals method" Url="html/2cbedc01-431a-ef76-ea06-12a5566dbc94.htm" />
   <HelpKINode Title="Error class">
     <HelpKINode Title="Error Class" Url="html/58f4f438-c3a5-2e4e-6e7a-79f1051ce7e0.htm" />
     <HelpKINode Title="about Error class" Url="html/58f4f438-c3a5-2e4e-6e7a-79f1051ce7e0.htm" />
@@ -251,7 +251,7 @@
   <HelpKINode Title="GetCustomAttributes method" Url="html/11a1c34c-4ed4-69dc-e6ec-118776da8c7c.htm" />
   <HelpKINode Title="GetEnumAttribute(Of T) method" Url="html/a89eac4f-e709-e5b5-ba2e-7329ba34c05a.htm" />
   <HelpKINode Title="GetEnumAttribute&lt;T&gt; method" Url="html/a89eac4f-e709-e5b5-ba2e-7329ba34c05a.htm" />
-  <HelpKINode Title="GetHashCode method" Url="html/b2535029-74cf-1974-0d57-69c3df2c9f3a.htm" />
+  <HelpKINode Title="GetHashCode method" Url="html/f8b42293-6c06-7be4-1a2c-f9b69bbccbf4.htm" />
   <HelpKINode Title="GetMechanism method" Url="html/54acd59a-8a57-a674-28d0-18c98ceadd79.htm" />
   <HelpKINode Title="GetNextId method" Url="html/35639ed1-2c1d-422a-12b1-e4574ecd75bd.htm" />
   <HelpKINode Title="GetTag method" Url="html/9f8baaa7-1320-583d-2ae5-95c2e61d376d.htm" />
@@ -276,7 +276,7 @@
     <HelpKINode Title="methods" Url="html/4d864123-dfe2-9c26-f344-6c629bcac593.htm" />
   </HelpKINode>
   <HelpKINode Title="IDiscoManager.LookupHash method" Url="html/e18aec5f-a2b3-30ce-2da2-a7c5b2b98912.htm" />
-  <HelpKINode Title="Inequality operator" Url="html/caecec06-2a51-fe68-09e1-0c67be23a6dd.htm" />
+  <HelpKINode Title="Inequality operator" Url="html/680892c7-fa27-702e-3eb4-4abd16c0d929.htm" />
   <HelpKINode Title="Inflate method">
     <HelpKINode Title="ICompression.Inflate Method " Url="html/0829f33d-8142-520f-15df-765de8e90b5e.htm" />
     <HelpKINode Title="Zlib.Inflate Method " Url="html/9a0b1c84-fce2-7228-eebb-61fd7769e2a5.htm" />
@@ -314,27 +314,25 @@
     <HelpKINode Title="methods" Url="html/8cab556b-99eb-c977-caa2-6b6f8e17beb3.htm" />
     <HelpKINode Title="properties" Url="html/76dfd604-36c5-8049-ad2a-2c960bbb458e.htm" />
   </HelpKINode>
-  <HelpKINode Title="Jid structure">
-    <HelpKINode Title="Jid Structure" Url="html/9d6a0805-d5ff-154f-509a-2f487e92aa51.htm" />
-    <HelpKINode Title="about Jid structure" Url="html/9d6a0805-d5ff-154f-509a-2f487e92aa51.htm" />
-    <HelpKINode Title="constructor" Url="html/9a850a19-9c13-07f0-0cfc-28d359f62522.htm" />
-    <HelpKINode Title="methods" Url="html/4a05a967-1d0c-9a70-7eeb-210a7334c9fd.htm" />
-    <HelpKINode Title="operators and type conversions" Url="html/feccbd6c-2d67-967c-2de0-c65ca7e72754.htm" />
-    <HelpKINode Title="properties" Url="html/c0fae4f5-2e08-9f2d-92bd-4e46a807c90f.htm" />
+  <HelpKINode Title="JID structure">
+    <HelpKINode Title="JID Structure" Url="html/a42ab0f9-c244-fec1-e6d6-a22cc63529da.htm" />
+    <HelpKINode Title="about JID structure" Url="html/a42ab0f9-c244-fec1-e6d6-a22cc63529da.htm" />
+    <HelpKINode Title="constructor" Url="html/535bc30e-c4fd-9f8d-a0ab-d39862fdfe17.htm" />
+    <HelpKINode Title="methods" Url="html/8532448a-bfdf-66cb-dda7-e1fc7ebe1533.htm" />
+    <HelpKINode Title="operators and type conversions" Url="html/b92440b6-cdae-2978-4a6b-8113a29de9a7.htm" />
+    <HelpKINode Title="properties" Url="html/5bd794fd-c062-8750-4754-35228dff698d.htm" />
   </HelpKINode>
-  <HelpKINode Title="Jid to String conversion" Url="html/490fd7ed-6d63-f892-c5c3-4e3a1696d404.htm" />
-  <HelpKINode Title="Jid.Equality operator" Url="html/5b415941-e671-fef4-0abc-ba2c9a4641b7.htm" />
-  <HelpKINode Title="Jid.Equals method" Url="html/5c76fc28-0bc9-9e60-f52b-c6e68562c260.htm" />
-  <HelpKINode Title="Jid.GetHashCode method" Url="html/b2535029-74cf-1974-0d57-69c3df2c9f3a.htm" />
-  <HelpKINode Title="Jid.Inequality operator" Url="html/caecec06-2a51-fe68-09e1-0c67be23a6dd.htm" />
-  <HelpKINode Title="Jid.Jid constructor">
-    <HelpKINode Title="Jid Constructor " Url="html/81d676f6-49e1-3818-f857-373409729bf5.htm" />
-    <HelpKINode Title="Jid Constructor " Url="html/9a850a19-9c13-07f0-0cfc-28d359f62522.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Jid.Resource property" Url="html/88594f97-8aa2-82e9-cc6f-aff5e99abc5a.htm" />
-  <HelpKINode Title="Jid.Server property" Url="html/cc0707a5-3f79-a1ef-e274-8568803a3cb0.htm" />
-  <HelpKINode Title="Jid.ToString method" Url="html/a19a76d0-34ee-a818-9480-26bb8f98f3ce.htm" />
-  <HelpKINode Title="Jid.User property" Url="html/f0707c89-8bec-3126-1397-fb223bd364bd.htm" />
+  <HelpKINode Title="JID to String conversion" Url="html/90039421-1f16-72cd-47ea-2e93eebf33a9.htm" />
+  <HelpKINode Title="JID.Equality operator" Url="html/c7635c13-ee94-b884-6d0a-7145e73dc8ec.htm" />
+  <HelpKINode Title="JID.Equals method" Url="html/2cbedc01-431a-ef76-ea06-12a5566dbc94.htm" />
+  <HelpKINode Title="JID.GetHashCode method" Url="html/f8b42293-6c06-7be4-1a2c-f9b69bbccbf4.htm" />
+  <HelpKINode Title="JID.Inequality operator" Url="html/680892c7-fa27-702e-3eb4-4abd16c0d929.htm" />
+  <HelpKINode Title="Jid.Jid constructor" Url="html/81d676f6-49e1-3818-f857-373409729bf5.htm" />
+  <HelpKINode Title="JID.JID constructor" Url="html/535bc30e-c4fd-9f8d-a0ab-d39862fdfe17.htm" />
+  <HelpKINode Title="JID.Resource property" Url="html/33783470-79dc-7901-e1cd-97f25a910aee.htm" />
+  <HelpKINode Title="JID.Server property" Url="html/b9cf6535-a0dd-4fe5-8162-6e7bad297ab8.htm" />
+  <HelpKINode Title="JID.ToString method" Url="html/a3c375aa-23ae-7064-63ad-c13ececa1e14.htm" />
+  <HelpKINode Title="JID.User property" Url="html/72796f1e-a043-e35b-fec4-a896301d3376.htm" />
   <HelpKINode Title="Jid.UserJid property" Url="html/b40898ad-5e43-562d-3eba-f98ee46307b5.htm" />
   <HelpKINode Title="JidTag property" Url="html/1fd0de7f-3c55-5e6a-7536-7156087b51bb.htm" />
   <HelpKINode Title="Language property" Url="html/6544afae-2e80-1084-7ec5-1e11928de120.htm" />
@@ -462,7 +460,7 @@
     <HelpKINode Title="IRosterManager.RequestRoster Method " Url="html/72f137e2-c5bd-e221-a899-1ca1a7fb8aff.htm" />
   </HelpKINode>
   <HelpKINode Title="Required property" Url="html/503dead1-bd4c-6572-3de6-26e6835e5804.htm" />
-  <HelpKINode Title="Resource property" Url="html/88594f97-8aa2-82e9-cc6f-aff5e99abc5a.htm" />
+  <HelpKINode Title="Resource property" Url="html/33783470-79dc-7901-e1cd-97f25a910aee.htm" />
   <HelpKINode Title="Result enumeration member" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
   <HelpKINode Title="Roster field" Url="html/a6ba12a0-ba56-fe77-60cb-d63dc3e2eb28.htm" />
   <HelpKINode Title="Rostver field" Url="html/731b6b00-86f6-72df-aa84-19dc2af41ac6.htm" />
@@ -516,7 +514,7 @@
     <HelpKINode Title="Xmpp.Send Method " Url="html/63c965d0-f266-9dc8-f670-7b3612373154.htm" />
     <HelpKINode Title="XmppEvents.Send Method " Url="html/4ba10708-8a06-4ca1-54c5-14a876412417.htm" />
   </HelpKINode>
-  <HelpKINode Title="Server property" Url="html/cc0707a5-3f79-a1ef-e274-8568803a3cb0.htm" />
+  <HelpKINode Title="Server property" Url="html/b9cf6535-a0dd-4fe5-8162-6e7bad297ab8.htm" />
   <HelpKINode Title="ServerFeaturesState class">
     <HelpKINode Title="ServerFeaturesState Class" Url="html/303d1faf-f50e-6701-adb0-266b770a61ea.htm" />
     <HelpKINode Title="about ServerFeaturesState class" Url="html/303d1faf-f50e-6701-adb0-266b770a61ea.htm" />
@@ -609,7 +607,7 @@
   <HelpKINode Title="Stream.StartTag method" Url="html/8610d6b2-788c-9f2f-a78e-1b570482ffe2.htm" />
   <HelpKINode Title="Stream.Stream constructor" Url="html/2eff7ff9-272c-f3a0-974c-c553d1f6c934.htm" />
   <HelpKINode Title="Stream.Version property" Url="html/1ef20aae-8263-5c9e-490d-d405bb44e915.htm" />
-  <HelpKINode Title="String to Jid conversion" Url="html/380c4cdf-c081-aeb4-b2c0-2e3d93936c92.htm" />
+  <HelpKINode Title="String to JID conversion" Url="html/168c1286-1212-3c70-ef6c-cc0e5d759897.htm" />
   <HelpKINode Title="SupportedTypes property" Url="html/ecd0458b-e265-8d5b-0e4b-93da952b507b.htm" />
   <HelpKINode Title="SupportsAlgorithm method" Url="html/35f47412-ce93-22ec-0737-20c74176f90e.htm" />
   <HelpKINode Title="Tag class">
@@ -653,7 +651,7 @@
   </HelpKINode>
   <HelpKINode Title="To property" Url="html/b38324b4-141a-9795-186b-4e4c016d3744.htm" />
   <HelpKINode Title="ToString method">
-    <HelpKINode Title="Jid.ToString Method " Url="html/a19a76d0-34ee-a818-9480-26bb8f98f3ce.htm" />
+    <HelpKINode Title="JID.ToString Method " Url="html/a3c375aa-23ae-7064-63ad-c13ececa1e14.htm" />
     <HelpKINode Title="Tag.ToString Method " Url="html/3a69a362-3519-8394-d356-898da18ffe2f.htm" />
   </HelpKINode>
   <HelpKINode Title="TrimNull method" Url="html/22fd0472-957c-bb8a-ba2f-5ca5c5dc21d6.htm" />
@@ -679,7 +677,7 @@
   <HelpKINode Title="Ubiety.Common.Exceptions namespace" Url="html/5e231588-e651-4409-8e2d-e5b1afdacddf.htm" />
   <HelpKINode Title="Ubiety.Common.Exceptions.ServerXmlException class" Url="html/c1d9dc82-1411-eae9-c03d-83b2e457be38.htm" />
   <HelpKINode Title="Ubiety.Common.ICompression interface" Url="html/f6f8c0c1-c8ba-0ebd-7de4-6481edf74d1c.htm" />
-  <HelpKINode Title="Ubiety.Common.Jid structure" Url="html/9d6a0805-d5ff-154f-509a-2f487e92aa51.htm" />
+  <HelpKINode Title="Ubiety.Common.JID structure" Url="html/a42ab0f9-c244-fec1-e6d6-a22cc63529da.htm" />
   <HelpKINode Title="Ubiety.Common.Namespaces class" Url="html/b57934f7-bc68-e177-b57b-1a9dfbcd62d7.htm" />
   <HelpKINode Title="Ubiety.Common.Roster namespace" Url="html/4a433377-5767-faf9-7a43-7714d3633ea5.htm" />
   <HelpKINode Title="Ubiety.Common.Roster.DefaultRosterManager class" Url="html/c69e3ec0-474c-564d-e0f3-c44f7af25517.htm" />
@@ -742,7 +740,7 @@
   <HelpKINode Title="Ubiety.States.State class" Url="html/254da81d-2d57-3438-267d-a43c7e2f833a.htm" />
   <HelpKINode Title="Ubiety.Xmpp class" Url="html/e953c009-389e-9c73-f5e2-3a498af966ca.htm" />
   <HelpKINode Title="UnregisteredItem enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
-  <HelpKINode Title="User property" Url="html/f0707c89-8bec-3126-1397-fb223bd364bd.htm" />
+  <HelpKINode Title="User property" Url="html/72796f1e-a043-e35b-fec4-a896301d3376.htm" />
   <HelpKINode Title="UserJid property" Url="html/b40898ad-5e43-562d-3eba-f98ee46307b5.htm" />
   <HelpKINode Title="Ver property" Url="html/4cefa404-af18-6c63-e340-707860c69b8c.htm" />
   <HelpKINode Title="version">
