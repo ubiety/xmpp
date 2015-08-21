@@ -2,11 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>UbietyXMPP</id>
-        <version>0.7</version>
+        <version>$version$</version>
         <authors>Dieter Lunn</authors>
         <projectUrl>http://github.com/ubiety/xmpp</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>XMPP protocol library</description>
+        <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
         <dependencies>
             <dependency id="SharpZipLib" version="0.86.0" />
             <dependency id="Heijden.Dns" version="1.0.0" />
@@ -18,7 +19,4 @@
             <dependency id="libidn" version="1.29.1" />
         </dependencies>
     </metadata>
-    <files>
-        <file src="bin\Debug\ubiety.dll" target="ubiety.dll" />
-    </files>
 </package>
