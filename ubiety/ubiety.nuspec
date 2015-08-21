@@ -15,6 +15,7 @@
             <dependency id="Microsoft.Net.Http" version="2.2.29" />
             <dependency id="Serilog" version="1.5.9" />
             <dependency id="Serilog.Sinks.Seq" version="1.5.15" />
+            <dependency id="libidn" version="1.29.1" />
         </dependencies>
     </metadata>
     <files>
