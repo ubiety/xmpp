@@ -33,6 +33,8 @@ namespace Ubiety.States
             {
                 ProtocolState.RosterManager = new DefaultRosterManager();
             }
+
+            ProtocolState.RosterManager.RequestRoster();
         }
     }
 }
