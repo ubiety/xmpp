@@ -1,0 +1,829 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="AddAssembly method" Url="html/4a32fb53-db34-facc-2755-c823ec728400.htm" />
+  <HelpKINode Title="AddChildTag method" Url="html/0ffc8e13-d20c-518c-6396-06004d4a6d33.htm" />
+  <HelpKINode Title="AddCompression method" Url="html/6e951da4-be32-bc1a-91b6-4327ad51d163.htm" />
+  <HelpKINode Title="Algorithm property" Url="html/595e6694-d24c-1c46-edbd-11470e4e0e4c.htm" />
+  <HelpKINode Title="Algorithms property" Url="html/c713b6da-d1e2-b1de-5fe5-7e9ca466b0da.htm" />
+  <HelpKINode Title="AlgorithmsAvailable property" Url="html/959df12c-bc6c-a783-cc24-9ce138aed451.htm" />
+  <HelpKINode Title="Apply(Of T) method" Url="html/fcea6e82-887f-e20d-9684-1903b204f2bd.htm" />
+  <HelpKINode Title="Apply&lt;T&gt; method" Url="html/fcea6e82-887f-e20d-9684-1903b204f2bd.htm" />
+  <HelpKINode Title="AssemblyExtensions class">
+    <HelpKINode Title="AssemblyExtensions Class" Url="html/0d44073c-5b18-70e9-adc3-263d4b608e8c.htm" />
+    <HelpKINode Title="about AssemblyExtensions class" Url="html/0d44073c-5b18-70e9-adc3-263d4b608e8c.htm" />
+    <HelpKINode Title="methods" Url="html/a7118d62-3785-1b34-00cc-79184dcc9f2c.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AssemblyExtensions.GetAttributes(Of T) method" Url="html/bad43ad3-5f26-154e-3759-3fbf14d167e2.htm" />
+  <HelpKINode Title="AssemblyExtensions.GetAttributes&lt;T&gt; method" Url="html/bad43ad3-5f26-154e-3759-3fbf14d167e2.htm" />
+  <HelpKINode Title="Auth class">
+    <HelpKINode Title="Auth Class" Url="html/c7862cdd-02ef-97c9-130f-394cfedeb918.htm" />
+    <HelpKINode Title="about Auth class" Url="html/c7862cdd-02ef-97c9-130f-394cfedeb918.htm" />
+    <HelpKINode Title="constructor" Url="html/fb5ef464-210a-d05c-5496-d06281ad4988.htm" />
+    <HelpKINode Title="methods" Url="html/83316c57-43f3-9622-ccf2-6a13907a7f0b.htm" />
+    <HelpKINode Title="properties" Url="html/6d80aac6-ebfb-af47-e4d0-46fad436bcdc.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Auth field" Url="html/a42c3155-14e6-9501-18bd-f29d2d4cc436.htm" />
+  <HelpKINode Title="Auth.Auth constructor" Url="html/fb5ef464-210a-d05c-5496-d06281ad4988.htm" />
+  <HelpKINode Title="Auth.Mechanism property" Url="html/456633ac-8000-e807-f0c2-0fe5882bed51.htm" />
+  <HelpKINode Title="Auth.Text property" Url="html/5532221d-9c35-f411-2c41-6d2ed74898cc.htm" />
+  <HelpKINode Title="AuthenticationTypes property" Url="html/db0cbf42-e75b-0631-efcf-36f84e1cdcb3.htm" />
+  <HelpKINode Title="AuthorizationFailed enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="Bind class">
+    <HelpKINode Title="Bind Class" Url="html/f56ba217-eeab-d00d-f422-5814e1b2ee34.htm" />
+    <HelpKINode Title="about Bind class" Url="html/f56ba217-eeab-d00d-f422-5814e1b2ee34.htm" />
+    <HelpKINode Title="constructor" Url="html/9983c2ef-477b-53e4-c192-4b7d1933a9bc.htm" />
+    <HelpKINode Title="methods" Url="html/3ca995db-03b2-87b4-7f5c-50b607db9bb0.htm" />
+    <HelpKINode Title="properties" Url="html/732e0480-1e38-df8a-c468-4b482e358a46.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Bind field" Url="html/ee144efe-921e-7e6a-e760-3c27a8efa88e.htm" />
+  <HelpKINode Title="Bind.Bind constructor" Url="html/9983c2ef-477b-53e4-c192-4b7d1933a9bc.htm" />
+  <HelpKINode Title="Bind.JidTag property" Url="html/1fd0de7f-3c55-5e6a-7536-7156087b51bb.htm" />
+  <HelpKINode Title="BindingState class">
+    <HelpKINode Title="BindingState Class" Url="html/11efcd95-e7d2-b55e-4060-c70f7f759dc9.htm" />
+    <HelpKINode Title="about BindingState class" Url="html/11efcd95-e7d2-b55e-4060-c70f7f759dc9.htm" />
+    <HelpKINode Title="constructor" Url="html/bf8f7300-89a6-c634-434e-6678d1d65152.htm" />
+    <HelpKINode Title="methods" Url="html/d1008138-c0c7-9237-84eb-a2e7d8a6d5cd.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BindingState.BindingState constructor" Url="html/bf8f7300-89a6-c634-434e-6678d1d65152.htm" />
+  <HelpKINode Title="BindingState.Execute method" Url="html/4c784b04-00e3-0b32-c8b6-3157816c7cc0.htm" />
+  <HelpKINode Title="ByteExtensions class">
+    <HelpKINode Title="ByteExtensions Class" Url="html/45df1a86-5774-10ad-b2d2-a55868715168.htm" />
+    <HelpKINode Title="about ByteExtensions class" Url="html/45df1a86-5774-10ad-b2d2-a55868715168.htm" />
+    <HelpKINode Title="methods" Url="html/4513bbb8-283d-5f3e-a72a-c8af0e650d71.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ByteExtensions.Clear method" Url="html/16e3bb61-e312-2ed7-b6df-1424052ff99d.htm" />
+  <HelpKINode Title="ByteExtensions.TrimNull method" Url="html/22fd0472-957c-bb8a-ba2f-5ca5c5dc21d6.htm" />
+  <HelpKINode Title="Bytes property" Url="html/da28a4a5-9aee-cced-0c2d-7951fee6ecd6.htm" />
+  <HelpKINode Title="C class">
+    <HelpKINode Title="C Class" Url="html/d0da3ba0-29b4-c743-4fd0-3f8c1e354a97.htm" />
+    <HelpKINode Title="about C class" Url="html/d0da3ba0-29b4-c743-4fd0-3f8c1e354a97.htm" />
+    <HelpKINode Title="constructor" Url="html/4290e1ce-39cb-b992-f854-1091e8b76229.htm" />
+    <HelpKINode Title="methods" Url="html/0fb811d4-80bd-a0b1-2c70-8ec9dd249e39.htm" />
+    <HelpKINode Title="properties" Url="html/94bc330e-8d9a-210f-47f8-e4a3692c4c56.htm" />
+  </HelpKINode>
+  <HelpKINode Title="C.C constructor" Url="html/4290e1ce-39cb-b992-f854-1091e8b76229.htm" />
+  <HelpKINode Title="C.Node property" Url="html/4128cef7-238a-a807-1eb2-e3a73a0e57b3.htm" />
+  <HelpKINode Title="C.Ver property" Url="html/4cefa404-af18-6c63-e340-707860c69b8c.htm" />
+  <HelpKINode Title="ClassType property">
+    <HelpKINode Title="CompressionAttribute.ClassType Property " Url="html/005b2640-172a-3ffa-b8b9-c9cab9b31a87.htm" />
+    <HelpKINode Title="XmppTagAttribute.ClassType Property " Url="html/e9be5525-f211-e463-61e8-993c3e99b85d.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Clear method" Url="html/16e3bb61-e312-2ed7-b6df-1424052ff99d.htm" />
+  <HelpKINode Title="Client field" Url="html/ac273cb4-526f-6072-dbd7-d2024af95b46.htm" />
+  <HelpKINode Title="CompressedState class">
+    <HelpKINode Title="CompressedState Class" Url="html/bb2e3ae7-d026-3679-ef38-112e77bc08d6.htm" />
+    <HelpKINode Title="about CompressedState class" Url="html/bb2e3ae7-d026-3679-ef38-112e77bc08d6.htm" />
+    <HelpKINode Title="constructor" Url="html/076e6134-0051-9c98-2098-f7a4b8c27ff5.htm" />
+    <HelpKINode Title="methods" Url="html/d8ac22ab-8d39-3ab6-6edf-565ae7ac6e9e.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CompressedState.CompressedState constructor" Url="html/076e6134-0051-9c98-2098-f7a4b8c27ff5.htm" />
+  <HelpKINode Title="CompressedState.Execute method" Url="html/e6fe42c1-4ebe-9a69-6e46-bdfebccf632e.htm" />
+  <HelpKINode Title="Compression class">
+    <HelpKINode Title="Compression Class" Url="html/289854c4-36d0-6bb7-24bc-61691c8bb978.htm" />
+    <HelpKINode Title="about Compression class" Url="html/289854c4-36d0-6bb7-24bc-61691c8bb978.htm" />
+    <HelpKINode Title="constructor" Url="html/9ad33f4b-a304-35be-8f68-2adc96aed5df.htm" />
+    <HelpKINode Title="methods" Url="html/a91042bf-a60e-de6a-5bc9-d1c5c0c14047.htm" />
+    <HelpKINode Title="properties" Url="html/f2cc1d4e-99de-1d0d-6a23-db74908c8da6.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Compression field" Url="html/661467a2-d7ed-a611-2098-7631c22fac9f.htm" />
+  <HelpKINode Title="Compression property" Url="html/df86a902-145f-a15b-a754-1420e52a7c61.htm" />
+  <HelpKINode Title="Compression.Algorithms property" Url="html/c713b6da-d1e2-b1de-5fe5-7e9ca466b0da.htm" />
+  <HelpKINode Title="Compression.Compression constructor" Url="html/9ad33f4b-a304-35be-8f68-2adc96aed5df.htm" />
+  <HelpKINode Title="CompressionAttribute class">
+    <HelpKINode Title="CompressionAttribute Class" Url="html/6edc8b0a-1cc9-7975-af34-c39db46757a6.htm" />
+    <HelpKINode Title="about CompressionAttribute class" Url="html/6edc8b0a-1cc9-7975-af34-c39db46757a6.htm" />
+    <HelpKINode Title="constructor" Url="html/8ead572c-2897-b935-2961-29f5f18423eb.htm" />
+    <HelpKINode Title="methods" Url="html/9c0286cb-45c7-fc62-10f5-1b7baac51ebc.htm" />
+    <HelpKINode Title="properties" Url="html/3a2b0578-b57d-4f31-c0b9-c7c2d8c3e5ea.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CompressionAttribute.Algorithm property" Url="html/595e6694-d24c-1c46-edbd-11470e4e0e4c.htm" />
+  <HelpKINode Title="CompressionAttribute.ClassType property" Url="html/005b2640-172a-3ffa-b8b9-c9cab9b31a87.htm" />
+  <HelpKINode Title="CompressionAttribute.CompressionAttribute constructor" Url="html/8ead572c-2897-b935-2961-29f5f18423eb.htm" />
+  <HelpKINode Title="CompressionFailed enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="CompressionProtocol field" Url="html/80bb038a-5199-5d3a-1fa4-bc9563620a0e.htm" />
+  <HelpKINode Title="CompressionRegistry class">
+    <HelpKINode Title="CompressionRegistry Class" Url="html/17011c86-9c29-42f2-8614-8582fa3dfe21.htm" />
+    <HelpKINode Title="about CompressionRegistry class" Url="html/17011c86-9c29-42f2-8614-8582fa3dfe21.htm" />
+    <HelpKINode Title="methods" Url="html/60ebdf62-c21c-11cb-2fa6-0cef831268ef.htm" />
+    <HelpKINode Title="properties" Url="html/a162aa75-5538-dda7-5af7-ec1daebbd7a5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CompressionRegistry.AddCompression method" Url="html/6e951da4-be32-bc1a-91b6-4327ad51d163.htm" />
+  <HelpKINode Title="CompressionRegistry.AlgorithmsAvailable property" Url="html/959df12c-bc6c-a783-cc24-9ce138aed451.htm" />
+  <HelpKINode Title="CompressionRegistry.GetCompression method" Url="html/a7a0fceb-89e8-2f28-8231-717ddf912344.htm" />
+  <HelpKINode Title="CompressionRegistry.SupportsAlgorithm method" Url="html/35f47412-ce93-22ec-0737-20c74176f90e.htm" />
+  <HelpKINode Title="Connect method">
+    <HelpKINode Title="Xmpp.Connect Method " Url="html/6b6171f5-2bee-1504-96ec-20ac4781324c.htm" />
+    <HelpKINode Title="XmppEvents.Connect Method " Url="html/e3cf2de0-c2d0-f654-8d52-4efed272a192.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Connected property" Url="html/205eb7cc-8255-fbfa-d237-d829cb3af4b9.htm" />
+  <HelpKINode Title="ConnectedState class">
+    <HelpKINode Title="ConnectedState Class" Url="html/ce46ee4d-8bc5-ade2-99f8-6814de6b441e.htm" />
+    <HelpKINode Title="about ConnectedState class" Url="html/ce46ee4d-8bc5-ade2-99f8-6814de6b441e.htm" />
+    <HelpKINode Title="constructor" Url="html/deb242d6-f12a-4310-6ef8-9c5a0e9bfe71.htm" />
+    <HelpKINode Title="methods" Url="html/4f46f5a6-c0ef-95a4-3150-4860f287e78f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ConnectedState.ConnectedState constructor" Url="html/deb242d6-f12a-4310-6ef8-9c5a0e9bfe71.htm" />
+  <HelpKINode Title="ConnectedState.Execute method" Url="html/19868f80-d368-b890-55f9-1c1f6352c077.htm" />
+  <HelpKINode Title="ConnectingState class">
+    <HelpKINode Title="ConnectingState Class" Url="html/55cc6f19-6106-9ee7-cda1-bbbd0b539d6e.htm" />
+    <HelpKINode Title="about ConnectingState class" Url="html/55cc6f19-6106-9ee7-cda1-bbbd0b539d6e.htm" />
+    <HelpKINode Title="constructor" Url="html/b1087577-425f-7f44-203f-dba6d315352c.htm" />
+    <HelpKINode Title="methods" Url="html/87d4e945-caaa-b1f5-5414-b2535a766ba8.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ConnectingState.ConnectingState constructor" Url="html/b1087577-425f-7f44-203f-dba6d315352c.htm" />
+  <HelpKINode Title="ConnectingState.Execute method" Url="html/49aa90d6-cc14-973e-c1a8-f43ad101a213.htm" />
+  <HelpKINode Title="ConnectionTimeout enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="CreateProcessor method" Url="html/deac9cd0-7f1d-c0bd-bc3a-267f1fed812d.htm" />
+  <HelpKINode Title="Default enumeration member" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="DefaultRosterManager class">
+    <HelpKINode Title="DefaultRosterManager Class" Url="html/c69e3ec0-474c-564d-e0f3-c44f7af25517.htm" />
+    <HelpKINode Title="about DefaultRosterManager class" Url="html/c69e3ec0-474c-564d-e0f3-c44f7af25517.htm" />
+    <HelpKINode Title="constructor" Url="html/0f1625e9-b491-6407-fc69-acbbfb69e6f3.htm" />
+    <HelpKINode Title="methods" Url="html/2222d29d-431f-af43-b80f-936b43946bd0.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DefaultRosterManager.DefaultRosterManager constructor" Url="html/0f1625e9-b491-6407-fc69-acbbfb69e6f3.htm" />
+  <HelpKINode Title="DefaultRosterManager.RequestRoster method" Url="html/4327f1b6-ecbb-635e-d5ce-d79debb02daa.htm" />
+  <HelpKINode Title="Deflate method">
+    <HelpKINode Title="ICompression.Deflate Method " Url="html/7f031f0a-db60-108e-f56d-305c30f6ae65.htm" />
+    <HelpKINode Title="Zlib.Deflate Method " Url="html/e5faf193-a647-b1b5-1d25-89b30f1e3427.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DigestMd5 enumeration member" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="DiscoInfo field" Url="html/6ab9d5df-b3ff-aac1-4547-dd7a1e170700.htm" />
+  <HelpKINode Title="DiscoManager property" Url="html/3087a342-6d90-83c7-47cc-bb4cb85c7ebf.htm" />
+  <HelpKINode Title="Disconnect enumeration member" Url="html/069e8a4c-9425-b097-52f5-247327fda0f9.htm" />
+  <HelpKINode Title="Disconnect method">
+    <HelpKINode Title="Xmpp.Disconnect Method " Url="html/eaa8db52-081b-ca1b-705a-00fb1d2ec327.htm" />
+    <HelpKINode Title="XmppEvents.Disconnect Method " Url="html/d8114151-21ce-6295-a702-6c636e542546.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DisconnectedState class">
+    <HelpKINode Title="DisconnectedState Class" Url="html/a0e55f48-1bcb-43fd-c6f9-4195e05f05e5.htm" />
+    <HelpKINode Title="about DisconnectedState class" Url="html/a0e55f48-1bcb-43fd-c6f9-4195e05f05e5.htm" />
+    <HelpKINode Title="constructor" Url="html/f940a4ec-cb45-a035-6fab-2c4cd5c25c36.htm" />
+    <HelpKINode Title="methods" Url="html/d4923cac-a125-01fb-e9c4-5ff3c2953213.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DisconnectedState.DisconnectedState constructor" Url="html/f940a4ec-cb45-a035-6fab-2c4cd5c25c36.htm" />
+  <HelpKINode Title="DisconnectedState.Execute method" Url="html/017bdfa2-33d7-3b57-6516-4d86b5270e13.htm" />
+  <HelpKINode Title="DisconnectState class">
+    <HelpKINode Title="DisconnectState Class" Url="html/efc1e411-ba4a-b381-4802-9ba689997a42.htm" />
+    <HelpKINode Title="about DisconnectState class" Url="html/efc1e411-ba4a-b381-4802-9ba689997a42.htm" />
+    <HelpKINode Title="constructor" Url="html/a3e3b202-27f9-4fb8-b5c3-3f1964968de0.htm" />
+    <HelpKINode Title="methods" Url="html/0ff09715-6124-c088-4f96-12a5cdf8ca10.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DisconnectState.DisconnectState constructor" Url="html/a3e3b202-27f9-4fb8-b5c3-3f1964968de0.htm" />
+  <HelpKINode Title="DisconnectState.Execute method" Url="html/4d2ae14e-bbbd-5148-d8af-ae0bab669124.htm" />
+  <HelpKINode Title="Dispose method" Url="html/2f55d82e-29be-4997-cf8f-0a8116043bf9.htm" />
+  <HelpKINode Title="Document field" Url="html/174eee64-2567-8bd2-5a00-eb5c84b4fb2c.htm" />
+  <HelpKINode Title="Entity field" Url="html/b09f3587-31b4-a4df-646e-efeaef28caf3.htm" />
+  <HelpKINode Title="EnumerableExtensions class">
+    <HelpKINode Title="EnumerableExtensions Class" Url="html/fed9a870-761d-3e60-9925-4d3e7ba6cbea.htm" />
+    <HelpKINode Title="about EnumerableExtensions class" Url="html/fed9a870-761d-3e60-9925-4d3e7ba6cbea.htm" />
+    <HelpKINode Title="methods" Url="html/03307d14-a235-ab70-1787-ab6a6911ad87.htm" />
+  </HelpKINode>
+  <HelpKINode Title="EnumerableExtensions.Apply(Of T) method" Url="html/fcea6e82-887f-e20d-9684-1903b204f2bd.htm" />
+  <HelpKINode Title="EnumerableExtensions.Apply&lt;T&gt; method" Url="html/fcea6e82-887f-e20d-9684-1903b204f2bd.htm" />
+  <HelpKINode Title="Equality operator" Url="html/c7635c13-ee94-b884-6d0a-7145e73dc8ec.htm" />
+  <HelpKINode Title="Equals method" Url="html/2cbedc01-431a-ef76-ea06-12a5566dbc94.htm" />
+  <HelpKINode Title="Error class">
+    <HelpKINode Title="Error Class" Url="html/58f4f438-c3a5-2e4e-6e7a-79f1051ce7e0.htm" />
+    <HelpKINode Title="about Error class" Url="html/58f4f438-c3a5-2e4e-6e7a-79f1051ce7e0.htm" />
+    <HelpKINode Title="constructor" Url="html/e294281e-9290-6759-28a6-0ad260b6b768.htm" />
+    <HelpKINode Title="methods" Url="html/98a07509-6e35-999c-d074-c4394778d5c2.htm" />
+    <HelpKINode Title="properties" Url="html/c16dfce3-29ee-4e64-bc70-9d24c4da87da.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Error enumeration member" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
+  <HelpKINode Title="Error method" Url="html/ee55ece0-5440-7ae1-6abc-0087ba4cbaa2.htm" />
+  <HelpKINode Title="Error property" Url="html/ab699f62-a09f-b112-246e-f8511308ae57.htm" />
+  <HelpKINode Title="Error.Error constructor" Url="html/e294281e-9290-6759-28a6-0ad260b6b768.htm" />
+  <HelpKINode Title="ErrorEventArgs class">
+    <HelpKINode Title="ErrorEventArgs Class" Url="html/be6c8c69-04b0-1030-ddac-26d83d952d5c.htm" />
+    <HelpKINode Title="about ErrorEventArgs class" Url="html/be6c8c69-04b0-1030-ddac-26d83d952d5c.htm" />
+    <HelpKINode Title="constructor" Url="html/a8c4a56c-3182-a966-2ded-298a449bbb19.htm" />
+    <HelpKINode Title="methods" Url="html/ba09b503-64db-42ec-2b4b-23b030b6737d.htm" />
+    <HelpKINode Title="properties" Url="html/a94a24c6-2eb5-7b57-8982-13b886ed53cc.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ErrorEventArgs.ErrorEventArgs constructor" Url="html/a8c4a56c-3182-a966-2ded-298a449bbb19.htm" />
+  <HelpKINode Title="ErrorEventArgs.Message property" Url="html/ba389af5-94e7-b253-79e4-21be15515bf2.htm" />
+  <HelpKINode Title="ErrorEventArgs.Severity property" Url="html/bba503d6-4319-312e-34ae-1b9bc4acf47b.htm" />
+  <HelpKINode Title="ErrorEventArgs.Type property" Url="html/f7117786-cf8f-eadd-bdcf-4b15af127afb.htm" />
+  <HelpKINode Title="ErrorSeverity enumeration" Url="html/069e8a4c-9425-b097-52f5-247327fda0f9.htm" />
+  <HelpKINode Title="ErrorType enumeration" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="Execute method">
+    <HelpKINode Title="BindingState.Execute Method " Url="html/4c784b04-00e3-0b32-c8b6-3157816c7cc0.htm" />
+    <HelpKINode Title="CompressedState.Execute Method " Url="html/e6fe42c1-4ebe-9a69-6e46-bdfebccf632e.htm" />
+    <HelpKINode Title="ConnectedState.Execute Method " Url="html/19868f80-d368-b890-55f9-1c1f6352c077.htm" />
+    <HelpKINode Title="ConnectingState.Execute Method " Url="html/49aa90d6-cc14-973e-c1a8-f43ad101a213.htm" />
+    <HelpKINode Title="DisconnectedState.Execute Method " Url="html/017bdfa2-33d7-3b57-6516-4d86b5270e13.htm" />
+    <HelpKINode Title="DisconnectState.Execute Method " Url="html/4d2ae14e-bbbd-5148-d8af-ae0bab669124.htm" />
+    <HelpKINode Title="RunningState.Execute Method " Url="html/ae97b113-4764-7a46-c375-f53340f7a3f2.htm" />
+    <HelpKINode Title="SaslState.Execute Method " Url="html/0cf600bc-ab44-8622-5df4-db22660982cc.htm" />
+    <HelpKINode Title="ServerFeaturesState.Execute Method " Url="html/33bd6132-eac2-1d58-10bc-8eb870a69efd.htm" />
+    <HelpKINode Title="SessionState.Execute Method " Url="html/e4704f6b-7453-7657-6332-d6662c9d9ebe.htm" />
+    <HelpKINode Title="StartTlsState.Execute Method " Url="html/eed54def-e94b-4b00-da81-63c08c22d890.htm" />
+    <HelpKINode Title="State.Execute Method " Url="html/1e21f0ab-987c-e56f-9ef1-7a50d51112ab.htm" />
+  </HelpKINode>
+  <HelpKINode Title="External enumeration member" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="Fatal enumeration member" Url="html/069e8a4c-9425-b097-52f5-247327fda0f9.htm" />
+  <HelpKINode Title="Features class">
+    <HelpKINode Title="Features Class" Url="html/0278e58f-aac4-e39e-718b-60d613eef553.htm" />
+    <HelpKINode Title="about Features class" Url="html/0278e58f-aac4-e39e-718b-60d613eef553.htm" />
+    <HelpKINode Title="constructor" Url="html/f2db34ba-ac46-d655-bece-ef26ec77b242.htm" />
+    <HelpKINode Title="methods" Url="html/b36af6d7-44e3-b90c-4472-6f36b4186450.htm" />
+    <HelpKINode Title="properties" Url="html/6405dd43-b64d-f970-3657-b82bb5d1664f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Features property" Url="html/bfc94fdc-bf3f-80b3-b79b-f621d09e150f.htm" />
+  <HelpKINode Title="Features.Compression property" Url="html/df86a902-145f-a15b-a754-1420e52a7c61.htm" />
+  <HelpKINode Title="Features.Features constructor" Url="html/f2db34ba-ac46-d655-bece-ef26ec77b242.htm" />
+  <HelpKINode Title="Features.StartSasl property" Url="html/247c92dc-7f46-61e2-f310-5b66aa0b3953.htm" />
+  <HelpKINode Title="Features.StartTls property" Url="html/a52caad5-55ab-58f7-c85d-60c5261c2aca.htm" />
+  <HelpKINode Title="From property" Url="html/8f38a5fe-b662-60b9-9d68-2249896b1845.htm" />
+  <HelpKINode Title="GenericTag class">
+    <HelpKINode Title="GenericTag Class" Url="html/3dacf0fc-e5da-f638-8dc3-5360b5f64837.htm" />
+    <HelpKINode Title="about GenericTag class" Url="html/3dacf0fc-e5da-f638-8dc3-5360b5f64837.htm" />
+    <HelpKINode Title="constructor" Url="html/400b4385-4675-6670-ed08-2c3528933356.htm" />
+    <HelpKINode Title="methods" Url="html/26eb9a05-0746-200c-ed02-69285c05140f.htm" />
+    <HelpKINode Title="properties" Url="html/02c70ee8-da2d-3ab1-88d6-86dcb1d2300b.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GenericTag.GenericTag constructor" Url="html/400b4385-4675-6670-ed08-2c3528933356.htm" />
+  <HelpKINode Title="Get enumeration member" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
+  <HelpKINode Title="GetAttributes(Of T) method" Url="html/bad43ad3-5f26-154e-3759-3fbf14d167e2.htm" />
+  <HelpKINode Title="GetAttributes&lt;T&gt; method" Url="html/bad43ad3-5f26-154e-3759-3fbf14d167e2.htm" />
+  <HelpKINode Title="GetCompression method" Url="html/a7a0fceb-89e8-2f28-8231-717ddf912344.htm" />
+  <HelpKINode Title="GetCustomAttributes method" Url="html/11a1c34c-4ed4-69dc-e6ec-118776da8c7c.htm" />
+  <HelpKINode Title="GetEnumAttribute(Of T) method" Url="html/a89eac4f-e709-e5b5-ba2e-7329ba34c05a.htm" />
+  <HelpKINode Title="GetEnumAttribute&lt;T&gt; method" Url="html/a89eac4f-e709-e5b5-ba2e-7329ba34c05a.htm" />
+  <HelpKINode Title="GetHashCode method" Url="html/f8b42293-6c06-7be4-1a2c-f9b69bbccbf4.htm" />
+  <HelpKINode Title="GetMechanism method" Url="html/54acd59a-8a57-a674-28d0-18c98ceadd79.htm" />
+  <HelpKINode Title="GetNextId method" Url="html/35639ed1-2c1d-422a-12b1-e4574ecd75bd.htm" />
+  <HelpKINode Title="GetTag method" Url="html/9f8baaa7-1320-583d-2ae5-95c2e61d376d.htm" />
+  <HelpKINode Title="GetType method" Url="html/5b33337f-53d2-c2e4-bedb-b7e2cdc188f2.htm" />
+  <HelpKINode Title="HexString method" Url="html/23f2d621-181a-8125-86cf-2f8e28ca6291.htm" />
+  <HelpKINode Title="Hostname property" Url="html/f6eb8918-795e-6998-a2b0-9d712fb50889.htm" />
+  <HelpKINode Title="ICompression interface">
+    <HelpKINode Title="ICompression Interface" Url="html/f6f8c0c1-c8ba-0ebd-7de4-6481edf74d1c.htm" />
+    <HelpKINode Title="about ICompression interface" Url="html/f6f8c0c1-c8ba-0ebd-7de4-6481edf74d1c.htm" />
+    <HelpKINode Title="methods" Url="html/4b037988-a094-9d9d-38a0-170d2254bc1c.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ICompression.Deflate method" Url="html/7f031f0a-db60-108e-f56d-305c30f6ae65.htm" />
+  <HelpKINode Title="ICompression.Inflate method" Url="html/0829f33d-8142-520f-15df-765de8e90b5e.htm" />
+  <HelpKINode Title="Id field" Url="html/7d4e707f-def5-5a40-7ed4-d2105a2b1e92.htm" />
+  <HelpKINode Title="Id property">
+    <HelpKINode Title="Stanza.Id Property " Url="html/361b6a49-4064-611b-d4ed-800993da7eee.htm" />
+    <HelpKINode Title="XmppSettings.Id Property " Url="html/ae70b898-1726-7b43-8abc-e39655239461.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IDiscoManager interface">
+    <HelpKINode Title="IDiscoManager Interface" Url="html/2fe1b2b8-c5e9-5588-4e5e-f30ab5679aee.htm" />
+    <HelpKINode Title="about IDiscoManager interface" Url="html/2fe1b2b8-c5e9-5588-4e5e-f30ab5679aee.htm" />
+    <HelpKINode Title="methods" Url="html/4d864123-dfe2-9c26-f344-6c629bcac593.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IDiscoManager.LookupHash method" Url="html/e18aec5f-a2b3-30ce-2da2-a7c5b2b98912.htm" />
+  <HelpKINode Title="Inequality operator" Url="html/680892c7-fa27-702e-3eb4-4abd16c0d929.htm" />
+  <HelpKINode Title="Inflate method">
+    <HelpKINode Title="ICompression.Inflate Method " Url="html/0829f33d-8142-520f-15df-765de8e90b5e.htm" />
+    <HelpKINode Title="Zlib.Inflate Method " Url="html/9a0b1c84-fce2-7228-eebb-61fd7769e2a5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Information enumeration member" Url="html/069e8a4c-9425-b097-52f5-247327fda0f9.htm" />
+  <HelpKINode Title="Initialize method">
+    <HelpKINode Title="Md5Processor.Initialize Method " Url="html/5565dbda-81da-3b11-6856-f2de23c10dcf.htm" />
+    <HelpKINode Title="PlainProcessor.Initialize Method " Url="html/8aceab24-eb50-e86f-2fda-2053eac93fc6.htm" />
+    <HelpKINode Title="SaslProcessor.Initialize Method " Url="html/a37ca787-fa87-20b8-1ef1-4e7c26784e2f.htm" />
+    <HelpKINode Title="ScramProcessor.Initialize Method " Url="html/f85a5f20-0c1c-30f3-6e4a-d897a15ff2a8.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Iq class">
+    <HelpKINode Title="Iq Class" Url="html/e938f5c8-40c4-4e97-9a6e-f31df604036b.htm" />
+    <HelpKINode Title="about Iq class" Url="html/e938f5c8-40c4-4e97-9a6e-f31df604036b.htm" />
+    <HelpKINode Title="constructor" Url="html/7f8e81ef-d225-fd53-fea9-88880b7d2c19.htm" />
+    <HelpKINode Title="methods" Url="html/8541a4c4-06e5-d32a-6edb-69d786b14372.htm" />
+    <HelpKINode Title="properties" Url="html/5fea6eef-1167-2ac7-7876-e61cd96600ac.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Iq.Iq constructor" Url="html/7f8e81ef-d225-fd53-fea9-88880b7d2c19.htm" />
+  <HelpKINode Title="Iq.IqType property" Url="html/6cc85fad-7684-6ba0-9112-e59e5eb31326.htm" />
+  <HelpKINode Title="Iq.Payload property" Url="html/46ad5d90-73a9-fcc2-c88f-152d45914e9a.htm" />
+  <HelpKINode Title="IqType enumeration" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
+  <HelpKINode Title="IqType property" Url="html/6cc85fad-7684-6ba0-9112-e59e5eb31326.htm" />
+  <HelpKINode Title="IRosterManager interface">
+    <HelpKINode Title="IRosterManager Interface" Url="html/47ce0dc4-3321-33d4-26b7-5d8fbcaa5491.htm" />
+    <HelpKINode Title="about IRosterManager interface" Url="html/47ce0dc4-3321-33d4-26b7-5d8fbcaa5491.htm" />
+    <HelpKINode Title="methods" Url="html/f0ec1336-8cdf-7aa5-09f8-f049a2d7c6ed.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IRosterManager.RequestRoster method" Url="html/72f137e2-c5bd-e221-a899-1ca1a7fb8aff.htm" />
+  <HelpKINode Title="Item property" Url="html/8d7e1af3-62f0-1936-ae2c-da93df6a57a8.htm" />
+  <HelpKINode Title="Jid class">
+    <HelpKINode Title="Jid Class" Url="html/e5b42afc-e2ee-7e29-93ca-2b1b009edf82.htm" />
+    <HelpKINode Title="about Jid class" Url="html/e5b42afc-e2ee-7e29-93ca-2b1b009edf82.htm" />
+    <HelpKINode Title="constructor" Url="html/81d676f6-49e1-3818-f857-373409729bf5.htm" />
+    <HelpKINode Title="methods" Url="html/8cab556b-99eb-c977-caa2-6b6f8e17beb3.htm" />
+    <HelpKINode Title="properties" Url="html/76dfd604-36c5-8049-ad2a-2c960bbb458e.htm" />
+  </HelpKINode>
+  <HelpKINode Title="JID structure">
+    <HelpKINode Title="JID Structure" Url="html/a42ab0f9-c244-fec1-e6d6-a22cc63529da.htm" />
+    <HelpKINode Title="about JID structure" Url="html/a42ab0f9-c244-fec1-e6d6-a22cc63529da.htm" />
+    <HelpKINode Title="constructor" Url="html/535bc30e-c4fd-9f8d-a0ab-d39862fdfe17.htm" />
+    <HelpKINode Title="methods" Url="html/8532448a-bfdf-66cb-dda7-e1fc7ebe1533.htm" />
+    <HelpKINode Title="operators and type conversions" Url="html/b92440b6-cdae-2978-4a6b-8113a29de9a7.htm" />
+    <HelpKINode Title="properties" Url="html/5bd794fd-c062-8750-4754-35228dff698d.htm" />
+  </HelpKINode>
+  <HelpKINode Title="JID to String conversion" Url="html/90039421-1f16-72cd-47ea-2e93eebf33a9.htm" />
+  <HelpKINode Title="JID.Equality operator" Url="html/c7635c13-ee94-b884-6d0a-7145e73dc8ec.htm" />
+  <HelpKINode Title="JID.Equals method" Url="html/2cbedc01-431a-ef76-ea06-12a5566dbc94.htm" />
+  <HelpKINode Title="JID.GetHashCode method" Url="html/f8b42293-6c06-7be4-1a2c-f9b69bbccbf4.htm" />
+  <HelpKINode Title="JID.Inequality operator" Url="html/680892c7-fa27-702e-3eb4-4abd16c0d929.htm" />
+  <HelpKINode Title="Jid.Jid constructor" Url="html/81d676f6-49e1-3818-f857-373409729bf5.htm" />
+  <HelpKINode Title="JID.JID constructor" Url="html/535bc30e-c4fd-9f8d-a0ab-d39862fdfe17.htm" />
+  <HelpKINode Title="JID.Resource property" Url="html/33783470-79dc-7901-e1cd-97f25a910aee.htm" />
+  <HelpKINode Title="JID.Server property" Url="html/b9cf6535-a0dd-4fe5-8162-6e7bad297ab8.htm" />
+  <HelpKINode Title="JID.ToString method" Url="html/a3c375aa-23ae-7064-63ad-c13ececa1e14.htm" />
+  <HelpKINode Title="JID.User property" Url="html/72796f1e-a043-e35b-fec4-a896301d3376.htm" />
+  <HelpKINode Title="Jid.UserJid property" Url="html/b40898ad-5e43-562d-3eba-f98ee46307b5.htm" />
+  <HelpKINode Title="JidTag property" Url="html/1fd0de7f-3c55-5e6a-7536-7156087b51bb.htm" />
+  <HelpKINode Title="Language property" Url="html/6544afae-2e80-1084-7ec5-1e11928de120.htm" />
+  <HelpKINode Title="LookupHash method">
+    <HelpKINode Title="IDiscoManager.LookupHash Method " Url="html/e18aec5f-a2b3-30ce-2da2-a7c5b2b98912.htm" />
+    <HelpKINode Title="RegistryDiscoManager.LookupHash Method " Url="html/d9421ceb-f0b0-5d2d-8c05-dab81b568cb1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Md5Processor class">
+    <HelpKINode Title="Md5Processor Class" Url="html/0932c792-b629-8b64-552e-671dd7f9ce4d.htm" />
+    <HelpKINode Title="about Md5Processor class" Url="html/0932c792-b629-8b64-552e-671dd7f9ce4d.htm" />
+    <HelpKINode Title="constructor" Url="html/667cc5c9-cd90-6bd9-6500-f87101811ae9.htm" />
+    <HelpKINode Title="methods" Url="html/b5dc2dab-9673-d03c-6ad9-6bb880d53d41.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Md5Processor.Dispose method" Url="html/2f55d82e-29be-4997-cf8f-0a8116043bf9.htm" />
+  <HelpKINode Title="Md5Processor.Initialize method" Url="html/5565dbda-81da-3b11-6856-f2de23c10dcf.htm" />
+  <HelpKINode Title="Md5Processor.Md5Processor constructor" Url="html/667cc5c9-cd90-6bd9-6500-f87101811ae9.htm" />
+  <HelpKINode Title="Md5Processor.Step method" Url="html/5519e141-714e-b562-a0f7-600dc0596aa9.htm" />
+  <HelpKINode Title="Mechanism class">
+    <HelpKINode Title="Mechanism Class" Url="html/62df5643-e279-e31b-48af-3e2364c56d91.htm" />
+    <HelpKINode Title="about Mechanism class" Url="html/62df5643-e279-e31b-48af-3e2364c56d91.htm" />
+    <HelpKINode Title="constructor" Url="html/d4af9f1b-4511-ca4d-6321-0958556f7a7c.htm" />
+    <HelpKINode Title="methods" Url="html/f515057e-74ab-0308-38c0-dd4ec1dd66a1.htm" />
+    <HelpKINode Title="properties" Url="html/d178c5eb-5e7f-893b-48f9-65d89293d5a7.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Mechanism property" Url="html/456633ac-8000-e807-f0c2-0fe5882bed51.htm" />
+  <HelpKINode Title="Mechanism.GetMechanism method" Url="html/54acd59a-8a57-a674-28d0-18c98ceadd79.htm" />
+  <HelpKINode Title="Mechanism.GetType method" Url="html/5b33337f-53d2-c2e4-bedb-b7e2cdc188f2.htm" />
+  <HelpKINode Title="Mechanism.Mechanism constructor" Url="html/d4af9f1b-4511-ca4d-6321-0958556f7a7c.htm" />
+  <HelpKINode Title="Mechanism.Text property" Url="html/10fccef2-5f68-2c72-75c8-8efef5233a69.htm" />
+  <HelpKINode Title="Mechanism.Type property" Url="html/549b6088-0cfe-5dd1-8418-9e32fea30f6a.htm" />
+  <HelpKINode Title="Mechanisms class">
+    <HelpKINode Title="Mechanisms Class" Url="html/08706880-a516-52e5-1fa9-b35a4e7a0d1d.htm" />
+    <HelpKINode Title="about Mechanisms class" Url="html/08706880-a516-52e5-1fa9-b35a4e7a0d1d.htm" />
+    <HelpKINode Title="constructor" Url="html/917b23e5-745a-e251-9aab-a40293ec14de.htm" />
+    <HelpKINode Title="methods" Url="html/94589064-ec32-830b-1607-be05eb02870c.htm" />
+    <HelpKINode Title="properties" Url="html/45197764-0d5f-baad-4494-e6f0c4a9e6d9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Mechanisms.Mechanisms constructor" Url="html/917b23e5-745a-e251-9aab-a40293ec14de.htm" />
+  <HelpKINode Title="Mechanisms.SupportedTypes property" Url="html/ecd0458b-e265-8d5b-0e4b-93da952b507b.htm" />
+  <HelpKINode Title="MechanismType enumeration" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="Message property" Url="html/ba389af5-94e7-b253-79e4-21be15515bf2.htm" />
+  <HelpKINode Title="MissingId enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="MissingPassword enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="Name property" Url="html/5ce99e91-eea7-5641-1995-425c0ee48901.htm" />
+  <HelpKINode Title="Namespace property">
+    <HelpKINode Title="Stream.Namespace Property " Url="html/2d863deb-5c4e-78b0-7178-7a34a0295745.htm" />
+    <HelpKINode Title="XmppTagAttribute.Namespace Property " Url="html/5da703a7-8255-b289-8c3f-567631ab7908.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Namespaces class">
+    <HelpKINode Title="Namespaces Class" Url="html/b57934f7-bc68-e177-b57b-1a9dfbcd62d7.htm" />
+    <HelpKINode Title="about Namespaces class" Url="html/b57934f7-bc68-e177-b57b-1a9dfbcd62d7.htm" />
+    <HelpKINode Title="fields" Url="html/732c654c-2607-08d8-0ae3-b78ebfb41fac.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Namespaces.Auth field" Url="html/a42c3155-14e6-9501-18bd-f29d2d4cc436.htm" />
+  <HelpKINode Title="Namespaces.Bind field" Url="html/ee144efe-921e-7e6a-e760-3c27a8efa88e.htm" />
+  <HelpKINode Title="Namespaces.Client field" Url="html/ac273cb4-526f-6072-dbd7-d2024af95b46.htm" />
+  <HelpKINode Title="Namespaces.Compression field" Url="html/661467a2-d7ed-a611-2098-7631c22fac9f.htm" />
+  <HelpKINode Title="Namespaces.CompressionProtocol field" Url="html/80bb038a-5199-5d3a-1fa4-bc9563620a0e.htm" />
+  <HelpKINode Title="Namespaces.DiscoInfo field" Url="html/6ab9d5df-b3ff-aac1-4547-dd7a1e170700.htm" />
+  <HelpKINode Title="Namespaces.Entity field" Url="html/b09f3587-31b4-a4df-646e-efeaef28caf3.htm" />
+  <HelpKINode Title="Namespaces.Ping field" Url="html/89c50988-e03a-f676-8897-278ecdec359f.htm" />
+  <HelpKINode Title="Namespaces.Register field" Url="html/83b105d6-2872-3510-866e-677bec849a51.htm" />
+  <HelpKINode Title="Namespaces.Roster field" Url="html/a6ba12a0-ba56-fe77-60cb-d63dc3e2eb28.htm" />
+  <HelpKINode Title="Namespaces.Rostver field" Url="html/731b6b00-86f6-72df-aa84-19dc2af41ac6.htm" />
+  <HelpKINode Title="Namespaces.Sasl field" Url="html/c75660bf-1a94-f1fe-98f6-b76449deca3c.htm" />
+  <HelpKINode Title="Namespaces.Session field" Url="html/737a8dde-90be-3a52-92e0-959208c75049.htm" />
+  <HelpKINode Title="Namespaces.Stanzas field" Url="html/23d087c4-b929-315b-43ec-452e7135b16a.htm" />
+  <HelpKINode Title="Namespaces.StartTls field" Url="html/c553f753-d650-9768-738c-022226c456c8.htm" />
+  <HelpKINode Title="Namespaces.Stream field" Url="html/f825c686-3081-f9e3-c165-099bfed31ea5.htm" />
+  <HelpKINode Title="Namespaces.Xml field" Url="html/0e12a733-b0d9-b1ac-6565-35b3ad727027.htm" />
+  <HelpKINode Title="Namespaces.Xmlns field" Url="html/5f4fb910-0088-9eaa-ffb5-4f1eab96d38b.htm" />
+  <HelpKINode Title="Namespaces.XmppStreams field" Url="html/dc2e21ea-7876-c627-3988-57e473297fe1.htm" />
+  <HelpKINode Title="NewTag method" Url="html/4a85b3f2-6951-d851-41f2-19c70e9870e0.htm" />
+  <HelpKINode Title="NextInt64 method" Url="html/b4dfbb0d-fb6e-e4fd-c675-53fcb581537e.htm" />
+  <HelpKINode Title="Node property" Url="html/4128cef7-238a-a807-1eb2-e3a73a0e57b3.htm" />
+  <HelpKINode Title="None enumeration member" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="OnConnect event" Url="html/1beaaccf-8ec3-316e-3f61-08ae7417643a.htm" />
+  <HelpKINode Title="OnDisconnect event" Url="html/90d2aa34-745f-5189-3024-f445e6f386df.htm" />
+  <HelpKINode Title="OnError event">
+    <HelpKINode Title="Xmpp.OnError Event" Url="html/c8ee8878-f873-4eb7-57dc-b760cf88959f.htm" />
+    <HelpKINode Title="XmppEvents.OnError Event" Url="html/30c46093-3540-057e-ba14-326a04038508.htm" />
+  </HelpKINode>
+  <HelpKINode Title="OnNewTag event">
+    <HelpKINode Title="Xmpp.OnNewTag Event" Url="html/f7d590a1-4e93-cf79-b297-bdc538eedb0f.htm" />
+    <HelpKINode Title="XmppEvents.OnNewTag Event" Url="html/c27336b1-7195-9d70-ef50-aa01cf886291.htm" />
+  </HelpKINode>
+  <HelpKINode Title="OnSend event" Url="html/b4b874e9-ec26-2c53-cf21-75597a6b9476.htm" />
+  <HelpKINode Title="Password field" Url="html/bce2ce0f-7a8c-29d2-d975-34ce2e65d6ea.htm" />
+  <HelpKINode Title="Password property" Url="html/5d1e5055-4a69-22d9-adb3-ca5dc4a2826b.htm" />
+  <HelpKINode Title="Payload property" Url="html/46ad5d90-73a9-fcc2-c88f-152d45914e9a.htm" />
+  <HelpKINode Title="Ping field" Url="html/89c50988-e03a-f676-8897-278ecdec359f.htm" />
+  <HelpKINode Title="Plain enumeration member" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="PlainProcessor class">
+    <HelpKINode Title="PlainProcessor Class" Url="html/807a6550-8874-db88-ec3e-f4db571b5f1b.htm" />
+    <HelpKINode Title="about PlainProcessor class" Url="html/807a6550-8874-db88-ec3e-f4db571b5f1b.htm" />
+    <HelpKINode Title="constructor" Url="html/7a829f35-b979-9779-5cd2-1e94183e2992.htm" />
+    <HelpKINode Title="fields" Url="html/b310746c-4cbf-8c74-9f3d-bf915d1bb057.htm" />
+    <HelpKINode Title="methods" Url="html/7c4a3666-123c-668f-251f-1838f83e8e6f.htm" />
+    <HelpKINode Title="properties" Url="html/d19626ee-8ce3-da2b-1097-b644ecefd7fb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PlainProcessor.Initialize method" Url="html/8aceab24-eb50-e86f-2fda-2053eac93fc6.htm" />
+  <HelpKINode Title="PlainProcessor.PlainProcessor constructor" Url="html/7a829f35-b979-9779-5cd2-1e94183e2992.htm" />
+  <HelpKINode Title="PlainProcessor.Step method" Url="html/b772e9db-01bc-fb3b-e265-6ef67b1469fd.htm" />
+  <HelpKINode Title="Port property" Url="html/cef58c5d-35a4-90f9-d087-3c081cab750b.htm" />
+  <HelpKINode Title="Query class">
+    <HelpKINode Title="Query Class" Url="html/7d80b94d-cc2c-f415-8493-afd6447876c8.htm" />
+    <HelpKINode Title="about Query class" Url="html/7d80b94d-cc2c-f415-8493-afd6447876c8.htm" />
+    <HelpKINode Title="constructor" Url="html/7a116ab7-a397-00a8-bb24-28851e9c3a4d.htm" />
+    <HelpKINode Title="methods" Url="html/4125176d-743f-cc8c-9754-9b1511661e6b.htm" />
+    <HelpKINode Title="properties" Url="html/72f6f7d2-9502-f178-c4b1-ed4b5b4dea1b.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Query.Query constructor" Url="html/7a116ab7-a397-00a8-bb24-28851e9c3a4d.htm" />
+  <HelpKINode Title="Reconnect enumeration member" Url="html/069e8a4c-9425-b097-52f5-247327fda0f9.htm" />
+  <HelpKINode Title="Register field" Url="html/83b105d6-2872-3510-866e-677bec849a51.htm" />
+  <HelpKINode Title="RegistryDiscoManager class">
+    <HelpKINode Title="RegistryDiscoManager Class" Url="html/baec588c-12d5-6e38-a0ff-d8df77f705b9.htm" />
+    <HelpKINode Title="about RegistryDiscoManager class" Url="html/baec588c-12d5-6e38-a0ff-d8df77f705b9.htm" />
+    <HelpKINode Title="constructor" Url="html/24d2ac0c-5a25-16e0-8561-b6f934e4b5c7.htm" />
+    <HelpKINode Title="methods" Url="html/0afe292b-3f9a-f4b1-b44f-0ba67f8991fa.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RegistryDiscoManager.LookupHash method" Url="html/d9421ceb-f0b0-5d2d-8c05-dab81b568cb1.htm" />
+  <HelpKINode Title="RegistryDiscoManager.RegistryDiscoManager constructor" Url="html/24d2ac0c-5a25-16e0-8561-b6f934e4b5c7.htm" />
+  <HelpKINode Title="RequestRoster method">
+    <HelpKINode Title="DefaultRosterManager.RequestRoster Method " Url="html/4327f1b6-ecbb-635e-d5ce-d79debb02daa.htm" />
+    <HelpKINode Title="IRosterManager.RequestRoster Method " Url="html/72f137e2-c5bd-e221-a899-1ca1a7fb8aff.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Required property" Url="html/503dead1-bd4c-6572-3de6-26e6835e5804.htm" />
+  <HelpKINode Title="Resource property" Url="html/33783470-79dc-7901-e1cd-97f25a910aee.htm" />
+  <HelpKINode Title="Result enumeration member" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
+  <HelpKINode Title="Roster field" Url="html/a6ba12a0-ba56-fe77-60cb-d63dc3e2eb28.htm" />
+  <HelpKINode Title="Rostver field" Url="html/731b6b00-86f6-72df-aa84-19dc2af41ac6.htm" />
+  <HelpKINode Title="RunningState class">
+    <HelpKINode Title="RunningState Class" Url="html/bedf8ed8-3cb0-daae-454a-4314c1159b1d.htm" />
+    <HelpKINode Title="about RunningState class" Url="html/bedf8ed8-3cb0-daae-454a-4314c1159b1d.htm" />
+    <HelpKINode Title="constructor" Url="html/529de709-7e5e-6614-f40c-4fa5bcf9e951.htm" />
+    <HelpKINode Title="methods" Url="html/a43e0bac-4b9e-62ed-8e9d-e5c252335119.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RunningState.Execute method" Url="html/ae97b113-4764-7a46-c375-f53340f7a3f2.htm" />
+  <HelpKINode Title="RunningState.RunningState constructor" Url="html/529de709-7e5e-6614-f40c-4fa5bcf9e951.htm" />
+  <HelpKINode Title="Sasl field" Url="html/c75660bf-1a94-f1fe-98f6-b76449deca3c.htm" />
+  <HelpKINode Title="SaslProcessor class">
+    <HelpKINode Title="SaslProcessor Class" Url="html/404d8bfd-4c20-8577-d111-2d3d0e27f300.htm" />
+    <HelpKINode Title="about SaslProcessor class" Url="html/404d8bfd-4c20-8577-d111-2d3d0e27f300.htm" />
+    <HelpKINode Title="constructor" Url="html/2d2ff73f-09b4-18d9-4f2b-a692cc55df4b.htm" />
+    <HelpKINode Title="fields" Url="html/e87f426c-d4ea-2e5d-dea3-1676e90b8952.htm" />
+    <HelpKINode Title="methods" Url="html/03682581-de03-5def-243b-d26d316ca86d.htm" />
+    <HelpKINode Title="properties" Url="html/2e2bb460-8ee1-e2b4-1694-a9eb927156f4.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SaslProcessor.CreateProcessor method" Url="html/deac9cd0-7f1d-c0bd-bc3a-267f1fed812d.htm" />
+  <HelpKINode Title="SaslProcessor.HexString method" Url="html/23f2d621-181a-8125-86cf-2f8e28ca6291.htm" />
+  <HelpKINode Title="SaslProcessor.Id field" Url="html/7d4e707f-def5-5a40-7ed4-d2105a2b1e92.htm" />
+  <HelpKINode Title="SaslProcessor.Initialize method" Url="html/a37ca787-fa87-20b8-1ef1-4e7c26784e2f.htm" />
+  <HelpKINode Title="SaslProcessor.Item property" Url="html/8d7e1af3-62f0-1936-ae2c-da93df6a57a8.htm" />
+  <HelpKINode Title="SaslProcessor.NextInt64 method" Url="html/b4dfbb0d-fb6e-e4fd-c675-53fcb581537e.htm" />
+  <HelpKINode Title="SaslProcessor.Password field" Url="html/bce2ce0f-7a8c-29d2-d975-34ce2e65d6ea.htm" />
+  <HelpKINode Title="SaslProcessor.SaslProcessor constructor" Url="html/2d2ff73f-09b4-18d9-4f2b-a692cc55df4b.htm" />
+  <HelpKINode Title="SaslProcessor.Step method" Url="html/aaddc82c-ba0e-2f14-ce9d-7fb8c63bbd51.htm" />
+  <HelpKINode Title="SaslState class">
+    <HelpKINode Title="SaslState Class" Url="html/ff64db6e-99c6-c2fd-dbc8-86c2477b9cf1.htm" />
+    <HelpKINode Title="about SaslState class" Url="html/ff64db6e-99c6-c2fd-dbc8-86c2477b9cf1.htm" />
+    <HelpKINode Title="constructor" Url="html/0edf2397-7f5a-c11e-54d7-fb0ddfa944df.htm" />
+    <HelpKINode Title="methods" Url="html/e5c17969-096d-7a82-01b5-f172e5dfdc48.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SaslState.Execute method" Url="html/0cf600bc-ab44-8622-5df4-db22660982cc.htm" />
+  <HelpKINode Title="SaslState.SaslState constructor" Url="html/0edf2397-7f5a-c11e-54d7-fb0ddfa944df.htm" />
+  <HelpKINode Title="Scram enumeration member" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="ScramProcessor class">
+    <HelpKINode Title="ScramProcessor Class" Url="html/0b7b7bfd-434c-03e5-50db-fb12e68f7434.htm" />
+    <HelpKINode Title="about ScramProcessor class" Url="html/0b7b7bfd-434c-03e5-50db-fb12e68f7434.htm" />
+    <HelpKINode Title="constructor" Url="html/ad7cc0e7-a8aa-98ea-8ad2-02954c784396.htm" />
+    <HelpKINode Title="fields" Url="html/cf5f3079-981f-ea33-bc7b-f5ecfb7b39d4.htm" />
+    <HelpKINode Title="methods" Url="html/5f1f9261-7ced-5824-0087-58f57d72e2d5.htm" />
+    <HelpKINode Title="properties" Url="html/7f57162a-5432-7b33-ee96-50418c5cba69.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ScramProcessor.Initialize method" Url="html/f85a5f20-0c1c-30f3-6e4a-d897a15ff2a8.htm" />
+  <HelpKINode Title="ScramProcessor.ScramProcessor constructor" Url="html/ad7cc0e7-a8aa-98ea-8ad2-02954c784396.htm" />
+  <HelpKINode Title="ScramProcessor.Step method" Url="html/16986bfe-1b6d-c0c0-ef00-18e0aa23dae7.htm" />
+  <HelpKINode Title="Send method">
+    <HelpKINode Title="Xmpp.Send Method " Url="html/63c965d0-f266-9dc8-f670-7b3612373154.htm" />
+    <HelpKINode Title="XmppEvents.Send Method " Url="html/4ba10708-8a06-4ca1-54c5-14a876412417.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Server property" Url="html/b9cf6535-a0dd-4fe5-8162-6e7bad297ab8.htm" />
+  <HelpKINode Title="ServerFeaturesState class">
+    <HelpKINode Title="ServerFeaturesState Class" Url="html/303d1faf-f50e-6701-adb0-266b770a61ea.htm" />
+    <HelpKINode Title="about ServerFeaturesState class" Url="html/303d1faf-f50e-6701-adb0-266b770a61ea.htm" />
+    <HelpKINode Title="constructor" Url="html/543b1dda-72d4-bf6c-d141-22c39d970c45.htm" />
+    <HelpKINode Title="methods" Url="html/d0801f05-10bf-4023-bab4-6e5ee7e0a8c5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ServerFeaturesState.Execute method" Url="html/33bd6132-eac2-1d58-10bc-8eb870a69efd.htm" />
+  <HelpKINode Title="ServerFeaturesState.ServerFeaturesState constructor" Url="html/543b1dda-72d4-bf6c-d141-22c39d970c45.htm" />
+  <HelpKINode Title="ServerXmlException class">
+    <HelpKINode Title="ServerXmlException Class" Url="html/c1d9dc82-1411-eae9-c03d-83b2e457be38.htm" />
+    <HelpKINode Title="about ServerXmlException class" Url="html/c1d9dc82-1411-eae9-c03d-83b2e457be38.htm" />
+    <HelpKINode Title="constructor" Url="html/149c2c4a-220f-0203-4962-c6d1d5936449.htm" />
+    <HelpKINode Title="events" Url="html/b30a2847-5a90-9b05-ff22-462bb29b18a3.htm" />
+    <HelpKINode Title="methods" Url="html/2dc271eb-fb66-c295-79d3-b21e22a9086f.htm" />
+    <HelpKINode Title="properties" Url="html/ab9dcfe9-fd24-623e-94f7-eb6b06e5e3f1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ServerXmlException.ServerXmlException constructor" Url="html/149c2c4a-220f-0203-4962-c6d1d5936449.htm" />
+  <HelpKINode Title="Session field" Url="html/737a8dde-90be-3a52-92e0-959208c75049.htm" />
+  <HelpKINode Title="SessionState class">
+    <HelpKINode Title="SessionState Class" Url="html/98b9ae7a-f614-9f49-22d2-3f70fc10c24e.htm" />
+    <HelpKINode Title="about SessionState class" Url="html/98b9ae7a-f614-9f49-22d2-3f70fc10c24e.htm" />
+    <HelpKINode Title="constructor" Url="html/c41b9c4d-e8b3-950d-eb6c-31243e6c1048.htm" />
+    <HelpKINode Title="methods" Url="html/b2c5ae60-a622-ae34-9163-4207ccd470f8.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SessionState.Execute method" Url="html/e4704f6b-7453-7657-6332-d6662c9d9ebe.htm" />
+  <HelpKINode Title="SessionState.SessionState constructor" Url="html/c41b9c4d-e8b3-950d-eb6c-31243e6c1048.htm" />
+  <HelpKINode Title="Set enumeration member" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
+  <HelpKINode Title="Settings property" Url="html/520078c7-4449-c641-f7b6-a88230d5d648.htm" />
+  <HelpKINode Title="Severity property" Url="html/bba503d6-4319-312e-34ae-1b9bc4acf47b.htm" />
+  <HelpKINode Title="Ssl property" Url="html/1fba8655-1c9e-63d2-d90e-3eb91faf8c04.htm" />
+  <HelpKINode Title="Stanza class">
+    <HelpKINode Title="Stanza Class" Url="html/e670af87-c782-c719-3b53-5ed8fcab8f22.htm" />
+    <HelpKINode Title="about Stanza class" Url="html/e670af87-c782-c719-3b53-5ed8fcab8f22.htm" />
+    <HelpKINode Title="constructor" Url="html/437bf3a0-ded0-6238-772b-d92db7af121e.htm" />
+    <HelpKINode Title="methods" Url="html/0138efa6-06b6-6cab-36e3-9b5c1223bfe6.htm" />
+    <HelpKINode Title="properties" Url="html/169580e6-de87-8878-d290-5ed8c0c1d422.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Stanza.From property" Url="html/8f38a5fe-b662-60b9-9d68-2249896b1845.htm" />
+  <HelpKINode Title="Stanza.Id property" Url="html/361b6a49-4064-611b-d4ed-800993da7eee.htm" />
+  <HelpKINode Title="Stanza.Stanza constructor" Url="html/437bf3a0-ded0-6238-772b-d92db7af121e.htm" />
+  <HelpKINode Title="Stanza.To property" Url="html/b38324b4-141a-9795-186b-4e4c016d3744.htm" />
+  <HelpKINode Title="Stanzas field" Url="html/23d087c4-b929-315b-43ec-452e7135b16a.htm" />
+  <HelpKINode Title="StartSasl property" Url="html/247c92dc-7f46-61e2-f310-5b66aa0b3953.htm" />
+  <HelpKINode Title="StartTag method" Url="html/8610d6b2-788c-9f2f-a78e-1b570482ffe2.htm" />
+  <HelpKINode Title="StartTls class">
+    <HelpKINode Title="StartTls Class" Url="html/52a8d5fc-70fa-49fc-f7f0-b130f18763a5.htm" />
+    <HelpKINode Title="about StartTls class" Url="html/52a8d5fc-70fa-49fc-f7f0-b130f18763a5.htm" />
+    <HelpKINode Title="constructor" Url="html/95c23a36-506e-929e-21c7-bd17d5305d21.htm" />
+    <HelpKINode Title="methods" Url="html/652c6802-ca9b-862f-0880-dd44c01555cb.htm" />
+    <HelpKINode Title="properties" Url="html/103b652e-5a1e-9ec2-66ef-13b1dfbaa9c5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="StartTls field" Url="html/c553f753-d650-9768-738c-022226c456c8.htm" />
+  <HelpKINode Title="StartTls property" Url="html/a52caad5-55ab-58f7-c85d-60c5261c2aca.htm" />
+  <HelpKINode Title="StartTls.Required property" Url="html/503dead1-bd4c-6572-3de6-26e6835e5804.htm" />
+  <HelpKINode Title="StartTls.StartTls constructor" Url="html/95c23a36-506e-929e-21c7-bd17d5305d21.htm" />
+  <HelpKINode Title="StartTlsState class">
+    <HelpKINode Title="StartTlsState Class" Url="html/76f8a6e2-bf7b-a153-65ea-88d5c9f38da0.htm" />
+    <HelpKINode Title="about StartTlsState class" Url="html/76f8a6e2-bf7b-a153-65ea-88d5c9f38da0.htm" />
+    <HelpKINode Title="constructor" Url="html/abb0314b-793e-04f9-336f-9de6710dec7e.htm" />
+    <HelpKINode Title="methods" Url="html/1837c0ab-21f9-b144-ff69-37aba1408872.htm" />
+  </HelpKINode>
+  <HelpKINode Title="StartTlsState.Execute method" Url="html/eed54def-e94b-4b00-da81-63c08c22d890.htm" />
+  <HelpKINode Title="StartTlsState.StartTlsState constructor" Url="html/abb0314b-793e-04f9-336f-9de6710dec7e.htm" />
+  <HelpKINode Title="State class">
+    <HelpKINode Title="State Class" Url="html/254da81d-2d57-3438-267d-a43c7e2f833a.htm" />
+    <HelpKINode Title="about State class" Url="html/254da81d-2d57-3438-267d-a43c7e2f833a.htm" />
+    <HelpKINode Title="constructor" Url="html/acd4997e-c420-1b61-9e50-529628e522dd.htm" />
+    <HelpKINode Title="methods" Url="html/80a32c65-c890-0c4a-f970-6247f8cb51c6.htm" />
+  </HelpKINode>
+  <HelpKINode Title="State.Execute method" Url="html/1e21f0ab-987c-e56f-9ef1-7a50d51112ab.htm" />
+  <HelpKINode Title="State.State constructor" Url="html/acd4997e-c420-1b61-9e50-529628e522dd.htm" />
+  <HelpKINode Title="Step method">
+    <HelpKINode Title="Md5Processor.Step Method " Url="html/5519e141-714e-b562-a0f7-600dc0596aa9.htm" />
+    <HelpKINode Title="PlainProcessor.Step Method " Url="html/b772e9db-01bc-fb3b-e265-6ef67b1469fd.htm" />
+    <HelpKINode Title="SaslProcessor.Step Method " Url="html/aaddc82c-ba0e-2f14-ce9d-7fb8c63bbd51.htm" />
+    <HelpKINode Title="ScramProcessor.Step Method " Url="html/16986bfe-1b6d-c0c0-ef00-18e0aa23dae7.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Stream class">
+    <HelpKINode Title="Stream Class" Url="html/a0611624-c14b-4adc-6c45-2c99300da464.htm" />
+    <HelpKINode Title="about Stream class" Url="html/a0611624-c14b-4adc-6c45-2c99300da464.htm" />
+    <HelpKINode Title="constructor" Url="html/2eff7ff9-272c-f3a0-974c-c553d1f6c934.htm" />
+    <HelpKINode Title="methods" Url="html/96ac21c6-31d1-265b-c27c-3b2a48cd889a.htm" />
+    <HelpKINode Title="properties" Url="html/0cce9a2b-b7ca-97ff-4dc3-eaf78d0a42a8.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Stream field" Url="html/f825c686-3081-f9e3-c165-099bfed31ea5.htm" />
+  <HelpKINode Title="Stream.Error property" Url="html/ab699f62-a09f-b112-246e-f8511308ae57.htm" />
+  <HelpKINode Title="Stream.Features property" Url="html/bfc94fdc-bf3f-80b3-b79b-f621d09e150f.htm" />
+  <HelpKINode Title="Stream.Language property" Url="html/6544afae-2e80-1084-7ec5-1e11928de120.htm" />
+  <HelpKINode Title="Stream.Namespace property" Url="html/2d863deb-5c4e-78b0-7178-7a34a0295745.htm" />
+  <HelpKINode Title="Stream.StartTag method" Url="html/8610d6b2-788c-9f2f-a78e-1b570482ffe2.htm" />
+  <HelpKINode Title="Stream.Stream constructor" Url="html/2eff7ff9-272c-f3a0-974c-c553d1f6c934.htm" />
+  <HelpKINode Title="Stream.Version property" Url="html/1ef20aae-8263-5c9e-490d-d405bb44e915.htm" />
+  <HelpKINode Title="String to JID conversion" Url="html/168c1286-1212-3c70-ef6c-cc0e5d759897.htm" />
+  <HelpKINode Title="SupportedTypes property" Url="html/ecd0458b-e265-8d5b-0e4b-93da952b507b.htm" />
+  <HelpKINode Title="SupportsAlgorithm method" Url="html/35f47412-ce93-22ec-0737-20c74176f90e.htm" />
+  <HelpKINode Title="Tag class">
+    <HelpKINode Title="Tag Class" Url="html/aeb92aed-6e13-96e4-f864-d26234a205c1.htm" />
+    <HelpKINode Title="about Tag class" Url="html/aeb92aed-6e13-96e4-f864-d26234a205c1.htm" />
+    <HelpKINode Title="constructor" Url="html/860075f1-22a5-8d91-6440-aefff1c786e0.htm" />
+    <HelpKINode Title="fields" Url="html/4fba8ec6-06b4-6dc9-0379-3645fc294632.htm" />
+    <HelpKINode Title="methods" Url="html/ceee7993-2f7b-b41f-9d2d-eb08ff5945c5.htm" />
+    <HelpKINode Title="properties" Url="html/ebdda9ad-b0f5-3072-6abb-15934a552f18.htm" />
+    <HelpKINode Title="type conversions" Url="html/2ab81d1d-b42c-ba9e-46b3-df9cb2efdec4.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Tag property" Url="html/78a310ce-787f-4ce2-1d8b-79d3a719095d.htm" />
+  <HelpKINode Title="Tag to String conversion" Url="html/af72b7e8-f1fa-9a94-a2cd-9a59a1b58db4.htm" />
+  <HelpKINode Title="Tag.AddChildTag method" Url="html/0ffc8e13-d20c-518c-6396-06004d4a6d33.htm" />
+  <HelpKINode Title="Tag.Bytes property" Url="html/da28a4a5-9aee-cced-0c2d-7951fee6ecd6.htm" />
+  <HelpKINode Title="Tag.Document field" Url="html/174eee64-2567-8bd2-5a00-eb5c84b4fb2c.htm" />
+  <HelpKINode Title="Tag.GetEnumAttribute(Of T) method" Url="html/a89eac4f-e709-e5b5-ba2e-7329ba34c05a.htm" />
+  <HelpKINode Title="Tag.GetEnumAttribute&lt;T&gt; method" Url="html/a89eac4f-e709-e5b5-ba2e-7329ba34c05a.htm" />
+  <HelpKINode Title="Tag.GetNextId method" Url="html/35639ed1-2c1d-422a-12b1-e4574ecd75bd.htm" />
+  <HelpKINode Title="Tag.Tag constructor" Url="html/860075f1-22a5-8d91-6440-aefff1c786e0.htm" />
+  <HelpKINode Title="Tag.ToString method" Url="html/3a69a362-3519-8394-d356-898da18ffe2f.htm" />
+  <HelpKINode Title="TagEventArgs class">
+    <HelpKINode Title="TagEventArgs Class" Url="html/81eb7b62-4b7b-d2ed-8e62-3fb97b104d4e.htm" />
+    <HelpKINode Title="about TagEventArgs class" Url="html/81eb7b62-4b7b-d2ed-8e62-3fb97b104d4e.htm" />
+    <HelpKINode Title="constructor" Url="html/38d8a242-e376-de61-90f3-256d6a2399ce.htm" />
+    <HelpKINode Title="methods" Url="html/00be285a-5ef9-18df-45b5-2838a8945b69.htm" />
+    <HelpKINode Title="properties" Url="html/577a7d52-5322-1577-ee86-546be4e5b041.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TagEventArgs.Tag property" Url="html/78a310ce-787f-4ce2-1d8b-79d3a719095d.htm" />
+  <HelpKINode Title="TagEventArgs.TagEventArgs constructor" Url="html/38d8a242-e376-de61-90f3-256d6a2399ce.htm" />
+  <HelpKINode Title="TagRegistry class">
+    <HelpKINode Title="TagRegistry Class" Url="html/362439f4-c194-12b4-2981-9131a9df04ba.htm" />
+    <HelpKINode Title="about TagRegistry class" Url="html/362439f4-c194-12b4-2981-9131a9df04ba.htm" />
+    <HelpKINode Title="methods" Url="html/c59d9cbe-6144-2aa2-c696-6cf1e98a57f4.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TagRegistry.AddAssembly method" Url="html/4a32fb53-db34-facc-2755-c823ec728400.htm" />
+  <HelpKINode Title="TagRegistry.GetTag method" Url="html/9f8baaa7-1320-583d-2ae5-95c2e61d376d.htm" />
+  <HelpKINode Title="Text property">
+    <HelpKINode Title="Auth.Text Property " Url="html/5532221d-9c35-f411-2c41-6d2ed74898cc.htm" />
+    <HelpKINode Title="Mechanism.Text Property " Url="html/10fccef2-5f68-2c72-75c8-8efef5233a69.htm" />
+  </HelpKINode>
+  <HelpKINode Title="To property" Url="html/b38324b4-141a-9795-186b-4e4c016d3744.htm" />
+  <HelpKINode Title="ToString method">
+    <HelpKINode Title="JID.ToString Method " Url="html/a3c375aa-23ae-7064-63ad-c13ececa1e14.htm" />
+    <HelpKINode Title="Tag.ToString Method " Url="html/3a69a362-3519-8394-d356-898da18ffe2f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TrimNull method" Url="html/22fd0472-957c-bb8a-ba2f-5ca5c5dc21d6.htm" />
+  <HelpKINode Title="Type property">
+    <HelpKINode Title="ErrorEventArgs.Type Property " Url="html/f7117786-cf8f-eadd-bdcf-4b15af127afb.htm" />
+    <HelpKINode Title="Mechanism.Type Property " Url="html/549b6088-0cfe-5dd1-8418-9e32fea30f6a.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TypeExtensions class">
+    <HelpKINode Title="TypeExtensions Class" Url="html/a77b48c3-d237-008f-9228-d6b5c582e853.htm" />
+    <HelpKINode Title="about TypeExtensions class" Url="html/a77b48c3-d237-008f-9228-d6b5c582e853.htm" />
+    <HelpKINode Title="methods" Url="html/78bf80ca-a3b9-fb15-ca54-7b3edd1da111.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TypeExtensions.GetCustomAttributes method" Url="html/11a1c34c-4ed4-69dc-e6ec-118776da8c7c.htm" />
+  <HelpKINode Title="Ubiety namespace" Url="html/6914e263-4eb2-ee9a-b0e6-9e93cef96d47.htm" />
+  <HelpKINode Title="Ubiety.Common namespace" Url="html/3a988b7f-7a78-d824-53e6-d57463519974.htm" />
+  <HelpKINode Title="Ubiety.Common.Compression namespace" Url="html/9e89deee-48fa-8493-3d20-86bab8cf8a8a.htm" />
+  <HelpKINode Title="Ubiety.Common.Compression.Zlib class" Url="html/f2dbcb00-2bbb-fee3-2dda-ea757eaa524d.htm" />
+  <HelpKINode Title="Ubiety.Common.Disco namespace" Url="html/5226e090-1617-b5ea-ea44-31fab66788e4.htm" />
+  <HelpKINode Title="Ubiety.Common.Disco.IDiscoManager interface" Url="html/2fe1b2b8-c5e9-5588-4e5e-f30ab5679aee.htm" />
+  <HelpKINode Title="Ubiety.Common.Disco.RegistryDiscoManager class" Url="html/baec588c-12d5-6e38-a0ff-d8df77f705b9.htm" />
+  <HelpKINode Title="Ubiety.Common.ErrorSeverity enumeration" Url="html/069e8a4c-9425-b097-52f5-247327fda0f9.htm" />
+  <HelpKINode Title="Ubiety.Common.ErrorType enumeration" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="Ubiety.Common.Exceptions namespace" Url="html/5e231588-e651-4409-8e2d-e5b1afdacddf.htm" />
+  <HelpKINode Title="Ubiety.Common.Exceptions.ServerXmlException class" Url="html/c1d9dc82-1411-eae9-c03d-83b2e457be38.htm" />
+  <HelpKINode Title="Ubiety.Common.ICompression interface" Url="html/f6f8c0c1-c8ba-0ebd-7de4-6481edf74d1c.htm" />
+  <HelpKINode Title="Ubiety.Common.JID structure" Url="html/a42ab0f9-c244-fec1-e6d6-a22cc63529da.htm" />
+  <HelpKINode Title="Ubiety.Common.Namespaces class" Url="html/b57934f7-bc68-e177-b57b-1a9dfbcd62d7.htm" />
+  <HelpKINode Title="Ubiety.Common.Roster namespace" Url="html/4a433377-5767-faf9-7a43-7714d3633ea5.htm" />
+  <HelpKINode Title="Ubiety.Common.Roster.DefaultRosterManager class" Url="html/c69e3ec0-474c-564d-e0f3-c44f7af25517.htm" />
+  <HelpKINode Title="Ubiety.Common.Roster.IRosterManager interface" Url="html/47ce0dc4-3321-33d4-26b7-5d8fbcaa5491.htm" />
+  <HelpKINode Title="Ubiety.Common.Sasl namespace" Url="html/cd4c5a69-1ab4-14a6-950f-4a758c4f8386.htm" />
+  <HelpKINode Title="Ubiety.Common.Sasl.Md5Processor class" Url="html/0932c792-b629-8b64-552e-671dd7f9ce4d.htm" />
+  <HelpKINode Title="Ubiety.Common.Sasl.PlainProcessor class" Url="html/807a6550-8874-db88-ec3e-f4db571b5f1b.htm" />
+  <HelpKINode Title="Ubiety.Common.Sasl.SaslProcessor class" Url="html/404d8bfd-4c20-8577-d111-2d3d0e27f300.htm" />
+  <HelpKINode Title="Ubiety.Common.Sasl.ScramProcessor class" Url="html/0b7b7bfd-434c-03e5-50db-fb12e68f7434.htm" />
+  <HelpKINode Title="Ubiety.Common.Stanza class" Url="html/e670af87-c782-c719-3b53-5ed8fcab8f22.htm" />
+  <HelpKINode Title="Ubiety.Common.Tag class" Url="html/aeb92aed-6e13-96e4-f864-d26234a205c1.htm" />
+  <HelpKINode Title="Ubiety.Core namespace" Url="html/aced5668-5a9c-1ea2-e16e-3faf214f48b3.htm" />
+  <HelpKINode Title="Ubiety.Core.Bind class" Url="html/f56ba217-eeab-d00d-f422-5814e1b2ee34.htm" />
+  <HelpKINode Title="Ubiety.Core.Compression class" Url="html/289854c4-36d0-6bb7-24bc-61691c8bb978.htm" />
+  <HelpKINode Title="Ubiety.Core.Disco namespace" Url="html/81eda19a-0f65-ef64-bde0-efeb6509de7d.htm" />
+  <HelpKINode Title="Ubiety.Core.Disco.C class" Url="html/d0da3ba0-29b4-c743-4fd0-3f8c1e354a97.htm" />
+  <HelpKINode Title="Ubiety.Core.Error class" Url="html/58f4f438-c3a5-2e4e-6e7a-79f1051ce7e0.htm" />
+  <HelpKINode Title="Ubiety.Core.Features class" Url="html/0278e58f-aac4-e39e-718b-60d613eef553.htm" />
+  <HelpKINode Title="Ubiety.Core.GenericTag class" Url="html/3dacf0fc-e5da-f638-8dc3-5360b5f64837.htm" />
+  <HelpKINode Title="Ubiety.Core.Iq namespace" Url="html/13843980-17a1-e355-3861-83b3eda7c166.htm" />
+  <HelpKINode Title="Ubiety.Core.Iq.Iq class" Url="html/e938f5c8-40c4-4e97-9a6e-f31df604036b.htm" />
+  <HelpKINode Title="Ubiety.Core.Iq.IqType enumeration" Url="html/938015c7-24e0-b95d-adeb-ceb3ed93a841.htm" />
+  <HelpKINode Title="Ubiety.Core.Iq.Query class" Url="html/7d80b94d-cc2c-f415-8493-afd6447876c8.htm" />
+  <HelpKINode Title="Ubiety.Core.Jid class" Url="html/e5b42afc-e2ee-7e29-93ca-2b1b009edf82.htm" />
+  <HelpKINode Title="Ubiety.Core.Mechanism class" Url="html/62df5643-e279-e31b-48af-3e2364c56d91.htm" />
+  <HelpKINode Title="Ubiety.Core.Mechanisms class" Url="html/08706880-a516-52e5-1fa9-b35a4e7a0d1d.htm" />
+  <HelpKINode Title="Ubiety.Core.MechanismType enumeration" Url="html/b1643170-ff5d-107c-82d0-f3c8837e8a1a.htm" />
+  <HelpKINode Title="Ubiety.Core.Sasl namespace" Url="html/50c3ad1d-7d38-f89a-9095-b5a01e4289de.htm" />
+  <HelpKINode Title="Ubiety.Core.Sasl.Auth class" Url="html/c7862cdd-02ef-97c9-130f-394cfedeb918.htm" />
+  <HelpKINode Title="Ubiety.Core.StartTls class" Url="html/52a8d5fc-70fa-49fc-f7f0-b130f18763a5.htm" />
+  <HelpKINode Title="Ubiety.Core.Stream class" Url="html/a0611624-c14b-4adc-6c45-2c99300da464.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure namespace" Url="html/7349ff87-094b-cd2f-6f99-c82eea293e78.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Attributes namespace" Url="html/b3322d95-2f05-dd20-502c-b838cb02b69e.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Attributes.CompressionAttribute class" Url="html/6edc8b0a-1cc9-7975-af34-c39db46757a6.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Attributes.XmppTagAttribute class" Url="html/74c401d3-9226-0cc7-2110-f3d64b842cfc.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.ErrorEventArgs class" Url="html/be6c8c69-04b0-1030-ddac-26d83d952d5c.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Extensions namespace" Url="html/d5e54d6e-1130-1bb8-6df6-c2552c8f474c.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Extensions.AssemblyExtensions class" Url="html/0d44073c-5b18-70e9-adc3-263d4b608e8c.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Extensions.ByteExtensions class" Url="html/45df1a86-5774-10ad-b2d2-a55868715168.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Extensions.EnumerableExtensions class" Url="html/fed9a870-761d-3e60-9925-4d3e7ba6cbea.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.Extensions.TypeExtensions class" Url="html/a77b48c3-d237-008f-9228-d6b5c582e853.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.TagEventArgs class" Url="html/81eb7b62-4b7b-d2ed-8e62-3fb97b104d4e.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.XmppEvents class" Url="html/53afd0a6-cf28-9557-2822-4438f8918532.htm" />
+  <HelpKINode Title="Ubiety.Infrastructure.XmppSettings class" Url="html/fcf7b0da-0faf-c1dd-cb5f-6f124512d2db.htm" />
+  <HelpKINode Title="Ubiety.Registries namespace" Url="html/791581ab-2905-a80d-d171-7e10c795463e.htm" />
+  <HelpKINode Title="Ubiety.Registries.CompressionRegistry class" Url="html/17011c86-9c29-42f2-8614-8582fa3dfe21.htm" />
+  <HelpKINode Title="Ubiety.Registries.TagRegistry class" Url="html/362439f4-c194-12b4-2981-9131a9df04ba.htm" />
+  <HelpKINode Title="Ubiety.States namespace" Url="html/20b8e647-a51d-e28e-4067-8a55aba73e08.htm" />
+  <HelpKINode Title="Ubiety.States.BindingState class" Url="html/11efcd95-e7d2-b55e-4060-c70f7f759dc9.htm" />
+  <HelpKINode Title="Ubiety.States.CompressedState class" Url="html/bb2e3ae7-d026-3679-ef38-112e77bc08d6.htm" />
+  <HelpKINode Title="Ubiety.States.ConnectedState class" Url="html/ce46ee4d-8bc5-ade2-99f8-6814de6b441e.htm" />
+  <HelpKINode Title="Ubiety.States.ConnectingState class" Url="html/55cc6f19-6106-9ee7-cda1-bbbd0b539d6e.htm" />
+  <HelpKINode Title="Ubiety.States.DisconnectedState class" Url="html/a0e55f48-1bcb-43fd-c6f9-4195e05f05e5.htm" />
+  <HelpKINode Title="Ubiety.States.DisconnectState class" Url="html/efc1e411-ba4a-b381-4802-9ba689997a42.htm" />
+  <HelpKINode Title="Ubiety.States.RunningState class" Url="html/bedf8ed8-3cb0-daae-454a-4314c1159b1d.htm" />
+  <HelpKINode Title="Ubiety.States.SaslState class" Url="html/ff64db6e-99c6-c2fd-dbc8-86c2477b9cf1.htm" />
+  <HelpKINode Title="Ubiety.States.ServerFeaturesState class" Url="html/303d1faf-f50e-6701-adb0-266b770a61ea.htm" />
+  <HelpKINode Title="Ubiety.States.SessionState class" Url="html/98b9ae7a-f614-9f49-22d2-3f70fc10c24e.htm" />
+  <HelpKINode Title="Ubiety.States.StartTlsState class" Url="html/76f8a6e2-bf7b-a153-65ea-88d5c9f38da0.htm" />
+  <HelpKINode Title="Ubiety.States.State class" Url="html/254da81d-2d57-3438-267d-a43c7e2f833a.htm" />
+  <HelpKINode Title="Ubiety.Xmpp class" Url="html/e953c009-389e-9c73-f5e2-3a498af966ca.htm" />
+  <HelpKINode Title="UnregisteredItem enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="User property" Url="html/72796f1e-a043-e35b-fec4-a896301d3376.htm" />
+  <HelpKINode Title="UserJid property" Url="html/b40898ad-5e43-562d-3eba-f98ee46307b5.htm" />
+  <HelpKINode Title="Ver property" Url="html/4cefa404-af18-6c63-e340-707860c69b8c.htm" />
+  <HelpKINode Title="version">
+    <HelpKINode Title="1.0.0.0" Url="html/0bea62ee-d910-4274-b3f7-676821609407.htm" />
+    <HelpKINode Title="history" Url="html/2b84fecd-78f7-4f92-92c3-f27a6f90d5ed.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Version field" Url="html/d66415bd-83ac-4af3-27f6-2937c3a10dbf.htm" />
+  <HelpKINode Title="Version property" Url="html/1ef20aae-8263-5c9e-490d-d405bb44e915.htm" />
+  <HelpKINode Title="Welcome" Url="html/6a9f8d72-4bad-47d2-a1df-04261aa8ea9a.htm" />
+  <HelpKINode Title="WrongProtocolVersion enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="Xml field" Url="html/0e12a733-b0d9-b1ac-6565-35b3ad727027.htm" />
+  <HelpKINode Title="XmlError enumeration member" Url="html/a7fe2264-b531-3d6d-7827-1567e3d65dd9.htm" />
+  <HelpKINode Title="Xmlns field" Url="html/5f4fb910-0088-9eaa-ffb5-4f1eab96d38b.htm" />
+  <HelpKINode Title="Xmpp class">
+    <HelpKINode Title="Xmpp Class" Url="html/e953c009-389e-9c73-f5e2-3a498af966ca.htm" />
+    <HelpKINode Title="about Xmpp class" Url="html/e953c009-389e-9c73-f5e2-3a498af966ca.htm" />
+    <HelpKINode Title="constructor" Url="html/28272e9f-7dc2-5c6b-bae6-7f500d52567e.htm" />
+    <HelpKINode Title="events" Url="html/6d966cb9-be14-968f-e5ce-77e343dcba75.htm" />
+    <HelpKINode Title="fields" Url="html/273089cb-c770-fed9-b3c7-54f590497f07.htm" />
+    <HelpKINode Title="methods" Url="html/e50aee6c-3a19-fa4d-8e5a-8f07ece2c74f.htm" />
+    <HelpKINode Title="properties" Url="html/dcdc9928-827b-1202-7306-8af5a1f8894d.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Xmpp.Connect method" Url="html/6b6171f5-2bee-1504-96ec-20ac4781324c.htm" />
+  <HelpKINode Title="Xmpp.Connected property" Url="html/205eb7cc-8255-fbfa-d237-d829cb3af4b9.htm" />
+  <HelpKINode Title="Xmpp.Disconnect method" Url="html/eaa8db52-081b-ca1b-705a-00fb1d2ec327.htm" />
+  <HelpKINode Title="Xmpp.OnError event" Url="html/c8ee8878-f873-4eb7-57dc-b760cf88959f.htm" />
+  <HelpKINode Title="Xmpp.OnNewTag event" Url="html/f7d590a1-4e93-cf79-b297-bdc538eedb0f.htm" />
+  <HelpKINode Title="Xmpp.Send method" Url="html/63c965d0-f266-9dc8-f670-7b3612373154.htm" />
+  <HelpKINode Title="Xmpp.Settings property" Url="html/520078c7-4449-c641-f7b6-a88230d5d648.htm" />
+  <HelpKINode Title="Xmpp.Version field" Url="html/d66415bd-83ac-4af3-27f6-2937c3a10dbf.htm" />
+  <HelpKINode Title="Xmpp.Xmpp constructor" Url="html/28272e9f-7dc2-5c6b-bae6-7f500d52567e.htm" />
+  <HelpKINode Title="XmppEvents class">
+    <HelpKINode Title="XmppEvents Class" Url="html/53afd0a6-cf28-9557-2822-4438f8918532.htm" />
+    <HelpKINode Title="about XmppEvents class" Url="html/53afd0a6-cf28-9557-2822-4438f8918532.htm" />
+    <HelpKINode Title="constructor" Url="html/2315e435-b9aa-28ea-c32d-bd4dfa651b2a.htm" />
+    <HelpKINode Title="events" Url="html/62d35189-d839-746c-d5da-6af89aa08d6e.htm" />
+    <HelpKINode Title="methods" Url="html/a7dc22a1-8ff0-016d-557b-271f4011b0c9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="XmppEvents.Connect method" Url="html/e3cf2de0-c2d0-f654-8d52-4efed272a192.htm" />
+  <HelpKINode Title="XmppEvents.Disconnect method" Url="html/d8114151-21ce-6295-a702-6c636e542546.htm" />
+  <HelpKINode Title="XmppEvents.Error method" Url="html/ee55ece0-5440-7ae1-6abc-0087ba4cbaa2.htm" />
+  <HelpKINode Title="XmppEvents.NewTag method" Url="html/4a85b3f2-6951-d851-41f2-19c70e9870e0.htm" />
+  <HelpKINode Title="XmppEvents.OnConnect event" Url="html/1beaaccf-8ec3-316e-3f61-08ae7417643a.htm" />
+  <HelpKINode Title="XmppEvents.OnDisconnect event" Url="html/90d2aa34-745f-5189-3024-f445e6f386df.htm" />
+  <HelpKINode Title="XmppEvents.OnError event" Url="html/30c46093-3540-057e-ba14-326a04038508.htm" />
+  <HelpKINode Title="XmppEvents.OnNewTag event" Url="html/c27336b1-7195-9d70-ef50-aa01cf886291.htm" />
+  <HelpKINode Title="XmppEvents.OnSend event" Url="html/b4b874e9-ec26-2c53-cf21-75597a6b9476.htm" />
+  <HelpKINode Title="XmppEvents.Send method" Url="html/4ba10708-8a06-4ca1-54c5-14a876412417.htm" />
+  <HelpKINode Title="XmppEvents.XmppEvents constructor" Url="html/2315e435-b9aa-28ea-c32d-bd4dfa651b2a.htm" />
+  <HelpKINode Title="XmppSettings class">
+    <HelpKINode Title="XmppSettings Class" Url="html/fcf7b0da-0faf-c1dd-cb5f-6f124512d2db.htm" />
+    <HelpKINode Title="about XmppSettings class" Url="html/fcf7b0da-0faf-c1dd-cb5f-6f124512d2db.htm" />
+    <HelpKINode Title="constructor" Url="html/fefc3d0a-b8c1-7be1-e002-e082ee6b9f49.htm" />
+    <HelpKINode Title="methods" Url="html/b6df5fcc-80a5-a00b-7997-50b77e16b385.htm" />
+    <HelpKINode Title="properties" Url="html/8d62f47c-956c-444a-e22b-45cdb09b188b.htm" />
+  </HelpKINode>
+  <HelpKINode Title="XmppSettings.AuthenticationTypes property" Url="html/db0cbf42-e75b-0631-efcf-36f84e1cdcb3.htm" />
+  <HelpKINode Title="XmppSettings.DiscoManager property" Url="html/3087a342-6d90-83c7-47cc-bb4cb85c7ebf.htm" />
+  <HelpKINode Title="XmppSettings.Hostname property" Url="html/f6eb8918-795e-6998-a2b0-9d712fb50889.htm" />
+  <HelpKINode Title="XmppSettings.Id property" Url="html/ae70b898-1726-7b43-8abc-e39655239461.htm" />
+  <HelpKINode Title="XmppSettings.Password property" Url="html/5d1e5055-4a69-22d9-adb3-ca5dc4a2826b.htm" />
+  <HelpKINode Title="XmppSettings.Port property" Url="html/cef58c5d-35a4-90f9-d087-3c081cab750b.htm" />
+  <HelpKINode Title="XmppSettings.Ssl property" Url="html/1fba8655-1c9e-63d2-d90e-3eb91faf8c04.htm" />
+  <HelpKINode Title="XmppSettings.XmppSettings constructor" Url="html/fefc3d0a-b8c1-7be1-e002-e082ee6b9f49.htm" />
+  <HelpKINode Title="XmppStreams field" Url="html/dc2e21ea-7876-c627-3988-57e473297fe1.htm" />
+  <HelpKINode Title="XmppTagAttribute class">
+    <HelpKINode Title="XmppTagAttribute Class" Url="html/74c401d3-9226-0cc7-2110-f3d64b842cfc.htm" />
+    <HelpKINode Title="about XmppTagAttribute class" Url="html/74c401d3-9226-0cc7-2110-f3d64b842cfc.htm" />
+    <HelpKINode Title="constructor" Url="html/f98295b5-a28f-5cb7-ff2f-b1384e0fc78d.htm" />
+    <HelpKINode Title="methods" Url="html/44b7a607-e3df-552f-b18c-3cebeb62710d.htm" />
+    <HelpKINode Title="properties" Url="html/c0aa038a-ac6a-02a8-c22f-64229d0228c9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="XmppTagAttribute.ClassType property" Url="html/e9be5525-f211-e463-61e8-993c3e99b85d.htm" />
+  <HelpKINode Title="XmppTagAttribute.Name property" Url="html/5ce99e91-eea7-5641-1995-425c0ee48901.htm" />
+  <HelpKINode Title="XmppTagAttribute.Namespace property" Url="html/5da703a7-8255-b289-8c3f-567631ab7908.htm" />
+  <HelpKINode Title="XmppTagAttribute.XmppTagAttribute constructor" Url="html/f98295b5-a28f-5cb7-ff2f-b1384e0fc78d.htm" />
+  <HelpKINode Title="Zlib class">
+    <HelpKINode Title="Zlib Class" Url="html/f2dbcb00-2bbb-fee3-2dda-ea757eaa524d.htm" />
+    <HelpKINode Title="about Zlib class" Url="html/f2dbcb00-2bbb-fee3-2dda-ea757eaa524d.htm" />
+    <HelpKINode Title="constructor" Url="html/90563170-5482-9bf1-b046-9bf8caeca4c4.htm" />
+    <HelpKINode Title="methods" Url="html/2efd4d6c-1e64-35e0-2425-efa48a8917c2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Zlib.Deflate method" Url="html/e5faf193-a647-b1b5-1d25-89b30f1e3427.htm" />
+  <HelpKINode Title="Zlib.Inflate method" Url="html/9a0b1c84-fce2-7228-eebb-61fd7769e2a5.htm" />
+  <HelpKINode Title="Zlib.Zlib constructor" Url="html/90563170-5482-9bf1-b046-9bf8caeca4c4.htm" />
+</HelpKI>

@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2015.7.25.0" projectFile="C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\UbietyDocumentation.shfbproj" started="2015-08-21 6:08:47 PM">
+<buildStep step="Initializing">
+Finding tools...
+The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\&#39;
+Locating components in the following folder(s):
+    C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation
+    C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins\
+    C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
+Framework reflection data location: C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NETFramework
+Using presentation style &#39;VS2013&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013&#39;
+Loading and initializing plug-ins...
+Lightweight Website Style Version 2015.7.25.0
+Copyright &#169; 2006-2015, Eric Woodruff, All Rights Reserved
+Portions Copyright &#169; 2014, Sam Harwell, All Rights Reserved
+-------------------------------
+Clearing any prior web/markdown output...
+</buildStep>
+<buildStep step="ValidatingDocumentationSources">
+Validating and copying documentation source information
+Source: C:\Users\Dieter\Documents\GitHub\xmpp\ubiety\ubiety.csproj
+    Found project &#39;C:\Users\Dieter\Documents\GitHub\xmpp\ubiety\ubiety.csproj&#39;
+
+Parsing project files
+    Found assembly &#39;C:\Users\Dieter\Documents\GitHub\xmpp\ubiety\bin\Debug\ubiety.dll&#39;
+SHFB: Warning BE0007: A project with a different or higher framework version was found.  Changing project FrameworkVersion property from &#39;.NET Framework 4.6&#39; to &#39;.NET Framework 4.5&#39; for the build.
+
+References to include (excluding framework assemblies):
+    C:\Users\Dieter\Documents\GitHub\xmpp\ubiety\bin\Debug\ubiety.dll
+    Heijden.Dns
+    ICSharpCode.SharpZipLib
+    libidn, Version=1.0.5504.26636, Culture=neutral, processorArchitecture=MSIL
+    Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL
+    Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL
+    Serilog.Sinks.Seq, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL
+    System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+    System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+Copying XML comments files
+    C:\Users\Dieter\Documents\GitHub\xmpp\ubiety\bin\Debug\xmpp.xml -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\xmpp.xml
+</buildStep>
+<buildStep step="GenerateSharedContent">
+Generating shared content files (en-US, English (United States))...
+<plugIn name="Lightweight Website Style" behavior="After" priority="1000">
+</plugIn>    Last step completed in 00:00:00.0800
+</buildStep>
+<buildStep step="GenerateApiFilter">
+Generating API filter for MRefBuilder...
+    Last step completed in 00:00:00.0080
+</buildStep>
+<buildStep step="GenerateReflectionInfo">
+Generating reflection information...
+[C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe - GenerateRefInfo.proj]
+Build started 2015-08-21 6:08:55 PM.
+The target &quot;AfterGenerateAppxManifest&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\Microsoft\.NetNative\Microsoft.Net.CoreRuntime.targets (68,11)&quot; does not exist in the project, and will be ignored.
+The target &quot;_GeneratePrisForPortableLibraries&quot; listed in a BeforeTargets attribute at &quot;C:\Program Files (x86)\MSBuild\Microsoft\.NetNative\Microsoft.Net.CoreRuntime.targets (177,11)&quot; does not exist in the project, and will be ignored.
+The target &quot;AfterGenerateAppxManifest&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\Microsoft\.NetNative\Microsoft.NetNative.targets (126,11)&quot; does not exist in the project, and will be ignored.
+The target &quot;AfterGenerateAppxManifest&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\Microsoft\.NetNative\Microsoft.NetNative.targets (174,11)&quot; does not exist in the project, and will be ignored.
+The target &quot;BeforeGenerateProjectPriFile&quot; listed in a BeforeTargets attribute at &quot;C:\Program Files (x86)\MSBuild\Microsoft\NuGet\Microsoft.NuGet.targets (149,61)&quot; does not exist in the project, and will be ignored.
+Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\GenerateRefInfo.proj&quot; on node 1 (default targets).
+PrepareForBuild:
+  Creating directory &quot;obj\Debug\&quot;.
+GenerateRefInfo:
+  MRefBuilder (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Loaded 1 assemblies for reflection and 60 dependency assemblies.
+  Wrote information on 16 namespaces, 58 types, and 219 members
+  Copying file from &quot;reflection.org&quot; to &quot;reflection.all&quot;.
+  XslTransform (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\MergeDuplicates.xsl&#39;.
+Done Building Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\GenerateRefInfo.proj&quot; (default targets).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.93
+    Last step completed in 00:00:02.4520
+</buildStep>
+<buildStep step="TransformReflectionInfo">
+Transforming reflection output...
+[C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe - TransformManifest.proj]
+Build started 2015-08-21 6:08:57 PM.
+Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\TransformManifest.proj&quot; on node 1 (default targets).
+TransformManifest:
+  XslTransform (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\\ProductionTransforms\ApplyVSDocModel.xsl&#39;.
+  Copying file from &quot;reflection.xml&quot; to &quot;reflection.nofilenames&quot;.
+  XslTransform (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\AddFilenames.xsl&#39;.
+  XslTransform (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\ReflectionToManifest.xsl&#39;.
+Done Building Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\TransformManifest.proj&quot; (default targets).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.05
+    Last step completed in 00:00:03.2690
+</buildStep>
+<buildStep step="GenerateNamespaceSummaries">
+Generating namespace summary information...
+    Last step completed in 00:00:00.1590
+</buildStep>
+<buildStep step="CopyConceptualContent">
+Copying conceptual content...
+Copying standard token shared content file...
+Checking for other token files...
+Checking for code snippets files...
+Copying images and creating the media map file...
+Generating conceptual topic files
+    Parsing topic file &#39;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Content\Welcome.aml&#39;
+    C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Content\Welcome.aml -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\ddueXml\6a9f8d72-4bad-47d2-a1df-04261aa8ea9a.xml
+    Parsing topic file &#39;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Content\VersionHistory\VersionHistory.aml&#39;
+    C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Content\VersionHistory\VersionHistory.aml -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\ddueXml\2b84fecd-78f7-4f92-92c3-f27a6f90d5ed.xml
+    Parsing topic file &#39;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Content\VersionHistory\v1.0.0.0.aml&#39;
+    C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Content\VersionHistory\v1.0.0.0.aml -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\ddueXml\0bea62ee-d910-4274-b3f7-676821609407.xml
+    Last step completed in 00:00:00.1530
+</buildStep>
+<buildStep step="CreateConceptualTopicConfigs">
+Creating conceptual topic configuration files...
+    Companion files
+    _ContentMetadata_.xml
+    ConceptualManifest.xml
+    Last step completed in 00:00:00.0140
+</buildStep>
+<buildStep step="CopyAdditionalContent">
+Copying additional content files...
+C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\icons\Help.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\Help.png
+    Last step completed in 00:00:00.0250
+</buildStep>
+<buildStep step="MergeTablesOfContents">
+Merging conceptual and additional tables of contents...
+    Last step completed in 00:00:00.0050
+</buildStep>
+<buildStep step="GenerateIntermediateTableOfContents">
+Generating intermediate table of contents file...
+[C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe - GenerateIntermediateTOC.proj]
+Build started 2015-08-21 6:09:01 PM.
+Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\GenerateIntermediateTOC.proj&quot; on node 1 (default targets).
+GenerateIntermediateTOC:
+  XslTransform (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\\ProductionTransforms\CreateVSToc.xsl&#39;.
+Done Building Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\GenerateIntermediateTOC.proj&quot; (default targets).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.32
+Generating conceptual content intermediate TOC file...
+    Last step completed in 00:00:00.5280
+</buildStep>
+<buildStep step="CreateBuildAssemblerConfigs">
+Creating Sandcastle configuration files...
+    sandcastle.config
+    conceptual.config
+    Last step completed in 00:00:01.5190
+</buildStep>
+<buildStep step="MergeCustomConfigs">
+Merging custom build component configurations
+C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\sandcastle.config
+    Replacing default configuration for &#39;Code Block Component&#39; with the custom configuration
+C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\conceptual.config
+    Replacing default configuration for &#39;Code Block Component&#39; with the custom configuration
+    Removing unused ExampleComponent.
+    Last step completed in 00:00:00.0220
+</buildStep>
+<buildStep step="BuildConceptualTopics">
+Building conceptual help topics...
+[C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe - BuildConceptualTopics.proj]
+Build started 2015-08-21 6:09:03 PM.
+Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildConceptualTopics.proj&quot; on node 1 (default targets).
+BuildConceptualTopics:
+  BuildAssembler (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Loading configuration...
+  Processing topics...
+  Processed 3 topic(s)
+  CopyFromIndexComponent: &quot;metadata&quot; in-memory cache entries used: 1 of 15.
+Done Building Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildConceptualTopics.proj&quot; (default targets).
+
+Build succeeded.
+
+Time Elapsed 00:00:12.34
+    Last step completed in 00:00:12.5102
+</buildStep>
+<buildStep step="BuildReferenceTopics">
+Building reference help topics...
+[C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe - BuildReferenceTopics.proj]
+Build started 2015-08-21 6:09:15 PM.
+Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj&quot; on node 1 (default targets).
+BuildReferenceTopics:
+  BuildAssembler (v2015.7.25.0)
+  Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
+  Loading configuration...
+  Processing topics...
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.Equals(System.Object)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.Equals(System.Object)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.Equals(System.Object)] Missing &lt;param name=&quot;obj&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.Equals(Ubiety.Common.JID)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.Equals(Ubiety.Common.JID)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.Equals(Ubiety.Common.JID)] Missing &lt;param name=&quot;other&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Equality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Equality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Equality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;param name=&quot;one&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Equality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;param name=&quot;two&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Implicit(System.String)~Ubiety.Common.JID] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Implicit(System.String)~Ubiety.Common.JID] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Implicit(System.String)~Ubiety.Common.JID] Missing &lt;param name=&quot;one&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Implicit(Ubiety.Common.JID)~System.String] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Implicit(Ubiety.Common.JID)~System.String] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Implicit(Ubiety.Common.JID)~System.String] Missing &lt;param name=&quot;one&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Inequality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Inequality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Inequality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;param name=&quot;one&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.op_Inequality(Ubiety.Common.JID,Ubiety.Common.JID)] Missing &lt;param name=&quot;two&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.ToString] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.JID.ToString] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Common.Tag.Bytes] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Common.Disco] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Disco.RegistryDiscoManager] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Disco.RegistryDiscoManager.LookupHash(System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Disco.RegistryDiscoManager.LookupHash(System.String)] Missing &lt;param name=&quot;hash&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Common.Exceptions] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Exceptions.ServerXmlException] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Exceptions.ServerXmlException.#ctor(System.String,System.Exception)] Missing &lt;param name=&quot;message&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Exceptions.ServerXmlException.#ctor(System.String,System.Exception)] Missing &lt;param name=&quot;e&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Common.Roster] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Roster.DefaultRosterManager] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Roster.DefaultRosterManager.RequestRoster] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Roster.IRosterManager] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Roster.IRosterManager.RequestRoster] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Common.Sasl] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Sasl.Md5Processor] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Initialize(System.String,System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Initialize(System.String,System.String)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;id&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;password&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Step(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Step(Ubiety.Common.Tag)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.Md5Processor.Step(Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Sasl.PlainProcessor] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Initialize(System.String,System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Initialize(System.String,System.String)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;id&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;password&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Step(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Step(Ubiety.Common.Tag)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.PlainProcessor.Step(Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Sasl.SaslProcessor] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.HexString(System.Collections.Generic.IEnumerable{System.Byte})] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.HexString(System.Collections.Generic.IEnumerable{System.Byte})] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.HexString(System.Collections.Generic.IEnumerable{System.Byte})] Missing &lt;param name=&quot;buff&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [F:Ubiety.Common.Sasl.SaslProcessor.Id] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Initialize(System.String,System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Initialize(System.String,System.String)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;id&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;password&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Common.Sasl.SaslProcessor.Item(System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [F:Ubiety.Common.Sasl.SaslProcessor.Password] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Step(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Step(Ubiety.Common.Tag)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.SaslProcessor.Step(Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Common.Sasl.ScramProcessor] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Initialize(System.String,System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Initialize(System.String,System.String)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;id&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Initialize(System.String,System.String)] Missing &lt;param name=&quot;password&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Step(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Step(Ubiety.Common.Tag)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Common.Sasl.ScramProcessor.Step(Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Core] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Bind] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Bind.JidTag] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Compression] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Compression.Algorithms] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Error] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Features] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Features.Compression] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Features.StartSasl] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Features.StartTls] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.GenericTag] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.GenericTag.#ctor(System.Xml.XmlQualifiedName)] Missing &lt;param name=&quot;qname&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Jid] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Jid.UserJid] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Mechanism] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Mechanism.GetMechanism(Ubiety.Core.MechanismType)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Mechanism.GetMechanism(Ubiety.Core.MechanismType)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Mechanism.GetMechanism(Ubiety.Core.MechanismType)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Mechanism.GetType(System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Mechanism.GetType(System.String)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Mechanism.GetType(System.String)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Mechanism.Text] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Mechanism.Type] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Mechanisms] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Mechanisms.SupportedTypes] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.MechanismType] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Stream] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Stream.Error] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Stream.Features] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Stream.Language] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Stream.Namespace] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Stream.StartTag] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Core.Stream.StartTag] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Stream.Version] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Core.Disco] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Core.Iq] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Iq.Iq] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Iq.Iq.IqType] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Iq.Iq.Payload] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Iq.IqType] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Iq.Query] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Core.Sasl] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Core.Sasl.Auth] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Sasl.Auth.Mechanism] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Core.Sasl.Auth.Text] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Infrastructure] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.ErrorEventArgs] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.ErrorEventArgs.#ctor(System.String,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity)] Missing &lt;param name=&quot;message&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.ErrorEventArgs.#ctor(System.String,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.ErrorEventArgs.#ctor(System.String,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity)] Missing &lt;param name=&quot;severity&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Infrastructure.ErrorEventArgs.Message] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Infrastructure.ErrorEventArgs.Severity] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Infrastructure.ErrorEventArgs.Type] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.TagEventArgs] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.TagEventArgs.#ctor(Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Infrastructure.TagEventArgs.Tag] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.XmppEvents] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Connect(System.Object,System.EventArgs)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Connect(System.Object,System.EventArgs)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Connect(System.Object,System.EventArgs)] Missing &lt;param name=&quot;args&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Disconnect(System.Object,System.EventArgs)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Disconnect(System.Object,System.EventArgs)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Disconnect(System.Object,System.EventArgs)] Missing &lt;param name=&quot;args&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String)] Missing &lt;param name=&quot;severity&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String)] Missing &lt;param name=&quot;message&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String,System.Object[])] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String,System.Object[])] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String,System.Object[])] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String,System.Object[])] Missing &lt;param name=&quot;severity&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String,System.Object[])] Missing &lt;param name=&quot;message&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Common.ErrorType,Ubiety.Common.ErrorSeverity,System.String,System.Object[])] Missing &lt;param name=&quot;parameters&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Infrastructure.ErrorEventArgs)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Infrastructure.ErrorEventArgs)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Error(System.Object,Ubiety.Infrastructure.ErrorEventArgs)] Missing &lt;param name=&quot;args&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.NewTag(System.Object,Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.NewTag(System.Object,Ubiety.Common.Tag)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.NewTag(System.Object,Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.NewTag(System.Object,Ubiety.Infrastructure.TagEventArgs)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.NewTag(System.Object,Ubiety.Infrastructure.TagEventArgs)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.NewTag(System.Object,Ubiety.Infrastructure.TagEventArgs)] Missing &lt;param name=&quot;args&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [E:Ubiety.Infrastructure.XmppEvents.OnConnect] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [E:Ubiety.Infrastructure.XmppEvents.OnDisconnect] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [E:Ubiety.Infrastructure.XmppEvents.OnError] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [E:Ubiety.Infrastructure.XmppEvents.OnNewTag] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [E:Ubiety.Infrastructure.XmppEvents.OnSend] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Send(System.Object,Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Send(System.Object,Ubiety.Common.Tag)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Send(System.Object,Ubiety.Common.Tag)] Missing &lt;param name=&quot;tag&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Send(System.Object,Ubiety.Infrastructure.TagEventArgs)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Send(System.Object,Ubiety.Infrastructure.TagEventArgs)] Missing &lt;param name=&quot;sender&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.XmppEvents.Send(System.Object,Ubiety.Infrastructure.TagEventArgs)] Missing &lt;param name=&quot;args&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.XmppSettings] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Infrastructure.Attributes] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.Attributes.CompressionAttribute] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Attributes.CompressionAttribute.#ctor(System.String,System.Type)] Missing &lt;param name=&quot;compression&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Attributes.CompressionAttribute.#ctor(System.String,System.Type)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Infrastructure.Attributes.CompressionAttribute.Algorithm] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Infrastructure.Attributes.CompressionAttribute.ClassType] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.Attributes.XmppTagAttribute] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Infrastructure.Extensions] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.Extensions.AssemblyExtensions] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.AssemblyExtensions.GetAttributes``1(System.Reflection.Assembly)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.AssemblyExtensions.GetAttributes``1(System.Reflection.Assembly)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.AssemblyExtensions.GetAttributes``1(System.Reflection.Assembly)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.AssemblyExtensions.GetAttributes``1(System.Reflection.Assembly)] Missing &lt;param name=&quot;assembly&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.Extensions.ByteExtensions] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.ByteExtensions.Clear(System.Byte[])] Missing &lt;param name=&quot;data&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.ByteExtensions.TrimNull(System.Collections.Generic.IList{System.Byte})] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.ByteExtensions.TrimNull(System.Collections.Generic.IList{System.Byte})] Missing &lt;param name=&quot;message&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.Extensions.EnumerableExtensions] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.EnumerableExtensions.Apply``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.EnumerableExtensions.Apply``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.EnumerableExtensions.Apply``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})] Missing &lt;param name=&quot;enumerable&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.EnumerableExtensions.Apply``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})] Missing &lt;param name=&quot;function&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Infrastructure.Extensions.TypeExtensions] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type,System.Boolean)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type,System.Boolean)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type,System.Boolean)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type,System.Boolean)] Missing &lt;param name=&quot;type&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Infrastructure.Extensions.TypeExtensions.GetCustomAttributes``1(System.Type,System.Boolean)] Missing &lt;param name=&quot;inherit&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.Registries] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Registries.CompressionRegistry] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [P:Ubiety.Registries.CompressionRegistry.AlgorithmsAvailable] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.Registries.TagRegistry] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Registries.TagRegistry.GetTag``1(System.String,System.String)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Registries.TagRegistry.GetTag``1(System.String,System.String)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Registries.TagRegistry.GetTag``1(System.String,System.String)] Missing &lt;returns&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Registries.TagRegistry.GetTag``1(System.String,System.String)] Missing &lt;param name=&quot;name&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Registries.TagRegistry.GetTag``1(System.String,System.String)] Missing &lt;param name=&quot;ns&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.Registries.TagRegistry.GetTag``1(System.Xml.XmlQualifiedName)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [N:Ubiety.States] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.BindingState] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.BindingState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.BindingState.Execute(Ubiety.Common.Tag)] Missing &lt;param name=&quot;data&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.CompressedState] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.CompressedState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.CompressedState.Execute(Ubiety.Common.Tag)] Missing &lt;param name=&quot;data&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.DisconnectedState] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.DisconnectedState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.DisconnectedState.Execute(Ubiety.Common.Tag)] Missing &lt;param name=&quot;data&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.RunningState] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.RunningState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.RunningState.Execute(Ubiety.Common.Tag)] Missing &lt;param name=&quot;data&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.ServerFeaturesState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.SessionState] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.SessionState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.SessionState.Execute(Ubiety.Common.Tag)] Missing &lt;param name=&quot;data&quot;/&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.StartTlsState] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.StartTlsState.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [T:Ubiety.States.State] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+BuildAssembler : warning : ShowMissingComponent: [M:Ubiety.States.State.Execute(Ubiety.Common.Tag)] Missing &lt;summary&gt; documentation [C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj]
+  Processed 374 topic(s)
+  233 warning(s)
+  CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 5 of 15.
+  CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 4 of 30.
+Done Building Project &quot;C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\BuildReferenceTopics.proj&quot; (default targets).
+
+Build succeeded.
+
+Time Elapsed 00:00:22.42
+    Last step completed in 00:00:22.6033
+</buildStep>
+<buildStep step="CombiningIntermediateTocFiles">
+Combining conceptual and API intermediate TOC files...
+    Last step completed in 00:00:00.0050
+</buildStep>
+<buildStep step="ExtractingHtmlInfo">
+Extracting HTML info for HTML Help 1 and/or website...
+[C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe - ExtractHtmlInfo.proj]
+Sandcastle Help File Builder and Tools, version 2015.7.25.0
+Copyright c 2006-2015, Eric Woodruff, All Rights Reserved
+E-Mail: Eric@EWoodruff.us
+
+Using LCID &#39;1033&#39;, code page &#39;65001&#39;, encoding charset &#39;UTF-8&#39;.
+
+Processing website files in C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website
+Processed 377 HTML files
+Sorting keywords and generating See Also indices
+Saving website keyword index to C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\WebKI.xml
+Saving website table of contents to C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\WebTOC.xml
+    Last step completed in 00:00:01.5370
+</buildStep>
+<buildStep step="CopyStandardHelpContent">
+Copying standard help content...
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\AlertCaution.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\AlertCaution.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\AlertNote.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\AlertNote.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\AlertSecurity.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\AlertSecurity.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\CFW.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\CFW.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\CodeExample.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\CodeExample.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\favicon.ico -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\favicon.ico
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privclass.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privclass.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privdelegate.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privdelegate.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privenumeration.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privenumeration.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privevent.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privevent.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privextension.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privextension.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privfield.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privfield.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privinterface.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privinterface.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privmethod.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privmethod.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privproperty.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privproperty.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\privstructure.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\privstructure.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protclass.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protclass.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protdelegate.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protdelegate.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protenumeration.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protenumeration.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protevent.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protevent.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protextension.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protextension.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protfield.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protfield.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protinterface.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protinterface.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protmethod.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protmethod.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protoperator.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protoperator.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protproperty.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protproperty.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\protstructure.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\protstructure.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubclass.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubclass.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubdelegate.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubdelegate.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubenumeration.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubenumeration.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubevent.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubevent.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubextension.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubextension.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubfield.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubfield.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubinterface.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubinterface.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubmethod.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubmethod.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\puboperator.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\puboperator.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubproperty.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubproperty.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\pubstructure.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\pubstructure.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\SectionCollapsed.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\SectionCollapsed.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\SectionExpanded.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\SectionExpanded.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\slMobile.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\slMobile.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\static.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\static.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\icons\xna.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\xna.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\scripts\branding.js -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\scripts\branding.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-cs-CZ.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-cs-CZ.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-de-DE.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-de-DE.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-en-US.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-en-US.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-es-ES.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-es-ES.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-fr-FR.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-fr-FR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-Help1.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-Help1.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-HelpViewer.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-HelpViewer.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-it-IT.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-it-IT.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-ja-JP.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-ja-JP.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-ko-KR.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-ko-KR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-pl-PL.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-pl-PL.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-pt-BR.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-pt-BR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-ru-RU.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-ru-RU.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-tr-TR.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-tr-TR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-Website.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-Website.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-zh-CN.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-zh-CN.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding-zh-TW.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding-zh-TW.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\styles\branding.css -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\styles\branding.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\index.html -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\index.html
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\search.html -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\search.html
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\SearchHelp.aspx -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\SearchHelp.aspx
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\SearchHelp.inc.php -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\SearchHelp.inc.php
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\SearchHelp.php -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\SearchHelp.php
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\Web.Config -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\Web.Config
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\icons\Search.png -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\Search.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\icons\TocClose.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\TocClose.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\icons\TocCollapsed.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\TocCollapsed.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\icons\TocExpanded.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\TocExpanded.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\icons\TocOpen.gif -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\icons\TocOpen.gif
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\branding-Website.js -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\scripts\branding-Website.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\jquery-1.11.0.min.js -&gt; C:\Users\Dieter\Documents\GitHub\xmpp\UbietyDocumentation\Help\Working\Output\Website\scripts\jquery-1.11.0.min.js
+    Last step completed in 00:00:01.7440
+</buildStep>
+<buildStep step="GenerateHelpFormatTableOfContents">
+Generating website table of contents file...
+    Last step completed in 00:00:00.0010
+</buildStep>
+<buildStep step="GenerateFullTextIndex">
+Generating full-text index for the website...
+
+<plugIn name="Lightweight Website Style" behavior="After" priority="1000">
+Adding lightweight search and TOC elements to each topic...
+</plugIn>    Last step completed in 00:00:03.0600
+</buildStep>
+<buildStep step="CopyingWebsiteFiles">
+Copying website files to output folder...
+
+Copied 500 files
+Copied 628 files for the website content
+    Last step completed in 00:00:01.2080
+</buildStep>
+<buildStep step="CleanIntermediates">
+Removing intermediate files...
+    Last step completed in 00:00:00.7520
+</buildStep>
+<buildStep step="Completed">
+
+Build completed successfully at 2015-08-21 6:09:46 PM.  Total time: 00:00:59.4148
+
+</buildStep>
+</shfbBuild>
