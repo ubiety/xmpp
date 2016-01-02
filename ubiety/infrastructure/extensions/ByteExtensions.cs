@@ -34,7 +34,7 @@ namespace Ubiety.Infrastructure.Extensions
             if (message.Count > 1)
             {
                 int c = message.Count - 1;
-                while (message[c] == 0x00)
+                while (c >= 0 && message[c] == 0x00)
                 {
                     c--;
                 }
