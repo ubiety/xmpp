@@ -32,4 +32,4 @@ public class Test {
 Support
 -------
 
-* Forum: <http://discourse.dieterlunn.ca>
+* Forum: <http://dieterlunn.ca>
