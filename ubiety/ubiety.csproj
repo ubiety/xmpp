@@ -68,27 +68,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Heijden.Dns">
-      <HintPath>..\packages\Heijden.Dns.1.0.0\lib\net35\Heijden.Dns.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="libidn, Version=1.0.5504.26636, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\libidn.1.29.1\lib\libidn.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.1.5.6\lib\net45\Serilog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.1.5.6\lib\net45\Serilog.FullNetFx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Serilog.Sinks.Seq, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.Seq.1.5.14\lib\net45\Serilog.Sinks.Seq.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
@@ -102,6 +87,27 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Xml" />
+    <Reference Include="Heijden.Dns">
+      <HintPath>..\packages\Heijden.Dns.2.0.0\lib\net35\Heijden.Dns.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.2.3.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact">
+      <HintPath>..\packages\Serilog.Formatting.Compact.1.0.0\lib\net45\Serilog.Formatting.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\packages\Serilog.Sinks.File.3.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.PeriodicBatching">
+      <HintPath>..\packages\Serilog.Sinks.PeriodicBatching.2.1.0\lib\net45\Serilog.Sinks.PeriodicBatching.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.0.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Seq">
+      <HintPath>..\packages\Serilog.Sinks.Seq.3.1.1\lib\net45\Serilog.Sinks.Seq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Disco\IDiscoManager.cs" />
@@ -112,10 +118,10 @@
     <Compile Include="Common\Namespaces.cs" />
     <Compile Include="Common\Roster\DefaultRosterManager.cs" />
     <Compile Include="Common\Roster\IRosterManager.cs" />
-    <Compile Include="Common\Sasl\Md5Processor.cs" />
-    <Compile Include="Common\Sasl\PlainProcessor.cs" />
-    <Compile Include="Common\Sasl\SaslProcessor.cs" />
-    <Compile Include="Common\Sasl\ScramProcessor.cs" />
+    <Compile Include="Common\SASL\MD5Processor.cs" />
+    <Compile Include="Common\SASL\PlainProcessor.cs" />
+    <Compile Include="Common\SASL\SASLProcessor.cs" />
+    <Compile Include="Common\SASL\SCRAMProcessor.cs" />
     <Compile Include="Common\Stanza.cs" />
     <Compile Include="Common\Tag.cs" />
     <Compile Include="Common\JID.cs" />
@@ -130,8 +136,8 @@
     <Compile Include="Core\Iq\Query.cs" />
     <Compile Include="Core\Jid.cs" />
     <Compile Include="Core\Mechanisms.cs" />
-    <Compile Include="Core\Sasl\Auth.cs" />
-    <Compile Include="Core\StartTls.cs" />
+    <Compile Include="Core\SASL\Auth.cs" />
+    <Compile Include="Core\StartTLS.cs" />
     <Compile Include="Core\Stream.cs" />
     <Compile Include="Infrastructure\Attributes\CompressionAttribute.cs" />
     <Compile Include="Infrastructure\Attributes\XmppTagAttribute.cs" />
@@ -154,12 +160,12 @@
     <Compile Include="States\DisconnectState.cs" />
     <Compile Include="States\ProtocolState.cs" />
     <Compile Include="States\RunningState.cs" />
-    <Compile Include="States\SaslState.cs" />
+    <Compile Include="States\SASLState.cs" />
     <Compile Include="States\ServerFeaturesState.cs" />
     <Compile Include="States\SessionState.cs" />
-    <Compile Include="States\StartTlsState.cs" />
+    <Compile Include="States\StartTLSState.cs" />
     <Compile Include="States\State.cs" />
-    <Compile Include="Xmpp.cs" />
+    <Compile Include="XMPP.cs" />
     <Compile Include="Infrastructure\XmppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
