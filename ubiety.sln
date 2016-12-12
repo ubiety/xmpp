@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXMPP", "TestXMPP\TestXMPP.csproj", "{F6E95CED-F304-481B-A644-D78B74749436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiety", "ubiety\Ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ubiety", "ubiety\ubiety.csproj", "{FB8056A1-0547-4CEF-BA68-0154462BC3DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ubietynunit", "ubietynunit\ubietynunit.csproj", "{76FB5852-B727-426B-9054-0B580C0B5E5F}"
 EndProject
