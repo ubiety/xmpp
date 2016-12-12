@@ -84,7 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ubiety\Ubiety.csproj">
+    <ProjectReference Include="..\ubiety\ubiety.csproj">
       <Project>{FB8056A1-0547-4CEF-BA68-0154462BC3DB}</Project>
       <Name>Ubiety</Name>
     </ProjectReference>
