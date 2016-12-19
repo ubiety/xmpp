@@ -46,15 +46,15 @@ namespace Ubiety
     /// 
     ///  public class Test
     ///  {
-    /// 		public static Main()
-    /// 		{
-    /// 			// Create a new instance of the XMPP class
-    /// 			Xmpp ubiety = new Xmpp();
-    ///             ubiety.Settings.Id = new JID("user@jabber.org/chat");
-    ///             ubiety.Settings.Password = "password";
+    ///      public static Main()
+    /// 	 {
+    /// 	     // Create a new instance of the XMPP class
+    /// 		 Xmpp ubiety = new Xmpp();
+    ///          ubiety.Settings.Id = new JID("user@jabber.org/chat");
+    ///          ubiety.Settings.Password = "password";
     /// 			
-    ///             ubiety.Connect();
-    /// 		}
+    ///          ubiety.Connect();
+    /// 	 }
     ///  }
     ///  </code>
     /// </example>
