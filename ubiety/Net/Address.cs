@@ -1,6 +1,6 @@
 // Address.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn, 2010 nickwhaley
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn, 2010 nickwhaley
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -52,7 +52,7 @@ namespace Ubiety.Net
 
         public string Hostname { get; private set; }
 
-        private void _resolver_OnVerbose(object sender, Resolver.VerboseEventArgs e)
+        private static void _resolver_OnVerbose(object sender, Resolver.VerboseEventArgs e)
         {
             Log.Debug("DNS Resolver Verbose Message: {Message}", e.Message);
         }
@@ -74,7 +74,7 @@ namespace Ubiety.Net
             if (_srvFailed || _srvRecords == null) return null;
             if (_srvAttempts >= _srvRecords.Count) return null;
             ProtocolState.Settings.Port = _srvRecords[_srvAttempts].PORT;
-            IPAddress ip = Resolve(_srvRecords[_srvAttempts].TARGET);
+            var ip = Resolve(_srvRecords[_srvAttempts].TARGET);
             if (ip == null)
                 _srvAttempts++;
             else
@@ -84,7 +84,7 @@ namespace Ubiety.Net
 
         private List<RecordSRV> FindSrv()
         {
-            Response resp = _resolver.Query("_xmpp-client._tcp." + Hostname, QType.SRV, QClass.IN);
+            var resp = _resolver.Query("_xmpp-client._tcp." + Hostname, QType.SRV, QClass.IN);
 
             if (resp.header.ANCOUNT > 0)
             {
@@ -98,7 +98,7 @@ namespace Ubiety.Net
 
         private IPAddress Resolve(string hostname)
         {
-            Response resp = _resolver.Query(hostname, QType.A, QClass.IN);
+            var resp = _resolver.Query(hostname, QType.A, QClass.IN);
 
             IPv6 = false;
             return ((RecordA) resp.Answers[0].RECORD).Address;
