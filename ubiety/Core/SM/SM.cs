@@ -25,6 +25,7 @@ namespace Ubiety.Core.SM
     /// Stream Management
     /// </summary>
     [XmppTag("sm", Namespaces.StreamManagementV3, typeof(SM))]
+    [XmppTag("sm", Namespaces.StreamManagementV2, typeof(SM))]
     public class SM : Tag
     {
         /// <summary>

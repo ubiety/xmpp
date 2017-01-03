@@ -74,6 +74,17 @@ namespace Ubiety.Common
         }
 
         /// <summary>
+        /// Returns the boolean value of the named attribute
+        /// </summary>
+        /// <param name="name">Attribute to return</param>
+        /// <returns>Boolean value of the string</returns>
+        protected bool GetBoolAttribute(string name)
+        {
+            var value = Attributes[name].Value;
+            return bool.Parse(value);
+        }
+
+        /// <summary>
         ///     Calculates and returns a new unique id
         /// </summary>
         /// <returns>The next available unique id</returns>

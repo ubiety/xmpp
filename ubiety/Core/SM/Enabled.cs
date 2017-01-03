@@ -33,5 +33,23 @@ namespace Ubiety.Core.SM
         public Enabled() : base("", new XmlQualifiedName("enabled", Namespaces.StreamManagementV3))
         {
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string Id
+        {
+            get { return GetAttribute("id"); }
+            set { SetAttribute("id", value); }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Resume
+        {
+            get { return GetBoolAttribute("resume"); }
+            set { SetAttribute("resume", value.ToString()); }
+        }
     }
 }

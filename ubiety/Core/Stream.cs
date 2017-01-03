@@ -70,7 +70,7 @@ namespace Ubiety.Core
                     RemoveAttribute("lang", Namespaces.Xml);
                 if (value == null) return;
                 if (OwnerDocument == null) return;
-                XmlAttribute attr = OwnerDocument.CreateAttribute("xml:lang", Namespaces.Xml);
+                var attr = OwnerDocument.CreateAttribute("xml:lang", Namespaces.Xml);
                 attr.Value = value;
                 Attributes.Append(attr);
             }

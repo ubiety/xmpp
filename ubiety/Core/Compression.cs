@@ -40,9 +40,9 @@ namespace Ubiety.Core
         {
             get
             {
-                XmlNodeList nl = GetElementsByTagName("method", Namespaces.Compression);
+                var nl = GetElementsByTagName("method", Namespaces.Compression);
                 var als = new string[nl.Count];
-                int i = 0;
+                var i = 0;
                 foreach (XmlElement m in nl)
                 {
                     als[i] = m.InnerText;

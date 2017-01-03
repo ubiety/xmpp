@@ -31,5 +31,14 @@ namespace Ubiety.Core.SM
         ///
         /// </summary>
         public A() : base("", new XmlQualifiedName("a", Namespaces.StreamManagementV3)){}
+
+        /// <summary>
+        ///
+        /// </summary>
+        public int H
+        {
+            get { return int.Parse(GetAttribute("h")); }
+            set { SetAttribute("h", value.ToString()); }
+        }
     }
 }
