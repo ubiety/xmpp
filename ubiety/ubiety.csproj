@@ -108,6 +108,7 @@
     <Reference Include="Serilog.Sinks.Seq">
       <HintPath>..\packages\Serilog.Sinks.Seq.3.1.1\lib\net45\Serilog.Sinks.Seq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Disco\IDiscoManager.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="States\SessionState.cs" />
     <Compile Include="States\StartTLSState.cs" />
     <Compile Include="States\State.cs" />
+    <Compile Include="States\StreamManagementState.cs" />
     <Compile Include="XMPP.cs" />
     <Compile Include="Infrastructure\XmppSettings.cs" />
   </ItemGroup>

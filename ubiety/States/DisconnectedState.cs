@@ -1,6 +1,6 @@
 // ClosedState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -23,12 +23,12 @@ namespace Ubiety.States
 {
     /// <summary>
     /// </summary>
-    public class DisconnectedState : State
+    public class DisconnectedState : IState
     {
         /// <summary>
         /// </summary>
         /// <param name="data"></param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
         {
             if (data != null)
             {

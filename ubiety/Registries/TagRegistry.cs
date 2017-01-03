@@ -1,6 +1,6 @@
 // TagRegistry.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 // 
 // This library is free software; you can redistribute it and/or modify it under
 // the terms of the GNU Lesser General Public License as published by the Free
@@ -44,8 +44,8 @@ namespace Ubiety.Registries
         {
             Log.Debug("Loading tags from assembly {assembly}", assembly.FullName);
 
-            IEnumerable<XmppTagAttribute> tags = assembly.GetAttributes<XmppTagAttribute>();
-            foreach (XmppTagAttribute tag in tags)
+            var tags = assembly.GetAttributes<XmppTagAttribute>();
+            foreach (var tag in tags)
             {
                 Log.Debug("Loading tag {TagName} as class {ClassName} in the {Namespace} namespace.", tag.Name, tag.ClassType.FullName, tag.Namespace);
                 RegisteredItems.Add(new XmlQualifiedName(tag.Name, tag.Namespace).ToString(), tag.ClassType);
@@ -76,7 +76,7 @@ namespace Ubiety.Registries
 
             if (RegisteredItems.TryGetValue(qname.ToString(), out t))
             {
-                ConstructorInfo ctor = t.GetConstructor(new Type[] {});
+                var ctor = t.GetConstructor(new Type[] {});
                 if (ctor == null)
                 {
                     ctor = t.GetConstructor(new[] {typeof (XmlQualifiedName)});

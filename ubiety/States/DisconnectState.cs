@@ -22,7 +22,7 @@ namespace Ubiety.States
 	/// <summary>
 	/// The state that disconnects from the server.
 	/// </summary>
-	public class DisconnectState : State
+	public class DisconnectState : IState
 	{
         /// <summary>
         /// Executes the disconnect command by sending the closing stream tag and closing the socket.
@@ -30,7 +30,7 @@ namespace Ubiety.States
         /// <param name="data">
         /// No <see cref="Tag"/> needed so we pass null.
         /// </param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
 		{
 			if (ProtocolState.Socket.Connected)
 			{

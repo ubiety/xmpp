@@ -24,7 +24,7 @@ namespace Ubiety.States
 	/// <summary>
 	/// The state which occurs just after connecting and sends the starting stream:stream tag.
 	/// </summary>
-	public class ConnectedState : State
+	public class ConnectedState : IState
 	{
         /// <summary>
         /// Executes the state sending the tag to the just connected socket.
@@ -32,7 +32,7 @@ namespace Ubiety.States
         /// <param name="data">
         /// The <see cref="Tag"/> to parse.  In this case null.
         /// </param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
 		{
 			var stream = TagRegistry.GetTag<Stream>("stream", Namespaces.Stream);
 			stream.Version = "1.0";

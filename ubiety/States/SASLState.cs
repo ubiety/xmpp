@@ -22,7 +22,7 @@ namespace Ubiety.States
     /// <summary>
     ///     SASL state is used to authenticate the user with the current processor.
     /// </summary>
-    public class SaslState : State
+    public class SaslState : IState
     {
         /// <summary>
         ///     Execute the actions to authenticate the user.
@@ -30,9 +30,9 @@ namespace Ubiety.States
         /// <param name="data">
         ///     The <see cref="Tag" /> we received from the server.  Probably a challenge or response.
         /// </param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
         {
-            Tag res = ProtocolState.Processor.Step(data);
+            var res = ProtocolState.Processor.Step(data);
             switch (res.Name)
             {
                 case "success":

@@ -1,6 +1,6 @@
 // ServerFeaturesState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -16,6 +16,7 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Linq;
+using Serilog;
 using Ubiety.Common;
 using Ubiety.Common.Sasl;
 using Ubiety.Core;
@@ -26,14 +27,14 @@ namespace Ubiety.States
     /// <summary>
     ///     The server features state occurs just after connecting.
     /// </summary>
-    public class ServerFeaturesState : State
+    public class ServerFeaturesState : IState
     {
         /// <summary>
         /// </summary>
         /// <param name="data">
         ///     A <see cref="Tag" />
         /// </param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
         {
             Features f;
 
@@ -83,7 +84,7 @@ namespace Ubiety.States
                     f.Compression != null)
                 {
                     // Do we have a stream for any of the compressions supported by the server?
-                    foreach (string algorithm in
+                    foreach (var algorithm in
                         f.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
                     {
                         var c = TagRegistry.GetTag<GenericTag>("compress", Namespaces.CompressionProtocol);
@@ -95,6 +96,13 @@ namespace Ubiety.States
                         ProtocolState.State = new CompressedState();
                         return;
                     }
+                }
+
+                Log.Debug("SM tag: {Tag}", f.SM);
+
+                if (f.SM != null)
+                {
+                    ProtocolState.StreamManagementAvailable = true;
                 }
             }
 

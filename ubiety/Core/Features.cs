@@ -44,5 +44,10 @@ namespace Ubiety.Core
         /// <summary>
         /// </summary>
         public Compression Compression => this["compression", Namespaces.Compression] as Compression;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public SM.SM SM => this["sm", Namespaces.StreamManagementV3] as SM.SM;
     }
 }

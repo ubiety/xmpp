@@ -22,7 +22,7 @@ namespace Ubiety.States
 	/// <summary>
 	/// The state used to connect to the server.  The initial state of the library.
 	/// </summary>
-	public class ConnectingState : State
+	public class ConnectingState : IState
 	{
         /// <summary>
         /// Executes the state.  In this case we are telling the socket to connect to the server.
@@ -30,7 +30,7 @@ namespace Ubiety.States
         /// <param name="data">
         /// The <see cref="Tag"/> is not needed here as we are just starting the connection.
         /// </param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
 		{
 			ProtocolState.Socket.Connect();
 		}

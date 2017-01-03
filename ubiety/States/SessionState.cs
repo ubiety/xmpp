@@ -1,6 +1,6 @@
 // SessionState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 - 2012 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2009 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -24,12 +24,12 @@ namespace Ubiety.States
 {
     /// <summary>
     /// </summary>
-    public class SessionState : State
+    public class SessionState : IState
     {
         /// <summary>
         /// </summary>
         /// <param name="data"></param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
         {
             if (data == null)
             {
@@ -48,7 +48,14 @@ namespace Ubiety.States
                 var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
                 ProtocolState.Socket.Write(p);
 
-                ProtocolState.State = new RunningState();
+                if (ProtocolState.StreamManagementAvailable)
+                {
+                    ProtocolState.State = new StreamManagementState();
+                }
+                else
+                {
+                    ProtocolState.State = new RunningState();
+                }
             }
         }
     }

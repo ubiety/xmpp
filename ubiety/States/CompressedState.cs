@@ -22,13 +22,13 @@ namespace Ubiety.States
 	/// <summary>
 	/// 
 	/// </summary>
-	public class CompressedState : State
+	public class CompressedState : IState
 	{
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Execute(Tag data = null)
+		public void Execute(Tag data = null)
 		{
 			if (data != null && data.Name != "compressed") return;
 			ProtocolState.Socket.StartCompression(ProtocolState.Algorithm);

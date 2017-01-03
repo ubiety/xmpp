@@ -24,13 +24,13 @@ namespace Ubiety.States
 {
 	///<summary>
 	///</summary>
-	public class BindingState : State
+	public class BindingState : IState
 	{
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="data"></param>
-		public override void Execute(Tag data = null)
+		public void Execute(Tag data = null)
 		{
 			if (data == null)
 			{

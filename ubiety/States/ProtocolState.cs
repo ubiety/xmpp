@@ -1,6 +1,6 @@
 // ProtocolState.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -44,7 +44,7 @@ namespace Ubiety.States
         /// <value>
         ///     The current state we are in.
         /// </value>
-        public static State State { get; set; }
+        public static IState State { get; set; }
 
         /// <value>
         ///     The socket used for connecting to the server.
@@ -67,6 +67,11 @@ namespace Ubiety.States
         public static bool Compressed { get; set; }
 
         public static string Algorithm { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static bool StreamManagementAvailable { get; set; }
 
         /// <summary>
         ///     The current static settings instance

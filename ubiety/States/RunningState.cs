@@ -22,12 +22,12 @@ namespace Ubiety.States
 {
     /// <summary>
     /// </summary>
-    public class RunningState : State
+    public class RunningState : IState
     {
         /// <summary>
         /// </summary>
         /// <param name="data"></param>
-        public override void Execute(Tag data = null)
+        public void Execute(Tag data = null)
         {
             if (ProtocolState.RosterManager == null)
             {
