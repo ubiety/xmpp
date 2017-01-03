@@ -54,6 +54,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.2.3.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -68,9 +71,6 @@
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog">
-      <HintPath>..\packages\Serilog.2.4.0-dev-00767\lib\net45\Serilog.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
