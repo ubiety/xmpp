@@ -24,16 +24,27 @@ namespace Ubiety.Core.SM
     /// <summary>
     /// Stream Management
     /// </summary>
-    [XmppTag("sm", Namespaces.StreamManagementV3, typeof(SM))]
-    [XmppTag("sm", Namespaces.StreamManagementV2, typeof(SM))]
-    public class SM : Tag
+    [XmppTag("sm", Namespaces.StreamManagementV3, typeof(SM3))]
+    public class SM3 : Tag
     {
         /// <summary>
         ///
         /// </summary>
-        public SM() : base("", new XmlQualifiedName("sm", Namespaces.StreamManagementV3))
+        public SM3() : base("", new XmlQualifiedName("sm", Namespaces.StreamManagementV3))
         {
 
         }
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [XmppTag("sm", Namespaces.StreamManagementV2, typeof(SM2))]
+    public class SM2 : Tag
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public SM2() : base("", new XmlQualifiedName("sm", Namespaces.StreamManagementV2)) {}
     }
 }

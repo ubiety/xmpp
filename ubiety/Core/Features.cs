@@ -1,6 +1,6 @@
 // Features.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -48,6 +48,6 @@ namespace Ubiety.Core
         /// <summary>
         ///
         /// </summary>
-        public SM.SM SM => this["sm", Namespaces.StreamManagementV3] as SM.SM;
+        public SM.SM3 SM => this["sm", Namespaces.StreamManagementV3] as SM.SM3;
     }
 }
