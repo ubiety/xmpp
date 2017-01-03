@@ -116,5 +116,15 @@ namespace Ubiety.Common
         ///     Roster namespace
         /// </summary>
         public const string Roster = "jabber:iq:roster";
+
+        /// <summary>
+        /// Stream Management Version 2 namespace
+        /// </summary>
+        public const string StreamManagementV2 = "urn:xmpp:sm:2";
+
+        /// <summary>
+        /// Stream Management Version 3 namespace
+        /// </summary>
+        public const string StreamManagementV3 = "urn:xmpp:sm:3";
     }
 }
