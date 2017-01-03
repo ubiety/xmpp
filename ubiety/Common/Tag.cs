@@ -1,6 +1,6 @@
 // Tag.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -69,7 +69,7 @@ namespace Ubiety.Common
         /// <returns>Enumeration value of the named attribute.</returns>
         protected T GetEnumAttribute<T>(string name)
         {
-            string value = Attributes[name].Value;
+            var value = Attributes[name].Value;
             return (T) Enum.Parse(typeof (T), value, true);
         }
 

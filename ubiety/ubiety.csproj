@@ -137,6 +137,11 @@
     <Compile Include="Core\Jid.cs" />
     <Compile Include="Core\Mechanisms.cs" />
     <Compile Include="Core\SASL\Auth.cs" />
+    <Compile Include="Core\SM\A.cs" />
+    <Compile Include="Core\SM\Enable.cs" />
+    <Compile Include="Core\SM\Enabled.cs" />
+    <Compile Include="Core\SM\Failed.cs" />
+    <Compile Include="Core\SM\R.cs" />
     <Compile Include="Core\SM\SM.cs" />
     <Compile Include="Core\StartTLS.cs" />
     <Compile Include="Core\Stream.cs" />

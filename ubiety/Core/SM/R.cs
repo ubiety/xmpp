@@ -1,4 +1,4 @@
-﻿// SM.cs
+﻿// R.cs
 //
 //Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
@@ -22,17 +22,14 @@ using Ubiety.Infrastructure.Attributes;
 namespace Ubiety.Core.SM
 {
     /// <summary>
-    /// Stream Management
+    ///
     /// </summary>
-    [XmppTag("sm", Namespaces.StreamManagementV3, typeof(SM))]
-    public class SM : Tag
+    [XmppTag("r", Namespaces.StreamManagementV3, typeof(R))]
+    public class R : Tag
     {
         /// <summary>
         ///
         /// </summary>
-        public SM() : base("", new XmlQualifiedName("sm", Namespaces.StreamManagementV3))
-        {
-
-        }
+        public R() : base("", new XmlQualifiedName("r", Namespaces.StreamManagementV3)) {}
     }
 }
