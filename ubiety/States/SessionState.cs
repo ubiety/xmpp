@@ -15,6 +15,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using Serilog;
 using Ubiety.Common;
 using Ubiety.Core;
 using Ubiety.Core.Iq;
@@ -45,12 +46,14 @@ namespace Ubiety.States
             }
             else
             {
-                var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
-                ProtocolState.Socket.Write(p);
+                //var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
+                //ProtocolState.Socket.Write(p);
 
                 if (ProtocolState.StreamManagementAvailable)
                 {
+                    Log.Debug("Intiating Stream Management");
                     ProtocolState.State = new StreamManagementState();
+                    ProtocolState.State.Execute();
                 }
                 else
                 {

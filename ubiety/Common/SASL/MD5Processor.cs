@@ -72,7 +72,7 @@ namespace Ubiety.Common.Sasl
             switch (tag.Name)
             {
                 case "success":
-                    Tag succ = tag;
+                    var succ = tag;
                     PopulateDirectives(succ);
 
                     return succ;
@@ -81,7 +81,7 @@ namespace Ubiety.Common.Sasl
                     return tag;
             }
 
-            Tag chall = tag;
+            var chall = tag;
             PopulateDirectives(chall);
             var res = TagRegistry.GetTag<GenericTag>("response", Namespaces.Sasl);
             if (this["rspauth"] != null) return res;
@@ -93,7 +93,7 @@ namespace Ubiety.Common.Sasl
 
         private void PopulateDirectives(Tag tag)
         {
-            MatchCollection col = _csv.Matches(_enc.GetString(tag.Bytes));
+            var col = _csv.Matches(_enc.GetString(tag.Bytes));
             foreach (Match m in col)
             {
                 this[m.Groups["tag"].Value] = m.Groups["data"].Value;
@@ -134,7 +134,7 @@ namespace Ubiety.Common.Sasl
             sb.Append(",");
             sb.Append("charset=");
             sb.Append(this["charset"]);
-            string temp = sb.ToString();
+            var temp = sb.ToString();
             return _enc.GetBytes(temp);
         }
 
@@ -142,7 +142,7 @@ namespace Ubiety.Common.Sasl
         {
             var ae = new ASCIIEncoding();
 
-            long v = NextInt64();
+            var v = NextInt64();
 
             // Create cnonce value using a random number, username and password
             var sb = new StringBuilder();
@@ -165,7 +165,7 @@ namespace Ubiety.Common.Sasl
             sb.Append(this["realm"]);
             sb.Append(":");
             sb.Append(Password);
-            byte[] h1 = _md5.ComputeHash(ae.GetBytes(sb.ToString()));
+            var h1 = _md5.ComputeHash(ae.GetBytes(sb.ToString()));
 
             // Create the rest of A1 as stated in the RFC.
             sb.Remove(0, sb.Length);
@@ -180,12 +180,12 @@ namespace Ubiety.Common.Sasl
                 sb.Append(this["authzid"]);
             }
 
-            string a1 = sb.ToString();
+            var a1 = sb.ToString();
 
             // Combine H1 and A1 into final A1
             var ms = new MemoryStream();
             ms.Write(h1, 0, 16);
-            byte[] temp = ae.GetBytes(a1);
+            var temp = ae.GetBytes(a1);
             ms.Write(temp, 0, temp.Length);
             ms.Seek(0, SeekOrigin.Begin);
             h1 = _md5.ComputeHash(ms);
@@ -198,12 +198,12 @@ namespace Ubiety.Common.Sasl
             {
                 sb.Append(":00000000000000000000000000000000");
             }
-            string a2 = sb.ToString();
-            byte[] h2 = _md5.ComputeHash(ae.GetBytes(a2));
+            var a2 = sb.ToString();
+            var h2 = _md5.ComputeHash(ae.GetBytes(a2));
 
             // Make A1 and A2 hex strings
-            string p1 = HexString(h1).ToLower();
-            string p2 = HexString(h2).ToLower();
+            var p1 = HexString(h1).ToLower();
+            var p2 = HexString(h2).ToLower();
 
             // Combine all portions into the final response hex string
             sb.Remove(0, sb.Length);
@@ -219,8 +219,8 @@ namespace Ubiety.Common.Sasl
             sb.Append(":");
             sb.Append(p2);
 
-            string a3 = sb.ToString();
-            byte[] h3 = _md5.ComputeHash(ae.GetBytes(a3));
+            var a3 = sb.ToString();
+            var h3 = _md5.ComputeHash(ae.GetBytes(a3));
             _responseHash = HexString(h3).ToLower();
         }
 

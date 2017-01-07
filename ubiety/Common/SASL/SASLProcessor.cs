@@ -101,7 +101,7 @@ namespace Ubiety.Common.Sasl
         protected string HexString(IEnumerable<byte> buff)
         {
             var sb = new StringBuilder();
-            foreach (byte b in buff)
+            foreach (var b in buff)
             {
                 sb.Append(b.ToString("x2"));
             }

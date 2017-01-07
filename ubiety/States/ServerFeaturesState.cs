@@ -102,6 +102,7 @@ namespace Ubiety.States
 
                 if (f.SM != null)
                 {
+                    Log.Debug("Stream Management Available");
                     ProtocolState.StreamManagementAvailable = true;
                 }
             }

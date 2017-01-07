@@ -171,7 +171,7 @@
     <Compile Include="States\ServerFeaturesState.cs" />
     <Compile Include="States\SessionState.cs" />
     <Compile Include="States\StartTLSState.cs" />
-    <Compile Include="States\State.cs" />
+    <Compile Include="States\IState.cs" />
     <Compile Include="States\StreamManagementState.cs" />
     <Compile Include="XMPP.cs" />
     <Compile Include="Infrastructure\XmppSettings.cs" />

@@ -97,11 +97,11 @@ namespace Ubiety.Common
         /// <summary>
         ///     Implicit cast of a tag to a string.
         /// </summary>
-        /// <param name="one">Tag to cast to string</param>
+        /// <param name="tag">Tag to cast to string</param>
         /// <returns>String version of the tag</returns>
-        public static implicit operator string(Tag one)
+        public static implicit operator string(Tag tag)
         {
-            return one.ToString();
+            return tag.ToString();
         }
 
         /// <summary>

@@ -76,23 +76,23 @@ namespace Ubiety.Common.Sasl
                 case "challenge":
                 {
                     _serverFirst = tag.Bytes;
-                    string response = _utf.GetString(tag.Bytes);
+                    var response = _utf.GetString(tag.Bytes);
 
                     // Split challenge into pieces
-                    string[] tokens = response.Split(',');
+                    var tokens = response.Split(',');
 
                     _snonce = tokens[0].Substring(2);
                     // Ensure that the first length of nonce is the same nonce we sent.
-                    string r = _snonce.Substring(0, _nonce.Length);
+                    var r = _snonce.Substring(0, _nonce.Length);
                     if (0 != string.CompareOrdinal(r, _nonce))
                     {
                         throw new Exception("Error in authenticating server nonce.");
                     }
 
-                    string a = tokens[1].Substring(2);
+                    var a = tokens[1].Substring(2);
                     _salt = Convert.FromBase64String(a);
 
-                    string i = tokens[2].Substring(2);
+                    var i = tokens[2].Substring(2);
                     _i = int.Parse(i);
 
                     var final = new StringBuilder();
@@ -114,8 +114,8 @@ namespace Ubiety.Common.Sasl
 
                 case "success":
                 {
-                    string response = _utf.GetString(tag.Bytes);
-                    byte[] signature = Convert.FromBase64String(response.Substring(2));
+                    var response = _utf.GetString(tag.Bytes);
+                    var signature = Convert.FromBase64String(response.Substring(2));
                     return _utf.GetString(signature) == _utf.GetString(_serverSignature) ? tag : null;
                 }
                 case "failure":
@@ -130,17 +130,17 @@ namespace Ubiety.Common.Sasl
             var hmac = new HMACSHA1();
             SHA1 hash = new SHA1CryptoServiceProvider();
 
-            byte[] saltedPassword = Hi();
+            var saltedPassword = Hi();
 
             // Calculate Client Key
             hmac.Key = saltedPassword;
-            byte[] clientKey = hmac.ComputeHash(_utf.GetBytes("Client Key"));
+            var clientKey = hmac.ComputeHash(_utf.GetBytes("Client Key"));
 
             // Calculate Server Key
-            byte[] serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
+            var serverKey = hmac.ComputeHash(_utf.GetBytes("Server Key"));
 
             // Calculate Stored Key
-            byte[] storedKey = hash.ComputeHash(clientKey);
+            var storedKey = hash.ComputeHash(clientKey);
 
             var a = new StringBuilder();
             a.Append(_clientFirst);
@@ -149,11 +149,11 @@ namespace Ubiety.Common.Sasl
             a.Append(",");
             a.Append(_clientFinal);
 
-            byte[] auth = _utf.GetBytes(a.ToString());
+            var auth = _utf.GetBytes(a.ToString());
 
             // Calculate Client Signature
             hmac.Key = storedKey;
-            byte[] signature = hmac.ComputeHash(auth);
+            var signature = hmac.ComputeHash(auth);
 
             // Calculate Server Signature
             hmac.Key = serverKey;
@@ -161,7 +161,7 @@ namespace Ubiety.Common.Sasl
 
             // Calculate Client Proof
             var proof = new byte[20];
-            for (int i = 0; i < signature.Length; ++i)
+            for (var i = 0; i < signature.Length; ++i)
             {
                 proof[i] = (byte) (clientKey[i] ^ signature[i]);
             }
@@ -172,7 +172,7 @@ namespace Ubiety.Common.Sasl
         private byte[] Hi()
         {
             var prev = new byte[20];
-            byte[] password = _utf.GetBytes(Stringprep.SASLPrep(Password));
+            var password = _utf.GetBytes(Stringprep.SASLPrep(Password));
 
             // Add 1 to the end of salt with most significat octet first
             var key = new byte[_salt.Length + 4];
@@ -183,13 +183,13 @@ namespace Ubiety.Common.Sasl
 
             // Compute initial hash
             var hmac = new HMACSHA1(password);
-            byte[] result = hmac.ComputeHash(key);
+            var result = hmac.ComputeHash(key);
             Array.Copy(result, prev, result.Length);
 
-            for (int i = 1; i < _i; ++i)
+            for (var i = 1; i < _i; ++i)
             {
-                byte[] temp = hmac.ComputeHash(prev);
-                for (int j = 0; j < temp.Length; ++j)
+                var temp = hmac.ComputeHash(prev);
+                for (var j = 0; j < temp.Length; ++j)
                 {
                     result[j] ^= temp[j];
                 }

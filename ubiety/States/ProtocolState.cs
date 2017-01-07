@@ -16,9 +16,12 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System;
+using System.Collections.Generic;
 using Ubiety.Common;
 using Ubiety.Common.Roster;
 using Ubiety.Common.Sasl;
+using Ubiety.Core;
+using Ubiety.Core.Iq;
 using Ubiety.Infrastructure;
 using Ubiety.Net;
 
@@ -39,6 +42,16 @@ namespace Ubiety.States
             Events.OnNewTag += EventsOnOnNewTag;
             Events.OnConnect += EventsOnOnConnect;
             Events.OnDisconnect += EventsOnOnDisconnect;
+            Events.OnSend += EventsOnOnSend;
+        }
+
+        private static void EventsOnOnSend(object sender, TagEventArgs tagEventArgs)
+        {
+            if (!StreamManagementAvailable) return;
+            if (tagEventArgs.Tag is GenericTag || tagEventArgs.Tag is Iq)
+            {
+                UnacknowlegedStanzas.Enqueue(tagEventArgs.Tag);
+            }
         }
 
         /// <value>
@@ -66,12 +79,25 @@ namespace Ubiety.States
         /// </summary>
         public static bool Compressed { get; set; }
 
+        /// <summary>
+        ///
+        /// </summary>
         public static string Algorithm { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         public static bool StreamManagementAvailable { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static int StanzaCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Queue<Tag> UnacknowlegedStanzas { get; set; }
 
         /// <summary>
         ///     The current static settings instance
@@ -83,6 +109,9 @@ namespace Ubiety.States
         /// </summary>
         public static XmppEvents Events { get; }
 
+        /// <summary>
+        ///
+        /// </summary>
         public static IRosterManager RosterManager { get; set; }
 
         private static void EventsOnOnDisconnect(object sender, EventArgs eventArgs)

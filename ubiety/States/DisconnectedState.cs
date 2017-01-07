@@ -32,9 +32,8 @@ namespace Ubiety.States
         {
             if (data != null)
             {
-                // TODO - Bubble the error message out
                 var tag = ((Stream) data).Error;
-                
+                ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Fatal, tag);
             }
             else
             {
