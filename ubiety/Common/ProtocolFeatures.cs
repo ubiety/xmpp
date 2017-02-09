@@ -1,6 +1,6 @@
-// CompressionAttribute.cs
+﻿// ProtocolFeatures.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -17,29 +17,33 @@
 
 using System;
 
-namespace Ubiety.Infrastructure.Attributes
+namespace Ubiety.Common
 {
-	/// <summary>
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Class, Inherited = false)]
-	public sealed class CompressionAttribute : Attribute
-	{
-	    /// <summary>
-		/// </summary>
-		/// <param name="compression"></param>
-		/// <param name="type"></param>
-		public CompressionAttribute(string compression, Type type)
-		{
-			Algorithm = compression;
-			ClassType = type;
-		}
-
-		/// <summary>
-		/// </summary>
-		public string Algorithm { get; }
-
-	    /// <summary>
-		/// </summary>
-		public Type ClassType { get; }
-	}
+    /// <summary>
+    ///
+    /// </summary>
+    [Flags]
+    public enum ProtocolFeatures
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        None,
+        /// <summary>
+        ///
+        /// </summary>
+        StartTls,
+        /// <summary>
+        ///
+        /// </summary>
+        Ssl,
+        /// <summary>
+        ///
+        /// </summary>
+        Compression,
+        /// <summary>
+        ///
+        /// </summary>
+        StreamManagement
+    }
 }

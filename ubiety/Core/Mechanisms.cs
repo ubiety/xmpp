@@ -1,6 +1,6 @@
 // Mechanisms.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -84,9 +84,9 @@ namespace Ubiety.Core
         /// <returns></returns>
         private IEnumerable<Mechanism> GetMechanisms()
         {
-            XmlNodeList nl = GetElementsByTagName("mechanism", Namespaces.Sasl);
+            var nl = GetElementsByTagName("mechanism", Namespaces.Sasl);
             var items = new Mechanism[nl.Count];
-            int i = 0;
+            var i = 0;
             foreach (XmlNode node in nl)
             {
                 items[i] = (Mechanism) node;
@@ -153,6 +153,10 @@ namespace Ubiety.Core
                     return "DIGEST-MD5";
                 case MechanismType.Scram:
                     return "SCRAM-SHA-1";
+                case MechanismType.None:
+                    return "";
+                case MechanismType.Default:
+                    return "";
                 default:
                     return "";
             }

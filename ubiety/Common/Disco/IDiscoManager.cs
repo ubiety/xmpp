@@ -17,9 +17,9 @@
 
 namespace Ubiety.Common.Disco
 {
-	///<summary>
+	/// <summary>
 	/// Interface defining the methods that should be exposed by a feature discovery class.
-	///</summary>
+	/// </summary>
 	public interface IDiscoManager
 	{
 		/// <summary>

@@ -22,8 +22,8 @@ using Ubiety.Registries;
 
 namespace Ubiety.States
 {
-	///<summary>
-	///</summary>
+	/// <summary>
+	/// </summary>
 	public class BindingState : IState
 	{
 		/// <summary>

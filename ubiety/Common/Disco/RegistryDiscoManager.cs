@@ -20,14 +20,16 @@ using System;
 namespace Ubiety.Common.Disco
 {
     /// <summary>
+    /// Registry based Disco manager
     /// </summary>
     public class RegistryDiscoManager : IDiscoManager
     {
         #region IDiscoManager Members
 
         /// <summary>
+        /// Looks up a feature by hash
         /// </summary>
-        /// <param name="hash"></param>
+        /// <param name="hash">Hash of the feature to lookup</param>
         /// <exception cref="NotImplementedException"></exception>
         public void LookupHash(string hash)
         {
