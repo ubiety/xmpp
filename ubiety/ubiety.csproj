@@ -154,6 +154,7 @@
     <Compile Include="Infrastructure\Extensions\ByteExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\TypeExtensions.cs" />
+    <Compile Include="Infrastructure\IUpdateable.cs" />
     <Compile Include="Infrastructure\XmppEvents.cs" />
     <Compile Include="Net\Address.cs" />
     <Compile Include="Net\AsyncSocket.cs" />

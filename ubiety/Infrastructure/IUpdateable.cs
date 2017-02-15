@@ -1,6 +1,6 @@
-// ClosedState.cs
+﻿// ProtocolFeatures.cs
 //
-//Ubiety XMPP Library Copyright (C) 2009 - 2017 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,34 +15,16 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using Serilog;
-using Ubiety.Common;
-using Ubiety.Core;
-using Ubiety.Infrastructure;
-
-namespace Ubiety.States
+namespace Ubiety.Infrastructure
 {
     /// <summary>
+    ///
     /// </summary>
-    public class DisconnectedState : IState
+    public interface IUpdateable
     {
         /// <summary>
+        ///
         /// </summary>
-        /// <param name="data"></param>
-        public void Execute(Tag data = null)
-        {
-            if (data != null)
-            {
-                Log.Debug(data);
-
-                var tag = ((Stream) data).Error;
-                ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Fatal, tag);
-            }
-            else
-            {
-                ProtocolParser.Reset();
-                ProtocolState.Socket.Disconnect();                
-            }
-        }
+        void Update();
     }
 }

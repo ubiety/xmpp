@@ -16,15 +16,18 @@
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 using System.Xml;
+using Serilog;
 using Ubiety.Common;
+using Ubiety.Infrastructure;
 using Ubiety.Infrastructure.Attributes;
+using Ubiety.States;
 
 namespace Ubiety.Core
 {
     /// <summary>
     /// </summary>
     [XmppTag("features", Namespaces.Stream, typeof (Features))]
-    public class Features : Tag
+    public class Features : Tag, IUpdateable
     {
         /// <summary>
         /// </summary>
@@ -39,15 +42,26 @@ namespace Ubiety.Core
 
         /// <summary>
         /// </summary>
-        public StartTls StartTls => this["starttls", Namespaces.StartTls] as StartTls;
-
-        /// <summary>
-        /// </summary>
         public Compression Compression => this["compression", Namespaces.Compression] as Compression;
 
         /// <summary>
         ///
         /// </summary>
         public SM.SM3 SM => this["sm", Namespaces.StreamManagementV3] as SM.SM3;
+
+        public void Update()
+        {
+            if (this["starttls", Namespaces.StartTls] != null)
+            {
+                Log.Debug("Setting SSL: On");
+                ProtocolState.Features = ProtocolState.Features | ProtocolFeatures.StartTls;
+            }
+
+            if (this["sm", Namespaces.StreamManagementV3] != null)
+            {
+                Log.Debug("Setting Stream Management: On");
+                ProtocolState.Features = ProtocolState.Features | ProtocolFeatures.StreamManagement;
+            }
+        }
     }
 }

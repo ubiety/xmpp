@@ -1,6 +1,6 @@
 // AsyncSocket.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -70,21 +70,6 @@ namespace Ubiety.Net
         /// </summary>
         public bool Connected { get; private set; }
 
-/*
-        /// <summary>
-        /// </summary>
-        public string Hostname
-        {
-            get { return _destinationAddress.Hostname; }
-        }
-*/
-
-/*
-        /// <summary>
-        /// </summary>
-        public bool Secure { get; set; }
-*/
-
         #endregion
 
         public void Dispose()
@@ -112,7 +97,7 @@ namespace Ubiety.Net
                 return;
             }
 
-            _socket = !_destinationAddress.IPv6
+            _socket = !_destinationAddress.IsIPv6
                 ? new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
                 : new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
 
@@ -183,15 +168,25 @@ namespace Ubiety.Net
             }
             catch (Exception e)
             {
-                Log.Error(e, "Error is starting secure connection.");
+                Log.Error(e, "Error in starting secure connection.");
                 ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Fatal, "Cannot connect with SSL.");
             }
         }
 
-        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain,
-            SslPolicyErrors errors)
+        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
         {
-            return errors == SslPolicyErrors.None;
+            if (errors == SslPolicyErrors.None)
+            {
+                return true;
+            }
+
+            Log.Error("SSL Policy Errors: {0}", errors);
+            foreach (var chainStatus in chain.ChainStatus)
+            {
+                Log.Debug("X509Chain Information: {0} - Flags: {1}", chainStatus.StatusInformation, chainStatus.Status);
+            }
+
+            return false;
         }
 
         /// <summary>

@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using Heijden.DNS;
 using Serilog;
 using Ubiety.States;
@@ -45,10 +46,7 @@ namespace Ubiety.Net
         /// <summary>
         ///     Is the address IPV6?
         /// </summary>
-// ReSharper disable InconsistentNaming
-        public bool IPv6 { get; private set; }
-
-// ReSharper restore InconsistentNaming
+        public bool IsIPv6 { get; private set; }
 
         public string Hostname { get; private set; }
 
@@ -71,19 +69,29 @@ namespace Ubiety.Net
             if (_srvRecords == null && !_srvFailed)
                 _srvRecords = FindSrv();
 
-            if (_srvFailed || _srvRecords == null) return null;
-            if (_srvAttempts >= _srvRecords.Count) return null;
+            if (_srvFailed || _srvRecords == null)
+            {
+                Log.Debug("No SRV records for {0}", Hostname);
+
+                return Resolve(Hostname);
+            }
+
+            if (_srvAttempts >= _srvRecords?.Count) return null;
+            if (_srvRecords == null) return null;
             ProtocolState.Settings.Port = _srvRecords[_srvAttempts].PORT;
-            var ip = Resolve(_srvRecords[_srvAttempts].TARGET);
+            var ip = Resolve(_srvRecords[_srvAttempts]?.TARGET);
             if (ip == null)
                 _srvAttempts++;
             else
                 return ip;
+
             return null;
         }
 
         private List<RecordSRV> FindSrv()
         {
+            Log.Debug("Trying SRV lookup...");
+
             var resp = _resolver.Query("_xmpp-client._tcp." + Hostname, QType.SRV, QClass.IN);
 
             if (resp.header.ANCOUNT > 0)
@@ -98,36 +106,28 @@ namespace Ubiety.Net
 
         private IPAddress Resolve(string hostname)
         {
-            var resp = _resolver.Query(hostname, QType.A, QClass.IN);
+            Response resp = null;
 
-            IPv6 = false;
+            Log.Debug("Trying standard lookup for {0}...", hostname);
+
+            if (Socket.OSSupportsIPv6)
+            {
+                Log.Debug("Trying IPv6 resolution...");
+                resp = _resolver.Query(hostname, QType.AAAA, QClass.IN);
+            }
+
+            if (resp?.Answers.Count > 0)
+            {
+                Log.Debug("Found IPv6 address");
+                IsIPv6 = true;
+                return ((RecordAAAA) resp.Answers[0].RECORD).Address;
+            }
+
+            Log.Debug("Trying IPv4 resolution...");
+            resp = _resolver.Query(hostname, QType.A, QClass.IN);
+
+            IsIPv6 = false;
             return ((RecordA) resp.Answers[0].RECORD).Address;
-
-            //while (true)
-            //{
-            //    var req = new Request();
-
-            //    //req.AddQuestion(Socket.OSSupportsIPv6
-            //    //                    ? new Question(UbietySettings.Hostname, DnsType.AAAA, DnsClass.IN)
-            //    //                    : new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
-
-            //    req.AddQuestion(new Question(UbietySettings.Hostname, DnsType.ANAME, DnsClass.IN));
-
-            //    var res = Resolver.Lookup(req, DnsAddresses[_dnsAttempts]);
-
-            //    if (res.Answers.Length <= 0) continue;
-
-            //    if (res.Answers[0].Type == DnsType.AAAA)
-            //    {
-            //        IPv6 = true;
-            //        var aa = (AAAARecord)res.Answers[0].Record;
-            //        return aa.IPAddress;
-            //    }
-
-            //    IPv6 = false;
-            //    var a = (ANameRecord)res.Answers[0].Record;
-            //    return a.IPAddress;
-            //}
         }
     }
 }

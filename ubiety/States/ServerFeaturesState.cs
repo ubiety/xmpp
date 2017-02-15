@@ -56,8 +56,11 @@ namespace Ubiety.States
 
             if (f != null)
             {
-                if (f.StartTls != null && ProtocolState.Settings.Ssl)
+                f.Update();
+
+                if (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl)
                 {
+                    Log.Debug("Starting SSL...");
                     ProtocolState.State = new StartTlsState();
                     var tls = TagRegistry.GetTag<StartTls>("starttls", Namespaces.StartTls);
                     ProtocolState.Socket.Write(tls);
@@ -66,6 +69,7 @@ namespace Ubiety.States
 
                 if (!ProtocolState.Authenticated)
                 {
+                    Log.Debug("Starting Authentication...");
                     ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes, ProtocolState.Settings.AuthenticationTypes);
                     if (ProtocolState.Processor == null)
                     {
@@ -83,6 +87,7 @@ namespace Ubiety.States
                 if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable && !ProtocolState.Settings.Ssl &&
                     f.Compression != null)
                 {
+                    Log.Debug("Starting Compression...");
                     // Do we have a stream for any of the compressions supported by the server?
                     foreach (var algorithm in
                         f.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
@@ -98,11 +103,9 @@ namespace Ubiety.States
                     }
                 }
 
-                Log.Debug("SM tag: {Tag}", f.SM);
-
-                if (f.SM != null)
+                if (ProtocolState.Features.HasFlag(ProtocolFeatures.StreamManagement))
                 {
-                    Log.Debug("Stream Management Available");
+                    Log.Debug("Starting Stream Management...");
                     ProtocolState.StreamManagementAvailable = true;
                 }
             }

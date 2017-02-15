@@ -54,6 +54,8 @@ namespace Ubiety.States
             }
         }
 
+        public static ProtocolFeatures Features { get; set; }
+
         /// <value>
         ///     The current state we are in.
         /// </value>
