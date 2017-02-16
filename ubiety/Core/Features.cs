@@ -51,10 +51,17 @@ namespace Ubiety.Core
 
         public void Update()
         {
-            if (this["starttls", Namespaces.StartTls] != null)
+            var ssl = (StartTls) this["starttls", Namespaces.StartTls];
+            if (ssl != null)
             {
                 Log.Debug("Setting SSL: On");
                 ProtocolState.Features = ProtocolState.Features | ProtocolFeatures.StartTls;
+
+                if (ssl.Required)
+                {
+                    Log.Debug("Setting SSL Required: On");
+                    ProtocolState.Features = ProtocolState.Features | ProtocolFeatures.SslRequired;
+                }
             }
 
             if (this["sm", Namespaces.StreamManagementV3] != null)

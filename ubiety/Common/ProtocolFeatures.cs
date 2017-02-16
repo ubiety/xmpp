@@ -36,7 +36,7 @@ namespace Ubiety.Common
         /// <summary>
         ///
         /// </summary>
-        Ssl,
+        SslRequired,
         /// <summary>
         ///
         /// </summary>

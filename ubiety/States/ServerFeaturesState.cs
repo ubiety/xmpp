@@ -44,7 +44,8 @@ namespace Ubiety.States
                 var s = stream;
                 if (!s.Version.StartsWith("1."))
                 {
-                    ProtocolState.Events.Error(this, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal, "Didn't receive expected stream:features tag from 1.x compliant server.");
+                    ProtocolState.Events.Error(this, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal,
+                        "Didn't receive expected stream:features tag from 1.x compliant server.");
                     return;
                 }
                 f = s.Features;
@@ -58,7 +59,9 @@ namespace Ubiety.States
             {
                 f.Update();
 
-                if (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl)
+                if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl) ||
+                    (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) &&
+                     ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)))
                 {
                     Log.Debug("Starting SSL...");
                     ProtocolState.State = new StartTlsState();
@@ -70,21 +73,24 @@ namespace Ubiety.States
                 if (!ProtocolState.Authenticated)
                 {
                     Log.Debug("Starting Authentication...");
-                    ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes, ProtocolState.Settings.AuthenticationTypes);
+                    ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes,
+                        ProtocolState.Settings.AuthenticationTypes);
                     if (ProtocolState.Processor == null)
                     {
                         ProtocolState.State = new DisconnectState();
                         ProtocolState.State.Execute();
                         return;
                     }
-                    ProtocolState.Socket.Write(ProtocolState.Processor.Initialize(ProtocolState.Settings.Id, ProtocolState.Settings.Password));
+                    ProtocolState.Socket.Write(
+                        ProtocolState.Processor.Initialize(ProtocolState.Settings.Id, ProtocolState.Settings.Password));
 
                     ProtocolState.State = new SaslState();
                     return;
                 }
 
                 // Takes place after authentication according to XEP-0170
-                if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable && !ProtocolState.Settings.Ssl &&
+                if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable &&
+                    !ProtocolState.Settings.Ssl &&
                     f.Compression != null)
                 {
                     Log.Debug("Starting Compression...");

@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ubiety</RootNamespace>
-    <AssemblyName>ubiety</AssemblyName>
+    <AssemblyName>Ubiety.Xmpp</AssemblyName>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>xmpp.pfx</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
