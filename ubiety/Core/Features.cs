@@ -69,6 +69,12 @@ namespace Ubiety.Core
                 Log.Debug("Setting Stream Management: On");
                 ProtocolState.Features = ProtocolState.Features | ProtocolFeatures.StreamManagement;
             }
+
+            if (this["csi", Namespaces.ClientState] != null)
+            {
+                Log.Debug("Setting Client State Indication: On");
+                ProtocolState.Features = ProtocolState.Features | ProtocolFeatures.ClientState;
+            }
         }
     }
 }

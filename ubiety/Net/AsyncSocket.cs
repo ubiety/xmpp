@@ -164,6 +164,7 @@ namespace Ubiety.Net
                 if (sslstream.IsAuthenticated)
                 {
                     _stream = sslstream;
+                    ProtocolState.Encrypted = true;
                 }
             }
             catch (Exception e)
@@ -179,6 +180,8 @@ namespace Ubiety.Net
             {
                 return true;
             }
+
+            Log.Debug(cert.ToString());
 
             Log.Error("SSL Policy Errors: {0}", errors);
             foreach (var chainStatus in chain.ChainStatus)

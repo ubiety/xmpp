@@ -36,7 +36,7 @@ namespace Ubiety.States
         /// </param>
         public void Execute(Tag data = null)
         {
-            Features f;
+            Features features;
 
             var stream = data as Stream;
             if (stream != null)
@@ -48,20 +48,22 @@ namespace Ubiety.States
                         "Didn't receive expected stream:features tag from 1.x compliant server.");
                     return;
                 }
-                f = s.Features;
+                features = s.Features;
             }
             else
             {
-                f = data as Features;
+                features = data as Features;
             }
 
-            if (f != null)
+            if (features != null)
             {
-                f.Update();
+                // We have features available so make sure we have them set
+                features.Update();
 
+                // Should we use SSL and is it required
                 if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl) ||
                     (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) &&
-                     ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)))
+                     ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)) && !ProtocolState.Encrypted)
                 {
                     Log.Debug("Starting SSL...");
                     ProtocolState.State = new StartTlsState();
@@ -73,7 +75,7 @@ namespace Ubiety.States
                 if (!ProtocolState.Authenticated)
                 {
                     Log.Debug("Starting Authentication...");
-                    ProtocolState.Processor = SaslProcessor.CreateProcessor(f.StartSasl.SupportedTypes,
+                    ProtocolState.Processor = SaslProcessor.CreateProcessor(features.StartSasl.SupportedTypes,
                         ProtocolState.Settings.AuthenticationTypes);
                     if (ProtocolState.Processor == null)
                     {
@@ -91,12 +93,12 @@ namespace Ubiety.States
                 // Takes place after authentication according to XEP-0170
                 if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable &&
                     !ProtocolState.Settings.Ssl &&
-                    f.Compression != null)
+                    features.Compression != null)
                 {
                     Log.Debug("Starting Compression...");
                     // Do we have a stream for any of the compressions supported by the server?
                     foreach (var algorithm in
-                        f.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
+                        features.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
                     {
                         var c = TagRegistry.GetTag<GenericTag>("compress", Namespaces.CompressionProtocol);
                         var m = TagRegistry.GetTag<GenericTag>("method", Namespaces.CompressionProtocol);
@@ -109,15 +111,13 @@ namespace Ubiety.States
                     }
                 }
 
-                if (ProtocolState.Features.HasFlag(ProtocolFeatures.StreamManagement))
+                if (ProtocolState.Authenticated)
                 {
-                    Log.Debug("Starting Stream Management...");
-                    ProtocolState.StreamManagementAvailable = true;
+                    Log.Debug("Switching to Binding state");
+                    ProtocolState.State = new BindingState();
+                    ProtocolState.State.Execute();
                 }
             }
-
-            ProtocolState.State = new BindingState();
-            ProtocolState.State.Execute();
         }
     }
 }

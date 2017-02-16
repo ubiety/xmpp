@@ -47,7 +47,7 @@ namespace Ubiety.States
 
         private static void EventsOnOnSend(object sender, TagEventArgs tagEventArgs)
         {
-            if (!StreamManagementAvailable) return;
+            if (!Features.HasFlag(ProtocolFeatures.StreamManagement)) return;
             if (tagEventArgs.Tag is GenericTag || tagEventArgs.Tag is Iq)
             {
                 UnacknowlegedStanzas.Enqueue(tagEventArgs.Tag);
@@ -89,11 +89,6 @@ namespace Ubiety.States
         /// <summary>
         ///
         /// </summary>
-        public static bool StreamManagementAvailable { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
         public static int StanzaCount { get; set; }
 
         /// <summary>
@@ -115,6 +110,8 @@ namespace Ubiety.States
         ///
         /// </summary>
         public static IRosterManager RosterManager { get; set; }
+
+        public static bool Encrypted { get; set; }
 
         private static void EventsOnOnDisconnect(object sender, EventArgs eventArgs)
         {

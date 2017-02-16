@@ -46,10 +46,7 @@ namespace Ubiety.States
             }
             else
             {
-                //var p = TagRegistry.GetTag<GenericTag>("presence", Namespaces.Client);
-                //ProtocolState.Socket.Write(p);
-
-                if (ProtocolState.StreamManagementAvailable)
+                if (ProtocolState.Features.HasFlag(ProtocolFeatures.StreamManagement))
                 {
                     Log.Debug("Intiating Stream Management");
                     ProtocolState.State = new StreamManagementState();

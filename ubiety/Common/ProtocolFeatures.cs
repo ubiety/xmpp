@@ -26,24 +26,28 @@ namespace Ubiety.Common
     public enum ProtocolFeatures
     {
         /// <summary>
-        ///
+        /// No protocol features available or enabled
         /// </summary>
         None,
         /// <summary>
-        ///
+        /// SSL available on the server
         /// </summary>
         StartTls,
         /// <summary>
-        ///
+        /// SSL is required to connect to the current server
         /// </summary>
         SslRequired,
         /// <summary>
-        ///
+        /// Server supports compressed streams
         /// </summary>
         Compression,
         /// <summary>
-        ///
+        /// Server supports Stream Management (XEP-0198)
         /// </summary>
-        StreamManagement
+        StreamManagement,
+        /// <summary>
+        /// Server supports Client State Indication (XEP-0352)
+        /// </summary>
+        ClientState
     }
 }
