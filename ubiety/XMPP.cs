@@ -1,6 +1,6 @@
 // XMPP.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -118,8 +118,8 @@ namespace Ubiety
         /// </summary>
         public event EventHandler<ErrorEventArgs> OnError
         {
-            add { ProtocolState.Events.OnError += value; }
-            remove { ProtocolState.Events.OnError -= value; }
+            add => ProtocolState.Events.OnError += value;
+            remove => ProtocolState.Events.OnError -= value;
         }
 
         /// <summary>
@@ -127,8 +127,8 @@ namespace Ubiety
         /// </summary>
         public event EventHandler<TagEventArgs> OnNewTag
         {
-            add { ProtocolState.Events.OnNewTag += value; }
-            remove { ProtocolState.Events.OnNewTag -= value; }
+            add => ProtocolState.Events.OnNewTag += value;
+            remove => ProtocolState.Events.OnNewTag -= value;
         }
 
         #region Properties

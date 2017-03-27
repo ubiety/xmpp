@@ -55,69 +55,64 @@ namespace Ubiety.States
                 features = data as Features;
             }
 
-            if (features != null)
+            if (features == null) return;
+            // We have features available so make sure we have them set
+            features.Update();
+
+            // Should we use SSL and is it required
+            if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl) ||
+                (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) &&
+                 ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)) && !ProtocolState.Encrypted)
             {
-                // We have features available so make sure we have them set
-                features.Update();
+                Log.Debug("Starting SSL...");
+                ProtocolState.State = new StartTlsState();
+                var tls = TagRegistry.GetTag<StartTls>("starttls", Namespaces.StartTls);
+                ProtocolState.Socket.Write(tls);
+                return;
+            }
 
-                // Should we use SSL and is it required
-                if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl) ||
-                    (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) &&
-                     ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)) && !ProtocolState.Encrypted)
+            if (!ProtocolState.Authenticated)
+            {
+                Log.Debug("Starting Authentication...");
+                ProtocolState.Processor = SaslProcessor.CreateProcessor(features.StartSasl.SupportedTypes,
+                    ProtocolState.Settings.AuthenticationTypes);
+                if (ProtocolState.Processor == null)
                 {
-                    Log.Debug("Starting SSL...");
-                    ProtocolState.State = new StartTlsState();
-                    var tls = TagRegistry.GetTag<StartTls>("starttls", Namespaces.StartTls);
-                    ProtocolState.Socket.Write(tls);
-                    return;
-                }
-
-                if (!ProtocolState.Authenticated)
-                {
-                    Log.Debug("Starting Authentication...");
-                    ProtocolState.Processor = SaslProcessor.CreateProcessor(features.StartSasl.SupportedTypes,
-                        ProtocolState.Settings.AuthenticationTypes);
-                    if (ProtocolState.Processor == null)
-                    {
-                        ProtocolState.State = new DisconnectState();
-                        ProtocolState.State.Execute();
-                        return;
-                    }
-                    ProtocolState.Socket.Write(
-                        ProtocolState.Processor.Initialize(ProtocolState.Settings.Id, ProtocolState.Settings.Password));
-
-                    ProtocolState.State = new SaslState();
-                    return;
-                }
-
-                // Takes place after authentication according to XEP-0170
-                if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable &&
-                    !ProtocolState.Settings.Ssl &&
-                    features.Compression != null)
-                {
-                    Log.Debug("Starting Compression...");
-                    // Do we have a stream for any of the compressions supported by the server?
-                    foreach (var algorithm in
-                        features.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
-                    {
-                        var c = TagRegistry.GetTag<GenericTag>("compress", Namespaces.CompressionProtocol);
-                        var m = TagRegistry.GetTag<GenericTag>("method", Namespaces.CompressionProtocol);
-
-                        m.InnerText = ProtocolState.Algorithm = algorithm;
-                        c.AddChildTag(m);
-                        ProtocolState.Socket.Write(c);
-                        ProtocolState.State = new CompressedState();
-                        return;
-                    }
-                }
-
-                if (ProtocolState.Authenticated)
-                {
-                    Log.Debug("Switching to Binding state");
-                    ProtocolState.State = new BindingState();
+                    ProtocolState.State = new DisconnectState();
                     ProtocolState.State.Execute();
+                    return;
+                }
+                ProtocolState.Socket.Write(
+                    ProtocolState.Processor.Initialize(ProtocolState.Settings.Id, ProtocolState.Settings.Password));
+
+                ProtocolState.State = new SaslState();
+                return;
+            }
+
+            // Takes place after authentication according to XEP-0170
+            if (!ProtocolState.Compressed && CompressionRegistry.AlgorithmsAvailable &&
+                !ProtocolState.Settings.Ssl && features.Compression != null)
+            {
+                Log.Debug("Starting Compression...");
+                // Do we have a stream for any of the compressions supported by the server?
+                foreach (var algorithm in
+                    features.Compression.Algorithms.Where(CompressionRegistry.SupportsAlgorithm))
+                {
+                    var c = TagRegistry.GetTag<GenericTag>("compress", Namespaces.CompressionProtocol);
+                    var m = TagRegistry.GetTag<GenericTag>("method", Namespaces.CompressionProtocol);
+
+                    m.InnerText = ProtocolState.Algorithm = algorithm;
+                    c.AddChildTag(m);
+                    ProtocolState.Socket.Write(c);
+                    ProtocolState.State = new CompressedState();
+                    return;
                 }
             }
+
+            if (!ProtocolState.Authenticated) return;
+            Log.Debug("Switching to Binding state");
+            ProtocolState.State = new BindingState();
+            ProtocolState.State.Execute();
         }
     }
 }

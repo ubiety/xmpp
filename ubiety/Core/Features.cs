@@ -44,11 +44,6 @@ namespace Ubiety.Core
         /// </summary>
         public Compression Compression => this["compression", Namespaces.Compression] as Compression;
 
-        /// <summary>
-        ///
-        /// </summary>
-        public SM.SM3 SM => this["sm", Namespaces.StreamManagementV3] as SM.SM3;
-
         public void Update()
         {
             var ssl = (StartTls) this["starttls", Namespaces.StartTls];
