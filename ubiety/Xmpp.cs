@@ -68,7 +68,7 @@ namespace Ubiety
         /// <summary>
         ///     Initializes a new instance of the <see cref="Xmpp" /> class.
         /// </summary>
-        public Xmpp()
+        static Xmpp()
         {
             ILogger log =
                 new LoggerConfiguration().MinimumLevel.Debug()
@@ -80,11 +80,24 @@ namespace Ubiety
         }
 
         /// <summary>
-        ///     Connects this instance to an XMPP server.
+        ///
         /// </summary>
-        public void Connect()
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <param name="port"></param>
+        /// <returns></returns>
+        public static XmppState Connect(JID user, string password, int port = 5222)
         {
-            ProtocolState.Events.Connect(this);
+            var state = new XmppState
+            {
+                Settings =
+                {
+                    Id = user,
+                    Password = password,
+                    Port = port
+                }
+            };
+            return state;
         }
 
         /// <summary>
@@ -93,24 +106,6 @@ namespace Ubiety
         public void Disconnect()
         {
             ProtocolState.Events.Disconnect(this);
-        }
-
-        /// <summary>
-        ///     Send a message to the server via a Tag
-        /// </summary>
-        /// <param name="tag">Tag to send to the server</param>
-        public void Send(Tag tag)
-        {
-            ProtocolState.Events.Send(this, tag);
-        }
-
-        /// <summary>
-        ///     Send a message to the server via a Tag
-        /// </summary>
-        /// <param name="args">Event argument containing tag to send to the server</param>
-        public void Send(TagEventArgs args)
-        {
-            ProtocolState.Events.Send(this, args);
         }
 
         /// <summary>

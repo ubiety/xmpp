@@ -28,6 +28,6 @@ namespace Ubiety.States
         /// <param name="data">
         ///     A <see cref="object" />
         /// </param>
-        void Execute(Tag data = null);
+        void Execute(XmppState state, Tag data = null);
     }
 }

@@ -26,21 +26,15 @@ namespace Ubiety.States
 	/// </summary>
 	public class ConnectedState : IState
 	{
-        /// <summary>
-        /// Executes the state sending the tag to the just connected socket.
-        /// </summary>
-        /// <param name="data">
-        /// The <see cref="Tag"/> to parse.  In this case null.
-        /// </param>
-        public void Execute(Tag data = null)
-		{
-			var stream = TagRegistry.GetTag<Stream>("stream", Namespaces.Stream);
-			stream.Version = "1.0";
-			stream.To = ProtocolState.Settings.Id.Server;
-			stream.Namespace = Namespaces.Client;
-			stream.Language = "en";
-			ProtocolState.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
-			ProtocolState.State = new ServerFeaturesState();
-		}
+	    public void Execute(XmppState state, Tag data = null)
+	    {
+	        var stream = TagRegistry.GetTag<Stream>("stream", Namespaces.Stream);
+	        stream.Version = "1.0";
+	        stream.To = ProtocolState.Settings.Id.Server;
+	        stream.Namespace = Namespaces.Client;
+	        stream.Language = "en";
+	        state.Socket.Write("<?xml version='1.0' encoding='UTF-8'?>" + stream.StartTag());
+	        state.State = new ServerFeaturesState();
+	    }
 	}
 }

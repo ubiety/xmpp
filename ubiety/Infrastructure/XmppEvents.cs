@@ -76,15 +76,15 @@ namespace Ubiety.Infrastructure
 
         /// <summary>
         /// </summary>
-        public event EventHandler<EventArgs> OnConnect;
+        public event EventHandler<EventArgs> Connect;
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public void Connect(object sender, EventArgs args = default (EventArgs))
+        public void OnConnect(object sender, EventArgs args = default (EventArgs))
         {
-            OnConnect?.Invoke(sender, args);
+            Connect?.Invoke(sender, args);
         }
 
         #endregion
@@ -110,22 +110,22 @@ namespace Ubiety.Infrastructure
 
         /// <summary>
         /// </summary>
-        public event EventHandler<TagEventArgs> OnSend;
+        public event EventHandler<TagEventArgs> Send;
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public void Send(object sender, TagEventArgs args)
+        public void OnSend(object sender, TagEventArgs args)
         {
-            OnSend?.Invoke(sender, args);
+            Send?.Invoke(sender, args);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="tag"></param>
-        public void Send(object sender, Tag tag)
+        public void OnSend(object sender, Tag tag)
         {
             Send(sender, new TagEventArgs(tag));
         }

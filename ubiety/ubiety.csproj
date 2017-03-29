@@ -176,8 +176,9 @@
     <Compile Include="States\StartTLSState.cs" />
     <Compile Include="States\IState.cs" />
     <Compile Include="States\StreamManagementState.cs" />
-    <Compile Include="XMPP.cs" />
+    <Compile Include="Xmpp.cs" />
     <Compile Include="Infrastructure\XmppSettings.cs" />
+    <Compile Include="XmppState.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

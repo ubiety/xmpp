@@ -36,7 +36,7 @@ namespace Ubiety.Net
     /// <remarks>
     ///     AsyncSocket is the class that communicates with the server.
     /// </remarks>
-    internal class AsyncSocket : IDisposable
+    public class AsyncSocket : IDisposable
     {
         // Timeout after 5 seconds by default
 /*
@@ -51,16 +51,15 @@ namespace Ubiety.Net
         private ICompression _compression;
         private Socket _socket;
         private Stream _stream;
+        private XmppState _state;
 
-        public AsyncSocket()
+        /// <summary>
+        ///
+        /// </summary>
+        public AsyncSocket(XmppState state)
         {
             _destinationAddress = new Address();
-            ProtocolState.Events.OnSend += Events_OnSend;
-        }
-
-        private void Events_OnSend(object sender, TagEventArgs e)
-        {
-            Write(e.Tag.ToString());
+            _state = state;
         }
 
         #region Properties
@@ -72,6 +71,9 @@ namespace Ubiety.Net
 
         #endregion
 
+        /// <summary>
+        ///
+        /// </summary>
         public void Dispose()
         {
             _timeoutEvent.Dispose();
@@ -132,8 +134,8 @@ namespace Ubiety.Net
 
                 _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
 
-                ProtocolState.State = new ConnectedState();
-                ProtocolState.State.Execute();
+                _state.State = new ConnectedState();
+                _state.State.Execute(_state);
             }
             finally
             {
