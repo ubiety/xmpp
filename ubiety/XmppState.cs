@@ -15,6 +15,7 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+using Ubiety.Common;
 using Ubiety.Infrastructure;
 using Ubiety.Net;
 using Ubiety.States;
@@ -33,6 +34,7 @@ namespace Ubiety
         {
             Settings = new XmppSettings();
             Socket = new AsyncSocket(this);
+            Events = new XmppEvents();
             Connect();
         }
 
@@ -66,5 +68,15 @@ namespace Ubiety
         ///
         /// </summary>
         public AsyncSocket Socket { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public XmppEvents Events { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public ProtocolFeatures Features { get; set; }
     }
 }

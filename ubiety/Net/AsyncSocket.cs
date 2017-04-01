@@ -43,6 +43,7 @@ namespace Ubiety.Net
         private const int Timeout = 5000;
 */
         private const int BufferSize = 4096;
+
         private readonly byte[] _bufferBytes = new byte[BufferSize];
         private readonly Address _destinationAddress;
         private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
@@ -51,7 +52,7 @@ namespace Ubiety.Net
         private ICompression _compression;
         private Socket _socket;
         private Stream _stream;
-        private XmppState _state;
+        private readonly XmppState _state;
 
         /// <summary>
         ///
@@ -94,7 +95,7 @@ namespace Ubiety.Net
             }
             else
             {
-                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal,
+                _state.Events.OnError(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal,
                     "Unable to obtain server IP address.");
                 return;
             }
@@ -115,7 +116,7 @@ namespace Ubiety.Net
             catch (SocketException e)
             {
                 Log.Error(e, "Error in connecting socket.");
-                ProtocolState.Events.Error(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal,
+                _state.Events.OnError(this, ErrorType.ConnectionTimeout, ErrorSeverity.Fatal,
                     "Unable to connect to server.");
             }
         }
@@ -163,20 +164,19 @@ namespace Ubiety.Net
             try
             {
                 sslstream.AuthenticateAsClient(_destinationAddress.Hostname, null, SslProtocols.Tls, false);
-                if (sslstream.IsAuthenticated)
-                {
-                    _stream = sslstream;
-                    ProtocolState.Encrypted = true;
-                }
+                if (!sslstream.IsAuthenticated) return;
+                _stream = sslstream;
+                ProtocolState.Encrypted = true;
             }
             catch (Exception e)
             {
                 Log.Error(e, "Error in starting secure connection.");
-                ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Fatal, "Cannot connect with SSL.");
+                _state.Events.OnError(this, ErrorType.XmlError, ErrorSeverity.Fatal, "Cannot connect with SSL.");
             }
         }
 
-        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
+        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain,
+            SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
             {
@@ -220,12 +220,12 @@ namespace Ubiety.Net
 
                 Log.Debug("Incoming Message: {Message}", m);
 
-                ProtocolParser.Parse(m);
+                ProtocolParser.Parse(_state, m);
 
                 // Clear the buffer otherwise we get leftover tags and it confuses the parser.
                 _bufferBytes.Clear();
 
-                if (!Connected || ProtocolState.State is DisconnectedState) return;
+                if (!Connected || _state.State is DisconnectedState) return;
 
                 _stream.BeginRead(_bufferBytes, 0, _bufferBytes.Length, Receive, null);
             }

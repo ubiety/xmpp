@@ -15,12 +15,9 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System;
 using Serilog;
 using Ubiety.Common;
-using Ubiety.Infrastructure;
 using Ubiety.Registries;
-using Ubiety.States;
 
 namespace Ubiety
 {
@@ -49,11 +46,8 @@ namespace Ubiety
     ///      public static Main()
     /// 	 {
     /// 	     // Create a new instance of the XMPP class
-    /// 		 Xmpp ubiety = new Xmpp();
-    ///          ubiety.Settings.Id = new JID("user@jabber.org/chat");
-    ///          ubiety.Settings.Password = "password";
-    /// 			
-    ///          ubiety.Connect();
+    /// 		 var xmpp = Xmpp.Connect(new JID("user@jabber.org/chat"), "password");
+    /// 		 xmpp.Events.NewTag += Test_OnNewTag;
     /// 	 }
     ///  }
     ///  </code>
@@ -99,48 +93,5 @@ namespace Ubiety
             };
             return state;
         }
-
-        /// <summary>
-        ///     Disconnects this instance from the server.
-        /// </summary>
-        public void Disconnect()
-        {
-            ProtocolState.Events.Disconnect(this);
-        }
-
-        /// <summary>
-        ///     An error occurred
-        /// </summary>
-        public event EventHandler<ErrorEventArgs> OnError
-        {
-            add => ProtocolState.Events.OnError += value;
-            remove => ProtocolState.Events.OnError -= value;
-        }
-
-        /// <summary>
-        /// A new tag has arrived from the server
-        /// </summary>
-        public event EventHandler<TagEventArgs> OnNewTag
-        {
-            add => ProtocolState.Events.OnNewTag += value;
-            remove => ProtocolState.Events.OnNewTag -= value;
-        }
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets a value indicating whether this <see cref="Xmpp" /> is connected to a server.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if connected; otherwise, <c>false</c>.
-        /// </value>
-        public static bool Connected => ProtocolState.State is RunningState;
-
-        /// <summary>
-        ///     Current settings of the application including Id and Password.
-        /// </summary>
-        public static XmppSettings Settings => ProtocolState.Settings;
-
-        #endregion
     }
 }

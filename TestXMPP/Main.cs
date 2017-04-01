@@ -3,39 +3,32 @@ using System.Windows.Forms;
 using TestXMPP.Properties;
 using Ubiety;
 using Ubiety.Common;
-using Ubiety.Core;
 using Ubiety.Infrastructure;
 
 namespace TestXMPP
 {
     public partial class Main : Form
-	{
-		private readonly Xmpp _xmpp;
+    {
+        private XmppState _xmppState;
 
 		public Main()
 		{
 			InitializeComponent();
-            //CompressionRegistry.AddCompression(Assembly.LoadFile(Path.Combine(Application.StartupPath, "ubiety.compression.sharpziplib.dll")));
-			_xmpp = new Xmpp();
-            _xmpp.OnError += _xmpp_OnError;
 			slVersion.Text = Resources.Version_Label + Xmpp.Version;
 		}
 
-        void _xmpp_OnError(object sender, ErrorEventArgs e)
-        {
-            MessageBox.Show(e.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
 		private void Button1Click(object sender, EventArgs e)
 		{
-            Xmpp.Settings.AuthenticationTypes = MechanismType.Default;
-            Xmpp.Settings.Id = new JID(txtUsername.Text);
-			Xmpp.Settings.Password = txtPassword.Text;
-			Xmpp.Settings.Ssl = btnSSL.Checked;
-			_xmpp.Connect();
+		    _xmppState = Xmpp.Connect(new JID(txtUsername.Text), txtPassword.Text);
+		    _xmppState.Events.Error += EventsOnError;
 		}
 
-		private void BtnExitClick(object sender, EventArgs e)
+        private static void EventsOnError(object sender, ErrorEventArgs errorEventArgs)
+        {
+            MessageBox.Show(errorEventArgs.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void BtnExitClick(object sender, EventArgs e)
 		{
 			if (_xmpp != null && Xmpp.Connected)
 				_xmpp.Disconnect();

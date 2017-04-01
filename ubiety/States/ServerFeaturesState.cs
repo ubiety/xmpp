@@ -34,7 +34,8 @@ namespace Ubiety.States
         /// <param name="data">
         ///     A <see cref="Tag" />
         /// </param>
-        public void Execute(Tag data = null)
+        /// <param name="state"></param>
+        public void Execute(XmppState state, Tag data = null)
         {
             Features features;
 
@@ -44,11 +45,13 @@ namespace Ubiety.States
                 var s = stream;
                 if (!s.Version.StartsWith("1."))
                 {
-                    ProtocolState.Events.Error(this, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal,
+                    state.Events.OnError(this, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal,
                         "Didn't receive expected stream:features tag from 1.x compliant server.");
                     return;
                 }
                 features = s.Features;
+
+                state.Events.OnConnect(this);
             }
             else
             {
@@ -60,14 +63,14 @@ namespace Ubiety.States
             features.Update();
 
             // Should we use SSL and is it required
-            if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl) ||
-                (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) &&
-                 ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)) && !ProtocolState.Encrypted)
+            if (state.Features.HasFlag(ProtocolFeatures.StartTls) && state.Settings.Ssl ||
+                state.Features.HasFlag(ProtocolFeatures.StartTls) &&
+                state.Features.HasFlag(ProtocolFeatures.SslRequired) && !ProtocolState.Encrypted)
             {
                 Log.Debug("Starting SSL...");
-                ProtocolState.State = new StartTlsState();
+                state.State = new StartTlsState();
                 var tls = TagRegistry.GetTag<StartTls>("starttls", Namespaces.StartTls);
-                ProtocolState.Socket.Write(tls);
+                state.Socket.Write(tls);
                 return;
             }
 

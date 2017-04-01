@@ -55,7 +55,7 @@ namespace Ubiety.Infrastructure
         /// <summary>
         ///     Parses the message into its appropriate <seealso cref="Tag" />
         /// </summary>
-        public static void Parse(string message)
+        public static void Parse(XmppState state, string message)
         {
             var fullStream = false;
 
@@ -68,8 +68,8 @@ namespace Ubiety.Infrastructure
             if (message.Contains("</stream:stream>"))
             {
                 // Just close the socket.  We don't need to reply but we will signal we aren't connected.
-                ProtocolState.State = new DisconnectedState();
-                ProtocolState.State.Execute();
+                state.State = new DisconnectedState();
+                state.State.Execute(state);
 
                 if (message.Length == 16)
                 {
@@ -97,14 +97,14 @@ namespace Ubiety.Infrastructure
                     switch (_reader.NodeType)
                     {
                         case XmlNodeType.Element:
-                            StartTag();
+                            StartTag(state);
                             if (_reader.IsEmptyElement)
                             {
-                                EndTag();
+                                EndTag(state);
                             }
                             break;
                         case XmlNodeType.EndElement:
-                            EndTag();
+                            EndTag(state);
                             break;
                         case XmlNodeType.Text:
                             AddText();
@@ -115,10 +115,10 @@ namespace Ubiety.Infrastructure
             catch (XmlException e)
             {
                 Log.Error(e, "Error in xml from server");
-                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorSeverity.Fatal, "Error parsing XML from server.");
-                if (!ProtocolState.Socket.Connected) throw new ServerXmlException("Error in xml from server", e);
-                ProtocolState.State = new DisconnectState();
-                ProtocolState.State.Execute();
+                state.Events.OnError(null, ErrorType.XmlError, ErrorSeverity.Fatal, "Error parsing XML from server.");
+                if (!state.Socket.Connected) throw new ServerXmlException("Error in xml from server", e);
+                state.State = new DisconnectState();
+                state.State.Execute(state);
 
                 throw new ServerXmlException("Error in xml from server", e);
             }
@@ -135,7 +135,7 @@ namespace Ubiety.Infrastructure
             _element?.AppendChild(Tag.Document.CreateTextNode(_reader.Value));
         }
 
-        private static void StartTag()
+        private static void StartTag(XmppState state)
         {
             var ht = new Hashtable();
 
@@ -190,7 +190,7 @@ namespace Ubiety.Infrastructure
             {
                 if (elem.Name != "stream:stream")
                 {
-                    ProtocolState.Events.Error(null, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal, "Missing proper stream:stream header from server.");
+                    state.Events.OnError(null, ErrorType.WrongProtocolVersion, ErrorSeverity.Fatal, "Missing proper stream:stream header from server.");
                     return;
                 }
 
@@ -203,21 +203,21 @@ namespace Ubiety.Infrastructure
             }
         }
 
-        private static void EndTag()
+        private static void EndTag(XmppState state)
         {
             if (_element == null)
                 return;
 
-            if ((_element.Name != _reader.Name))
+            if (_element.Name != _reader.Name)
             {
-                ProtocolState.Events.Error(null, ErrorType.XmlError, ErrorSeverity.Fatal, "Wrong end tag for current element.");
+                state.Events.OnError(null, ErrorType.XmlError, ErrorSeverity.Fatal, "Wrong end tag for current element.");
                 return;
             }
 
             var parent = (XmlElement) _element.ParentNode;
             if (parent == null)
             {
-                ProtocolState.Events.NewTag(null, (Tag) _element);
+                state.Events.OnNewTag(null, (Tag) _element);
             }
             _element = parent;
         }

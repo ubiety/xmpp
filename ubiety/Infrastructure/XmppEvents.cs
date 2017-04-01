@@ -93,15 +93,15 @@ namespace Ubiety.Infrastructure
 
         /// <summary>
         /// </summary>
-        public event EventHandler<EventArgs> OnDisconnect;
+        public event EventHandler<EventArgs> Disconnect;
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public void Disconnect(object sender, EventArgs args = default (EventArgs))
+        public void OnDisconnect(object sender, EventArgs args = default (EventArgs))
         {
-            OnDisconnect?.Invoke(sender, args);
+            Disconnect?.Invoke(sender, args);
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace Ubiety.Infrastructure
         /// <param name="tag"></param>
         public void OnSend(object sender, Tag tag)
         {
-            Send(sender, new TagEventArgs(tag));
+            OnSend(sender, new TagEventArgs(tag));
         }
 
         #endregion
@@ -136,39 +136,39 @@ namespace Ubiety.Infrastructure
 
         /// <summary>
         /// </summary>
-        public event EventHandler<TagEventArgs> OnNewTag;
+        public event EventHandler<TagEventArgs> NewTag;
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public void NewTag(object sender, TagEventArgs args)
+        public void OnNewTag(object sender, TagEventArgs args)
         {
-            OnNewTag?.Invoke(sender, args);
+            NewTag?.Invoke(sender, args);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="tag"></param>
-        public void NewTag(object sender, Tag tag)
+        public void OnNewTag(object sender, Tag tag)
         {
-            NewTag(sender, new TagEventArgs(tag));
+            OnNewTag(sender, new TagEventArgs(tag));
         }
 
         #endregion
 
         /// <summary>
         /// </summary>
-        public event EventHandler<ErrorEventArgs> OnError;
+        public event EventHandler<ErrorEventArgs> Error;
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public void Error(object sender, ErrorEventArgs args)
+        public void OnError(object sender, ErrorEventArgs args)
         {
-            OnError?.Invoke(sender, args);
+            Error?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -177,9 +177,9 @@ namespace Ubiety.Infrastructure
         /// <param name="type"></param>
         /// <param name="severity"></param>
         /// <param name="message"></param>
-        public void Error(object sender, ErrorType type, ErrorSeverity severity, String message)
+        public void OnError(object sender, ErrorType type, ErrorSeverity severity, string message)
         {
-            Error(sender, new ErrorEventArgs(message, type, severity));
+            OnError(sender, new ErrorEventArgs(message, type, severity));
         }
 
         /// <summary>
@@ -189,9 +189,9 @@ namespace Ubiety.Infrastructure
         /// <param name="severity"></param>
         /// <param name="message"></param>
         /// <param name="parameters"></param>
-        public void Error(object sender, ErrorType type, ErrorSeverity severity, String message, params object[] parameters)
+        public void OnError(object sender, ErrorType type, ErrorSeverity severity, String message, params object[] parameters)
         {
-            Error(sender, type, severity, String.Format(message, parameters));
+            OnError(sender, type, severity, String.Format(message, parameters));
         }
     }
 }
