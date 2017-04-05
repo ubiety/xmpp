@@ -61,6 +61,12 @@ namespace Ubiety.Net
                 ? ProtocolState.Settings.Hostname
                 : ProtocolState.Settings.Id.Server;
 
+            var address = IPAddress.Parse(Hostname);
+            if (address != null)
+            {
+                return address;
+            }
+
             if (Hostname == "dieter-pc")
             {
                 return IPAddress.Parse("127.0.0.1");
