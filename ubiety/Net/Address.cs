@@ -110,7 +110,7 @@ namespace Ubiety.Net
 
             Log.Debug("Trying standard lookup for {0}...", hostname);
 
-            if (Socket.OSSupportsIPv6)
+            if (Socket.OSSupportsIPv6 && ProtocolState.UseIPv6)
             {
                 Log.Debug("Trying IPv6 resolution...");
                 resp = _resolver.Query(hostname, QType.AAAA, QClass.IN);
