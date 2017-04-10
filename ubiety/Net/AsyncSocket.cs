@@ -130,6 +130,11 @@ namespace Ubiety.Net
                 var netstream = new NetworkStream(socket);
                 _stream = netstream;
 
+                if (ProtocolState.Settings.Ssl)
+                {
+                    StartSecure();
+                }
+
                 _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
 
                 ProtocolState.State = new ConnectedState();
