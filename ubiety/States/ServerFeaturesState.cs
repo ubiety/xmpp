@@ -61,7 +61,7 @@ namespace Ubiety.States
                 features.Update();
 
                 // Should we use SSL and is it required
-                if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.Ssl) ||
+                if ((ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) && ProtocolState.Settings.StartTls) ||
                     (ProtocolState.Features.HasFlag(ProtocolFeatures.StartTls) &&
                      ProtocolState.Features.HasFlag(ProtocolFeatures.SslRequired)) && !ProtocolState.Encrypted)
                 {
