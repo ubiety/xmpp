@@ -61,8 +61,7 @@ namespace Ubiety.Net
                 ? ProtocolState.Settings.Hostname
                 : ProtocolState.Settings.Id.Server;
 
-            var address = IPAddress.Parse(Hostname);
-            if (address != null)
+            if (IPAddress.TryParse(Hostname, out IPAddress address))
             {
                 return address;
             }
