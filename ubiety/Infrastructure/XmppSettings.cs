@@ -79,6 +79,11 @@ namespace Ubiety.Infrastructure
         ///     <c>true</c> if SSL is to be used; otherwise, <c>false</c>.
         /// </value>
         public bool Ssl { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool StartTls { get; set; }
 
         /// <summary>
         ///     Gets or sets the disco manager.
