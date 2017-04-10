@@ -39,9 +39,9 @@ namespace Ubiety.Net
     internal class AsyncSocket : IDisposable
     {
         // Timeout after 5 seconds by default
-/*
-        private const int Timeout = 5000;
-*/
+        /*
+                private const int Timeout = 5000;
+        */
         private const int BufferSize = 4096;
         private readonly byte[] _bufferBytes = new byte[BufferSize];
         private readonly Address _destinationAddress;
@@ -122,7 +122,7 @@ namespace Ubiety.Net
         {
             try
             {
-                var socket = (Socket) ar.AsyncState;
+                var socket = (Socket)ar.AsyncState;
                 socket.EndConnect(ar);
 
                 Connected = true;
@@ -132,10 +132,13 @@ namespace Ubiety.Net
 
                 if (ProtocolState.Settings.Ssl)
                 {
-                    StartSecure();
+                    if (StartSecure())
+                        _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
                 }
-
-                _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
+                else
+                {
+                    _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
+                }
 
                 ProtocolState.State = new ConnectedState();
                 ProtocolState.State.Execute();
@@ -160,7 +163,7 @@ namespace Ubiety.Net
         /// <summary>
         ///     Encrypts the connection using SSL/TLS
         /// </summary>
-        public void StartSecure()
+        public bool StartSecure()
         {
             var sslstream = new SslStream(_stream, true, RemoteValidation);
             try
@@ -170,12 +173,15 @@ namespace Ubiety.Net
                 {
                     _stream = sslstream;
                     ProtocolState.Encrypted = true;
+                    return true;
                 }
+                return false;
             }
             catch (Exception e)
             {
                 Log.Error(e, "Error in starting secure connection.");
                 ProtocolState.Events.Error(this, ErrorType.XmlError, ErrorSeverity.Fatal, "Cannot connect with SSL.");
+                return false;
             }
         }
 
