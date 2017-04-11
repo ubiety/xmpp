@@ -132,7 +132,7 @@ namespace Ubiety.Net
             resp = _resolver.Query(hostname, QType.A, QClass.IN);
 
             IsIPv6 = false;
-            return ((RecordA) resp.Answers[0].RECORD).Address;
+            return ((RecordA) resp.Answers[1].RECORD).Address;
         }
     }
 }

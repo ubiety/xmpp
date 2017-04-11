@@ -133,14 +133,22 @@ namespace Ubiety.Net
                 if (ProtocolState.Settings.Ssl)
                 {
                     if (StartSecure())
+                    {
                         _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
+                        ProtocolState.State = new ConnectedState();
+                    }
+                    else
+                    {
+                        // Don't continue the work
+                        ProtocolState.State = new DisconnectedState();
+                    }
                 }
                 else
                 {
                     _stream.BeginRead(_bufferBytes, 0, BufferSize, Receive, null);
+                    ProtocolState.State = new ConnectedState();
                 }
 
-                ProtocolState.State = new ConnectedState();
                 ProtocolState.State.Execute();
             }
             finally
