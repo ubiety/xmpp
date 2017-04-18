@@ -30,7 +30,7 @@ namespace Ubiety.States
     /// <summary>
     ///     Keeps track of all the current state information like id, password, socket and the current state.
     /// </summary>
-    internal static class ProtocolState
+    public static class ProtocolState
     {
         static ProtocolState()
         {
