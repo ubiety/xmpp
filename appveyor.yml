@@ -22,7 +22,7 @@ build:
 after_build:
   - cmd: ECHO nuget pack ubiety\ubiety.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - cmd: nuget pack ubiety\ubiety.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-  - cmd: appveyor PushArtifact "ubiety.%GitVersion_NuGetVersion%.nupkg"
+  - cmd: appveyor PushArtifact "Ubiety.XMPP.%GitVersion_NuGetVersion%.nupkg"
 
 test: off
 deploy:

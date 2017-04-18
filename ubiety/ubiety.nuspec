@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>UbietyXMPP</id>
+        <id>Ubiety.XMPP</id>
         <version>$version$</version>
         <authors>Dieter Lunn</authors>
+        <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
         <projectUrl>http://github.com/ubiety/xmpp</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>XMPP protocol library</description>
-        <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
         <dependencies>
-            <group targetFramework="dotnet">
+            <group targetFramework=".NETPlatform5.0">
                 <dependency id="SharpZipLib" version="0.86.0" />
                 <dependency id="Heijden.Dns" version="1.0.0" />
                 <dependency id="Microsoft.Bcl" version="1.1.10" />
@@ -21,4 +21,7 @@
             </group>
         </dependencies>
     </metadata>
+    <files>
+        <file src="bin\Debug\Ubiety.Xmpp.dll" target="lib\net45\Ubiety.Xmpp.dll" />
+    </files>
 </package>
