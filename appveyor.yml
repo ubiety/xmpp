@@ -15,8 +15,6 @@ before_build:
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo
 
 build:
-  publish_nuget: true
-  include_nuget_references: true
   verbosity: minimal
 
 after_build:
