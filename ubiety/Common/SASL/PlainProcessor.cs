@@ -33,7 +33,7 @@ namespace Ubiety.Common.Sasl
         /// <exception cref="NotImplementedException"></exception>
         public override Tag Step(Tag tag)
         {
-            throw new NotImplementedException();
+            return tag;
         }
 
         /// <summary>

@@ -29,6 +29,12 @@ public class Test {
     }
 }
 ```
+XEPs
+----
+
+* XEP-0106 JID Escaping
+* XEP-0138 Stream Compression
+* XEP-0198 Stream Management (In Progress)
 
 Support
 -------

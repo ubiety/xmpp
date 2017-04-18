@@ -61,8 +61,7 @@ namespace Ubiety.Net
                 ? ProtocolState.Settings.Hostname
                 : ProtocolState.Settings.Id.Server;
 
-            var address = IPAddress.Parse(Hostname);
-            if (address != null)
+            if (IPAddress.TryParse(Hostname, out IPAddress address))
             {
                 return address;
             }
@@ -133,7 +132,7 @@ namespace Ubiety.Net
             resp = _resolver.Query(hostname, QType.A, QClass.IN);
 
             IsIPv6 = false;
-            return ((RecordA) resp.Answers[0].RECORD).Address;
+            return resp.Answers.Select(answer => answer.RECORD).OfType<RecordA>().Select(a => a.Address).FirstOrDefault();
         }
     }
 }
