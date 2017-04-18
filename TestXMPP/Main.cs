@@ -28,9 +28,11 @@ namespace TestXMPP
 
 		private void Button1Click(object sender, EventArgs e)
 		{
-            Xmpp.Settings.AuthenticationTypes = MechanismType.Default;
+            Xmpp.Settings.AuthenticationTypes = MechanismType.Default | MechanismType.Plain;
             Xmpp.Settings.Id = new JID(txtUsername.Text);
 			Xmpp.Settings.Password = txtPassword.Text;
+		    Xmpp.Settings.Hostname = "fcm-xmpp.googleapis.com";
+		    Xmpp.Settings.Port = 5236;
 			Xmpp.Settings.Ssl = btnSSL.Checked;
 			_xmpp.Connect();
 		}

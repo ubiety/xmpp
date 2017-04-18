@@ -209,7 +209,7 @@ namespace Ubiety.Net
         /// <param name="msg">Message to send</param>
         public void Write(string msg)
         {
-            Log.Debug("Outgoing message: {Message}", msg);
+            Log.Debug("(AsyncSocket:Write) Outgoing message: {Message}", msg);
 
             if (!Connected) return;
             var mesg = _utf.GetBytes(msg);
@@ -223,11 +223,13 @@ namespace Ubiety.Net
             {
                 _stream.EndRead(ar);
 
+                Log.Debug("(AsyncSocket:Receive) Raw Buffer: {Buffer}", _bufferBytes);
+
                 var t = _bufferBytes.TrimNull();
 
                 var m = _utf.GetString(_compressed ? _compression.Inflate(t, t.Length) : t);
 
-                Log.Debug("Incoming Message: {Message}", m);
+                Log.Debug("(AsyncSocket:Receive) Incoming Message: {Message}", m);
 
                 ProtocolParser.Parse(m);
 

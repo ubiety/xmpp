@@ -1,6 +1,6 @@
 ﻿// ByteExtensions.cs
 //
-//Ubiety XMPP Library Copyright (C) 2006 - 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2006 - 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -33,17 +33,17 @@ namespace Ubiety.Infrastructure.Extensions
         {
             if (message.Count > 1)
             {
-                int c = message.Count - 1;
+                var c = message.Count - 1;
                 while (message[c] == 0x00)
                 {
                     c--;
+                    if (c < 0)
+                        break;
                 }
 
-                var r = new byte[(c + 1)];
-                for (int i = 0; i < (c + 1); i++)
-                {
+                var r = new byte[c + 1];
+                for (var i = 0; i < c + 1; i++)
                     r[i] = message[i];
-                }
 
                 return r;
             }
