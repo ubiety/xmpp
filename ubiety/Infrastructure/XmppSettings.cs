@@ -68,8 +68,7 @@ namespace Ubiety.Infrastructure
         /// </value>
         public int Port
         {
-            get { return _port; }
-            set { _port = value; }
+            get => _port; set => _port = value;
         }
 
         /// <summary>

@@ -44,8 +44,8 @@ namespace Ubiety.Common.Sasl
         /// <returns></returns>
         protected string this[string directive]
         {
-            get { return (string) _directives[directive]; }
-            set { _directives[directive] = value; }
+            get => (string) _directives[directive];
+            set => _directives[directive] = value;
         }
 
         /// <summary>

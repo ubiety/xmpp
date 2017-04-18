@@ -30,18 +30,16 @@ namespace TestXMPP
             MessageBox.Show(e.Message, Resources.Error_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void Button1Click(object sender, EventArgs e)
-        {
-            Xmpp.Settings.AuthenticationTypes = MechanismType.Plain;
+		private void Button1Click(object sender, EventArgs e)
+		{
+            Xmpp.Settings.AuthenticationTypes = MechanismType.Default | MechanismType.Plain;
             Xmpp.Settings.Id = new JID(txtUsername.Text);
-            Xmpp.Settings.Password = txtPassword.Text;
-            Xmpp.Settings.Ssl = btnSSL.Checked;
-            Xmpp.Settings.Port = fcm_dev_port;
-            Xmpp.Settings.Hostname = fcm_server;
-            ProtocolState.UseIPv6 = false;
-            ProtocolState.Settings.Ssl = true;
-            _xmpp.Connect();
-        }
+			Xmpp.Settings.Password = txtPassword.Text;
+		    Xmpp.Settings.Hostname = "fcm-xmpp.googleapis.com";
+		    Xmpp.Settings.Port = 5236;
+			Xmpp.Settings.Ssl = btnSSL.Checked;
+			_xmpp.Connect();
+		}
 
         private void BtnExitClick(object sender, EventArgs e)
         {

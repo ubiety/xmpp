@@ -26,6 +26,10 @@ namespace Ubiety.States
     /// </summary>
     public class StreamManagementState : IState
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
         public void Execute(Tag data = null)
         {
             if (data == null)

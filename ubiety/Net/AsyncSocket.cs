@@ -43,6 +43,7 @@ namespace Ubiety.Net
                 private const int Timeout = 5000;
         */
         private const int BufferSize = 4096;
+
         private readonly byte[] _bufferBytes = new byte[BufferSize];
         private readonly Address _destinationAddress;
         private readonly ManualResetEvent _timeoutEvent = new ManualResetEvent(false);
@@ -58,11 +59,6 @@ namespace Ubiety.Net
             ProtocolState.Events.OnSend += Events_OnSend;
         }
 
-        private void Events_OnSend(object sender, TagEventArgs e)
-        {
-            Write(e.Tag.ToString());
-        }
-
         #region Properties
 
         /// <summary>
@@ -76,6 +72,11 @@ namespace Ubiety.Net
         {
             _timeoutEvent.Dispose();
             _socket.Dispose();
+        }
+
+        private void Events_OnSend(object sender, TagEventArgs e)
+        {
+            Write(e.Tag.ToString());
         }
 
         /// <summary>
@@ -122,7 +123,7 @@ namespace Ubiety.Net
         {
             try
             {
-                var socket = (Socket)ar.AsyncState;
+                var socket = (Socket) ar.AsyncState;
                 socket.EndConnect(ar);
 
                 Connected = true;
@@ -176,9 +177,11 @@ namespace Ubiety.Net
             var sslstream = new SslStream(_stream, true, RemoteValidation);
             try
             {
+                Log.Debug("Authenticating SSL connection...");
                 sslstream.AuthenticateAsClient(_destinationAddress.Hostname, null, SslProtocols.Tls, false);
                 if (sslstream.IsAuthenticated)
                 {
+                    Log.Debug("SSL Authenticated");
                     _stream = sslstream;
                     ProtocolState.Encrypted = true;
                     return true;
@@ -193,20 +196,17 @@ namespace Ubiety.Net
             }
         }
 
-        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors errors)
+        private static bool RemoteValidation(object sender, X509Certificate cert, X509Chain chain,
+            SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
-            {
                 return true;
-            }
 
             Log.Debug(cert.ToString());
 
             Log.Error("SSL Policy Errors: {0}", errors);
             foreach (var chainStatus in chain.ChainStatus)
-            {
                 Log.Debug("X509Chain Information: {0} - Flags: {1}", chainStatus.StatusInformation, chainStatus.Status);
-            }
 
             return false;
         }
@@ -217,7 +217,7 @@ namespace Ubiety.Net
         /// <param name="msg">Message to send</param>
         public void Write(string msg)
         {
-            Log.Debug("Outgoing message: {Message}", msg);
+            Log.Debug("(AsyncSocket:Write) Outgoing message: {Message}", msg);
 
             if (!Connected) return;
             var mesg = _utf.GetBytes(msg);
@@ -231,11 +231,13 @@ namespace Ubiety.Net
             {
                 _stream.EndRead(ar);
 
+                Log.Debug("(AsyncSocket:Receive) Raw Buffer: {Buffer}", _bufferBytes);
+
                 var t = _bufferBytes.TrimNull();
 
                 var m = _utf.GetString(_compressed ? _compression.Inflate(t, t.Length) : t);
 
-                Log.Debug("Incoming Message: {Message}", m);
+                Log.Debug("(AsyncSocket:Receive) Incoming Message: {Message}", m);
 
                 ProtocolParser.Parse(m);
 
