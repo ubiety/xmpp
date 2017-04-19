@@ -24,19 +24,21 @@ using Ubiety.Registries;
 namespace Ubiety.Common.Sasl
 {
     /// <summary>
+    ///     PLAIN SASL processor
     /// </summary>
     public class PlainProcessor : SaslProcessor
     {
         /// <summary>
+        ///     Process the next step in the authentication process
         /// </summary>
-        /// <param name="tag"></param>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="tag">Tag received from the server</param>
         public override Tag Step(Tag tag)
         {
             return tag;
         }
 
         /// <summary>
+        ///     Initialize the SASL processor
         /// </summary>
         public override Tag Initialize(string id, string password)
         {
