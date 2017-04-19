@@ -55,6 +55,5 @@ ubiety.sln.docstates
 docs/
 
 .idea/
-/.vs/slnx.sqlite
-/.vs/VSWorkspaceState.json
-*.sqlite
+.vs/
+.vscode/
