@@ -20,7 +20,7 @@ using System;
 namespace ubiety.common.disco
 {
 	/// <summary>
-	/// 
+	///     XMPP Service Discovery Entity
 	/// </summary>
 	[Serializable]
 	public class Entity
