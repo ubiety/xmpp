@@ -1,6 +1,6 @@
-﻿// Error.cs
+﻿// ConnectionTimeout.cs
 //
-//Ubiety XMPP Library Copyright (C) 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -19,19 +19,19 @@ using System.Xml;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 
-namespace Ubiety.Core
+namespace Ubiety.Core.Errors
 {
     /// <summary>
-    ///     Stream level errors
+    ///     One party is closing the stream because it has reason to believe that
+    /// the other party has permanently lost the ability to communicate over the
+    /// stream.
     /// </summary>
-    [XmppTag("error", Namespaces.Stream, typeof (Error))]
-    public class Error : Tag
+    [XmppTag("connection-timeout", Namespaces.XmppStreams, typeof(ConnectionTimeout))]
+    public class ConnectionTimeout : Tag
     {
         /// <summary>
-        ///     Instantiate a new error instance
+        ///     Instantiate a new instance
         /// </summary>
-        public Error() : base("stream", new XmlQualifiedName("error", Namespaces.Stream))
-        {
-        }
+        public ConnectionTimeout() : base("", new XmlQualifiedName("connection-timeout", Namespaces.XmppStreams)) { }
     }
 }
