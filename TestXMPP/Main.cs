@@ -35,9 +35,11 @@ namespace TestXMPP
             Xmpp.Settings.AuthenticationTypes = MechanismType.Default | MechanismType.Plain;
             Xmpp.Settings.Id = new JID(txtUsername.Text);
 			Xmpp.Settings.Password = txtPassword.Text;
-		    Xmpp.Settings.Hostname = "fcm-xmpp.googleapis.com";
-		    Xmpp.Settings.Port = 5236;
+		    Xmpp.Settings.Hostname = fcm_server;
+		    Xmpp.Settings.Port = fcm_dev_port;
 			Xmpp.Settings.Ssl = btnSSL.Checked;
+            ProtocolState.UseIPv6 = false;
+            ProtocolState.Settings.Ssl = true;
 			_xmpp.Connect();
 		}
 
