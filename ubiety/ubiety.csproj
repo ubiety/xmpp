@@ -134,6 +134,10 @@
     <Compile Include="Common\Compression\Zlib.cs" />
     <Compile Include="Core\Disco\C.cs" />
     <Compile Include="Core\Error.cs" />
+    <Compile Include="Core\Errors\BadFormat.cs" />
+    <Compile Include="Core\Errors\BadNamespacePrefix.cs" />
+    <Compile Include="Core\Errors\Conflict.cs" />
+    <Compile Include="Core\Errors\ConnectionTimeout.cs" />
     <Compile Include="Core\Features.cs" />
     <Compile Include="Core\GenericTag.cs" />
     <Compile Include="Core\Iq\Iq.cs" />
@@ -213,7 +217,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/9/18" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.MonthAndDayStamp.Increment" BuildVersion_StartDate="2010/9/18" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
