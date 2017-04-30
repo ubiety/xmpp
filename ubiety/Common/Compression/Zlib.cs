@@ -31,6 +31,7 @@ namespace Ubiety.Common.Compression
         private readonly Inflater _inflate;
 
         /// <summary>
+        ///     Instantiates a new instance of the Zlib class
         /// </summary>
         public Zlib()
         {

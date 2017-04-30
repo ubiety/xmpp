@@ -22,12 +22,12 @@ using Ubiety.States;
 namespace Ubiety.Common.Roster
 {
     /// <summary>
-    /// 
+    ///     Maintains the XMPP Roster
     /// </summary>
     public class DefaultRosterManager : IRosterManager
     {
         /// <summary>
-        /// 
+        ///     Request the current roster from the server
         /// </summary>
         public void RequestRoster()
         {

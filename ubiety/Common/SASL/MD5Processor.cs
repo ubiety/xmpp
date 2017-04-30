@@ -29,6 +29,7 @@ using Ubiety.States;
 namespace Ubiety.Common.Sasl
 {
     /// <summary>
+    ///     MD5 SASL processor
     /// </summary>
     public sealed class Md5Processor : SaslProcessor, IDisposable
     {
@@ -45,6 +46,7 @@ namespace Ubiety.Common.Sasl
         private string _responseHash;
 
         /// <summary>
+        ///     Instantiate a new instance of the MD5 SASL processing
         /// </summary>
         public Md5Processor()
         {
@@ -52,8 +54,9 @@ namespace Ubiety.Common.Sasl
         }
 
         /// <summary>
+        ///     Initialize the processor
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An auth tag to start the authentication process</returns>
         public override Tag Initialize(string id, string password)
         {
             base.Initialize(id, password);
@@ -64,9 +67,10 @@ namespace Ubiety.Common.Sasl
         }
 
         /// <summary>
+        ///     Process the next step in the authentication process
         /// </summary>
-        /// <param name="tag"></param>
-        /// <returns></returns>
+        /// <param name="tag">The tag we received from the server</param>
+        /// <returns>The next tag to send in the process</returns>
         public override Tag Step(Tag tag)
         {
             switch (tag.Name)
@@ -225,7 +229,7 @@ namespace Ubiety.Common.Sasl
         }
 
         /// <summary>
-        /// 
+        ///     Dispose the current instance
         /// </summary>
         public void Dispose()
         {
