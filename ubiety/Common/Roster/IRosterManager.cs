@@ -18,12 +18,12 @@
 namespace Ubiety.Common.Roster
 {
     /// <summary>
-    /// 
+    ///     Interface defining the roster managers
     /// </summary>
     public interface IRosterManager
     {
         /// <summary>
-        /// 
+        ///     Request the current roster from the server
         /// </summary>
         void RequestRoster();
     }

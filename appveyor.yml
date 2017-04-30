@@ -1,0 +1,33 @@
+
+skip_tags: true
+image: Visual Studio 2017
+nuget:
+  project_feed: true
+
+install:
+  - choco install gitversion.portable -pre -y
+
+assembly_info:
+  patch: false
+
+before_build:
+  - nuget restore
+  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
+
+build:
+  verbosity: minimal
+
+after_build:
+  - cmd: ECHO nuget pack ubiety\ubiety.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - cmd: nuget pack ubiety\ubiety.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - cmd: appveyor PushArtifact "Ubiety.XMPP.%GitVersion_NuGetVersion%.nupkg"
+
+test: off
+deploy:
+- provider: NuGet
+  api_key:
+    secure: SVh7GCYVf1lMSOmHE9DuG5eAJoVdPcLGeN8sH6VX9np4pmO9iJJLgkbndf83zOCY
+- provider: GitHub
+  auth_token:
+    secure: yin5ITb8Z+LPTJPPlGlJuz+lxsKZWktuKTBAxdsW7/RoOnQtuYIu1qAg5ZxNdJCj
+  prerelease: true

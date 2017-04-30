@@ -98,7 +98,7 @@ namespace Ubiety.Common.Sasl
         /// </summary>
         /// <param name="buff"></param>
         /// <returns></returns>
-        protected string HexString(IEnumerable<byte> buff)
+        protected static string HexString(IEnumerable<byte> buff)
         {
             var sb = new StringBuilder();
             foreach (var b in buff)
