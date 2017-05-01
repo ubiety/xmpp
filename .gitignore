@@ -3,7 +3,6 @@ build/
 Backup/
 _UpgradeReport_Files/
 
-*.shfbproj
 *.dll
 *.suo
 *.xml
