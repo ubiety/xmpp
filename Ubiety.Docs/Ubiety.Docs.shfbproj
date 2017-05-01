@@ -8,6 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>80b0f9a4-5d4d-4aac-9c72-49fe2c1af17a</ProjectGuid>
     <SHFBSchemaVersion>2015.6.5.0</SHFBSchemaVersion>
+    <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\packages\EWSoftware.SHFB.2017.1.28.0\Tools\</SHFBROOT>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>Ubiety.Docs</AssemblyName>
     <RootNamespace>Ubiety.Docs</RootNamespace>
