@@ -1,6 +1,6 @@
-﻿// Error.cs
+﻿// Gcm.cs
 //
-//Ubiety XMPP Library Copyright (C) 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -15,23 +15,13 @@
 //with this library; if not, write to the Free Software Foundation, Inc., 59
 //Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-using System.Xml;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 
-namespace Ubiety.Core
+namespace Ubiety.Xmpp.Gcm.Core
 {
-    /// <summary>
-    ///     Stream level errors
-    /// </summary>
-    [XmppTag("error", Namespaces.Stream, typeof (Error))]
-    public class Error : Tag
+    [XmppTag("gcm", "google:mobile:data", typeof(Gcm))]
+    public class Gcm : Tag
     {
-        /// <summary>
-        ///     Instantiate a new error instance
-        /// </summary>
-        public Error() : base("stream", new XmlQualifiedName("error", Namespaces.Stream))
-        {
-        }
     }
 }

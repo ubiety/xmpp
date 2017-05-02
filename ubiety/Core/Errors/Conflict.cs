@@ -1,6 +1,6 @@
-﻿// Error.cs
+﻿// Conflict.cs
 //
-//Ubiety XMPP Library Copyright (C) 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -19,19 +19,20 @@ using System.Xml;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 
-namespace Ubiety.Core
+namespace Ubiety.Core.Errors
 {
     /// <summary>
-    ///     Stream level errors
+    ///     The server either (1) is closing the existing stream for this entity
+    /// because a new stream has been inititated that conflicts with the existing
+    /// stream, or (2) is refusing a new stream for this entity because allowing
+    /// the new stream would conflict with an existing stream.
     /// </summary>
-    [XmppTag("error", Namespaces.Stream, typeof (Error))]
-    public class Error : Tag
+    [XmppTag("conflict", Namespaces.XmppStreams, typeof(Conflict))]
+    public class Conflict : Tag
     {
         /// <summary>
-        ///     Instantiate a new error instance
+        ///     Instantiate a new instance
         /// </summary>
-        public Error() : base("stream", new XmlQualifiedName("error", Namespaces.Stream))
-        {
-        }
+        public Conflict() : base("", new XmlQualifiedName("conflict", Namespaces.XmppStreams)) { }
     }
 }

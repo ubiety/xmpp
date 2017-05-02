@@ -54,6 +54,9 @@ namespace Ubiety.States
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static ProtocolFeatures Features { get; set; }
 
         /// <value>
@@ -111,8 +114,14 @@ namespace Ubiety.States
         /// </summary>
         public static IRosterManager RosterManager { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool UseIPv6 { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool Encrypted { get; set; }
 
         private static void EventsOnOnDisconnect(object sender, EventArgs eventArgs)

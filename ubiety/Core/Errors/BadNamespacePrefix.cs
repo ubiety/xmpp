@@ -1,6 +1,6 @@
-﻿// Error.cs
+﻿// BadNamespacePrefix.cs
 //
-//Ubiety XMPP Library Copyright (C) 2015 Dieter Lunn
+//Ubiety XMPP Library Copyright (C) 2017 Dieter Lunn
 //
 //This library is free software; you can redistribute it and/or modify it under
 //the terms of the GNU Lesser General Public License as published by the Free
@@ -19,19 +19,18 @@ using System.Xml;
 using Ubiety.Common;
 using Ubiety.Infrastructure.Attributes;
 
-namespace Ubiety.Core
+namespace Ubiety.Core.Errors
 {
     /// <summary>
-    ///     Stream level errors
+    ///     The entity has sent a namespace prefix that is unsupported, or has sent
+    /// no namespace prefix on an element that needs such a prefix.
     /// </summary>
-    [XmppTag("error", Namespaces.Stream, typeof (Error))]
-    public class Error : Tag
+    [XmppTag("bad-namespace-prefix", Namespaces.XmppStreams, typeof(BadNamespacePrefix))]
+    public class BadNamespacePrefix : Tag
     {
         /// <summary>
-        ///     Instantiate a new error instance
+        ///     Instantiate a new instance
         /// </summary>
-        public Error() : base("stream", new XmlQualifiedName("error", Namespaces.Stream))
-        {
-        }
+        public BadNamespacePrefix() : base("", new XmlQualifiedName("bad-namespace-prefix", Namespaces.XmppStreams)) { }
     }
 }
