@@ -38,7 +38,7 @@ namespace TestXMPP
 		    Xmpp.Settings.Hostname = fcm_server;
 		    Xmpp.Settings.Port = fcm_dev_port;
 			Xmpp.Settings.Ssl = btnSSL.Checked;
-            ProtocolState.UseIPv6 = false;
+            Xmpp.Settings.UseIPv6 = false;
             ProtocolState.Settings.Ssl = true;
 			_xmpp.Connect();
 		}
@@ -57,7 +57,7 @@ namespace TestXMPP
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Serilog.Log.Debug("Disposing xmpp object on form exit");
+            Serilog.Log.Debug("Disconnecting from server");
             if (_xmpp != null && Xmpp.Connected)
                 _xmpp.Disconnect();
         }

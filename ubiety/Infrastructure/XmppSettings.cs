@@ -91,5 +91,10 @@ namespace Ubiety.Infrastructure
         ///     The disco manager.
         /// </value>
         public IDiscoManager DiscoManager { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool UseIPv6 { get; set; }
     }
 }
