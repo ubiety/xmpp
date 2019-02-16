@@ -2,7 +2,7 @@ Ubiety XMPP Library
 ===================
 
 **NOTICE**
-This library will be maintained as needed to support existing implementations but primary development has moved to the new library [Ubiety.Xmpp.Core](https://github.com/ubiety/Ubiety.Xmpp.Core)
+ARCHIVED - Please use [Ubiety.Xmpp.Core](https://github.com/ubiety/Ubiety.Xmpp.Core)
 
 Ubiety is an extensible XMPP library written in C# to be easy and powerful.
 
